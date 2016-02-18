@@ -1,0 +1,28 @@
+{
+  "name": "two-hedgehogs.dev",
+  "version": "1.0.0",
+  "description": "GH project",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/0TshELn1ck/two-hedgehogs.git"
+  },
+  "author": "0TshEL_n1ck",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/0TshELn1ck/two-hedgehogs/issues"
+  },
+  "homepage": "https://github.com/0TshELn1ck/two-hedgehogs#readme",
+  "dependencies": {
+    "bower": "^1.7.7",
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.1",
+    "gulp-concat": "^2.6.0",
+    "gulp-less": "^3.0.5",
+    "gulp-uglify": "^1.5.2",
+    "less": "^2.6.0"
+  }
+}
