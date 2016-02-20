@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Feedback
@@ -34,6 +35,14 @@ class Feedback
      * @ORM\Column(name="rait", type="string", length=255)
      */
     private $rait;
+
+    /**
+     * @var  /DataTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
 
 
     /**

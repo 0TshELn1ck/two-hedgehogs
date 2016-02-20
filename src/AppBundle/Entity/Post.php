@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Post
@@ -35,6 +36,26 @@ class Post
      */
     private $article;
 
+    /**
+     * @Gedmo\Slug(fields={"title"}, updatable=true, separator="_")
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @var  /DataTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+    /**
+     * @var  /DataTime
+     *
+     * @Gedmo\Timestampable(on="change", field={"title", "article"})
+     * @ORM\Column(name="update_at", type="datetime", nullable=true)
+     */
+    private $updateAt;
 
     /**
      * Get id

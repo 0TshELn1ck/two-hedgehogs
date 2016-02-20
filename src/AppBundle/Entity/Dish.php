@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Dish
@@ -55,6 +56,28 @@ class Dish
      * @ORM\Column(name="price", type="decimal", precision=10, scale=2)
      */
     private $price;
+
+    /**
+     * @Gedmo\Slug(fields={"name"}, updatable=true, separator="_")
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
+
+    /**
+     * @var  /DataTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+    /**
+     * @var  /DataTime
+     *
+     * @Gedmo\Timestampable(on="change", field={"name", "price", "in_menu", "recipe", "ingredients"})
+     * @ORM\Column(name="update_at", type="datetime", nullable=true)
+     */
+    private $updateAt;
+
 
 
     /**

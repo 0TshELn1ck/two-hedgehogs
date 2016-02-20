@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * Ord
@@ -35,6 +36,20 @@ class Ord
      */
     private $price;
 
+    /**
+     * @var  /DataTime
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(name="created_at", type="datetime")
+     */
+    private $createdAt;
+    /**
+     * @var  /DataTime
+     *
+     * @Gedmo\Timestampable(on="change", field={"status"})
+     * @ORM\Column(name="update_at", type="datetime", nullable=true)
+     */
+    private $updateAt;
 
     /**
      * Get id

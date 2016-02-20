@@ -12,11 +12,11 @@ use AppBundle\Entity\BaseUser;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Class User
+ * Class Personal
  * @package AppBundle\Entity
  * @ORM\Entity
  */
-class User extends BaseUser
+class Personal extends BaseUser
 {
 
 }

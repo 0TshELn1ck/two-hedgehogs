@@ -35,7 +35,6 @@ class Photo
      */
     private $description;
 
-
     /**
      * Get id
      *
