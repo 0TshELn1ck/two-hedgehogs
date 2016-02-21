@@ -15,7 +15,6 @@ class Feedback
 {
     /**
      * @var int
-     *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
@@ -44,6 +43,16 @@ class Feedback
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="feedbacks")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Ord", mappedBy="feedback")
+     */
+    private $order;
 
     /**
      * Get id

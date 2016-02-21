@@ -57,6 +57,14 @@ class Post
      */
     private $updateAt;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Personal", inversedBy="posts")
+     * @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     */
+    private $author;
+
+
     /**
      * Get id
      *

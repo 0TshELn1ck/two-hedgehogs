@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Dish
@@ -78,6 +79,29 @@ class Dish
      */
     private $updateAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Ord", inversedBy="dishs")
+     * @ORM\JoinTable(name="order_dishes")
+     */
+    private $orders;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="DishCategory", inversedBy="dishs")
+     * @ORM\JoinTable(name="category_dishes")
+     */
+    private $categories;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Photo", mappedBy="dish")
+     */
+    private $photos;
+
+    public function __construct() {
+        $this->orders = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->photos = new ArrayCollection();
+    }
 
 
     /**

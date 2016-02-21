@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * DishCategory
@@ -28,6 +29,14 @@ class DishCategory
      */
     private $name;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Dish", mappedBy="categories")
+     */
+    private $dishs;
+
+    public function __construct() {
+        $this->dishs = new ArrayCollection();
+    }
 
     /**
      * Get id
@@ -61,4 +70,5 @@ class DishCategory
     {
         return $this->name;
     }
+
 }

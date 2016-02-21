@@ -36,6 +36,13 @@ class Photo
     private $description;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Dish", inversedBy="photos")
+     * @ORM\JoinColumn(name="dish_id", referencedColumnName="id")
+     */
+    private $dish;
+
+
+    /**
      * Get id
      *
      * @return integer 

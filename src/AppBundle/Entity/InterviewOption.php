@@ -28,6 +28,18 @@ class InterviewOption
      */
     private $lable;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="count", type="integer", length=255)
+     */
+    private $count;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Interview", inversedBy="options")
+     * @ORM\JoinColumn(name="interview_id", referencedColumnName="id")
+     */
+    private $interview;
 
     /**
      * Get id

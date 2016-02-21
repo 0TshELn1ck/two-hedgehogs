@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Interview
@@ -51,6 +52,22 @@ class Interview
      */
     private $updateAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="InterviewOption", mappedBy="interview")
+     */
+    private $options;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="interviews")
+     */
+    private $users;
+
+    public function __construct() {
+
+        $this->users = new ArrayCollection();
+        $this->options = new ArrayCollection();
+
+    }
 
     /**
      * Get id

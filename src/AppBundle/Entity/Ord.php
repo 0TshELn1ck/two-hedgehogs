@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Ord
@@ -50,6 +51,40 @@ class Ord
      * @ORM\Column(name="update_at", type="datetime", nullable=true)
      */
     private $updateAt;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Personal", inversedBy="orders")
+     * @ORM\JoinColumn(name="cook_id", referencedColumnName="id")
+     */
+    private $cook;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Personal", inversedBy="orders")
+     * @ORM\JoinColumn(name="courier_id", referencedColumnName="id")
+     */
+    private $courier;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Feedback", inversedBy="order")
+     * @ORM\JoinColumn(name="feedback_id", referencedColumnName="id")
+     */
+    private $feedback;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Dish", mappedBy="orders")
+     */
+    private $dishs;
+
+    public function __construct() {
+        $this->dishs = new ArrayCollection();
+    }
 
     /**
      * Get id
