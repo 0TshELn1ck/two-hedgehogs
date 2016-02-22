@@ -26,6 +26,13 @@ gulp.task('fonts', function () {
         .pipe(gulp.dest('web/fonts/'))
 });
 
+gulp.task('font-awesome', function () {
+    return gulp.src([
+            'web-src/font-awesome/**/*'
+        ])
+        .pipe(gulp.dest('web/font-awesome/'))
+});
+
 gulp.task('lib-js', function() {
     return gulp.src([
             'bower_components/jquery/dist/jquery.js',
@@ -45,12 +52,12 @@ gulp.task('pages-js', function() {
 });
 
 gulp.task('clean', function () {
-    return gulp.src(['web/css/*', 'web/js/*', 'web/fonts/*', 'web/images/*'])
+    return gulp.src(['web/css/*', 'web/js/*', 'web/fonts/*', 'font-awesome', 'web/images/*'])
         .pipe(clean());
 });
 
 gulp.task('default', ['clean'], function () {
-    var tasks = ['less', 'css', 'fonts', 'lib-js', 'pages-js'];
+    var tasks = ['less', 'css', 'fonts', 'font-awesome', 'lib-js', 'pages-js'];
     tasks.forEach(function (val) {
         gulp.start(val);
     });
