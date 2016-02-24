@@ -4,7 +4,7 @@ echo;
 echo "Project Two hedgehogs "
 echo "what you wanna do?"
 echo "1 - install project"
-echo "2 - create base, schema and load fixtures"
+echo "2 - create base and schema"
 echo "3 - clear cache"
 echo "4 - drop database"
 echo "0 - exit"
