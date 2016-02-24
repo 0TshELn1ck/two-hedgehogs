@@ -54,26 +54,22 @@ class Ord
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="orders")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
     /**
      * @ORM\ManyToOne(targetEntity="Personal", inversedBy="orders")
-     * @ORM\JoinColumn(name="cook_id", referencedColumnName="id")
      */
     private $cook;
 
 
     /**
      * @ORM\ManyToOne(targetEntity="Personal", inversedBy="orders")
-     * @ORM\JoinColumn(name="courier_id", referencedColumnName="id")
      */
     private $courier;
 
     /**
      * @ORM\OneToOne(targetEntity="Feedback", inversedBy="order")
-     * @ORM\JoinColumn(name="feedback_id", referencedColumnName="id")
      */
     private $feedback;
 
@@ -140,5 +136,176 @@ class Ord
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     * @return Ord
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set updateAt
+     *
+     * @param \DateTime $updateAt
+     * @return Ord
+     */
+    public function setUpdateAt($updateAt)
+    {
+        $this->updateAt = $updateAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updateAt
+     *
+     * @return \DateTime 
+     */
+    public function getUpdateAt()
+    {
+        return $this->updateAt;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \AppBundle\Entity\User $user
+     * @return Ord
+     */
+    public function setUser(\AppBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \AppBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set cook
+     *
+     * @param \AppBundle\Entity\Personal $cook
+     * @return Ord
+     */
+    public function setCook(\AppBundle\Entity\Personal $cook = null)
+    {
+        $this->cook = $cook;
+
+        return $this;
+    }
+
+    /**
+     * Get cook
+     *
+     * @return \AppBundle\Entity\Personal 
+     */
+    public function getCook()
+    {
+        return $this->cook;
+    }
+
+    /**
+     * Set courier
+     *
+     * @param \AppBundle\Entity\Personal $courier
+     * @return Ord
+     */
+    public function setCourier(\AppBundle\Entity\Personal $courier = null)
+    {
+        $this->courier = $courier;
+
+        return $this;
+    }
+
+    /**
+     * Get courier
+     *
+     * @return \AppBundle\Entity\Personal 
+     */
+    public function getCourier()
+    {
+        return $this->courier;
+    }
+
+    /**
+     * Set feedback
+     *
+     * @param \AppBundle\Entity\Feedback $feedback
+     * @return Ord
+     */
+    public function setFeedback(\AppBundle\Entity\Feedback $feedback = null)
+    {
+        $this->feedback = $feedback;
+
+        return $this;
+    }
+
+    /**
+     * Get feedback
+     *
+     * @return \AppBundle\Entity\Feedback 
+     */
+    public function getFeedback()
+    {
+        return $this->feedback;
+    }
+
+    /**
+     * Add dishs
+     *
+     * @param \AppBundle\Entity\Dish $dishs
+     * @return Ord
+     */
+    public function addDish(\AppBundle\Entity\Dish $dishs)
+    {
+        $this->dishs[] = $dishs;
+
+        return $this;
+    }
+
+    /**
+     * Remove dishs
+     *
+     * @param \AppBundle\Entity\Dish $dishs
+     */
+    public function removeDish(\AppBundle\Entity\Dish $dishs)
+    {
+        $this->dishs->removeElement($dishs);
+    }
+
+    /**
+     * Get dishs
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getDishs()
+    {
+        return $this->dishs;
     }
 }

@@ -96,27 +96,4 @@ class Photo
     {
         return $this->description;
     }
-
-    /**
-     * Set dish
-     *
-     * @param \AppBundle\Entity\Dish $dish
-     * @return Photo
-     */
-    public function setDish(\AppBundle\Entity\Dish $dish = null)
-    {
-        $this->dish = $dish;
-
-        return $this;
-    }
-
-    /**
-     * Get dish
-     *
-     * @return \AppBundle\Entity\Dish 
-     */
-    public function getDish()
-    {
-        return $this->dish;
-    }
 }

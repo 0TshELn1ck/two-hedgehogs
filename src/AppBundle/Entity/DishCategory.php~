@@ -71,37 +71,4 @@ class DishCategory
         return $this->name;
     }
 
-
-    /**
-     * Add dishs
-     *
-     * @param \AppBundle\Entity\Dish $dishs
-     * @return DishCategory
-     */
-    public function addDish(\AppBundle\Entity\Dish $dishs)
-    {
-        $this->dishs[] = $dishs;
-
-        return $this;
-    }
-
-    /**
-     * Remove dishs
-     *
-     * @param \AppBundle\Entity\Dish $dishs
-     */
-    public function removeDish(\AppBundle\Entity\Dish $dishs)
-    {
-        $this->dishs->removeElement($dishs);
-    }
-
-    /**
-     * Get dishs
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getDishs()
-    {
-        return $this->dishs;
-    }
 }

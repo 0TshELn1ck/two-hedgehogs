@@ -65,6 +65,8 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# STOF doctrine extensions bundle configuration
 stof_doctrine_extensions:
     default_locale: en_US
     orm:
