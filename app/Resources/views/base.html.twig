@@ -2,55 +2,24 @@
 <html>
 <head>
     <meta charset="UTF-8"/>
-    <title>{% block title %}Home{% endblock %}</title>
-    {% block stylesheets %}
-        <!-- bootstrap & fontawesome -->
-        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"/>
-        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet"/>
-        <!-- text fonts -->
-        <link href="{{ asset('css/fonts.googleapis.com.css') }}" rel="stylesheet"/>
-        <!-- ace styles -->
-        <link href="{{ asset('css/ace.min.css') }}" rel="stylesheet"/>
 
-    {% endblock %}
+    <title>{% block title %}Home{% endblock title %}</title>
+
+    {% block stylesheets %}
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"/>
+    {% endblock stylesheets %}
+
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
+
 {% block body %}
     {% block content %}{% endblock content %}
-{% endblock %}
+{% endblock body %}
+
 {% block javascripts %}
     <script src="{{ asset('js/jquery.js') }}"></script>
+{% endblock javascripts %}
 
-    <script type="text/javascript">
-        if('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('js/jquery.mobile.custom.min.js') }}'>"+"<"+"/script>");
-    </script>
-
-    <!-- inline scripts related to this page -->
-    <script type="text/javascript">
-        jQuery(function($) {
-            $(document).on('click', '.toolbar a[data-target]', function(e) {
-                e.preventDefault();
-                var target = $(this).data('target');
-                $('.widget-box.visible').removeClass('visible');//hide others
-                $(target).addClass('visible');//show target
-            });
-        });
-
-
-
-        //you don't need this, just used for changing background
-        jQuery(function($) {
-            $('#btn-login-light').on('click', function(e) {
-                $('body').attr('class', 'login-layout light-login');
-                $('#id-text2').attr('class', 'grey');
-                $('#id-company-text').attr('class', 'blue');
-
-                e.preventDefault();
-            });
-
-        });
-    </script>
-{% endblock %}
 </body>
 </html>

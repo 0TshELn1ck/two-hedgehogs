@@ -2,6 +2,17 @@
 
 {% block title %}Login{% endblock %}
 
+    {% block stylesheets %}
+        {{ parent() }}
+        <!-- fontawesome -->
+        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet"/>
+        <!-- text fonts -->
+        <link href="{{ asset('css/fonts.googleapis.com.css') }}" rel="stylesheet"/>
+        <!-- ace styles -->
+        <link href="{{ asset('css/ace.min.css') }}" rel="stylesheet"/>
+
+    {% endblock %}
+
 {% block content %}
 
     {% if error %}
@@ -248,3 +259,21 @@
 
     </body>
 {% endblock content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('js/jquery.mobile.custom.min.js') }}'>" + "<" + "/script>");
+    </script>
+
+    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(document).on('click', '.toolbar a[data-target]', function (e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible');//hide others
+                $(target).addClass('visible');//show target
+            });
+        });
+    </script>
+{% endblock %}
