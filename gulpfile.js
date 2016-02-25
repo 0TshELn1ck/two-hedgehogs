@@ -33,6 +33,13 @@ gulp.task('font-awesome', function () {
         .pipe(gulp.dest('web/font-awesome/'))
 });
 
+gulp.task('images', function () {
+    return gulp.src([
+            'web-src/images/**/*'
+        ])
+        .pipe(gulp.dest('web/images/'))
+});
+
 gulp.task('lib-js', function() {
     return gulp.src([
         ])
@@ -57,7 +64,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('default', ['clean'], function () {
-    var tasks = ['less', 'css', 'fonts', 'font-awesome', 'lib-js', 'pages-js'];
+    var tasks = ['less', 'css', 'fonts', 'font-awesome', 'lib-js', 'pages-js', 'images'];
     tasks.forEach(function (val) {
         gulp.start(val);
     });
