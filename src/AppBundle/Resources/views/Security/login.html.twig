@@ -56,8 +56,8 @@
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="text" name="_username" class="form-control"
-                                                                   placeholder="Логін"/>
-															<i class="ace-icon fa fa-user"></i>
+                                                                   placeholder="Почтова адреса"/>
+															<i class="ace-icon fa fa-envelope"></i>
 														</span>
                                                 </label>
 
@@ -181,21 +181,14 @@
                                         <div class="space-6"></div>
                                         <p> Для продовження введіть: </p>
 
-                                        <form>
+                                        <form role="form" action="{{ path('user_registration') }}"
+                                              method="post">
                                             <fieldset>
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="email" class="form-control"
                                                                    placeholder="Почтова адреса"/>
 															<i class="ace-icon fa fa-envelope"></i>
-														</span>
-                                                </label>
-
-                                                <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control"
-                                                                   placeholder="Логін"/>
-															<i class="ace-icon fa fa-user"></i>
 														</span>
                                                 </label>
 
@@ -238,7 +231,7 @@
                                                     </button>
                                                 </div>
                                             </fieldset>
-                                        </form>
+                                        </>
                                     </div>
 
                                     <div class="toolbar center">
