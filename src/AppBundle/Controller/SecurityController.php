@@ -10,7 +10,6 @@ use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
 
 class SecurityController extends Controller
-
 {
     /**
      * @Route("/login", name="user_login")
