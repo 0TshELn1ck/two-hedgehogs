@@ -10,7 +10,6 @@
         <link href="{{ asset('css/fonts.googleapis.com.css') }}" rel="stylesheet"/>
         <!-- ace styles -->
         <link href="{{ asset('css/ace.min.css') }}" rel="stylesheet"/>
-
     {% endblock %}
 
 {% block content %}
@@ -56,8 +55,8 @@
                                                 <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
 															<input type="text" name="_username" class="form-control"
-                                                                   placeholder="Логін"/>
-															<i class="ace-icon fa fa-user"></i>
+                                                                   placeholder="Почтова адреса"/>
+															<i class="ace-icon fa fa-envelope"></i>
 														</span>
                                                 </label>
 
@@ -73,7 +72,8 @@
 
                                                 <div class="clearfix">
                                                     <label class="inline">
-                                                        <input type="checkbox" class="ace"/>
+                                                        <input type="checkbox" class="ace" id="remember_me"
+                                                               name="_remember_me" checked/>
                                                         <span class="lbl"> Запам'ятати </span>
                                                     </label>
 
@@ -181,65 +181,56 @@
                                         <div class="space-6"></div>
                                         <p> Для продовження введіть: </p>
 
-                                        <form>
-                                            <fieldset>
-                                                <label class="block clearfix">
-														<span class="block input-icon input-icon-right">
-															<input type="email" class="form-control"
-                                                                   placeholder="Почтова адреса"/>
-															<i class="ace-icon fa fa-envelope"></i>
-														</span>
-                                                </label>
+                                        {{ form_start(registrationForm) }}
 
-                                                <label class="block clearfix">
+                                        <fieldset>
+                                            <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" class="form-control"
-                                                                   placeholder="Логін"/>
-															<i class="ace-icon fa fa-user"></i>
+                                                            {{ form_row(registrationForm.email) }}
+                                                            <i class="ace-icon fa fa-envelope"></i>
 														</span>
-                                                </label>
+                                            </label>
 
-                                                <label class="block clearfix">
+                                            <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control"
-                                                                   placeholder="Пароль"/>
-															<i class="ace-icon fa fa-lock"></i>
+                                                            {{ form_row(registrationForm.password.first) }}
+                                                            <i class="ace-icon fa fa-lock"></i>
 														</span>
-                                                </label>
+                                            </label>
 
-                                                <label class="block clearfix">
+                                            <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" class="form-control"
-                                                                   placeholder="Повторіть пароль"/>
-															<i class="ace-icon fa fa-retweet"></i>
+                                                            {{ form_row(registrationForm.password.second) }}
+                                                            <i class="ace-icon fa fa-retweet"></i>
 														</span>
-                                                </label>
+                                            </label>
 
-                                                <label class="block">
-                                                    <input type="checkbox" class="ace"/>
+                                            <label class="block">
+                                                <input type="checkbox" class="ace"/>
 														<span class="lbl">
 															Я приймаю
 															<a href="#">угоду користувача</a>
 														</span>
-                                                </label>
+                                            </label>
 
-                                                <div class="space-24"></div>
+                                            <div class="space-24"></div>
 
-                                                <div class="clearfix">
-                                                    <button type="reset" class="width-30 pull-left btn btn-sm">
-                                                        <i class="ace-icon fa fa-refresh"></i>
-                                                        <span class="bigger-110">Стерти</span>
-                                                    </button>
+                                            <div class="clearfix">
+                                                <button type="reset" class="width-30 pull-left btn btn-sm">
+                                                    <i class="ace-icon fa fa-refresh"></i>
+                                                    <span class="bigger-110">Стерти</span>
+                                                </button>
+                                                <button type="submit"
+                                                        class="width-65 pull-right btn btn-sm btn-success">
+                                                    <span class="bigger-110">Зареєструватись</span>
 
-                                                    <button type="button"
-                                                            class="width-65 pull-right btn btn-sm btn-success">
-                                                        <span class="bigger-110">Зареєструватись</span>
+                                                    <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                </button>
+                                            </div>
+                                        </fieldset>
 
-                                                        <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
-                                                    </button>
-                                                </div>
-                                            </fieldset>
-                                        </form>
+                                        {{ form_end(registrationForm) }}
+
                                     </div>
 
                                     <div class="toolbar center">

@@ -7,7 +7,8 @@ security:
         hedgehogs_users:
             entity:
                 class: AppBundle:User
-                property: login
+                property: email
+
     encoders:
         AppBundle\Entity\User:
             algorithm: bcrypt
@@ -30,6 +31,11 @@ security:
             logout:
                 path: logout
                 target: homepage
+
+            remember_me:
+                secret:   '%secret%'
+                lifetime: 604800 # 1 week in seconds
+                path:     /
             # activate different ways to authenticate
 
             # http_basic: ~
