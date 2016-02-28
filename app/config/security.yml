@@ -13,6 +13,9 @@ security:
         AppBundle\Entity\User:
             algorithm: bcrypt
 
+        AppBundle\Entity\Personal:
+            algorithm: bcrypt
+
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
