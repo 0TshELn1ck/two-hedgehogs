@@ -6,7 +6,7 @@ security:
     providers:
         hedgehogs_users:
             entity:
-                class: AppBundle:User
+                class: AppBundle:BaseUser
                 property: email
 
     encoders:
