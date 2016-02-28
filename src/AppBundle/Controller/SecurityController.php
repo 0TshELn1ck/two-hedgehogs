@@ -48,14 +48,4 @@ class SecurityController extends Controller
             'error' => $error
         ];
     }
-
-
-    /**
-     * @Route("indextest", name="indextest")
-     */
-    public function indextestAction(Request $request)
-    {
-        return $this->render('AppBundle:Front:homepage.html.twig');
-    }
-
 }

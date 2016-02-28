@@ -1,0 +1,104 @@
+{% extends 'AppBundle:Front:hedgehogsBase.html.twig' %}
+
+{% block content %}
+    <div class="content-wrapper">
+
+        {#Page label#}
+        <section class="menu">
+            <div class="container">
+                <div class="menu_title">
+                    <h2>Меню</h2>
+                </div>
+            </div>
+
+            <div class="container">
+                {#Gallery navigation#}
+                <aside class="category-nav navbar navbar-inverse  col-sm-4 col-lg-3">
+                    <div>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#categoriesNav">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="categoriesNav">
+                        <ul>
+                            <li>Від шефа</li>
+                            <li>Супи</li>
+                            <li>Гарніри</li>
+                            <li>Мясні страви</li>
+                            <li>Для веганів</li>
+                            <li>Салати</li>
+                            <li>Десерти</li>
+                            <li>Коктелі</li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <div class="dishes_wrapp col-sm-8  col-lg-9">
+                    <ul class="dish_list row">
+
+                        <li class="dish col-xs-6 col-md-3">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3>Fugiat nulla sint</h3>
+                                <button class="addToCart">Замовити</button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3>Fugiat nulla sint</h3>
+                                <button class="addToCart">Замовити</button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3>Fugiat nulla sint</h3>
+                                <button class="addToCart">Замовити</button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3>Fugiat nulla sint</h3>
+                                <button class="addToCart">Замовити</button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3>Fugiat nulla sint</h3>
+                                <button class="addToCart">Замовити</button>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+
+        {#Dishes list#}
+
+
+
+    </div>
+{% endblock content %}

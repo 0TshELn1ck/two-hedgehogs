@@ -1,5 +1,6 @@
 /************ VARIABLES ***********/
 @font-base: #3b3b3b;
+@base-red: #f34949;
 /************** HEADER ************/
 header{
   overflow: inherit;
@@ -53,7 +54,55 @@ header{
     }
   }
 }
-/******** Featured Dishes *********/
-#dishes{
+.content-wrapper {
+  min-height: 80vh;
+}
 
+/******************************************** MENU PAGE ************************************************/
+.category-nav{
+  border: none;
+  ul li {
+    list-style: none;
+    padding:10px;
+    font-size: 16px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    cursor:pointer;
+  }
+  ul li:hover, ul .active {
+    color: @base-red;
+  }
+  background-color: white;
+}
+.dishes_wrapp{
+  border-left:2px solid @base-red;
+  ul {
+    li {
+      list-style: none;
+      padding-bottom:20px;
+      .dish_img_wrapp {
+        position:relative;
+        .price{
+          position:absolute;
+          bottom:0;
+          right:0;
+          padding:5px;
+          background-color: white;
+          color: @base-red;
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+      .addToCart {
+        position:relative;
+        bottom:0;
+        left:0;
+        width:100%;
+        background-color: @base-red;
+        color: white;
+        padding:5px;
+        border:none;
+        outline: none;
+      }
+    }
+  }
 }
