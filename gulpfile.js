@@ -12,6 +12,7 @@ gulp.task('less', function() {
 
 gulp.task('css', function() {
     return gulp.src([
+            'bower_components/bootstrap/dist/css/bootstrap.css',
             'web-src/css/**/*.css'
         ])
         .pipe(less({compress: true}))
