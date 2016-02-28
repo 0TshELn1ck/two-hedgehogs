@@ -43,15 +43,12 @@
 				</script>
 
 				<ul class="breadcrumb">
+					{% block breadcrumbs %}
 					<li>
 						<i class="ace-icon fa fa-home home-icon"></i>
-						<a href="{{ path('admin_index') }}">Home</a>
+						<a href="{{ path('admin_index') }}">Додому</a>
 					</li>
-
-					<li>
-						<a href="#">Other Pages</a>
-					</li>
-					<li class="active">Blank Page</li>
+					{% endblock breadcrumbs %}
 				</ul><!-- /.breadcrumb -->
 
 				<div class="nav-search" id="nav-search">
