@@ -477,8 +477,8 @@ header nav ul li a:hover{
 
 .featured_dishes .dishes article .dishe_img{
     display: block;
-    width: 230px;
-    height: 200px;
+    width: 100%;
+    height: auto;
     overflow: hidden;
 }
 

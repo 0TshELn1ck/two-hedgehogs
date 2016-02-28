@@ -1,17 +1,16 @@
 $(document).ready(function(){
 
 	//featured dishes slider initialisation
-	$("#dishes").carouFredSel({
-		circular: true,
-		infinite: false,
-		auto 	: false,
-		prev	: {	
-			key		: "left"
-		},
-		next	: { 
-			key		: "right"
-		},
-		pagination	: "#slider_nav"
+	$("#dishes").slick({
+		slidesToShow: 4,
+		slidesToScroll: 4,
+		mobileFirst: true,
+		swipe: true,
+		autoplay: true,
+		autoplaySpeed: 3000,
+		arrows: false
+
+
 	});
 
 

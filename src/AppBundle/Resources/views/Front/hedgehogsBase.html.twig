@@ -5,15 +5,15 @@
     <link href="{{ asset('css/reset.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/resto.css') }}" rel="stylesheet"/>
+    {% block new_stylesheets %}{% endblock %}
     <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
-
 {% endblock stylesheets %}
 
 {% block javascripts %}
     <script src="{{ asset('js/jquery.js') }}"></script>
     <script src="{{ asset('js/bootstrap.js') }}"></script>
-    <script src="{{ asset('js/carouFredSel.js') }}"></script>
     <script src="{{ asset('js/easing.js') }}"></script>
+    {% block new_js %}{% endblock %}
     <script src="{{ asset('js/main.js') }}"></script>
 {% endblock javascripts %}
 
@@ -36,12 +36,11 @@
                     </div>
                     <div class="collapse navbar-collapse" id="myNavbar">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="" class="active">Home</a></li>
-                            <li><a href="">Our Story</a></li>
-                            <li><a href="">Menu</a></li>
-                            <li><a href="">Reservations</a></li>
-                            <li><a href="">News</a></li>
-                            <li><a href="">Reviews</a></li>
+                            <li><a href="" class="active">Головна сторінка</a></li>
+                            <li><a href="">Меню</a></li>
+                            <li><a href="">Галерея</a></li>
+                            <li><a href="">Замовлення</a></li>
+                            <li><a href="">Відгуки</a></li>
                         </ul>
                     </div>
                 </div>

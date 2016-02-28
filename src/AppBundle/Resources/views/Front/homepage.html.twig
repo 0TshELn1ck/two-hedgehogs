@@ -1,5 +1,12 @@
 {% extends 'AppBundle:Front:hedgehogsBase.html.twig' %}
 
+{% block new_stylesheets %}
+    <link href="{{ asset('css/slick.css') }}" rel="stylesheet"/>
+{% endblock %}
+{% block new_js %}
+    <script src="{{ asset('js/slick.min.js') }}"></script>
+{% endblock %}
+
 {% block content %}
     <!--  start hero  -->
     <section class="hero">
@@ -165,61 +172,10 @@
                         <a href="#"><img src="/images/dish1.jpg" alt="" title=""/></a>
                     </div>
                     <div class="dish_info">
-                        <a href="#"><h2>Fugiat nulla sint</h2></a>
-                        <h3>$30</h3>
+                        <h2>Fugiat nulla sint</h2>
+                        <h3 class="hidden-xs">$30</h3>
                     </div>
-                    <ul class="rating">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li class="no-star"></li>
-                    </ul>
-                </article>
-
-                <article>
-                    <div class="dishe_img">
-                        <a href="#"><img src="/images/dish2.jpg" alt="" title=""/></a>
-                    </div>
-                    <div class="dish_info">
-                        <a href="#"><h2>Daute irure dolor</h2></a>
-                        <h3>$24</h3>
-                    </div>
-                    <ul class="rating">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li class="no-star"></li>
-                        <li class="no-star"></li>
-                    </ul>
-                </article>
-
-                <article>
-                    <div class="dishe_img">
-                        <a href="#"><img src="/images/dish3.jpg" alt="" title=""/></a>
-                    </div>
-                    <div class="dish_info">
-                        <a href="#"><h2>Officia deserunt mollit</h2></a>
-                        <h3>$60</h3>
-                    </div>
-                    <ul class="rating">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </article>
-
-                <article>
-                    <div class="dishe_img">
-                        <a href="#"><img src="/images/dish4.jpg" alt="" title=""/></a>
-                    </div>
-                    <div class="dish_info">
-                        <a href="#"><h2>Pim minim veniam</h2></a>
-                        <h3>$17</h3>
-                    </div>
-                    <ul class="rating">
+                    <ul class="rating hidden-xs">
                         <li></li>
                         <li></li>
                         <li></li>
@@ -233,10 +189,10 @@
                         <a href="#"><img src="/images/dish1.jpg" alt="" title=""/></a>
                     </div>
                     <div class="dish_info">
-                        <a href="#"><h2>Fugiat nulla sint</h2></a>
-                        <h3>$30</h3>
+                        <h2>Fugiat nulla sint</h2>
+                        <h3 class="hidden-xs">$30</h3>
                     </div>
-                    <ul class="rating">
+                    <ul class="rating hidden-xs">
                         <li></li>
                         <li></li>
                         <li></li>
@@ -244,67 +200,94 @@
                         <li class="no-star"></li>
                     </ul>
                 </article>
-
-                <article>
-                    <div class="dishe_img">
-                        <a href="#"><img src="/images/dish2.jpg" alt="" title=""/></a>
-                    </div>
-                    <div class="dish_info">
-                        <a href="#"><h2>Daute irure dolor</h2></a>
-                        <h3>$24</h3>
-                    </div>
-                    <ul class="rating">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li class="no-star"></li>
-                        <li class="no-star"></li>
-                    </ul>
-                </article>
-
-                <article>
-                    <div class="dishe_img">
-                        <a href="#"><img src="/images/dish3.jpg" alt="" title=""/></a>
-                    </div>
-                    <div class="dish_info">
-                        <a href="#"><h2>Officia deserunt mollit</h2></a>
-                        <h3>$60</h3>
-                    </div>
-                    <ul class="rating">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </article>
-
-                <article>
-                    <div class="dishe_img">
-                        <a href="#"><img src="/images/dish4.jpg" alt="" title=""/></a>
-                    </div>
-                    <div class="dish_info">
-                        <a href="#"><h2>Pim minim veniam</h2></a>
-                        <h3>$17</h3>
-                    </div>
-                    <ul class="rating">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li class="no-star"></li>
-                    </ul>
-                </article>
-
                 <article>
                     <div class="dishe_img">
                         <a href="#"><img src="/images/dish1.jpg" alt="" title=""/></a>
                     </div>
                     <div class="dish_info">
-                        <a href="#"><h2>Fugiat nulla sint</h2></a>
-                        <h3>$30</h3>
+                        <h2>Fugiat nulla sint</h2>
+                        <h3 class="hidden-xs">$30</h3>
                     </div>
-                    <ul class="rating">
+                    <ul class="rating hidden-xs">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li class="no-star"></li>
+                    </ul>
+                </article>
+                <article>
+                    <div class="dishe_img">
+                        <a href="#"><img src="/images/dish1.jpg" alt="" title=""/></a>
+                    </div>
+                    <div class="dish_info">
+                        <h2>Fugiat nulla sint</h2>
+                        <h3 class="hidden-xs">$30</h3>
+                    </div>
+                    <ul class="rating hidden-xs">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li class="no-star"></li>
+                    </ul>
+                </article>
+                <article>
+                    <div class="dishe_img">
+                        <a href="#"><img src="/images/dish1.jpg" alt="" title=""/></a>
+                    </div>
+                    <div class="dish_info">
+                        <h2>Fugiat nulla sint</h2>
+                        <h3 class="hidden-xs">$30</h3>
+                    </div>
+                    <ul class="rating hidden-xs">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li class="no-star"></li>
+                    </ul>
+                </article>
+                <article>
+                    <div class="dishe_img">
+                        <a href="#"><img src="/images/dish1.jpg" alt="" title=""/></a>
+                    </div>
+                    <div class="dish_info">
+                        <h2>Fugiat nulla sint</h2>
+                        <h3 class="hidden-xs">$30</h3>
+                    </div>
+                    <ul class="rating hidden-xs">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li class="no-star"></li>
+                    </ul>
+                </article>
+                <article>
+                    <div class="dishe_img">
+                        <a href="#"><img src="/images/dish1.jpg" alt="" title=""/></a>
+                    </div>
+                    <div class="dish_info">
+                        <h2>Fugiat nulla sint</h2>
+                        <h3 class="hidden-xs">$30</h3>
+                    </div>
+                    <ul class="rating hidden-xs">
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li class="no-star"></li>
+                    </ul>
+                </article><article>
+                    <div class="dishe_img">
+                        <a href="#"><img src="/images/dish1.jpg" alt="" title=""/></a>
+                    </div>
+                    <div class="dish_info">
+                        <h2>Fugiat nulla sint</h2>
+                        <h3 class="hidden-xs">$30</h3>
+                    </div>
+                    <ul class="rating hidden-xs">
                         <li></li>
                         <li></li>
                         <li></li>
@@ -313,56 +296,7 @@
                     </ul>
                 </article>
 
-                <article>
-                    <div class="dishe_img">
-                        <a href="#"><img src="/images/dish2.jpg" alt="" title=""/></a>
-                    </div>
-                    <div class="dish_info">
-                        <a href="#"><h2>Daute irure dolor</h2></a>
-                        <h3>$24</h3>
-                    </div>
-                    <ul class="rating">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li class="no-star"></li>
-                        <li class="no-star"></li>
-                    </ul>
-                </article>
 
-                <article>
-                    <div class="dishe_img">
-                        <a href="#"><img src="/images/dish3.jpg" alt="" title=""/></a>
-                    </div>
-                    <div class="dish_info">
-                        <a href="#"><h2>Officia deserunt mollit</h2></a>
-                        <h3>$60</h3>
-                    </div>
-                    <ul class="rating">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
-                </article>
-
-                <article>
-                    <div class="dishe_img">
-                        <a href="#"><img src="/images/dish4.jpg" alt="" title=""/></a>
-                    </div>
-                    <div class="dish_info">
-                        <a href="#"><h2>Pim minim veniam</h2></a>
-                        <h3>$17</h3>
-                    </div>
-                    <ul class="rating">
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li class="no-star"></li>
-                    </ul>
-                </article>
 
             </section>
         </div>
