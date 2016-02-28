@@ -2,11 +2,11 @@
 
 namespace AppBundle\Command;
 
+use AppBundle\Entity\Personal;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use AppBundle\Entity\User;
 
 class AddAdminCommand extends ContainerAwareCommand
 {
@@ -31,15 +31,15 @@ class AddAdminCommand extends ContainerAwareCommand
         $this->adminExistValidator();
         $plainPassword = $input->getArgument('password');
         $this->passwordValidator($plainPassword);
-        $baseUser = new User();
-        $baseUser->setEmail('admin@change.me');
-        $baseUser->setRoles('ROLE_ADMIN');
+        $personal = new Personal();
+        $personal->setEmail('admin@change.me');
+        $personal->setRoles('ROLE_ADMIN');
 
         $encoder = $this->getContainer()->get('security.password_encoder');
-        $encodedPassword = $encoder->encodePassword($baseUser, $plainPassword);
-        $baseUser->setPassword($encodedPassword);
+        $encodedPassword = $encoder->encodePassword($personal, $plainPassword);
+        $personal->setPassword($encodedPassword);
 
-        $this->entityManager->persist($baseUser);
+        $this->entityManager->persist($personal);
         $this->entityManager->flush();
         $output->writeln(' "admin@change.me" created');
     }
@@ -57,7 +57,7 @@ class AddAdminCommand extends ContainerAwareCommand
 
     public function adminExistValidator()
     {
-        $admin = $this->entityManager->getRepository('AppBundle:User')->findOneBy(array('email' => 'admin@change.me'));
+        $admin = $this->entityManager->getRepository('AppBundle:Personal')->findOneBy(array('email' => 'admin@change.me'));
         if ($admin) {
             throw new \Exception('You can not create admin user. The user has already created');
         }
