@@ -3,6 +3,7 @@
 {% block new_stylesheets %}
     <link href="{{ asset('css/slick.css') }}" rel="stylesheet"/>
 {% endblock %}
+
 {% block new_js %}
     <script src="{{ asset('js/slick.min.js') }}"></script>
 {% endblock %}
@@ -295,12 +296,10 @@
                         <li class="no-star"></li>
                     </ul>
                 </article>
-
-
-
             </section>
         </div>
     </section><!--  end featured_dishes  -->
+
 
 
     <!--  start gallery  -->
@@ -349,3 +348,17 @@
         </div>
     </section><!--  end gallery  -->
 {% endblock content %}
+
+{% block initialize_plagins %}
+    <script>
+        $("#dishes").slick({
+            slidesToShow: 4,
+            slidesToScroll: 4,
+            mobileFirst: true,
+            swipe: true,
+            autoplay: true,
+            autoplaySpeed: 3000,
+            arrows: false
+        });
+    </script>
+{% endblock %}

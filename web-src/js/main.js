@@ -1,17 +1,7 @@
 $(document).ready(function(){
 
 	//featured dishes slider initialisation
-	$("#dishes").slick({
-		slidesToShow: 4,
-		slidesToScroll: 4,
-		mobileFirst: true,
-		swipe: true,
-		autoplay: true,
-		autoplaySpeed: 3000,
-		arrows: false
 
-
-	});
 
 
 
@@ -58,3 +48,4 @@ $(document).ready(function(){
 
 
 });
+
