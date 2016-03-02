@@ -1,0 +1,61 @@
+{% extends(':Front:base.html.twig') %}
+
+{% block title%}ТУТ НАЗВА СТРАВИ{% endblock %}
+
+{% block new_stylesheets %}
+    <link href="{{ asset('css/flexslider.css') }}" rel="stylesheet"/>
+{% endblock %}
+
+{% block new_js %}
+    <script src="{{ asset('js/jquery.flexslider-min.js') }}"></script>
+{% endblock %}
+
+{% block content %}
+     <div class="content-wrapper">
+
+        {#Page label#}
+        <section class="menu">
+            <div class="container">
+                    <h1>Fugiat nulla sint</h1>
+                <div class="row">
+                    <div class="gallery col-sm-6">
+                        <div class="flexslider">
+                            <ul class="slides">
+                                <li data-thumb="/images/dish1.jpg">
+                                    <img src="/images/dish1.jpg" />
+                                </li>
+                                <li data-thumb="/images/dish2.jpg">
+                                    <img src="/images/dish2.jpg" />
+                                </li>
+                                <li data-thumb="/images/dish3.jpg">
+                                    <img src="/images/dish3.jpg" />
+                                </li>
+                                <li data-thumb="/images/dish4.jpg">
+                                    <img src="/images/dish4.jpg" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="description col-sm-6">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+
+            </div>
+        </section>
+</div>
+{% endblock %}
+
+{% block initialize_plagins %}
+    <script>
+        $(window).load(function() {
+            $('.flexslider').flexslider({
+                animation: "slide",
+                controlNav: "thumbnails"
+            });
+        });
+    </script>
+{% endblock %}

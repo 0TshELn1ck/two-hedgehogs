@@ -20,6 +20,7 @@
   "dependencies": {
     "jquery": "^2.2.0",
     "bootstrap": "^3.3.6",
-    "slick-carousel": "~1.5.9"
+    "slick-carousel": "~1.5.9",
+    "flexslider": "~2.6.0"
   }
 }

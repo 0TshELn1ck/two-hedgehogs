@@ -1,6 +1,15 @@
 /************ VARIABLES ***********/
 @font-base: #3b3b3b;
+@title-color: #626262;
 @base-red: #f34949;
+
+@font-face {
+  font-family:'flexslider-icon';
+  src:url('../fonts/flexslider-icon.eot');
+  src:url('../fonts/flexslider-icon.eot?#iefix') format('embedded-opentype'),url('../fonts/flexslider-icon.woff') format('woff'),url('../fonts/flexslider-icon.ttf') format('truetype'),url('../fonts/flexslider-icon.svg#flexslider-icon') format('svg');
+  font-weight:normal;
+  font-style:normal
+}
 /************** HEADER ************/
 header{
   overflow: inherit;
@@ -85,6 +94,13 @@ header{
   min-height:50vh;
   ul {
     li {
+      h3 a {
+        color:@title-color;
+      }
+      h3 a:hover {
+        text-decoration: none;
+        color:@font-base;
+      }
       list-style: none;
       padding-bottom:20px;
       .dish_img_wrapp {

@@ -25,4 +25,11 @@ class DefaultController extends Controller
         return $this->render('AppBundle:Front:menu.html.twig');
     }
 
+    /**
+     * @Route("dish", name="dish")
+     */
+    public function dishAction(Request $request)
+    {
+        return $this->render('AppBundle:Front:dish.html.twig');
+    }
 }

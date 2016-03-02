@@ -14,6 +14,7 @@ gulp.task('css', function() {
     return gulp.src([
             'bower_components/bootstrap/dist/css/bootstrap.css',
             'bower_components/slick-carousel/slick/slick.css',
+            'bower_components/flexslider/flexslider.css',
             'web-src/css/**/*.css'
         ])
         .pipe(less({compress: true}))
@@ -23,6 +24,7 @@ gulp.task('css', function() {
 gulp.task('fonts', function () {
     return gulp.src([
             'bower_components/bootstrap/fonts/*',
+            'bower_components/flexslider/fonts/*',
             'web-src/fonts/*'
         ])
         .pipe(gulp.dest('web/fonts/'))
@@ -55,6 +57,7 @@ gulp.task('pages-js', function() {
             'bower_components/jquery/dist/jquery.js',
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/slick-carousel/slick/slick.min.js',
+            'bower_components/flexslider/jquery.flexslider-min.js',
             'web-src/js/**/*.js'
         ])
         .pipe(minifyJs())
