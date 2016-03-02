@@ -1,0 +1,10 @@
+{% extends(':Admin:base.html.twig') %}
+{% block content %}
+    <h3>Add new Dish</h3>
+    {{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Create"
+           class="btn btn-default" />
+    {{ form_end(form) }}
+    <p>{{ msg }}</p>
+{% endblock content %}
