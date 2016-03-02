@@ -19,7 +19,7 @@ class DishAddType extends AbstractType
                 'attr' => array('cols' => '68', 'rows' => '10')
             ])
             ->add('ingredients', TextareaType::class,[
-                'attr' => array('cols' => '68', 'rows' => '10')
+                'attr' => array('cols' => '68', 'rows' => '5')
             ])
             ->add('price', IntegerType::class)
         ;

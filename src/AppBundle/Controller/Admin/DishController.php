@@ -29,7 +29,7 @@ class DishController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($dish);
             $em->flush();
-            $msg ="New dish added";
+            $msg ="New dish successfully added";
         }
 
         return $this->render('@App/Admin/Dish/addDish.html.twig', ['form' => $form->createView(),

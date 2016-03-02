@@ -12,4 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class DishRepository extends EntityRepository
 {
+    public function getDishes()
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->getQuery()
+            ->getResult();
+    }
 }
