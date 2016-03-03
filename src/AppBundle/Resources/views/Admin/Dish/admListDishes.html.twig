@@ -1,7 +1,7 @@
 {% extends(':Admin:base.html.twig') %}
 {% block content %}
     <h3>List of Dishes</h3>
-    <table class="table">
+    <table class="table table-bordered table-hover">
         <tr>
             <th>#</th>
             <th>name</th>
@@ -23,20 +23,17 @@
                 {% if is_granted('ROLE_ADMIN') %}
                     <td>
                         <a class="ace-icon glyphicon glyphicon-pencil" title="edit Dish"
-                           href="{{ path('dish_add', {'id':dish.id}) }}"></a>
+                           href="{{ path('adm_list_dish', {'id':dish.id}) }}"></a>
                     </td>
                     <td>
-                        {#{{ form_start(delForms[post.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}
-                        {{ form_widget(delForms[post.id].submit) }}
-                        {{ form_end(delForms[post.id]) }}#}
+                        {#{{ form_start(delForms[dish.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}
+                        {{ form_widget(delForms[dish.id].submit) }}
+                        {{ form_end(delForms[dish.id]) }}#}
                     </td>
                 {% endif %}
             </tr>
         {% endfor %}
     </table>
-    {#-----------------------------------------
-
-    -----------------------------------------#}
     <br>
     <p>{{ msg }}</p>
 {% endblock content %}

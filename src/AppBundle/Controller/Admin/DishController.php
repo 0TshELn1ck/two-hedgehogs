@@ -15,7 +15,14 @@ use Symfony\Component\HttpFoundation\Request;
 class DishController extends Controller
 {
     /**
-     * @Route("/add", name="dish_add")
+     * @Route("/", name="adm_dish_index")
+     */
+    public function indexAction()
+    {
+        return $this->render('@App/Admin/Dish/indexDish.html.twig');
+    }
+    /**
+     * @Route("/add", name="adm_add_dish")
      */
     public function addAction(Request $request)
     {
