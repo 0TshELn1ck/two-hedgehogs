@@ -18,17 +18,17 @@
                 <td>{{ dish.name }}</td>
                 <td>category</td>
                 <td>{{ dish.price }}</td>
-                <td>{{ dish.createdAt|date }}</td>
                 <td>{{ dish.updatedAt|date }}</td>
+                <td>{{ dish.createdAt|date }}</td>
                 {% if is_granted('ROLE_ADMIN') %}
                     <td>
                         <a class="ace-icon glyphicon glyphicon-pencil" title="edit Dish"
                            href="{{ path('adm_mod_dish', {'id':dish.id}) }}"></a>
                     </td>
                     <td>
-                        {#{{ form_start(delForms[dish.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}
+                        {{ form_start(delForms[dish.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}
                         {{ form_widget(delForms[dish.id].submit) }}
-                        {{ form_end(delForms[dish.id]) }}#}
+                        {{ form_end(delForms[dish.id]) }}
                     </td>
                 {% endif %}
             </tr>

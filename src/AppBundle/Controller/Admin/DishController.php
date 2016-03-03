@@ -6,7 +6,9 @@ use AppBundle\Entity\Dish;
 use AppBundle\Form\DishType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 /**
  * Class DishController
@@ -51,7 +53,17 @@ class DishController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
 
-        return $this->render('@App/Admin/Dish/admListDishes.html.twig', ['dishList' => $dishList]);
+        $deleteForms = [];
+        foreach ($dishList as $entity) {
+            $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
+                ->setAction($this->generateUrl('adm_del_dish', array('id' => $entity->getId())))
+                ->setMethod('DELETE')
+                ->add('submit', SubmitType::class, ['label' => ' ', 'attr' => ['class' => 'glyphicon glyphicon-trash btn-link']])
+                ->getForm()->createView();
+        }
+
+        return $this->render('@App/Admin/Dish/admListDishes.html.twig', ['dishList' => $dishList,
+        'delForms' => $deleteForms]);
     }
 
     /**
@@ -74,5 +86,20 @@ class DishController extends Controller
 
         return $this->render('@App/Admin/Dish/modDish.html.twig', ['form' => $form->createView(),
         'msg' => $msg]);
+    }
+
+    /**
+     *
+     * @Route("/{id}", name="adm_del_dish")
+     * @Method("DELETE")
+     */
+    public function delAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $entity = $em->getRepository('AppBundle:Dish')->find($id);
+        $em->remove($entity);
+        $em->flush();
+
+        return $this->redirectToRoute('adm_list_dish');
     }
 }
