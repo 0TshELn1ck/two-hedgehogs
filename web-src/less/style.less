@@ -1,7 +1,9 @@
 /************ VARIABLES ***********/
 @font-base: #3b3b3b;
 @title-color: #626262;
+@semi-grey: #808080;
 @base-red: #f34949;
+@hover-red: #AE3737;
 
 @font-face {
   font-family:'flexslider-icon';
@@ -93,6 +95,9 @@ header{
   border-left:3px solid @base-red;
   min-height:50vh;
   ul {
+    li:hover {
+      backgound: #cecece;
+    }
     li {
       h3 a {
         color:@title-color;
@@ -102,7 +107,8 @@ header{
         color:@font-base;
       }
       list-style: none;
-      padding-bottom:20px;
+      padding: 10px;
+      margin-bottom: 20px;
       .dish_img_wrapp {
         position:relative;
         max-height:153px;
@@ -123,19 +129,78 @@ header{
         }
       }
       .addToCart {
+        display:block;
         position:relative;
         bottom:0;
         left:0;
-        width:100%;
-        background-color: @base-red;
-        color: white;
-        padding:5px;
-        border:none;
-        outline: none;
-        font-family: Verdana, Verdana, Geneva, sans-serif;
-        text-transform: uppercase;
-        font-weight: bold;
+        margin:0 auto;
       }
     }
   }
+}
+
+
+/******************************************** DISH PAGE ************************************************/
+
+.dish-info-wrapp{
+  padding:50px 0;
+  .dish-info{
+    .dish-info-head{
+      overflow:hidden;
+      padding:20px 10px;
+      h1{
+        font-size: 40px;
+        float:left;
+        margin:0;
+
+      }
+    }
+    .price{
+      font-weight: bold;
+      color: @base-red;
+      font-size: 40px;
+      float: right;
+    }
+    .ingridients {
+      padding:10px;
+      color: @semi-grey;
+      font-weight: bold;
+      font-size: 20px;
+      .ingrid {
+        font-weight: normal;
+        font-style:italic;
+      }
+    }
+
+    .description {
+      padding:10px;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .addToCart {
+      padding:20px;
+      font-size: 25px;
+      float: right;
+    }
+
+
+  }
+}
+
+
+
+.addToCart {
+  background-color: @base-red;
+  color: white;
+  padding:5px;
+  border:none;
+  outline: none;
+  font-family: Verdana, Verdana, Geneva, sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.addToCart:hover{
+  background-color: @hover-red;
+
 }
