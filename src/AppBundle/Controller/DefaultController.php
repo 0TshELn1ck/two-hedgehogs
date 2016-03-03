@@ -32,4 +32,12 @@ class DefaultController extends Controller
     {
         return $this->render('AppBundle:Front:dish.html.twig');
     }
+
+    /**
+     * @Route("order", name="order")
+     */
+    public function orderAction(Request $request)
+    {
+        return $this->render('AppBundle:Front:order.html.twig');
+    }
 }
