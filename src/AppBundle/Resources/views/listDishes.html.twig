@@ -29,6 +29,7 @@
                 {#{% if post.post|length >299 %}...
                     <a href="{{ path('showOnePost', {'slug': post.slug }) }}">read more</a>
                 {% endif %}#}
+                <p>Price: {{ dish.price }}</p>
             </div>
 
             <hr>

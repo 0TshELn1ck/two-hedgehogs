@@ -50,9 +50,29 @@ class DishController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
-        $msg = "";
 
-        return $this->render('@App/Admin/Dish/admListDishes.html.twig', ['dishList' => $dishList,
-            'msg' => $msg]);
+        return $this->render('@App/Admin/Dish/admListDishes.html.twig', ['dishList' => $dishList]);
+    }
+
+    /**
+     * @Route("/modify/{id}", name="adm_mod_dish")
+     */
+    public function editAction($id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dishList = $em->getRepository('AppBundle:Dish')->find($id);
+        $msg ="";
+
+        $form = $this->createForm(DishType::class, $dishList);
+
+        $form->handleRequest($request);
+        if ($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+            $msg ="Dish was successfully modified";
+        }
+
+        return $this->render('@App/Admin/Dish/modDish.html.twig', ['form' => $form->createView(),
+        'msg' => $msg]);
     }
 }
