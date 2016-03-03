@@ -3,7 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Dish;
-use AppBundle\Form\DishAddType;
+use AppBundle\Form\DishType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,13 +15,13 @@ use Symfony\Component\HttpFoundation\Request;
 class DishController extends Controller
 {
     /**
-     * @Route("/add", name="dishAdd")
+     * @Route("/add", name="dish_add")
      */
-    public function addIndex(Request $request)
+    public function addAction(Request $request)
     {
         $dish = new Dish();
 
-        $form = $this->createForm(DishAddType::class, $dish);
+        $form = $this->createForm(DishType::class, $dish);
         $msg ="";
 
         $form->handleRequest($request);

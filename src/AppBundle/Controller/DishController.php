@@ -15,9 +15,9 @@ use Symfony\Component\HttpFoundation\Request;
 class DishController extends Controller
 {
     /**
-     * @Route("/list", name="listDish")
+     * @Route("/list", name="list_dish")
      */
-    public function listIndex(Request $request)
+    public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
@@ -27,9 +27,9 @@ class DishController extends Controller
             'msg' => $msg]);
     }
     /**
-     * @Route("/{slug}", name="showOneDish")
+     * @Route("/{slug}", name="show_one_dish")
      */
-    public function showOneIndex(Request $request)
+    public function showOneAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
