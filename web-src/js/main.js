@@ -1,13 +1,5 @@
 $(document).ready(function(){
 
-	//featured dishes slider initialisation
-
-
-
-
-
-
-
 	//gallery hover effect
 	$('.gallery .media img').hover(function(){
 		$('.gallery .media img').addClass('inactive');
@@ -15,11 +7,6 @@ $(document).ready(function(){
 	}, function(){
 		$('.gallery .media img').removeClass('inactive');
 	});
-
-
-
-
-
 
 	//menu show more items btn
 	function update_btn(old_btn_id, new_btn_id, btn_content){
