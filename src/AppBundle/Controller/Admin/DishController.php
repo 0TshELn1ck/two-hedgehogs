@@ -35,4 +35,17 @@ class DishController extends Controller
         return $this->render('@App/Admin/Dish/addDish.html.twig', ['form' => $form->createView(),
             'msg' => $msg]);
     }
+
+    /**
+     * @Route("/list", name="adm_list_dish")
+     */
+    public function listAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
+        $msg = "";
+
+        return $this->render('@App/Admin/Dish/admListDishes.html.twig', ['dishList' => $dishList,
+            'msg' => $msg]);
+    }
 }

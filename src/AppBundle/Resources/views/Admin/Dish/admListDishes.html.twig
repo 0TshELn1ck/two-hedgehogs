@@ -1,0 +1,42 @@
+{% extends(':Admin:base.html.twig') %}
+{% block content %}
+    <h3>List of Dishes</h3>
+    <table class="table">
+        <tr>
+            <th>#</th>
+            <th>name</th>
+            <th>category</th>
+            <th>price</th>
+            <th>modified</th>
+            <th>created</th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for dish in dishList %}
+            <tr>
+                <td>{{ loop.index }}</td>
+                <td>{{ dish.name }}</td>
+                <td>category</td>
+                <td>{{ dish.price }}</td>
+                <td>{{ dish.createdAt|date }}</td>
+                <td>{{ dish.updatedAt|date }}</td>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <td>
+                        <a class="ace-icon glyphicon glyphicon-pencil" title="edit Dish"
+                           href="{{ path('dish_add', {'id':dish.id}) }}"></a>
+                    </td>
+                    <td>
+                        {#{{ form_start(delForms[post.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}
+                        {{ form_widget(delForms[post.id].submit) }}
+                        {{ form_end(delForms[post.id]) }}#}
+                    </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+    </table>
+    {#-----------------------------------------
+
+    -----------------------------------------#}
+    <br>
+    <p>{{ msg }}</p>
+{% endblock content %}
