@@ -1,10 +1,69 @@
 {% extends(':Admin:base.html.twig') %}
+
+{% form_theme form _self %}
+
+{%- block form_label -%}
+    {% if label is not same as(false) -%}
+        {% if required -%}
+            {% set label_attr = label_attr|merge({'class': 'col-sm-3 control-label no-padding-right'|trim}) %}
+        {%- endif -%}
+        {% if label is empty -%}
+            {%- if label_format is not empty -%}
+                {% set label = label_format|replace({
+                    '%name%': name,
+                    '%id%': id,
+                }) %}
+            {%- else -%}
+                {% set label = name|humanize %}
+            {%- endif -%}
+        {%- endif -%}
+        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
+    {%- endif -%}
+{%- endblock form_label -%}
+
+{#{% block _dish_name_widget %}
+    <div class="">
+    {{ block('form_widget_simple') }}
+    </div>
+{% endblock %}#}
+
 {% block content %}
     <h3>Modify Dish</h3>
-    {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Modify"
-           class="btn btn-default" />
+    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.name) }}
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.recipe) }}
+            {{ form_errors(form.recipe) }}
+            {{ form_widget(form.recipe) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.ingredients) }}
+            {{ form_errors(form.ingredients) }}
+            {{ form_widget(form.ingredients) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.price) }}
+            {{ form_errors(form.price) }}
+            {{ form_widget(form.price) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            <label class="col-sm-3 control-label no-padding-right"></label>
+            <input type="submit" value="Modify" class="btn btn-default"/>
+        </div>
+    </div>
     {{ form_end(form) }}
     <br>
     <p><b>{{ msg }}</b></p>

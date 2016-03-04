@@ -14,7 +14,9 @@ class DishType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('name', TextType::class, [
+                'attr' => array('size' => '68')
+            ])
             ->add('recipe', TextareaType::class,[
                 'attr' => array('cols' => '68', 'rows' => '10')
             ])
