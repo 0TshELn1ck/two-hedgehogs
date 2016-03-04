@@ -40,4 +40,12 @@ class DefaultController extends Controller
     {
         return $this->render('AppBundle:Front:order.html.twig');
     }
+
+    /**
+     * @Route("profile", name="userProfile")
+     */
+    public function profileAction(Request $request)
+    {
+        return $this->render('AppBundle:Front:user_profile.html.twig');
+    }
 }

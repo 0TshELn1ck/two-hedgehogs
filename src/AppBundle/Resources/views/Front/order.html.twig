@@ -2,11 +2,6 @@
 
 {% block title%}Замовлення{% endblock %}
 
-{% block new_js %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
-{% endblock %}
-
-
 {% block content %}
 <div class="content-wrapper">
 
@@ -93,7 +88,8 @@
                         </div>
                     </li>
                 </ul>
-                <div class="location_block">
+                <div class="row">
+                    <div class="location_block col-md-6">
                     <h2>Вкажіть адрессу доставки</h2>
 
                     <div class="radio">
@@ -109,7 +105,21 @@
                         <input type="text" class="form-control new_addr" name="count" placeholder="Введіть адресу">
                     </div>
                 </div>
-                <input class="addToCart" type="submit" value="Підтвердити">
+                    <div class="location_block col-md-6">
+                        <h2>Вкажіть час доставки</h2>
+
+                        <div class="radio">
+                            <label><input type="radio" name="time" class="time">Негайно</label>
+                        </div>
+                        <div class="radio">
+                            <label><input type="radio" name="time" class="time new_time_radio">На первний час</label>
+                            </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="01/01/2016 16:00" id="datepicker" class="form-control new_time" name="new_time">
+                        </div>
+                    </div>
+                </div>
+                    <input class="addToCart" type="submit" value="Підтвердити">
                 </form>
             </div>
         </div>

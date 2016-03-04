@@ -43,6 +43,16 @@ $(document).ready(function(){
 		}
 	});
 
+	$(".radio .time").bind("change click", function () {
+		if ($(this).hasClass('new_time_radio')) {
+			if ($(this).prop('checked')) {
+				$('.new_time').slideDown("fast");
+			}
+		} else {
+			$('.new_time').slideUp("fast");
+		}
+	});
+
 
 });
 

@@ -17,6 +17,16 @@ header{
   overflow: inherit;
   height: inherit;
   padding: 20px 0;
+  .logo {
+    width: 100px;
+    overflow: hidden;
+    padding:0;
+    margin:0;
+    img {
+      width:100%;
+      height:auto;
+    }
+  }
   .header-wrapper{
     max-width: 1100px;
     margin: 0 auto;
@@ -28,7 +38,6 @@ header{
     background-color: white;
     border:none;
     .navbar-header{
-      padding: 10px 0 0 10px;
       .navbar-toggle{
         background-color: black;
         color:red;
@@ -52,7 +61,10 @@ header{
         color:@font-base !important;
       }
     }
-
+    .ord_count {
+      font-weight: bold;
+      color:@base-red;
+    }
   }
 }
 /******************************************** HOME PAGE ************************************************/
@@ -265,6 +277,7 @@ header{
     width:50%;
     min-width: 400px;
     margin: 20px auto;
+
     h2 {
       font-size: 25px;
       text-transform: uppercase;
@@ -279,6 +292,9 @@ header{
     .new_addr{
       display:none;
     }
+    .new_time {
+      display:none;
+    }
   }
 
 
@@ -289,7 +305,9 @@ header{
   }
 }
 
-
+.menu .container{
+  min-height: 60vh;
+}
 
 .addToCart {
   background-color: @base-red;
@@ -304,4 +322,75 @@ header{
 .addToCart:hover{
   background-color: @hover-red;
 
+}
+.page_desc {
+  text-align:center;
+  font-size: 18px;
+}
+/******************************************** PROFILE PAGE ************************************************/
+.order_history {
+  padding: 20px 0;
+  .canceled {
+    border-left:5px solid red;
+  }
+  .shipping {
+    border-left:5px solid blue;
+  }
+  .done {
+    border-left:5px solid green;
+  }
+  .cooking {
+    border-left:5px solid yellow;
+  }
+  .processed{
+    border-left:5px solid grey;
+  }
+
+  li{
+    position:relative;
+    list-style: none;
+    padding: 10px;
+    border-bottom: 1px solid #cecece;
+    border-right: 1px solid #cecece;
+    color:@title-color;
+    font-size: 16px;
+
+    .cost {
+      text-align: center;
+      font-size: 25px;
+      color:@base-red;
+      font-weight: bold;
+      padding-top:20px
+    }
+    .status {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      padding-top:20px
+    }
+
+    ul li {
+      padding:0;
+      border:0;
+      a {
+        color:@title-color;
+      }
+    }
+    ul li:hover a {
+      color:@base-red;
+    }
+
+    .delete_position {
+      width: 20px;
+      font-size: 20px;
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .delete_position:hover {
+      color: @base-red;
+
+    }
+  }
 }
