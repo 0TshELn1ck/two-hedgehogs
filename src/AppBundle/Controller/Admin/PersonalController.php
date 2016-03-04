@@ -10,7 +10,7 @@ class PersonalController extends Controller
 {
     /**
      * @return array
-     * @Route("/personal", name="admin_personal")
+     * @Route("/admin/personal", name="admin_personal")
      * @Template()
      */
     public function indexAction()
