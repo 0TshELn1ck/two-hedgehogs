@@ -33,6 +33,16 @@ $(document).ready(function(){
 		}});	    
 	});
 
+	$(".radio .address").bind("change click", function () {
+		if ($(this).hasClass('new_addr_radio')){
+			if ($(this).prop('checked')) {
+				$('.new_addr').slideDown("fast");
+			}
+		} else {
+				$('.new_addr').slideUp("fast");
+		}
+	});
+
 
 });
 
