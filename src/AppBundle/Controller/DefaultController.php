@@ -18,7 +18,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("menu", name="menu")
+     * @Route("/menu", name="menu")
      */
     public function menuAction(Request $request)
     {
@@ -26,7 +26,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("dish", name="dish")
+     * @Route("/dish", name="dish")
      */
     public function dishAction(Request $request)
     {
@@ -34,7 +34,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("order", name="order")
+     * @Route("/order", name="order")
      */
     public function orderAction(Request $request)
     {
@@ -42,7 +42,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("profile", name="userProfile")
+     * @Route("/profile", name="userProfile")
      */
     public function profileAction(Request $request)
     {
