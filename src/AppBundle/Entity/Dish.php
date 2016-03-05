@@ -247,12 +247,12 @@ class Dish
     /**
      * Add categories
      *
-     * @param \AppBundle\Entity\DishCategory $categories
+     * @param \AppBundle\Entity\DishCategory $category
      * @return Dish
      */
-    public function addCategory(\AppBundle\Entity\DishCategory $categories)
+    public function addCategory(\AppBundle\Entity\DishCategory $category)
     {
-        $this->categories[] = $categories;
+        $this->categories[] = $category;
 
         return $this;
     }
@@ -260,11 +260,11 @@ class Dish
     /**
      * Remove categories
      *
-     * @param \AppBundle\Entity\DishCategory $categories
+     * @param \AppBundle\Entity\DishCategory $category
      */
-    public function removeCategory(\AppBundle\Entity\DishCategory $categories)
+    public function removeCategory(\AppBundle\Entity\DishCategory $category)
     {
-        $this->categories->removeElement($categories);
+        $this->categories->removeElement($category);
     }
 
     /**

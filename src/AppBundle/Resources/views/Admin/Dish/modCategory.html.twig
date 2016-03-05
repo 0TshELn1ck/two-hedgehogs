@@ -1,25 +1,5 @@
 {% extends(':Admin:base.html.twig') %}
-
-{% form_theme form _self %}
-
-{%- block form_label -%}
-    {% if label is not same as(false) -%}
-        {% if required -%}
-            {% set label_attr = label_attr|merge({'class': 'col-sm-3 control-label no-padding-right'|trim}) %}
-        {%- endif -%}
-        {% if label is empty -%}
-            {%- if label_format is not empty -%}
-                {% set label = label_format|replace({
-                    '%name%': name,
-                    '%id%': id,
-                }) %}
-            {%- else -%}
-                {% set label = name|humanize %}
-            {%- endif -%}
-        {%- endif -%}
-        <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ translation_domain is same as(false) ? label : label|trans({}, translation_domain) }}</label>
-    {%- endif -%}
-{%- endblock form_label -%}
+{% form_theme form '@App/Admin/Dish/themeFields.html.twig' %}
 
 {% block content %}
     <h3>Modify Category</h3>

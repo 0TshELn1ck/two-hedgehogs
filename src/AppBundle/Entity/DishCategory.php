@@ -39,7 +39,7 @@ class DishCategory
     /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Dish", mappedBy="categories")
      */
-    protected $dishes;
+    private $dishes;
 
 
     /**
