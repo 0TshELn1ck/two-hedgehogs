@@ -10,7 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
-class DishType extends AbstractType
+class DishCategoryType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -18,21 +18,10 @@ class DishType extends AbstractType
             ->add('name', TextType::class, [
                 'attr' => array('size' => '68')
             ])
-            ->add('recipe', TextareaType::class,[
-                'attr' => array('cols' => '68', 'rows' => '10')
-            ])
-            ->add('ingredients', TextareaType::class,[
-                'attr' => array('cols' => '68', 'rows' => '5')
-            ])
-            ->add('price', IntegerType::class)
-            ->add('categories', EntityType::class, [
-                'class' => 'AppBundle\Entity\DishCategory',
-                'choice_label' => 'name'
-            ])
         ;
     }
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Dish']);
+        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\DishCategory']);
     }
 }

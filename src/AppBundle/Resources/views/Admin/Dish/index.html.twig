@@ -1,7 +1,17 @@
 {% extends(':Admin:base.html.twig') %}
 {% block content %}
     <p>
-  <a href="{{ path('adm_dish_list') }}"><button class="btn btn-primary">Admin list/modify dishes</button></a>
-  <a href="{{ path('adm_dish_add') }}"><button class="btn">Add new dish</button></a>
+        <a href="{{ path('adm_dish_list') }}">
+            <button class="btn btn-primary">Admin list/modify dishes</button>
+        </a>
+        <a href="{{ path('adm_dish_add') }}">
+            <button class="btn">Add new dish</button>
+        </a>
+        <a href="{{ path('adm_dish_cat_list') }}">
+            <button class="btn btn-primary">Admin list/modify category</button>
+        </a>
+        <a href="{{ path('adm_dish_cat_add') }}">
+            <button class="btn">Add new category</button>
+        </a>
     </p>
 {% endblock content %}

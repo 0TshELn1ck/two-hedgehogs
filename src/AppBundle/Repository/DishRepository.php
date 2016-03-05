@@ -15,7 +15,8 @@ class DishRepository extends EntityRepository
     public function getDishes()
     {
         return $this->createQueryBuilder('d')
-            ->select('d')
+            ->select('d', 'dc')
+            ->leftJoin('d.categories', 'dc')
             ->getQuery()
             ->getResult();
     }
