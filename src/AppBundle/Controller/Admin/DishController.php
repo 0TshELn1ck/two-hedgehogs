@@ -21,10 +21,10 @@ class DishController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('@App/Admin/Dish/indexDish.html.twig');
+        return $this->render('@App/Admin/Dish/index.html.twig');
     }
     /**
-     * @Route("/add", name="adm_add_dish")
+     * @Route("/add", name="adm_dish_add")
      */
     public function addAction(Request $request)
     {
@@ -41,12 +41,12 @@ class DishController extends Controller
             $msg ="New dish successfully added";
         }
 
-        return $this->render('@App/Admin/Dish/addDish.html.twig', ['form' => $form->createView(),
+        return $this->render('@App/Admin/Dish/add.html.twig', ['form' => $form->createView(),
             'msg' => $msg]);
     }
 
     /**
-     * @Route("/list", name="adm_list_dish")
+     * @Route("/list", name="adm_dish_list")
      */
     public function listAction(Request $request)
     {
@@ -56,18 +56,18 @@ class DishController extends Controller
         $deleteForms = [];
         foreach ($dishList as $entity) {
             $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
-                ->setAction($this->generateUrl('adm_del_dish', array('id' => $entity->getId())))
+                ->setAction($this->generateUrl('adm_dish_del', array('id' => $entity->getId())))
                 ->setMethod('DELETE')
                 ->add('submit', SubmitType::class, ['label' => ' ', 'attr' => ['class' => 'glyphicon glyphicon-trash btn-link']])
                 ->getForm()->createView();
         }
 
-        return $this->render('@App/Admin/Dish/admListDishes.html.twig', ['dishList' => $dishList,
+        return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList,
         'delForms' => $deleteForms]);
     }
 
     /**
-     * @Route("/modify/{id}", name="adm_mod_dish")
+     * @Route("/modify/{id}", name="adm_dish_mod")
      */
     public function editAction($id, Request $request)
     {
@@ -84,22 +84,22 @@ class DishController extends Controller
             $msg ="Dish was successfully modified";
         }
 
-        return $this->render('@App/Admin/Dish/modDish.html.twig', ['form' => $form->createView(),
+        return $this->render('@App/Admin/Dish/mod.html.twig', ['form' => $form->createView(),
         'msg' => $msg]);
     }
 
     /**
      *
-     * @Route("/{id}", name="adm_del_dish")
+     * @Route("/{id}", name="adm_dish_del")
      * @Method("DELETE")
      */
-    public function delAction($id)
+    public function deleteAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:Dish')->find($id);
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirectToRoute('adm_list_dish');
+        return $this->redirectToRoute('adm_dish_list');
     }
 }

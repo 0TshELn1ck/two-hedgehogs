@@ -73,6 +73,10 @@ class Dish
      */
     private $updatedAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\DishCategory", inversedBy="dishes")
+     */
+    private $categories;
 
     /**
      * Get id
@@ -232,4 +236,44 @@ class Dish
     }
 
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \AppBundle\Entity\DishCategory $categories
+     * @return Dish
+     */
+    public function addCategory(\AppBundle\Entity\DishCategory $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \AppBundle\Entity\DishCategory $categories
+     */
+    public function removeCategory(\AppBundle\Entity\DishCategory $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
 }
