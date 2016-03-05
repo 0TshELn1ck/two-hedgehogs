@@ -4,12 +4,12 @@ namespace AppBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class SecurityControllerTest extends WebTestCase
 {
-    public function testIndex()
+    public function testLogin()
     {
         $client = static::createClient();
-        $client->request('GET', '/');
+        $client->request('GET', '/login');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }

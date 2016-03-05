@@ -1,13 +1,25 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<head>
+    <meta charset="UTF-8"/>
+
+    <title>{% block title %}Home{% endblock title %}</title>
+
+    {% block stylesheets %}
+        <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"/>
+    {% endblock stylesheets %}
+
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body>
+
+{% block body %}
+    {% block content %}{% endblock content %}
+{% endblock body %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+{% endblock javascripts %}
+
+</body>
 </html>

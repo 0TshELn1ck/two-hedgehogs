@@ -1,0 +1,24 @@
+{
+  "name": "two-hedgehogs.dev",
+  "description": "GH project",
+  "main": "index.js",
+  "authors": [
+    "0TshEL_n1ck"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/0TshELn1ck/two-hedgehogs",
+  "moduleType": [
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^2.2.0",
+    "bootstrap": "^3.3.6"
+  }
+}
