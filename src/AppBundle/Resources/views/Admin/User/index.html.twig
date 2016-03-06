@@ -47,12 +47,10 @@
                                         </td>
                                         <td>
                                             <div class="hidden-sm hidden-xs btn-group">
-                                                <button class="hidden">
                                                     {{ form_start(deleteForm[item.id], {attr :
                                                         {onsubmit: 'return confirm("Ви дійсно хочете видалити користувача?");' }}) }}
                                                     {{ form_widget(deleteForm[item.id].submit) }}
                                                     {{ form_end(deleteForm[item.id]) }}
-                                                </button>
                                             </div>
                                         </td>
                                     </tr>
