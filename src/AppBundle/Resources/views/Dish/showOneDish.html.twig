@@ -1,11 +1,9 @@
 {% extends('::base.html.twig') %}
 {% block content %}
-    <h3>List of Dishes</h3>
-    {% for dish in dishList %}
         <div class="">
-            <h3 class="blog-post-title">
-                <a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">{{ dish.name }}</a>
-            </h3>
+            <h2 class="blog-post-title">
+                {{ dish.name }}
+            </h2>
             <p>
                 Created: {{ dish.createdAt|date }}
             </p>
@@ -37,5 +35,5 @@
             </div>
             <hr>
         </div>
-    {% endfor %}
+
 {% endblock content %}

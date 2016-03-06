@@ -20,4 +20,14 @@ class DishRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getOneDish($slug)
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->where('d.slug = :slug')
+            ->setParameter('slug', $slug)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 }
