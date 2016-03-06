@@ -1,0 +1,7 @@
+{% extends(':Admin:base.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('admin_personal_index') }}">Персонал</a>
+    </li>
+{% endblock breadcrumbs %}

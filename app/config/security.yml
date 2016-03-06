@@ -6,11 +6,14 @@ security:
     providers:
         hedgehogs_users:
             entity:
-                class: AppBundle:User
+                class: AppBundle:BaseUser
                 property: email
 
     encoders:
         AppBundle\Entity\User:
+            algorithm: bcrypt
+
+        AppBundle\Entity\Personal:
             algorithm: bcrypt
 
     firewalls:
@@ -44,4 +47,4 @@ security:
             # form_login: ~
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
     access_control:
- #       - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/admin, roles: ROLE_ADMIN }
