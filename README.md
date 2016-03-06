@@ -1,5 +1,5 @@
 # two-hedgehogs #
-=================  
+  
 *[Master-branch](https://github.com/0TshELn1ck/two-hedgehogs/tree/master)*  
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/0TshELn1ck/two-hedgehogs/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/0TshELn1ck/two-hedgehogs/?branch=master)
 [![Build Status](https://scrutinizer-ci.com/g/0TshELn1ck/two-hedgehogs/badges/build.png?b=master)](https://scrutinizer-ci.com/g/0TshELn1ck/two-hedgehogs/build-status/master)
