@@ -27,7 +27,9 @@ class DishType extends AbstractType
             ->add('price', IntegerType::class)
             ->add('categories', EntityType::class, [
                 'class' => 'AppBundle\Entity\DishCategory',
-                'choice_label' => 'name'
+                'choice_label' => 'name',
+                'expanded' => 'true',
+                'multiple' => 'true'
             ])
         ;
     }

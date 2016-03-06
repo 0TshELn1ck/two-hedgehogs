@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Dish
@@ -25,6 +26,7 @@ class Dish
     /**
      * @var string
      *
+     * @Assert\Length(min="4")
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
@@ -32,6 +34,7 @@ class Dish
     /**
      * @var string
      *
+     * @Assert\Length(min="10")
      * @ORM\Column(name="recipe", type="text")
      */
     private $recipe;
@@ -39,13 +42,14 @@ class Dish
     /**
      * @var string
      *
+     * @Assert\Length(min="10")
      * @ORM\Column(name="ingredients", type="text")
      */
     private $ingredients;
 
     /**
      * @var string
-     *
+     * @Assert\NotNull()
      * @ORM\Column(name="price", type="decimal", precision=10, scale=0)
      */
     private $price;

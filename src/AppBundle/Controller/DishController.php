@@ -21,10 +21,8 @@ class DishController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
-        $msg = "";
 
-        return $this->render('@App/listDishes.html.twig', ['dishList' => $dishList,
-            'msg' => $msg]);
+        return $this->render('@App/listDishes.html.twig', ['dishList' => $dishList]);
     }
     /**
      * @Route("/{slug}", name="show_one_dish")
@@ -33,9 +31,7 @@ class DishController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
-        $msg = "";
 
-        return $this->render('@App/listDishes.html.twig', ['dishList' => $dishList,
-            'msg' => $msg]);
+        return $this->render('@App/listDishes.html.twig', ['dishList' => $dishList]);
     }
 }

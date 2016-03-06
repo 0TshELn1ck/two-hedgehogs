@@ -1,14 +1,13 @@
 {% extends('::base.html.twig') %}
 {% block content %}
     <h3>List of Dishes</h3>
-
     {% for dish in dishList %}
         <div class="">
             <h3 class="blog-post-title">
                 <a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">{{ dish.name }}</a>
             </h3>
             <p>
-                Created:  {{ dish.createdAt|date }}
+                Created: {{ dish.createdAt|date }}
             </p>
             {#
             {% if post.pictPath != "" %}
@@ -26,16 +25,17 @@
                 <p>{{ dish.ingredients | raw }}</p>
                 <h4>Recipe:</h4>
                 <p>{{ dish.recipe | nl2br }}</p>
-                {#{% if post.post|length >299 %}...
-                    <a href="{{ path('showOnePost', {'slug': post.slug }) }}">read more</a>
-                {% endif %}#}
                 <p>Price: {{ dish.price }}</p>
+                {% if dish.categories[0].name is defined %}
+                    <h4>Categories:</h4>
+                    <p>
+                        {% for item in dish.categories %}
+                            {{ item.name }}
+                        {% endfor %}
+                    </p>
+                {% endif %}
             </div>
-
             <hr>
         </div>
     {% endfor %}
-
-    <br>
-    <p>{{ msg }}</p>
 {% endblock content %}
