@@ -32,19 +32,17 @@ class DishController extends Controller
 
         $form = $this->createForm(DishType::class, $dish);
         $msg ="";
-        $dum =  "";
 
         $form->handleRequest($request);
         if ($form->isValid()){
             $em = $this->getDoctrine()->getManager();
-            $dum =  $dish;
             $em->persist($dish);
             $em->flush();
             $msg ="New dish successfully added";
         }
 
         return $this->render('@App/Admin/Dish/add.html.twig', ['form' => $form->createView(),
-            'msg' => $msg, 'dum' => $dum]);
+            'msg' => $msg]);
     }
 
     /**
