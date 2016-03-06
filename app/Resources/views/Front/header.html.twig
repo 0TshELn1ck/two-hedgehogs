@@ -1,0 +1,26 @@
+<header>
+    <div class="header-wrapper">
+        <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a href="{{ path('homepage') }}"  class="logo"><img src="/images/logo.png" alt="Resto" title=""/></a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="{{ path("homepage") }}" class="active">Головна сторінка</a></li>
+                        <li><a href="{{ path("menu") }}">Меню</a></li>
+                        <li><a href="">Галерея</a></li>
+                        <li><a href="">Відгуки</a></li>
+                        <li><a href="{{ path('userProfile') }}">Профіль</a></li>
+                        <li><a href="{{ path('order') }}">Замовлення <span class="ord_count">(1)</span></a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
