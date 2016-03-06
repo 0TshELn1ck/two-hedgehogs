@@ -5,3 +5,50 @@
         <a href="{{ path('admin_personal_index') }}">Персонал</a>
     </li>
 {% endblock breadcrumbs %}
+
+{% block content %}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <div class="row">
+                    <div class="col-xs-12">
+                        <table id="simple-table" class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Пошта</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            {% if personal %}
+                                {% for item in personal %}
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="#">{{ item.id }}</a>
+                                        </td>
+                                        <td>{{ item.email }}</td>
+                                        <td>
+                                            <div class="hidden-sm hidden-xs btn-group">
+                                                {{ form_start(deleteForm[item.id], {attr :
+                                                    {onsubmit: 'return confirm("Ви дійсно хочете видалити користувача?");' }}) }}
+                                                {{ form_widget(deleteForm[item.id].submit) }}
+                                                {{ form_end(deleteForm[item.id]) }}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            {% endif %}
+
+                        </table>
+                        <ul class="pager">
+                            {{ knp_pagination_render(personal) }}
+                        </ul>
+                    </div><!-- /.span -->
+                </div><!-- /.row -->
+            </div><!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+{% endblock content %}
