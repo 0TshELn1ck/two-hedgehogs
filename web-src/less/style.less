@@ -12,6 +12,41 @@
   font-weight:normal;
   font-style:normal
 }
+
+.menu .container{
+  min-height: 60vh;
+}
+
+.addToCart {
+  background-color: @base-red;
+  color: white;
+  padding:5px;
+  border:none;
+  outline: none;
+  font-family: Verdana, Verdana, Geneva, sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.addToCart:hover, .submit_button:hover{
+  background-color: @hover-red;
+
+}
+.page_desc {
+  text-align:center;
+  font-size: 18px;
+}
+
+.submit_button{
+  background-color: @base-red;
+  color: white;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  padding: 5px 20px;
+  border:none;
+  outline: none;
+  min-width: 50px;
+  text-align: center;
+
+}
 /************** HEADER ************/
 header{
   overflow: inherit;
@@ -326,28 +361,6 @@ footer{
   }
 }
 
-.menu .container{
-  min-height: 60vh;
-}
-
-.addToCart {
-  background-color: @base-red;
-  color: white;
-  padding:5px;
-  border:none;
-  outline: none;
-  font-family: Verdana, Verdana, Geneva, sans-serif;
-  text-transform: uppercase;
-  font-weight: bold;
-}
-.addToCart:hover{
-  background-color: @hover-red;
-
-}
-.page_desc {
-  text-align:center;
-  font-size: 18px;
-}
 /******************************************** PROFILE PAGE ************************************************/
 .order_history {
   padding: 20px 0;
@@ -415,3 +428,54 @@ footer{
     }
   }
 }
+/**************** LOGIN PAGE ***************************/
+.light-login {
+  background: none;
+  .login-container {
+    h1 {
+      margin-top: 70px;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      img {
+        width:100px;
+      }
+      .red {
+        color:@base-red !important;
+      }
+      .grey {
+        color: @title-color !important;
+      }
+    }
+  }
+  .header_title {
+    color:@title-color;
+    border-bottom: 2px solid @base-red;
+    text-align: center;
+  }
+  .social-or-login span{
+    color:@title-color !important;
+  }
+  .social-or-login::before, .social-or-login::after {
+    border-color:@title-color;
+  }
+  .toolbar {
+    background-color: @base-red;
+    a {
+      color: white;
+      font-weight: bold !important;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+  }
+  .reset_button {
+    padding: 5px;
+    background-color: @title-color;
+    color:white;
+    border:none;
+    outline: none;
+  }
+  .bad_confirm {
+    border: 1px solid @base-red;
+  }
+}
+
+
+
