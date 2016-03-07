@@ -1,0 +1,192 @@
+{% extends(':Front:base.html.twig') %}
+
+{% block title%}Меню{% endblock %}
+
+{% block new_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/2.2.2/isotope.pkgd.min.js"></script>
+{% endblock %}
+
+
+{% block content %}
+    <div class="content-wrapper">
+
+        {#Page label#}
+        <section class="menu">
+            <div class="container">
+                <div class="menu_title">
+                    <h2>Меню</h2>
+                </div>
+
+                {#Gallery navigation#}
+                <aside class="category-nav navbar navbar-inverse  col-sm-4 col-lg-3">
+                    <div>
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#categoriesNav">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="categoriesNav">
+                        <ul id="filters" class="button-group">
+                            <li><button class="is-checked" data-filter="*">Показати всі</button></li>
+                            <li><button data-filter=".shef">Від шефа <i class="fa fa-fire"></i>
+                                </button></li>
+                            <li><button data-filter=".sup">Супи</button></li>
+                            <li><button data-filter=".garnir">Гарніри</button></li>
+                            <li><button data-filter=".meat">Мясні страви</button></li>
+                            <li><button data-filter=".vegan">Для веганів</button></li>
+                            <li><button data-filter=".salat">Салати</button></li>
+                            <li><button data-filter=".desert">Десерти</button></li>
+                        </ul>
+                    </div>
+                </aside>
+
+                <div class="dishes_wrapp col-sm-8  col-lg-9">
+                    <ul class="dish_list isotope">
+
+                        <li class="dish col-xs-6 col-md-3 element-item shef sup">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">1Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3 element-item garnir shef">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">2Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3 element-item vegan desert">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">3Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3 element-item meat">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">4Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3 element-item desert">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">5Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3 element-item shef sup">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">1Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3 element-item garnir shef">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">2Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3 element-item vegan desert">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">3Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3 element-item meat">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">4Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+                        <li class="dish col-xs-6 col-md-3 element-item desert">
+                            <a href="#">
+                                <div class="dish_img_wrapp">
+                                    <img src="/images/dish1.jpg" alt="" title=""/>
+                                    <div class="price">130грн</div>
+                                </div>
+                                <h3><a href="{{ path("dish") }}">5Fugiat nulla sint</a></h3>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
+                                </button>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock content %}
+
+{% block initialize_plagins %}
+    <script>
+        $( document ).ready( function() {
+            // init Isotope
+            var $container = $('.isotope').isotope({
+                itemSelector: '.element-item',
+                layoutMode: 'fitRows'
+            });
+
+            // bind filter button click
+            $('#filters').on( 'click', 'button', function() {
+                var filterValue = $( this ).attr('data-filter');
+                // use filterFn if matches value
+                $container.isotope({ filter: filterValue });
+            });
+
+            // change is-checked class on buttons
+            $('.button-group').each( function( i, buttonGroup ) {
+                var $buttonGroup = $( buttonGroup );
+                $buttonGroup.on( 'click', 'button', function() {
+                    $buttonGroup.find('.is-checked').removeClass('is-checked');
+                    $( this ).addClass('is-checked');
+                });
+            });
+
+        });
+    </script>
+{% endblock %}

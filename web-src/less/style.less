@@ -1,0 +1,481 @@
+/************ VARIABLES ***********/
+@font-base: #3b3b3b;
+@title-color: #626262;
+@semi-grey: #808080;
+@base-red: #f34949;
+@hover-red: #AE3737;
+
+@font-face {
+  font-family:'flexslider-icon';
+  src:url('../fonts/flexslider-icon.eot');
+  src:url('../fonts/flexslider-icon.eot?#iefix') format('embedded-opentype'),url('../fonts/flexslider-icon.woff') format('woff'),url('../fonts/flexslider-icon.ttf') format('truetype'),url('../fonts/flexslider-icon.svg#flexslider-icon') format('svg');
+  font-weight:normal;
+  font-style:normal
+}
+
+.menu .container{
+  min-height: 60vh;
+}
+
+.addToCart {
+  background-color: @base-red;
+  color: white;
+  padding:5px;
+  border:none;
+  outline: none;
+  font-family: Verdana, Verdana, Geneva, sans-serif;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.addToCart:hover, .submit_button:hover{
+  background-color: @hover-red;
+
+}
+.page_desc {
+  text-align:center;
+  font-size: 18px;
+}
+
+.submit_button{
+  background-color: @base-red;
+  color: white;
+  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  padding: 5px 20px;
+  border:none;
+  outline: none;
+  min-width: 50px;
+  text-align: center;
+
+}
+/************** HEADER ************/
+header{
+  overflow: inherit;
+  height: inherit;
+  padding: 20px 0;
+  .logo {
+    width: 100px;
+    overflow: hidden;
+    padding:0;
+    margin:0;
+    img {
+      width:100%;
+      height:auto;
+    }
+  }
+  .header-wrapper{
+    max-width: 1100px;
+    margin: 0 auto;
+    overflow: hidden;
+  }
+  .navbar {
+    width:100%;
+    //min-height: 110px;
+    background-color: white;
+    border:none;
+    .navbar-header{
+      .navbar-toggle{
+        background-color: black;
+        color:red;
+      }
+    }
+    #myNavbar{
+      border:none;
+      .navbar-nav li {
+        @media (max-width: 750px) {
+          display: block;
+          width: 50%;
+          text-align: center;
+          margin: 0 auto;
+          float: none;
+        }
+      }
+      .navbar-nav a{
+        color:@font-base;
+      }
+      .navbar-nav:hover a{
+        color:@font-base !important;
+      }
+    }
+    .ord_count {
+      font-weight: bold;
+      color:@base-red;
+    }
+  }
+}
+/***********************FOOTER**************************/
+footer{
+  .footer_nav {
+    @media (max-width: 750px) {
+      display:none;
+    }
+    width:100%;
+    nav ul {
+      text-align: center;
+      li {
+        padding:0 5px;
+        display: inline-block;
+      }
+    }
+  }
+  .adress{
+    text-align: center;
+    width:100%;
+    color:white;
+  }
+}
+/******************************************** HOME PAGE ************************************************/
+
+/********** MENU ************/
+.menu .mean_menu, .hidden_items{
+  article ul li {
+    @media (max-width: 978px) {
+      margin-bottom: 15px;
+    }
+  }
+}
+.content-wrapper {
+  min-height: 80vh;
+}
+
+/******************************************** MENU PAGE ************************************************/
+.category-nav{
+  border: none;
+  ul li {
+    list-style: none;
+    padding:10px;
+    font-size: 16px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    cursor:pointer;
+    button{
+      border:none;
+      background: none;
+      outline: none;
+      padding:0;
+      margin:0;
+    }
+  }
+  ul li button:hover, ul .is-checked {
+    color: @base-red;
+  }
+  background-color: white;
+}
+.dishes_wrapp{
+  border-left:3px solid @base-red;
+  min-height:50vh;
+  ul {
+    li:hover {
+      backgound: #cecece;
+    }
+    li {
+      h3 a {
+        color:@title-color;
+      }
+      h3 a:hover {
+        text-decoration: none;
+        color:@font-base;
+      }
+      list-style: none;
+      padding: 10px;
+      margin-bottom: 20px;
+      .dish_img_wrapp {
+        position:relative;
+        max-height:153px;
+        overflow:hidden;
+        img{
+          width:100%;
+          height:auto;
+        }
+        .price{
+          position:absolute;
+          bottom:0;
+          right:0;
+          padding:5px;
+          background-color: white;
+          color: @base-red;
+          font-size: 16px;
+          font-weight: bold;
+        }
+      }
+      .addToCart {
+        display:block;
+        position:relative;
+        bottom:0;
+        left:0;
+        margin:0 auto;
+      }
+    }
+  }
+}
+
+
+/******************************************** DISH PAGE ************************************************/
+
+.dish-info-wrapp{
+  padding:50px 0;
+  .dish-info{
+    .dish-info-head{
+      overflow:hidden;
+      padding:20px 10px;
+      h1{
+        font-size: 40px;
+        float:left;
+        margin:0;
+
+      }
+    }
+    .price{
+      font-weight: bold;
+      color: @base-red;
+      font-size: 40px;
+      float: right;
+    }
+    .ingridients {
+      padding:10px;
+      color: @semi-grey;
+      font-weight: bold;
+      font-size: 20px;
+      .ingrid {
+        font-weight: normal;
+        font-style:italic;
+      }
+    }
+
+    .description {
+      padding:10px;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    .addToCart {
+      padding:20px;
+      font-size: 25px;
+      float: right;
+    }
+
+
+  }
+}
+/******************************************** ORDER PAGE ************************************************/
+.order_page {
+  .instruction{
+    font-size: 16px;
+    margin-bottom:15px;
+    color:@title-color;
+  }
+  .dish_list {
+    li {
+      list-style: none;
+      position: relative;
+      border-bottom: 3px solid @base-red;
+      border-right: 3px solid @base-red;
+      padding: 10px;
+      margin-bottom: 20px;
+      min-height: 250px;
+
+      .dish_info {
+        h2 {
+          font-size: 25px;
+          text-transform: uppercase;
+          a {
+            color: @title-color;
+          }
+        }
+
+        .ingridients {
+          padding: 10px;
+          color: @semi-grey;
+          font-size: 20px;
+          font-style: italic;
+        }
+      }
+
+      .img-wrapp {
+        overflow: hidden;
+        max-height: 250px;
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
+
+      .order_info {
+
+        .count-wrapp {
+          padding-top: 105px;
+        }
+
+        .price {
+          font-size: 35px;
+          font-weight: bold;
+          color: @base-red;
+          text-align: center;
+          line-height: 250px;
+        }
+      }
+
+      .delete_position {
+        width: 20px;
+        font-size: 30px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+      }
+      .delete_position:hover {
+        color: @base-red;
+
+      }
+    }
+  }
+
+  .location_block {
+    overflow:hidden;
+    width:50%;
+    min-width: 400px;
+    margin: 20px auto;
+
+    h2 {
+      font-size: 25px;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 20px 10px;
+    }
+    .radio {
+      font-size: 18px;
+      font-weight: bold;
+
+    }
+    .new_addr{
+      display:none;
+    }
+    .new_time {
+      display:none;
+    }
+  }
+
+
+  .addToCart {
+    padding: 20px;
+    font-size: 20px;
+    float: right;
+  }
+}
+
+/******************************************** PROFILE PAGE ************************************************/
+.order_history {
+  padding: 20px 0;
+  .canceled {
+    border-left:5px solid red;
+  }
+  .shipping {
+    border-left:5px solid blue;
+  }
+  .done {
+    border-left:5px solid green;
+  }
+  .cooking {
+    border-left:5px solid yellow;
+  }
+  .processed{
+    border-left:5px solid grey;
+  }
+
+  li{
+    position:relative;
+    list-style: none;
+    padding: 10px;
+    border-bottom: 1px solid #cecece;
+    border-right: 1px solid #cecece;
+    color:@title-color;
+    font-size: 16px;
+
+    .cost {
+      text-align: center;
+      font-size: 25px;
+      color:@base-red;
+      font-weight: bold;
+      padding-top:20px
+    }
+    .status {
+      text-align: center;
+      font-size: 18px;
+      font-weight: bold;
+      padding-top:20px
+    }
+
+    ul li {
+      padding:0;
+      border:0;
+      a {
+        color:@title-color;
+      }
+    }
+    ul li:hover a {
+      color:@base-red;
+    }
+
+    .delete_position {
+      width: 20px;
+      font-size: 20px;
+      position: absolute;
+      top: 5px;
+      right: 10px;
+      cursor: pointer;
+    }
+    .delete_position:hover {
+      color: @base-red;
+
+    }
+  }
+}
+/**************** LOGIN PAGE ***************************/
+.light-login {
+  background: none;
+  .login-container {
+    h1 {
+      margin-top: 70px;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      img {
+        width:100px;
+      }
+      .red {
+        color:@base-red !important;
+      }
+      .grey {
+        color: @title-color !important;
+      }
+    }
+  }
+  .header_title {
+    color:@title-color;
+    border-bottom: 2px solid @base-red;
+    text-align: center;
+  }
+  .social-or-login span{
+    color:@title-color !important;
+  }
+  .social-or-login::before, .social-or-login::after {
+    border-color:@title-color;
+  }
+  .toolbar {
+    background-color: @base-red;
+    a {
+      color: white;
+      font-weight: bold !important;
+      font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    }
+  }
+  .reset_button {
+    padding: 5px;
+    background-color: @title-color;
+    color:white;
+    border:none;
+    outline: none;
+  }
+  .bad_confirm {
+    border: 1px solid @base-red;
+  }
+}
+
+
+

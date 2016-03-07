@@ -3,19 +3,52 @@
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 class DefaultController extends Controller
 {
+
     /**
      * @Route("/", name="homepage")
+     * @Template("default/index.html.twig")
      */
-    public function indexAction(Request $request)
+
+    public function indextestAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->getParameter('kernel.root_dir').'/..'),
-        ));
+        return $this->render('AppBundle:Front:homepage.html.twig');
+    }
+
+    /**
+     * @Route("/menu", name="menu")
+     */
+    public function menuAction(Request $request)
+    {
+        return $this->render('AppBundle:Front:menu.html.twig');
+    }
+
+    /**
+     * @Route("/dish", name="dish")
+     */
+    public function dishAction(Request $request)
+    {
+        return $this->render('AppBundle:Front:dish.html.twig');
+    }
+
+    /**
+     * @Route("/order", name="order")
+     */
+    public function orderAction(Request $request)
+    {
+        return $this->render('AppBundle:Front:order.html.twig');
+    }
+
+    /**
+     * @Route("/profile", name="userProfile")
+     */
+    public function profileAction(Request $request)
+    {
+        return $this->render('AppBundle:Front:userProfile.html.twig');
     }
 }

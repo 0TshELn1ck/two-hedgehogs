@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({"user" = "User", "personal" = "Personal"})
  */
-class BaseUser implements UserInterface
+abstract class BaseUser implements UserInterface
 {
     /**
      * @var int
