@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class DishController
- * @Route("/dish")
+ * @Route("/menu/dish")
  */
 class DishController extends Controller
 {
@@ -22,7 +22,7 @@ class DishController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
 
-        return $this->render('@App/Dish/listDishes.html.twig', ['dishList' => $dishList]);
+        return $this->render('AppBundle:Front:menu.html.twig', ['dishList' => $dishList]);
     }
     /**
      * @Route("/{slug}", name="show_one_dish")
@@ -31,7 +31,8 @@ class DishController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dish = $em->getRepository('AppBundle:Dish')->getOneDish($slug);
+        /*$categories = $em->getRepository('AppBundle:DishCategory')->getCategoriesDishes();*/
 
-        return $this->render('@App/Dish/showOneDish.html.twig', ['dish' => $dish]);
+        return $this->render('AppBundle:Front:dish.html.twig', ['dish' => $dish/*, 'categories' => $categories*/]);
     }
 }

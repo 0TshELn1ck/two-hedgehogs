@@ -21,22 +21,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/menu", name="menu")
-     */
-    public function menuAction(Request $request)
-    {
-        return $this->render('AppBundle:Front:menu.html.twig');
-    }
-
-    /**
-     * @Route("/dish", name="dish")
-     */
-    public function dishAction(Request $request)
-    {
-        return $this->render('AppBundle:Front:dish.html.twig');
-    }
-
-    /**
      * @Route("/order", name="order")
      */
     public function orderAction(Request $request)

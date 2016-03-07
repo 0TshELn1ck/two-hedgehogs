@@ -90,7 +90,7 @@ class DishController extends Controller
 
     /**
      *
-     * @Route("/{id}", name="adm_dish_del")
+     * @Route("/delete/{id}", name="adm_dish_del")
      * @Method("DELETE")
      */
     public function deleteAction($id)
