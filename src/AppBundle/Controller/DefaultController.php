@@ -17,7 +17,10 @@ class DefaultController extends Controller
 
     public function indextestAction(Request $request)
     {
-        return $this->render('AppBundle:Front:homepage.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
+
+        return $this->render('AppBundle:Front:homepage.html.twig', ['dishList' => $dishList]);
     }
 
     /**
