@@ -21,8 +21,19 @@ class DishController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
+        $categories = $em->getRepository('AppBundle:DishCategory')->getCategoriesDishes();
 
-        return $this->render('AppBundle:Front:menu.html.twig', ['dishList' => $dishList]);
+        return $this->render('AppBundle:Front:menu.html.twig', ['dishList' => $dishList, 'categories' => $categories]);
+    }
+    /**
+     * @Route("/tlist", name="testlist_dish")
+     */
+    public function tListAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
+
+        return $this->render('AppBundle:Dish:listDishes.html.twig', ['dishList' => $dishList]);
     }
     /**
      * @Route("/{slug}", name="show_one_dish")
@@ -31,8 +42,7 @@ class DishController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dish = $em->getRepository('AppBundle:Dish')->getOneDish($slug);
-        /*$categories = $em->getRepository('AppBundle:DishCategory')->getCategoriesDishes();*/
 
-        return $this->render('AppBundle:Front:dish.html.twig', ['dish' => $dish/*, 'categories' => $categories*/]);
+        return $this->render('AppBundle:Front:dish.html.twig', ['dish' => $dish]);
     }
 }

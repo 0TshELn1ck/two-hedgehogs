@@ -57,12 +57,10 @@
                             <li>
                                 <button class="is-checked" data-filter="*">Показати всі</button>
                             </li>
-                            {% for dish in dishList %}
-                                {% for item in dish.categories %}
+                            {% for item in categories %}
                                     <li>
                                         <button data-filter=".{{ item.slug }}">{{ item.name }}</button>
                                     </li>
-                                {% endfor %}
                             {% endfor %}
                         </ul>
                     </div>

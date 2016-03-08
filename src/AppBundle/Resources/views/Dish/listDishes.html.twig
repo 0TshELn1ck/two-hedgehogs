@@ -10,19 +10,19 @@
                 Created: {{ dish.createdAt|date }}
             </p>
             <div class="clearfix">
-                <h4>Ingredients:</h4>
-                <p>{{ dish.ingredients | raw }}</p>
+                {# <h4>Ingredients:</h4>
+                 <p>{{ dish.ingredients | raw }}</p>#}
                 <p>Price: {{ dish.price }}</p>
                 {% if dish.categories[0].name is defined %}
                     <h4>Categories:</h4>
-                    <p>
+                    <p><b>
                         {% for item in dish.categories %}
-                            {{ item.name }}
+                            {{ item.name }},
                         {% endfor %}
-                    </p>
+                        </b></p>
                 {% endif %}
             </div>
-            <hr>
+            {#<hr>#}
         </div>
     {% endfor %}
 {% endblock content %}

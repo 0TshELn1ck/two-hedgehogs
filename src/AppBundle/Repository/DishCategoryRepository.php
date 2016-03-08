@@ -14,10 +14,11 @@ class DishCategoryRepository extends EntityRepository
 {
     public function getCategoriesDishes()
     {
-        return $this->createQueryBuilder('c')
-            ->select('c')
-            ->where('c.dishes != NULL')
-            ->getQuery()
-            ->getResult();
+        $query = $this->getEntityManager()->createQuery(
+            'SELECT c FROM AppBundle:DishCategory c
+             JOIN c.dishes d'
+        );
+
+        return $query->getResult();
     }
 }
