@@ -38,6 +38,26 @@ class UserController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @Route("/show/{id}", name="admin_user_show")
+     * @Template()
+     * @return array
+     */
+    public function showAction(Request $request, $id)
+    {
+        if ($id) {
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('AppBundle:User')->find($id);
+
+            if (!$user) {
+                throw $this->createNotFoundException('Unable to find User.');
+            }
+        }
+
+        return ['user' => $user];
+    }
+
+    /**
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/admin/user/delete/{id}", name="admin_user_delete")
@@ -76,8 +96,8 @@ class UserController extends Controller
             ->setAction($this->generateUrl('admin_user_delete', array('id' => $user->getId())))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, [
-                'label' => ' Видалити',
-                'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-120']
+                'label' => ' ',
+                'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-115']
             ])
             ->getForm();
     }
