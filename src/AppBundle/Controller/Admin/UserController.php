@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -38,12 +39,36 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @Route("/new", name="admin_user_new")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newAction(Request $request)
+    {
+        $user = new User();
+
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(UserType::class, $user);
+        $form->add('save', SubmitType::class);
+
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->persist($user);
+                $em->flush();
+
+                return $this->redirectToRoute('admin_user_index');
+            }
+        }
+        return ['userForm' => $form->createView()];
+    }
+
+    /**
      * @Route("/show/{id}", name="admin_user_show")
      * @Template()
      * @return array
      */
-    public function showAction(Request $request, $id)
+    public function showAction($id)
     {
         if ($id) {
             $em = $this->getDoctrine()->getManager();

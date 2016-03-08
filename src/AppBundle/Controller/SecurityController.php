@@ -20,6 +20,7 @@ class SecurityController extends Controller
 
         $user = new User();
         $form = $this->createForm(UserType::class, $user);
+        $form->offsetUnset('name');
 
         $form->handleRequest($request);
 

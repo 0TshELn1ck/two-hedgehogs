@@ -1,7 +1,10 @@
-{% extends(':Admin:base.html.twig') %}
+{% extends('@App/Admin/User/index.html.twig') %}
 
 {% block breadcrumbs %}
-
+    {{ parent() }}
+    <li>
+        <a href="{{ path('admin_user_show', {'id': user.id}) }}">Профіль користувача</a>
+    </li>
 {% endblock %}
 
 {% block content %}

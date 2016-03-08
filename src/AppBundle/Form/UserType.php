@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -18,6 +19,12 @@ class UserType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'Почтова адреса',
                     'class' => 'form-control'
+                ),
+                'label' => false
+            ))
+            ->add('name', TextType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Ім\'я'
                 ),
                 'label' => false
             ))
