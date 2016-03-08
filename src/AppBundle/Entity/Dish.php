@@ -78,9 +78,19 @@ class Dish
     private $updatedAt;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $pictPath;
+
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\DishCategory", inversedBy="dishes")
      */
     private $categories;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UploadPicture", mappedBy="dish")
+     */
+    private $uploadPictures;
 
     /**
      * Get id
@@ -239,6 +249,21 @@ class Dish
         $this->updatedAt = $updatedAt;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPictPath()
+    {
+        return $this->pictPath;
+    }
+
+    /**
+     * @param mixed $pictPath
+     */
+    public function setPictPath($pictPath)
+    {
+        $this->pictPath = $pictPath;
+    }
 
     /**
      * Constructor
@@ -279,5 +304,38 @@ class Dish
     public function getCategories()
     {
         return $this->categories;
+    }
+    /**
+     * Add uploadPictures
+     *
+     * @param \AppBundle\Entity\UploadPicture $uploadPictures
+     *
+     * @return Dish
+     */
+    public function addUploadFile(\AppBundle\Entity\UploadPicture $uploadPictures)
+    {
+        $this->uploadPictures[] = $uploadPictures;
+
+        return $this;
+    }
+
+    /**
+     * Remove uploadPictures
+     *
+     * @param \AppBundle\Entity\UploadPicture $uploadPictures
+     */
+    public function removeUploadFile(\AppBundle\Entity\UploadPicture $uploadPictures)
+    {
+        $this->uploadPictures->removeElement($uploadPictures);
+    }
+
+    /**
+     * Get $this->uploadPictures
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getuploadPicture()
+    {
+        return $this->uploadPictures;
     }
 }

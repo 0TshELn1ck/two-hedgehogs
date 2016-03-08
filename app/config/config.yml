@@ -73,6 +73,10 @@ stof_doctrine_extensions:
         default:
             timestampable: true
             sluggable: true
+            uploadable: true
+
+    uploadable:
+         default_file_path:       %kernel.root_dir%/../web/media
 
 # Pagination bundle
 knp_paginator:
