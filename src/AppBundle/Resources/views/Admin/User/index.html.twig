@@ -47,10 +47,24 @@
                                         </td>
                                         <td>
                                             <div class="hidden-sm hidden-xs btn-group">
-                                                    {{ form_start(deleteForm[item.id], {attr :
-                                                        {onsubmit: 'return confirm("Ви дійсно хочете видалити користувача?");' }}) }}
-                                                    {{ form_widget(deleteForm[item.id].submit) }}
-                                                    {{ form_end(deleteForm[item.id]) }}
+                                                <button class="btn btn-xs btn-success">
+                                                    <a href="{{ path('admin_user_show', {'id': item.id}) }}">
+                                                        <i class="ace-icon fa fa-eye bigger-120"></i>
+                                                    </a>
+                                                </button>
+
+                                                <button class="btn btn-xs btn-info">
+                                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                </button>
+
+                                                <button class="btn btn-xs btn-danger hidden">
+                                                    <i class="">
+                                                        {{ form_start(deleteForm[item.id], {attr :
+                                                            {onsubmit: 'return confirm("Ви дійсно хочете видалити користувача?");' }}) }}
+                                                        {{ form_widget(deleteForm[item.id].submit) }}
+                                                        {{ form_end(deleteForm[item.id]) }}
+                                                    </i>
+                                                </button>
                                             </div>
                                         </td>
                                     </tr>
