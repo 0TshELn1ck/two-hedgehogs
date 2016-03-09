@@ -1,6 +1,6 @@
 {% extends(':Front:base.html.twig') %}
 
-{% block title%}Два їжа{% endblock %}
+{% block title %}Два їжа{% endblock %}
 
 {% block new_stylesheets %}
     <link href="{{ asset('css/slick.css') }}" rel="stylesheet"/>
@@ -36,54 +36,19 @@
                 <!--  left menu row  -->
                 <article class="lmenu">
                     <ul class="row">
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
+                        {% for dish in dishList %}
+                            {% if loop.index <= 4 %}
+                                <li class="col-xs-12 col-md-6">
+                                    <div class="item_info col-xs-6">
+                                        <h3 class="item_name"> {{ dish.name }}</h3>
+
+                                        <p class="item_desc">{{ dish.recipe }}</p>
+                                    </div>
+                                    <h4 class="price">{{ dish.price }} uah</h4>
+                                    <span class="separator col-xs-6 col-sm-5"></span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
                 </article>
             </div>
@@ -93,54 +58,19 @@
                 <!--  left menu row  -->
                 <article class="lmenu">
                     <ul class="row">
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
-                        <li class="col-xs-12 col-md-6">
-                            <div class="item_info col-xs-6">
-                                <h3 class="item_name">Voluptate cillum fugiat.</h3>
-                                <p class="item_desc">Cheese, tomato, mushrooms, onions.</p>
-                            </div>
-                            <h4 class="price">$50</h4>
-                            <span class="separator col-xs-6 col-sm-5"></span>
-                        </li>
+                        {% for dish in dishList %}
+                            {% if loop.index >= 5 %}
+                                <li class="col-xs-12 col-md-6">
+                                    <div class="item_info col-xs-6">
+                                        <h3 class="item_name">{{ dish.name }}</h3>
+
+                                        <p class="item_desc">{{ dish.recipe }}</p>
+                                    </div>
+                                    <h4 class="price">{{ dish.price }} uah</h4>
+                                    <span class="separator col-xs-6 col-sm-5"></span>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
                     </ul>
                 </article>
             </div>
@@ -176,6 +106,7 @@
                     </div>
                     <div class="dish_info">
                         <h2>Fugiat nulla sint</h2>
+
                         <h3 class="hidden-xs">$30</h3>
                     </div>
                     <ul class="rating hidden-xs">
@@ -193,6 +124,7 @@
                     </div>
                     <div class="dish_info">
                         <h2>Fugiat nulla sint</h2>
+
                         <h3 class="hidden-xs">$30</h3>
                     </div>
                     <ul class="rating hidden-xs">
@@ -209,6 +141,7 @@
                     </div>
                     <div class="dish_info">
                         <h2>Fugiat nulla sint</h2>
+
                         <h3 class="hidden-xs">$30</h3>
                     </div>
                     <ul class="rating hidden-xs">
@@ -225,6 +158,7 @@
                     </div>
                     <div class="dish_info">
                         <h2>Fugiat nulla sint</h2>
+
                         <h3 class="hidden-xs">$30</h3>
                     </div>
                     <ul class="rating hidden-xs">
@@ -241,6 +175,7 @@
                     </div>
                     <div class="dish_info">
                         <h2>Fugiat nulla sint</h2>
+
                         <h3 class="hidden-xs">$30</h3>
                     </div>
                     <ul class="rating hidden-xs">
@@ -257,6 +192,7 @@
                     </div>
                     <div class="dish_info">
                         <h2>Fugiat nulla sint</h2>
+
                         <h3 class="hidden-xs">$30</h3>
                     </div>
                     <ul class="rating hidden-xs">
@@ -273,6 +209,7 @@
                     </div>
                     <div class="dish_info">
                         <h2>Fugiat nulla sint</h2>
+
                         <h3 class="hidden-xs">$30</h3>
                     </div>
                     <ul class="rating hidden-xs">
@@ -282,12 +219,14 @@
                         <li></li>
                         <li class="no-star"></li>
                     </ul>
-                </article><article>
+                </article>
+                <article>
                     <div class="dishe_img">
                         <a href="#"><img src="/images/dish1.jpg" alt="" title=""/></a>
                     </div>
                     <div class="dish_info">
                         <h2>Fugiat nulla sint</h2>
+
                         <h3 class="hidden-xs">$30</h3>
                     </div>
                     <ul class="rating hidden-xs">
