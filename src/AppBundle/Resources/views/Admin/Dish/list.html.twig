@@ -5,7 +5,6 @@
         <tr>
             <th>#</th>
             <th>name</th>
-            <th>category</th>
             <th>price</th>
             <th>modified</th>
             <th>created</th>
@@ -16,14 +15,13 @@
             <tr>
                 <td>{{ loop.index }}</td>
                 <td>{{ dish.name }}</td>
-                <td>category</td>
                 <td>{{ dish.price }}</td>
                 <td>{{ dish.updatedAt|date }}</td>
                 <td>{{ dish.createdAt|date }}</td>
                 {% if is_granted('ROLE_ADMIN') %}
                     <td>
                         <a class="ace-icon glyphicon glyphicon-pencil" title="edit Dish"
-                           href="{{ path('adm_dish_mod', {'id':dish.id}) }}"></a>
+                           href="{{ path('adm_dish_edit', {'id':dish.id}) }}"></a>
                     </td>
                     <td>
                         {{ form_start(delForms[dish.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}
@@ -34,5 +32,4 @@
             </tr>
         {% endfor %}
     </table>
-    <br>
 {% endblock content %}
