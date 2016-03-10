@@ -32,9 +32,9 @@
                                 <button class="is-checked" data-filter="*">Показати всі</button>
                             </li>
                             {% for item in categories %}
-                                    <li>
-                                        <button data-filter=".{{ item.slug }}">{{ item.name }}</button>
-                                    </li>
+                                <li>
+                                    <button data-filter=".{{ item.slug }}">{{ item.name }}</button>
+                                </li>
                             {% endfor %}
                         </ul>
                     </div>
@@ -46,7 +46,8 @@
                             <li class="dish col-xs-6 col-md-3 element-item {% for item in dish.categories %}{{ item.slug }} {% endfor %}">
                                 <a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">
                                     <div class="dish_img_wrapp">
-                                        <img src="{{ asset('images/dish2.jpg') }}" alt="" title=""/>
+                                        <img src="{{ asset('images/dish3.jpg') }}" alt="" title=""/>
+
                                         <div class="price">{{ dish.price }}грн</div>
                                     </div>
                                     <h3><a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">{{ dish.name }}</a>

@@ -93,6 +93,14 @@ class Dish
     private $uploadPictures;
 
     /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
      * Get id
      *
      * @return integer 
@@ -263,14 +271,6 @@ class Dish
     public function setPictPath($pictPath)
     {
         $this->pictPath = $pictPath;
-    }
-
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**

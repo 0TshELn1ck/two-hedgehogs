@@ -57,7 +57,7 @@ class UploadPicture
     private $file;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Dish", inversedBy="uploadPict")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Dish", inversedBy="uploadPictures")
      */
     private $dish;
 

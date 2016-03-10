@@ -1,6 +1,6 @@
 {% extends(':Front:base.html.twig') %}
 
-{% block title%}{{ dish.name }}{% endblock %}
+{% block title %} {% if dish %} {{ dish.name }} {% endif %} {% endblock %}
 
 {% block new_stylesheets %}
     <link href="{{ asset('css/flexslider.css') }}" rel="stylesheet"/>
@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-     <div class="content-wrapper">
+    <div class="content-wrapper">
 
         {#Page label#}
         <section class="menu">
@@ -21,46 +21,48 @@
                         <div class="flexslider">
                             <ul class="slides">
                                 <li data-thumb="{{ asset('images/dish1.jpg') }}">
-                                    <img src="{{ asset('images/dish1.jpg') }}" />
+                                    <img src="{{ asset('images/dish1.jpg') }}"/>
                                 </li>
                                 <li data-thumb="{{ asset('images/dish2.jpg') }}">
-                                    <img src="{{ asset('images/dish2.jpg') }}" />
+                                    <img src="{{ asset('images/dish2.jpg') }}"/>
                                 </li>
                                 <li data-thumb="{{ asset('images/dish3.jpg') }}">
-                                    <img src="{{ asset('images/dish3.jpg') }}" />
+                                    <img src="{{ asset('images/dish3.jpg') }}"/>
                                 </li>
                                 <li data-thumb="{{ asset('images/dish4.jpg') }}">
-                                    <img src="{{ asset('images/dish4.jpg') }}" />
+                                    <img src="{{ asset('images/dish4.jpg') }}"/>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div class="dish-info col-sm-6">
-                        <div class="dish-info-head">
-                            <h1>{{ dish.name }}</h1>
-                            <span class="price">{{ dish.price }} грн</span>
-                        </div>
+                    {% if dish %}
+                        <div class="dish-info col-sm-6">
+                            <div class="dish-info-head">
+                                <h1>{{ dish.name }}</h1>
+                                <span class="price">{{ dish.price }} грн</span>
+                            </div>
 
-                        <div class="ingridients">
-                            Склад: <span class="ingrid">{{ dish.ingredients | raw }}</span>
-                        </div>
+                            <div class="ingridients">
+                                Склад: <span class="ingrid">{{ dish.ingredients | raw }}</span>
+                            </div>
 
-                        <div class="description">
-                            {{ dish.recipe | nl2br }}
+                            <div class="description">
+                                {{ dish.recipe | nl2br }}
+                            </div>
+                            Створений: {{ dish.createdAt|date }}
+                            {% if dish.categories[0].name is defined %}
+                                <h4>Categories:</h4>
+                                <p>
+                                    {% for item in dish.categories %}
+                                        {{ item.name }}
+                                    {% endfor %}
+                                </p>
+                            {% endif %}
+                            <div>
+                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i></button>
+                            </div>
                         </div>
-                        Створений: {{ dish.createdAt|date }}
-                        {% if dish.categories[0].name is defined %}
-                            <h4>Categories:</h4>
-                            <p>
-                                {% for item in dish.categories %}
-                                    {{ item.name }}
-                                {% endfor %}
-                            </p>
-                        {% endif %}
-                        <div>
-                            <button class="addToCart">Замовити <i class="fa fa-cutlery"></i></button>
-                        </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -68,12 +70,12 @@
 
             </div>
         </section>
-</div>
+    </div>
 {% endblock %}
 
 {% block initialize_plagins %}
     <script>
-        $(window).load(function() {
+        $(window).load(function () {
             $('.flexslider').flexslider({
                 animation: "slide",
                 controlNav: "thumbnails"

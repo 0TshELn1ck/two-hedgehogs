@@ -41,11 +41,18 @@ class DishCategory
      */
     private $dishes;
 
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dishes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -68,7 +75,7 @@ class DishCategory
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -91,18 +98,11 @@ class DishCategory
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
         return $this->slug;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->dishes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
