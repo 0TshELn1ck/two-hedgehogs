@@ -12,10 +12,10 @@
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
                 <button class="btn btn-light btn-xs">
-                <a href="{{ path('admin_user_new') }}"><i class="ace-icon fa fa-plus bigger-10"> Створити</i></a>
+                    <a href="{{ path('admin_user_new') }}"><i class="ace-icon fa fa-plus bigger-10"> Створити</i></a>
                 </button>
-                    <div class="row">
-                        <br>
+                <div class="row">
+                    <br>
                     <div class="col-xs-12">
                         <table id="simple-table" class="table table-striped table-bordered table-hover">
                             <thead>
@@ -58,7 +58,9 @@
                                                 </button>
 
                                                 <button class="btn btn-xs btn-info">
-                                                    <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                    <a href="{{ path('admin_user_edit', {'id': item.id}) }}">
+                                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
+                                                    </a>
                                                 </button>
 
                                                 <button class="btn btn-xs btn-danger hidden">

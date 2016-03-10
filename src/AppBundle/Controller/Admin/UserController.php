@@ -83,9 +83,34 @@ class UserController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param $id
+     * @return array
+     * @Route("/edit/{id}", name="admin_user_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository("AppBundle:User")->find($id);
+
+        $form = $this->createForm(UserType::class, $user);
+        $form->add('Редагувати', SubmitType::class);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('admin_user_index');
+        }
+
+        return $this->render('@App/Admin/User/new.html.twig', ['userForm' => $form->createView()]);
+    }
+
+    /**
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/admin/user/delete/{id}", name="admin_user_delete")
+     * @Route("/delete/{id}", name="admin_user_delete")
      * @Method("DELETE")
      */
     public function deleteAction($id)
