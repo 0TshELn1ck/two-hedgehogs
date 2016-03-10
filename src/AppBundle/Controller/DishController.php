@@ -25,16 +25,7 @@ class DishController extends Controller
 
         return $this->render('AppBundle:Front:menu.html.twig', ['dishList' => $dishList, 'categories' => $categories]);
     }
-    /**
-     * @Route("/tlist", name="testlist_dish")
-     */
-    public function tListAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
 
-        return $this->render('AppBundle:Dish:listDishes.html.twig', ['dishList' => $dishList]);
-    }
     /**
      * @Route("/{slug}", name="show_one_dish")
      */

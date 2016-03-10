@@ -67,7 +67,7 @@ class DishController extends Controller
     }
 
     /**
-     * @Route("/modify/{id}", name="adm_dish_mod")
+     * @Route("/edit/{id}", name="adm_dish_edit")
      */
     public function editAction($id, Request $request)
     {
@@ -81,10 +81,10 @@ class DishController extends Controller
         if ($form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $msg ="Dish was successfully modified";
+            $msg ="Dish was successfully edited";
         }
 
-        return $this->render('@App/Admin/Dish/mod.html.twig', ['form' => $form->createView(),
+        return $this->render('@App/Admin/Dish/edit.html.twig', ['form' => $form->createView(),
         'msg' => $msg]);
     }
 

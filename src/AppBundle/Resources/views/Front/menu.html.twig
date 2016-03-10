@@ -28,32 +28,6 @@
                     </div>
                     <div class="collapse navbar-collapse" id="categoriesNav">
                         <ul id="filters" class="button-group">
-                            {#<li>
-                                <button class="is-checked" data-filter="*">Показати всі</button>
-                            </li>
-                            <li>
-                                <button data-filter=".shef">Від шефа <i class="fa fa-fire"></i>
-                                </button>
-                            </li>
-                            <li>
-                                <button data-filter=".sup">Супи</button>
-                            </li>
-                            <li>
-                                <button data-filter=".garnir">Гарніри</button>
-                            </li>
-                            <li>
-                                <button data-filter=".meat">Мясні страви</button>
-                            </li>
-                            <li>
-                                <button data-filter=".vegan">Для веганів</button>
-                            </li>
-                            <li>
-                                <button data-filter=".salat">Салати</button>
-                            </li>
-                            <li>
-                                <button data-filter=".desert">Десерти</button>
-                            </li>
-                            #}
                             <li>
                                 <button class="is-checked" data-filter="*">Показати всі</button>
                             </li>
@@ -72,7 +46,7 @@
                             <li class="dish col-xs-6 col-md-3 element-item {% for item in dish.categories %}{{ item.slug }} {% endfor %}">
                                 <a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">
                                     <div class="dish_img_wrapp">
-                                        <img src="../../../images/dish1.jpg" alt="" title=""/>
+                                        <img src="{{ asset('images/dish2.jpg') }}" alt="" title=""/>
                                         <div class="price">{{ dish.price }}грн</div>
                                     </div>
                                     <h3><a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">{{ dish.name }}</a>

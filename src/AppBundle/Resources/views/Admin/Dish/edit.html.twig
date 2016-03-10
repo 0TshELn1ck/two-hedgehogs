@@ -3,7 +3,7 @@
 {% form_theme form '@App/Admin/Dish/themeFields.html.twig' %}
 
 {% block content %}
-    <h3>Modify Dish</h3>
+    <h3>Edit Dish</h3>
     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
     <div class="form-group">
         <div class="col-sm-9">
@@ -50,5 +50,6 @@
     <br>
     {% if msg != "" %}
         <p><b>{{ msg }}</b></p>
+        <a href="{{ path('adm_dish_list') }}"><b>Admin list/edit dishes</b></a>
     {% endif %}
 {% endblock content %}

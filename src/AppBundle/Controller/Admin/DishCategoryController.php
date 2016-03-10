@@ -61,7 +61,7 @@ class DishCategoryController extends Controller
     }
 
     /**
-     * @Route("/modify/{id}", name="adm_dish_cat_mod")
+     * @Route("/edit/{id}", name="adm_dish_cat_edit")
      */
     public function editAction($id, Request $request)
     {
@@ -75,16 +75,16 @@ class DishCategoryController extends Controller
         if ($form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $msg ="Category was successfully modified";
+            $msg ="Category was successfully edited";
         }
 
-        return $this->render('@App/Admin/Dish/modCategory.html.twig', ['form' => $form->createView(),
+        return $this->render('@App/Admin/Dish/editCategory.html.twig', ['form' => $form->createView(),
         'msg' => $msg]);
     }
 
     /**
      *
-     * @Route("/{id}", name="adm_dish_cat_del")
+     * @Route("/delete/{id}", name="adm_dish_cat_del")
      * @Method("DELETE")
      */
     public function deleteAction($id)
