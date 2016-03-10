@@ -1,8 +1,45 @@
 AppBundle\Entity\Dish:
-    dish{1..10}:
-        name (unique): <sentence(3)>
-        recipe: <text(100)>
-        ingredients: <text(100)>
-        price: <randomDigitNotNull()>
-        slug: <slug()>
+    dish1:
+        name: 'Salad'
+        recipe: 'recipe of some salad'
+        ingredients: 'ingredients1, ingredients2, ingredients3 '
+        price: '11'
+        slug: 'salad'
+        pictPath: 'not_set'
+        category: ['@dishCategory*']
+
+    dish2:
+        name: 'Pizza'
+        recipe: 'recipe of some pizza'
+        ingredients: 'ingredients1, ingredients2, ingredients3 '
+        price: '22'
+        slug: 'pizza'
+        pictPath: 'not_set'
+        category: ['@dishCategory*']
+
+    dish3:
+        name: 'Roasted chicken'
+        recipe: 'recipe of some roasted chicken'
+        ingredients: 'ingredients1, ingredients2, ingredients3 '
+        price: '33'
+        slug: 'roasted-chicken'
+        pictPath: 'not_set'
+        category: ['@dishCategory*']
+
+    dish4:
+        name: 'Coctail'
+        recipe: 'recipe of some coctail'
+        ingredients: 'ingredients1, ingredients2, ingredients3 '
+        price: '44'
+        slug: 'coctail'
+        pictPath: 'not_set'
+        category: ['@dishCategory*']
+
+    dish5:
+        name: 'Cake'
+        recipe: 'recipe of some cake'
+        ingredients: 'ingredients1, ingredients2, ingredients3 '
+        price: '55'
+        slug: 'cake'
+        pictPath: 'not_set'
         category: ['@dishCategory*']
