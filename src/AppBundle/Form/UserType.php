@@ -33,7 +33,8 @@ class UserType extends AbstractType
                 'attr' => array(
                     'placeholder' => 'Ім\'я'
                 ),
-                'label' => false
+                'label' => false,
+                'required' => false
             ))
             ->add('password', RepeatedType::class, array(
                     'type' => PasswordType::class,
@@ -51,6 +52,7 @@ class UserType extends AbstractType
                         ),
                         'label' => false
                     ),
+                    'required' => false
                 )
             );
     }

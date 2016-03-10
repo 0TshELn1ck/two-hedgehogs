@@ -92,19 +92,37 @@ class UserController extends Controller
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository("AppBundle:User")->find($id);
+        $user = $em->getRepository('AppBundle:User')->find($id);
 
-        $form = $this->createForm(UserType::class, $user);
-        $form->add('Редагувати', SubmitType::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-
-            return $this->redirectToRoute('admin_user_index');
+        if (!$user) {
+            throw $this->createNotFoundException('Unable to find Container user.');
         }
 
-        return $this->render('@App/Admin/User/new.html.twig', ['userForm' => $form->createView()]);
+        $originalPassword = $user->getPassword();
+        $editForm = $this->createForm(UserType::class, $user)
+            ->add('Редагувати', SubmitType::class);
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+
+            $plainPassword = $editForm->get('password')->getData();
+            if (!empty($plainPassword)) {
+                //encode the password
+                $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+                $tempPassword = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+                $user->setPassword($tempPassword);
+            } else {
+                $user->setPassword($originalPassword);
+            }
+
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_user_index'));
+        }
+
+        return $this->render('@App/Admin/User/new.html.twig', ['userForm' => $editForm->createView()]);
     }
 
     /**
@@ -113,7 +131,8 @@ class UserController extends Controller
      * @Route("/delete/{id}", name="admin_user_delete")
      * @Method("DELETE")
      */
-    public function deleteAction($id)
+    public
+    function deleteAction($id)
     {
         if ($id) {
             $em = $this->getDoctrine()->getManager();
@@ -139,7 +158,8 @@ class UserController extends Controller
      * @param User $user The User entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private function createDeleteForm(User $user)
+    private
+    function createDeleteForm(User $user)
     {
 
         return $this->createFormBuilder()
