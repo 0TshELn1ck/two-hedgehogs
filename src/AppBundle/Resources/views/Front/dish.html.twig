@@ -1,6 +1,6 @@
 {% extends(':Front:base.html.twig') %}
 
-{% block title%}ТУТ НАЗВА СТРАВИ{% endblock %}
+{% block title%}{{ dish.name }}{% endblock %}
 
 {% block new_stylesheets %}
     <link href="{{ asset('css/flexslider.css') }}" rel="stylesheet"/>
@@ -20,39 +20,43 @@
                     <div class="col-sm-6">
                         <div class="flexslider">
                             <ul class="slides">
-                                <li data-thumb="/images/dish1.jpg">
-                                    <img src="/images/dish1.jpg" />
+                                <li data-thumb="{{ asset('images/dish1.jpg') }}">
+                                    <img src="{{ asset('images/dish1.jpg') }}" />
                                 </li>
-                                <li data-thumb="/images/dish2.jpg">
-                                    <img src="/images/dish2.jpg" />
+                                <li data-thumb="{{ asset('images/dish2.jpg') }}">
+                                    <img src="{{ asset('images/dish2.jpg') }}" />
                                 </li>
-                                <li data-thumb="/images/dish3.jpg">
-                                    <img src="/images/dish3.jpg" />
+                                <li data-thumb="{{ asset('images/dish3.jpg') }}">
+                                    <img src="{{ asset('images/dish3.jpg') }}" />
                                 </li>
-                                <li data-thumb="/images/dish4.jpg">
-                                    <img src="/images/dish4.jpg" />
+                                <li data-thumb="{{ asset('images/dish4.jpg') }}">
+                                    <img src="{{ asset('images/dish4.jpg') }}" />
                                 </li>
                             </ul>
                         </div>
                     </div>
                     <div class="dish-info col-sm-6">
                         <div class="dish-info-head">
-                            <h1>Fugiat nulla sint</h1>
-                            <span class="price">130 грн</span>
+                            <h1>{{ dish.name }}</h1>
+                            <span class="price">{{ dish.price }} грн</span>
                         </div>
+
                         <div class="ingridients">
-                            Склад: <span class="ingrid">Свинина, свіжий огірок, яйце, помідор, сир, сметана</span>
+                            Склад: <span class="ingrid">{{ dish.ingredients | raw }}</span>
                         </div>
 
                         <div class="description">
-                            Свинина, свіжий огірок, яйце, помідор, сир, сметана Свинина, свіжий огірок, яйце, помідор, сир, сметана
-                            Свинина, свіжий огірок, яйце, помідор, сир, сметана
-                            Свинина, свіжий огірок, яйце, помідор, сир, сметана
-                            Свинина, свіжий огірок, яйце, помідор, сир, сметанаСвинина, свіжий огірок, яйце, помідор, сир, сметана
-                            Свинина, свіжий огірок, яйце, помідор, сир, сметана
-                            Свинина, свіжий огірок, яйце, помідор, сир, сметана
+                            {{ dish.recipe | nl2br }}
                         </div>
-
+                        Створений: {{ dish.createdAt|date }}
+                        {% if dish.categories[0].name is defined %}
+                            <h4>Categories:</h4>
+                            <p>
+                                {% for item in dish.categories %}
+                                    {{ item.name }}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
                         <div>
                             <button class="addToCart">Замовити <i class="fa fa-cutlery"></i></button>
                         </div>

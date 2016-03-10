@@ -17,23 +17,10 @@ class DefaultController extends Controller
 
     public function indextestAction(Request $request)
     {
-        return $this->render('AppBundle:Front:homepage.html.twig');
-    }
+        $em = $this->getDoctrine()->getManager();
+        $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
 
-    /**
-     * @Route("/menu", name="menu")
-     */
-    public function menuAction(Request $request)
-    {
-        return $this->render('AppBundle:Front:menu.html.twig');
-    }
-
-    /**
-     * @Route("/dish", name="dish")
-     */
-    public function dishAction(Request $request)
-    {
-        return $this->render('AppBundle:Front:dish.html.twig');
+        return $this->render('AppBundle:Front:homepage.html.twig', ['dishList' => $dishList]);
     }
 
     /**
