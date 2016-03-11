@@ -92,7 +92,7 @@ class UserController extends Controller
     public function editAction(Request $request, $id)
     {
         $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('AppBundle:User')->find($id);
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array('id' => $id));
 
         if (!$user) {
             throw $this->createNotFoundException('Unable to find Container user.');
