@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UploadPictureRepository")
- * @Gedmo\Uploadable(path="./media", callback="myCallbackMethod", filenameGenerator="SHA1", appendNumber=true, allowedTypes="image/png,image/jpeg,image/jpg,image/gif,image/x-ms-bmp")
+ * @Gedmo\Uploadable(path="./images/dishes", callback="myCallbackMethod", filenameGenerator="SHA1", appendNumber=true, allowedTypes="image/png,image/jpeg,image/jpg,image/gif,image/x-ms-bmp")
  */
 
 class UploadPicture
@@ -91,7 +91,7 @@ class UploadPicture
      *
      * @param string $path
      *
-     * @return FileUpload
+     * @return UploadPicture
      */
     public function setPath($path)
     {
@@ -115,7 +115,7 @@ class UploadPicture
      *
      * @param string $name
      *
-     * @return FileUpload
+     * @return UploadPicture
      */
     public function setName($name)
     {
@@ -167,7 +167,7 @@ class UploadPicture
      *
      * @param string $mimeType
      *
-     * @return FileUpload
+     * @return UploadPicture
      */
     public function setMimeType($mimeType)
     {
@@ -191,7 +191,7 @@ class UploadPicture
      *
      * @param string $size
      *
-     * @return FileUpload
+     * @return UploadPicture
      */
     public function setSize($size)
     {
@@ -215,7 +215,7 @@ class UploadPicture
      *
      * @param \AppBundle\Entity\Dish $dish
      *
-     * @return FileUpload
+     * @return UploadPicture
      */
     public function setDish(\AppBundle\Entity\Dish $dish = null)
     {

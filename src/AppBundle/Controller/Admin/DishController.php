@@ -3,9 +3,12 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Dish;
+use AppBundle\Entity\UploadPicture;
 use AppBundle\Form\DishType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -23,22 +26,24 @@ class DishController extends Controller
     {
         return $this->render('@App/Admin/Dish/index.html.twig');
     }
+
     /**
      * @Route("/add", name="adm_dish_add")
      */
     public function addAction(Request $request)
     {
         $dish = new Dish();
+        $dish->setPictPath('not_set');
 
         $form = $this->createForm(DishType::class, $dish);
-        $msg ="";
+        $msg = "";
 
         $form->handleRequest($request);
-        if ($form->isValid()){
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($dish);
             $em->flush();
-            $msg ="New dish successfully added";
+            $msg = "New dish successfully added";
         }
 
         return $this->render('@App/Admin/Dish/add.html.twig', ['form' => $form->createView(),
@@ -63,7 +68,7 @@ class DishController extends Controller
         }
 
         return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList,
-        'delForms' => $deleteForms]);
+            'delForms' => $deleteForms]);
     }
 
     /**
@@ -71,21 +76,60 @@ class DishController extends Controller
      */
     public function editAction($id, Request $request)
     {
+        $pict = new UploadPicture();
+
         $em = $this->getDoctrine()->getManager();
-        $dishList = $em->getRepository('AppBundle:Dish')->find($id);
-        $msg ="";
+        $dish = $em->getRepository('AppBundle:Dish')->find($id);
+        $msg = "";
 
-        $form = $this->createForm(DishType::class, $dishList);
+        $form = $this->createForm(DishType::class, $dish);
+        $uploadForm = $this->createFormBuilder($pict)
+            ->add('file', FileType::class, ['label' => false])
+            ->getForm();
 
-        $form->handleRequest($request);
-        if ($form->isValid()){
+        $choosePictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads(10);
+        $formChoose = $this->createFormBuilder($dish)
+            ->add('pict_path', ChoiceType::class, [
+                'choices' => $choosePictures,
+                'choices_as_values' => true,
+                'choice_label' => 'origNameSize',
+            ])
+            ->getForm();
+
+        if ($request->getMethod() === 'POST') {
+            $form->handleRequest($request);
+            $uploadForm->handleRequest($request);
+            $formChoose->handleRequest($request);
+        }
+
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $msg ="Dish was successfully edited";
+            $msg = "Dish was successfully edited";
+        }
+
+        if ($uploadForm->isValid()) {
+            $uploads = $uploadForm['file']->getData();
+            $pict->setDish($dish);
+            $pict->setOrigName($uploads->getClientOriginalName());
+
+            $em->persist($pict);
+            $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
+            $uploadableManager->markEntityToUpload($pict, $pict->getFile());
+            $em->flush();
+            $msg = 'Picture was added to dish';
+        }
+
+        if ($formChoose->isValid()) {
+            $dish->setPictPath($dish->getPictPath()->getPath());
+            $em->flush();
+
+            $msg = 'Picture changes for dish "' . $dish->getName() . '"';
         }
 
         return $this->render('@App/Admin/Dish/edit.html.twig', ['form' => $form->createView(),
-        'msg' => $msg]);
+            'uploadForm' => $uploadForm->createView(), 'formChoose' => $formChoose->createView(),
+            'msg' => $msg]);
     }
 
     /**

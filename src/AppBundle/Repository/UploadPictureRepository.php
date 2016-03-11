@@ -2,12 +2,14 @@
 
 namespace AppBundle\Repository;
 
-class UploadPictureRepository extends \Doctrine\ORM\EntityRepository
+use Doctrine\ORM\EntityRepository;
+
+class UploadPictureRepository extends EntityRepository
 {
     public function getListUploads($limit)
     {
-        return $this->createQueryBuilder('p')
-            ->select('p')
+        return $this->createQueryBuilder('f')
+            ->select('f')
             ->setMaxResults($limit)
 
             ->getQuery()

@@ -76,7 +76,7 @@ stof_doctrine_extensions:
             uploadable: true
 
     uploadable:
-         default_file_path:       %kernel.root_dir%/../web/media
+         default_file_path:       %kernel.root_dir%/../web/images/dishes
 
 # Pagination bundle
 knp_paginator:
