@@ -1,0 +1,11 @@
+AppBundle\Entity\Cart:
+    cart{1..10}:
+        user (unique): @user*
+        ip (unique): <ipv4()>
+        dishes: 3x @pickedDish*
+
+AppBundle\Entity\DishInCart:
+    pickedDish{1..20}:
+        dish: @dish*
+        cart: @cart*
+        count: <numberBetween(1, 3)>

@@ -43,7 +43,7 @@ class Cart
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Dish", inversedBy="Cart")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DishInCart", mappedBy="Cart")
      */
     private $dishes;
 
@@ -139,11 +139,11 @@ class Cart
     /**
      * Add dish
      *
-     * @param \AppBundle\Entity\Dish $dish
+     * @param \AppBundle\Entity\DishInCart $dish
      *
      * @return Cart
      */
-    public function addDish(\AppBundle\Entity\Dish $dish)
+    public function addDish(\AppBundle\Entity\DishInCart $dish)
     {
         $this->dishes[] = $dish;
 
@@ -153,9 +153,9 @@ class Cart
     /**
      * Remove dish
      *
-     * @param \AppBundle\Entity\Dish $dish
+     * @param \AppBundle\Entity\DishInCart $dish
      */
-    public function removeDish(\AppBundle\Entity\Dish $dish)
+    public function removeDish(\AppBundle\Entity\DishInCart $dish)
     {
         $this->dishes->removeElement($dish);
     }
