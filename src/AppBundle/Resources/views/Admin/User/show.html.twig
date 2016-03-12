@@ -1,7 +1,10 @@
-{% extends(':Admin:base.html.twig') %}
+{% extends('@App/Admin/User/index.html.twig') %}
 
 {% block breadcrumbs %}
-
+    {{ parent() }}
+    <li>
+        <a href="{{ path('admin_user_show', {'id': user.id}) }}">Профіль користувача</a>
+    </li>
 {% endblock %}
 
 {% block content %}
@@ -161,7 +164,7 @@
                                         <span>{% if user.createdAt == user.updatedAt %}
                                                 Профіль не редагувався
                                             {% else %}
-                                                {{ user.updatedAt|date("d/m/Y  h:i A") }}
+                                                {{ user.updatedAt|date("d-m-Y  h:i A") }}
                                             {% endif %}</span>
                                     </div>
                                 </div>
