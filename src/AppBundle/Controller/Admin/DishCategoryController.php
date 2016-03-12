@@ -18,7 +18,7 @@ class DishCategoryController extends Controller
 {
 
     /**
-     * @Route("/add", name="adm_dish_cat_add")
+     * @Route("/add", name="admin_dish_category_add")
      */
     public function addAction(Request $request)
     {
@@ -40,7 +40,7 @@ class DishCategoryController extends Controller
     }
 
     /**
-     * @Route("/list", name="adm_dish_cat_list")
+     * @Route("/list", name="admin_dish_category_list")
      */
     public function listAction(Request $request)
     {
@@ -50,7 +50,7 @@ class DishCategoryController extends Controller
         $deleteForms = [];
         foreach ($categoryList as $entity) {
             $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
-                ->setAction($this->generateUrl('adm_dish_cat_del', array('id' => $entity->getId())))
+                ->setAction($this->generateUrl('admin_dish_category_delete', array('id' => $entity->getId())))
                 ->setMethod('DELETE')
                 ->add('submit', SubmitType::class, ['label' => ' ', 'attr' => ['class' => 'glyphicon glyphicon-trash btn-link']])
                 ->getForm()->createView();
@@ -61,7 +61,7 @@ class DishCategoryController extends Controller
     }
 
     /**
-     * @Route("/edit/{id}", name="adm_dish_cat_edit")
+     * @Route("/edit/{id}", name="admin_dish_category_edit")
      */
     public function editAction($id, Request $request)
     {
@@ -84,7 +84,7 @@ class DishCategoryController extends Controller
 
     /**
      *
-     * @Route("/delete/{id}", name="adm_dish_cat_del")
+     * @Route("/delete/{id}", name="admin_dish_category_delete")
      * @Method("DELETE")
      */
     public function deleteAction($id)
@@ -94,6 +94,6 @@ class DishCategoryController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirectToRoute('adm_dish_cat_list');
+        return $this->redirectToRoute('admin_dish_category_list');
     }
 }

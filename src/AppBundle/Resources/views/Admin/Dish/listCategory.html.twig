@@ -16,7 +16,7 @@
                 {% if is_granted('ROLE_ADMIN') %}
                     <td>
                         <a class="ace-icon glyphicon glyphicon-pencil" title="edit Dish"
-                           href="{{ path('adm_dish_cat_edit', {'id':category.id}) }}"></a>
+                           href="{{ path('admin_dish_category_edit', {'id':category.id}) }}"></a>
                     </td>
                     <td>
                         {{ form_start(delForms[category.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}

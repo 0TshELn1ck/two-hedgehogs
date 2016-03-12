@@ -21,7 +21,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 class DishController extends Controller
 {
     /**
-     * @Route("/", name="adm_dish_index")
+     * @Route("/", name="admin_dish_index")
      */
     public function indexAction()
     {
@@ -29,7 +29,7 @@ class DishController extends Controller
     }
 
     /**
-     * @Route("/add", name="adm_dish_add")
+     * @Route("/add", name="admin_dish_add")
      */
     public function addAction(Request $request)
     {
@@ -52,7 +52,7 @@ class DishController extends Controller
     }
 
     /**
-     * @Route("/list", name="adm_dish_list")
+     * @Route("/list", name="admin_dish_list")
      */
     public function listAction(Request $request)
     {
@@ -62,7 +62,7 @@ class DishController extends Controller
         $deleteForms = [];
         foreach ($dishList as $entity) {
             $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
-                ->setAction($this->generateUrl('adm_dish_del', array('id' => $entity->getId())))
+                ->setAction($this->generateUrl('admin_dish_delete', array('id' => $entity->getId())))
                 ->setMethod('DELETE')
                 ->add('submit', SubmitType::class, ['label' => ' ', 'attr' => ['class' => 'glyphicon glyphicon-trash btn-link']])
                 ->getForm()->createView();
@@ -73,7 +73,7 @@ class DishController extends Controller
     }
 
     /**
-     * @Route("/edit/{id}", name="adm_dish_edit")
+     * @Route("/edit/{id}", name="admin_dish_edit")
      */
     public function editAction($id, Request $request)
     {
@@ -128,7 +128,7 @@ class DishController extends Controller
 
     /**
      *
-     * @Route("/delete/{id}", name="adm_dish_del")
+     * @Route("/delete/{id}", name="admin_dish_delete")
      * @Method("DELETE")
      */
     public function deleteAction($id)
@@ -138,6 +138,6 @@ class DishController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirectToRoute('adm_dish_list');
+        return $this->redirectToRoute('admin_dish_list');
     }
 }
