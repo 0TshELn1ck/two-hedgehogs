@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Dish;
 use AppBundle\Entity\UploadPicture;
 use AppBundle\Form\DishType;
+use AppBundle\Form\ChoicePictureType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -88,13 +89,7 @@ class DishController extends Controller
             ->getForm();
 
         $choosePictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads(10);
-        $formChoose = $this->createFormBuilder($dish)
-            ->add('pict_path', ChoiceType::class, [
-                'choices' => $choosePictures,
-                'choices_as_values' => true,
-                'choice_label' => 'origNameSize',
-            ])
-            ->getForm();
+        $formChoose = $this->createForm(ChoicePictureType::class ,$dish, ['data' => $choosePictures]);
 
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
@@ -121,9 +116,8 @@ class DishController extends Controller
         }
 
         if ($formChoose->isValid()) {
-            $dish->setPictPath($dish->getPictPath()->getPath());
+            $dish->setPictPath($formChoose['pict_path']->getData()->getPath());
             $em->flush();
-
             $msg = 'Picture changes for dish "' . $dish->getName() . '"';
         }
 
