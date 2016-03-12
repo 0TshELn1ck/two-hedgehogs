@@ -51,7 +51,7 @@ class CartController extends Controller
         }
 
         return new Response(
-            count($cart->getPickedDishes())
+            count($cart->getDishes())
         );
     }
 

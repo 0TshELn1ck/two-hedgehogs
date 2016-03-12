@@ -43,9 +43,9 @@ class Cart
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DishInCart", mappedBy="cart")
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Dish", inversedBy="carts")
      */
-    private $pickedDishes;
+    private $dishes;
 
     /**
      * Get id
@@ -119,40 +119,40 @@ class Cart
      */
     public function __construct()
     {
-        $this->pickedDishes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->dishes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add pickedDishes
+     * Add dishes
      *
-     * @param \AppBundle\Entity\DishInCart $pickedDish
+     * @param \AppBundle\Entity\Dish $dish
      *
      * @return Cart
      */
-    public function addDish(\AppBundle\Entity\DishInCart $pickedDish)
+    public function addDish(\AppBundle\Entity\Dish $dish)
     {
-        $this->pickedDishes[] = $pickedDish;
+        $this->dishes[] = $dish;
 
         return $this;
     }
 
     /**
-     * Remove pickedDishes
+     * Remove dishes
      *
-     * @param \AppBundle\Entity\DishInCart $pickedDish
+     * @param \AppBundle\Entity\Dish $dish
      */
-    public function removePickedDish(\AppBundle\Entity\DishInCart $pickedDish)
+    public function removeDish(\AppBundle\Entity\Dish $dish)
     {
-        $this->pickedDishes->removeElement($pickedDish);
+        $this->dishes->removeElement($dish);
     }
 
     /**
-     * Get pickedDishes
+     * Get dishes
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getPickedDishes()
+    public function getDishes()
     {
-        return $this->pickedDishes;
+        return $this->dishes;
     }
 }

@@ -1,3 +1,3 @@
 AppBundle\Entity\DishCategory:
-    dishCategory{1..50}:
+    category{1..50}:
         name (unique): <sentence(1)>

@@ -83,6 +83,11 @@ class Dish
     private $categories;
 
     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="dishes")
+     */
+    private $carts;
+
+    /**
      * Get id
      *
      * @return integer 
