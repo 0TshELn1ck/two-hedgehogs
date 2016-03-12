@@ -32,7 +32,7 @@
                         </li>
 
                         <li>
-                            <a data-toggle="tab" href="#edit-password">
+                            <a class="password_block_tab" data-toggle="tab" href="#edit-password">
                                 <i class="blue ace-icon fa fa-key bigger-125"></i>
                                 Пароль
                             </a>
@@ -271,6 +271,25 @@
     {{ parent() }}
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script>
+        $('document').ready(function(){
+
+            $('form[name="app_bundle_user_type"]').submit(function () {
+                pass = $('#app_bundle_user_type_password_first');
+                conf_pass = $('#app_bundle_user_type_password_second');
+
+                if(pass.val().length > 5 && pass.val() == conf_pass.val()){
+
+                    return true;
+                }
+
+                $('.password_block_tab').click();
+                pass.css('border', '1px solid red');
+                conf_pass.css('border', '1px solid red');
+
+                return false;
+            });
+        });
+
         $(function () {
             $("#datepicker").datepicker();
         });
