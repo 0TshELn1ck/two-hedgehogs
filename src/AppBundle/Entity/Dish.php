@@ -237,20 +237,12 @@ class Dish
     }
 
     /**
-     * @param \DateTime $updatedAt
-     */
-    public function setUpdatedAt($updatedAt)
-    {
-        $this->updatedAt = $updatedAt;
-    }
-
-
-    /**
      * Constructor
      */
     public function __construct()
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->carts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -284,5 +276,39 @@ class Dish
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    /**
+     * Add cart
+     *
+     * @param \AppBundle\Entity\Cart $cart
+     *
+     * @return Dish
+     */
+    public function addCart(\AppBundle\Entity\Cart $cart)
+    {
+        $this->carts[] = $cart;
+
+        return $this;
+    }
+
+    /**
+     * Remove cart
+     *
+     * @param \AppBundle\Entity\Cart $cart
+     */
+    public function removeCart(\AppBundle\Entity\Cart $cart)
+    {
+        $this->carts->removeElement($cart);
+    }
+
+    /**
+     * Get carts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCarts()
+    {
+        return $this->carts;
     }
 }
