@@ -88,7 +88,9 @@ class DishController extends Controller
             ->add('file', FileType::class, ['label' => false])
             ->getForm();
 
-        $choosePictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads(10);
+        $choosePictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads($id);
+        $countPictures = $em->getRepository('AppBundle:UploadPicture')->countPictures($id);
+
         $formChoose = $this->createForm(ChoicePictureType::class ,$dish, ['data' => $choosePictures]);
 
         if ($request->getMethod() === 'POST') {
@@ -123,7 +125,7 @@ class DishController extends Controller
 
         return $this->render('@App/Admin/Dish/edit.html.twig', ['form' => $form->createView(),
             'uploadForm' => $uploadForm->createView(), 'formChoose' => $formChoose->createView(),
-            'msg' => $msg]);
+            'msg' => $msg, 'countPictures' => $countPictures]);
     }
 
     /**

@@ -60,27 +60,31 @@
     <div class="form-group">
         <div class="col-sm-9">
             <label class="col-sm-3 control-label no-padding-right"></label>
-            <input type="submit" value="Upload" />
+            <input type="submit" value="Upload"/>
         </div>
     </div>
     {{ form_end(uploadForm) }}
 
-    <h3>Choose picture</h3>
-    {{ form_start(formChoose, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            {{ form_errors(formChoose.pict_path) }}
-            {{ form_widget(formChoose.pict_path) }}
+    {% if countPictures != 0 %}
+        <h3>Choose picture</h3>
+        {{ form_start(formChoose, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+        <div class="form-group">
+            <div class="col-sm-9">
+                <label class="col-sm-3 control-label no-padding-right"></label>
+                {{ form_errors(formChoose.pict_path) }}
+                {{ form_widget(formChoose.pict_path) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            <input type="submit" value="Choose" />
+        <div class="form-group">
+            <div class="col-sm-9">
+                <label class="col-sm-3 control-label no-padding-right"></label>
+                <input type="submit" value="Choose"/>
+            </div>
         </div>
-    </div>
-    {{ form_end(formChoose) }}
+        {{ form_end(formChoose) }}
+    {% endif %}
+
+    Uploaded files for this dish: {{ countPictures }}
 
     {% if msg != "" %}
         <p><b>{{ msg }}</b></p>
