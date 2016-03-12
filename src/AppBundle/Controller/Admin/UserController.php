@@ -49,7 +49,6 @@ class UserController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(UserType::class, $user);
-        $form->add('save', SubmitType::class);
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -99,8 +98,7 @@ class UserController extends Controller
         }
 
         $originalPassword = $user->getPassword();
-        $editForm = $this->createForm(UserType::class, $user)
-            ->add('Редагувати', SubmitType::class);
+        $editForm = $this->createForm(UserType::class, $user);
 
         $editForm->handleRequest($request);
 

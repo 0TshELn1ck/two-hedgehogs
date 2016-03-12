@@ -10,13 +10,11 @@
 
 {% block content %}
 
-
     <div id="user-profile-3" class="user-profile row">
         <div class="col-sm-offset-1 col-sm-10">
-
             <div class="space"></div>
-
-            <form class="form-horizontal">
+            {{ form_start(userForm) }}
+            <div class="form-horizontal">
                 <div class="tabbable">
                     <ul class="nav nav-tabs padding-16">
                         <li class="active">
@@ -60,11 +58,10 @@
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label no-padding-right"
-                                               for="form-field-username">Username</label>
+                                               for="form-field-username">Ім'я</label>
 
                                         <div class="col-sm-8">
-                                            <input class="col-xs-12 col-sm-10" type="text" id="form-field-username"
-                                                   placeholder="Username" value="alexdoe">
+                                            {{ form_row(userForm.name) }}
                                         </div>
                                     </div>
 
@@ -85,8 +82,8 @@
 
                             <hr>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-date">Birth
-                                    Date</label>
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-date">День
+                                    народження</label>
 
                                 <div class="col-sm-9">
                                     <div class="input-medium">
@@ -105,18 +102,18 @@
                             <div class="space-4"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right">Gender</label>
+                                <label class="col-sm-3 control-label no-padding-right">Стать</label>
 
                                 <div class="col-sm-9">
                                     <label class="inline">
                                         <input name="form-field-radio" type="radio" class="ace">
-                                        <span class="lbl middle"> Male</span>
+                                        <span class="lbl middle"> Чоловіча</span>
                                     </label>
 
                                     &nbsp; &nbsp; &nbsp;
                                     <label class="inline">
                                         <input name="form-field-radio" type="radio" class="ace">
-                                        <span class="lbl middle"> Female</span>
+                                        <span class="lbl middle"> Жіноча</span>
                                     </label>
                                 </div>
                             </div>
@@ -125,7 +122,7 @@
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"
-                                       for="form-field-comment">Comment</label>
+                                       for="form-field-comment">Примітки</label>
 
                                 <div class="col-sm-9">
                                     <textarea id="form-field-comment"></textarea>
@@ -137,13 +134,14 @@
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"
-                                       for="form-field-email">Email</label>
+                                       for="form-field-email">Почтова адреса</label>
 
                                 <div class="col-sm-9">
+
 																	<span class="input-icon input-icon-right">
-																		<input type="email" id="form-field-email"
-                                                                               value="alexdoe@gmail.com">
-																		<i class="ace-icon fa fa-envelope"></i>
+																		{{ form_widget(userForm.email) }}
+                                                                        <i class="ace-icon fa fa-envelope"></i>
+
 																	</span>
                                 </div>
                             </div>
@@ -152,22 +150,7 @@
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"
-                                       for="form-field-website">Website</label>
-
-                                <div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input type="url" id="form-field-website"
-                                                                               value="http://www.alexdoe.com/">
-																		<i class="ace-icon fa fa-globe"></i>
-																	</span>
-                                </div>
-                            </div>
-
-                            <div class="space-4"></div>
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"
-                                       for="form-field-phone">Phone</label>
+                                       for="form-field-phone">Телефонний номер</label>
 
                                 <div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
@@ -244,7 +227,7 @@
                                     Пароль</label>
 
                                 <div class="col-sm-9">
-                                    <input type="password" id="form-field-pass1">
+                                    {{ form_row(userForm.password.first) }}
                                 </div>
                             </div>
 
@@ -255,7 +238,7 @@
                                     Повторіть пароль</label>
 
                                 <div class="col-sm-9">
-                                    <input type="password" id="form-field-pass2">
+                                    {{ form_row(userForm.password.second) }}
                                 </div>
                             </div>
                         </div>
@@ -264,7 +247,7 @@
 
                 <div class="clearfix form-actions">
                     <div class="col-md-offset-3 col-md-9">
-                        <button class="btn btn-info" type="button">
+                        <button class="btn btn-info" type="submit">
                             <i class="ace-icon fa fa-check bigger-110"></i>
                             Зберегти
                         </button>
@@ -276,7 +259,8 @@
                         </button>
                     </div>
                 </div>
-            </form>
+            </div>
+            {{ form_end(userForm) }}
         </div><!-- /.span -->
     </div>
 
