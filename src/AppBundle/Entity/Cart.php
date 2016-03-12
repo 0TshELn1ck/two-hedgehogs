@@ -30,7 +30,7 @@ class Cart
     private $ip;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", inversedBy="Cart")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", inversedBy="cart")
      */
     private $user;
 
@@ -43,9 +43,9 @@ class Cart
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DishInCart", mappedBy="Cart")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DishInCart", mappedBy="cart")
      */
-    private $dishes;
+    private $pickedDishes;
 
     /**
      * Get id
@@ -79,20 +79,6 @@ class Cart
     public function getIp()
     {
         return $this->ip;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Cart
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 
     /**
@@ -133,40 +119,40 @@ class Cart
      */
     public function __construct()
     {
-        $this->dishes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pickedDishes = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add dish
+     * Add pickedDishes
      *
-     * @param \AppBundle\Entity\DishInCart $dish
+     * @param \AppBundle\Entity\DishInCart $pickedDish
      *
      * @return Cart
      */
-    public function addDish(\AppBundle\Entity\DishInCart $dish)
+    public function addDish(\AppBundle\Entity\DishInCart $pickedDish)
     {
-        $this->dishes[] = $dish;
+        $this->pickedDishes[] = $pickedDish;
 
         return $this;
     }
 
     /**
-     * Remove dish
+     * Remove pickedDishes
      *
-     * @param \AppBundle\Entity\DishInCart $dish
+     * @param \AppBundle\Entity\DishInCart $pickedDish
      */
-    public function removeDish(\AppBundle\Entity\DishInCart $dish)
+    public function removePickedDish(\AppBundle\Entity\DishInCart $pickedDish)
     {
-        $this->dishes->removeElement($dish);
+        $this->pickedDishes->removeElement($pickedDish);
     }
 
     /**
-     * Get dishes
+     * Get pickedDishes
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getDishes()
+    public function getPickedDishes()
     {
-        return $this->dishes;
+        return $this->pickedDishes;
     }
 }

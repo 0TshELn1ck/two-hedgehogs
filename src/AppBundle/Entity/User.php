@@ -13,7 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class User extends BaseUser
 {
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Cart", mappedBy="customer")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Cart", mappedBy="user")
      */
     private $cart;
 

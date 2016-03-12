@@ -22,12 +22,12 @@ class DishInCart
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cart", inversedBy="DishInCart")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Cart", inversedBy="pickedDishes")
      */
     private $cart;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Dish", inversedBy="DishInCart")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Dish")
      */
     private $dish;
 
