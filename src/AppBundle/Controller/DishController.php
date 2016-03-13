@@ -25,7 +25,6 @@ class DishController extends Controller
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
         $categories = $em->getRepository('AppBundle:DishCategory')->getCategoriesDishes();
 
-        $em->merge($dishList[0]);
         $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('ip'=>$request->getClientIp()));
 
         foreach($dishList as $dish) {

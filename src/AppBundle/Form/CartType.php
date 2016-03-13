@@ -16,7 +16,7 @@ class CartType extends AbstractType
     {
 
         $builder
-            ->add('dishes', HiddenType::class, array(
+            ->add('dishes', EntityType::class, array(
                 'class' => 'AppBundle:Dish',
                 'choice_label' => 'id',
                 'choices' => array($options['dish']),
