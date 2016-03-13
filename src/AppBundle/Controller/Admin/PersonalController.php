@@ -76,7 +76,7 @@ class PersonalController extends Controller
             ->setAction($this->generateUrl('admin_personal_delete', array('id' => $personal->getId())))
             ->setMethod('DELETE')
             ->add('submit', SubmitType::class, [
-                'label' => ' Видалити',
+                'label' => ' ',
                 'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-120']
             ])
             ->getForm();
