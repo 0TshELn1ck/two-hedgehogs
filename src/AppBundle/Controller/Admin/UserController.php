@@ -129,8 +129,7 @@ class UserController extends Controller
      * @Route("/delete/{id}", name="admin_user_delete")
      * @Method("DELETE")
      */
-    public
-    function deleteAction($id)
+    public function deleteAction($id)
     {
         if ($id) {
             $em = $this->getDoctrine()->getManager();
@@ -156,8 +155,7 @@ class UserController extends Controller
      * @param User $user The User entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private
-    function createDeleteForm(User $user)
+    private function createDeleteForm(User $user)
     {
 
         return $this->createFormBuilder()
@@ -168,5 +166,28 @@ class UserController extends Controller
                 'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-115']
             ])
             ->getForm();
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @Route("/search", name="admin_user_search")
+     * @Method("POST")
+     * @Template()
+     */
+    public function searchAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            $searchItem = $request->request->get('search');
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('AppBundle:User')->searchInUsers($searchItem);
+
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($user, $request->query->getInt('page', 1), 10);
+
+            return ['user' => $pagination];
+        }
+
+        return [];
     }
 }
