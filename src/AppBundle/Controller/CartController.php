@@ -10,6 +10,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Cart;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use SoftDeleteable\Fixture\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +29,7 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        if ($user){
+        if ($user instanceof User){
 
             $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user'=>$user->getId()));
 
