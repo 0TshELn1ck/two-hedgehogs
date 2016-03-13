@@ -20,18 +20,27 @@
                     <div class="col-sm-6">
                         <div class="flexslider">
                             <ul class="slides">
-                                <li data-thumb="{{ asset('images/dish1.jpg') }}">
-                                    <img src="{{ asset('images/dish1.jpg') }}"/>
-                                </li>
-                                <li data-thumb="{{ asset('images/dish2.jpg') }}">
-                                    <img src="{{ asset('images/dish2.jpg') }}"/>
-                                </li>
-                                <li data-thumb="{{ asset('images/dish3.jpg') }}">
-                                    <img src="{{ asset('images/dish3.jpg') }}"/>
-                                </li>
-                                <li data-thumb="{{ asset('images/dish4.jpg') }}">
-                                    <img src="{{ asset('images/dish4.jpg') }}"/>
-                                </li>
+                                {% if dish.pictPath != '' and dish.pictPath != 'not_set' %}
+                                    {% for pict in dish.uploadPicture %}
+                                        <li data-thumb="{{ asset(pict.path) }}">
+                                            <img src="{{ asset(pict.path) | imagine_filter('thumb_230') }}"
+                                                 alt="{{ dish.name }}" title="{{ dish.name }}"/>
+                                        </li>
+                                    {% endfor %}
+                                {% else %}
+                                    <li data-thumb="{{ asset('images/dish1.jpg') }}">
+                                        <img src="{{ asset('images/dish1.jpg') }}"/>
+                                    </li>
+                                    <li data-thumb="{{ asset('images/dish2.jpg') }}">
+                                        <img src="{{ asset('images/dish2.jpg') }}"/>
+                                    </li>
+                                    <li data-thumb="{{ asset('images/dish3.jpg') }}">
+                                        <img src="{{ asset('images/dish3.jpg') }}"/>
+                                    </li>
+                                    <li data-thumb="{{ asset('images/dish4.jpg') }}">
+                                        <img src="{{ asset('images/dish4.jpg') }}"/>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </div>
                     </div>

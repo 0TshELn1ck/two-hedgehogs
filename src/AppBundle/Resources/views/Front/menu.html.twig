@@ -46,12 +46,16 @@
                             <li class="dish col-xs-6 col-md-3 element-item {% for item in dish.categories %}{{ item.slug }} {% endfor %}">
                                 <a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">
                                     <div class="dish_img_wrapp">
-                                        <img src="{{ asset('images/dish3.jpg') }}" alt="" title=""/>
-
+                                        {% if dish.pictPath != '' and dish.pictPath != 'not_set' %}
+                                            <img src="{{ asset(dish.pictPath) | imagine_filter('thumb_230') }}"
+                                                 alt="{{ dish.name }}" title="{{ dish.name }}"/>
+                                        {% else %}
+                                            <img src="{{ asset('images/dish2.jpg') }}" alt="{{ dish.name }}"
+                                                 title="{{ dish.name }}"/>
+                                        {% endif %}
                                         <div class="price">{{ dish.price }}грн</div>
                                     </div>
-                                    <h3><a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">{{ dish.name }}</a>
-                                    </h3>
+                                    <h3><a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">{{ dish.name }}</a></h3>
                                     <button class="addToCart">Замовити <i class="fa fa-cutlery"></i>
                                     </button>
                                 </a>

@@ -15,7 +15,8 @@ class ChoicePictureType extends AbstractType
             ->add('pict_path', ChoiceType::class, [
                 'choices' => $options['data'],
                 'choices_as_values' => true,
-                'choice_label' => 'origNameSize'
+                'choice_label' => 'origNameSize',
+                'placeholder' => 'choose the picture'
             ]);
     }
 

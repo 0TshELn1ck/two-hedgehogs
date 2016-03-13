@@ -76,7 +76,25 @@ stof_doctrine_extensions:
             uploadable: true
 
     uploadable:
-         default_file_path:       %kernel.root_dir%/../web/images/dishes
+         default_file_path: %kernel.root_dir%/../web/images/dishes
+
+# Liip Imagine Bundle
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+    driver: gd
+
+    filter_sets:
+        cache: ~
+        thumb_230:
+            quality: 75
+            filters:
+                thumbnail: { size: [230, 200], mode: outbound }
+        thumb_300:
+             quality: 75
+             filters:
+                thumbnail: { size: [300, 200], mode: outbound }
 
 # Pagination bundle
 knp_paginator:
