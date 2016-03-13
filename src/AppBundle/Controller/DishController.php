@@ -25,20 +25,19 @@ class DishController extends Controller
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
         $categories = $em->getRepository('AppBundle:DishCategory')->getCategoriesDishes();
 
+        $em->merge($dishList[0]);
         $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('ip'=>$request->getClientIp()));
-        $form = $this->createForm(CartType::class,  $cart, array('dish'=>$dishList[0]))
-                     ->add('saveAndCreateNew', SubmitType::class);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($cart);
-            $em->flush();
+        foreach($dishList as $dish) {
+            $addToCartForms[$dish->getId()] = $this->createForm(CartType::class, $cart, array('dish' => $dish))
+                ->add('Замовити', SubmitType::class)
+                ->createView();
         }
 
         return $this->render('AppBundle:Front:menu.html.twig',
             ['dishList' => $dishList,
             'categories' => $categories,
-            'form' => $form->createView(),
+            'form' => $addToCartForms,
             ]);
     }
 

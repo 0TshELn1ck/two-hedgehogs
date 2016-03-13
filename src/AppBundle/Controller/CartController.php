@@ -10,7 +10,6 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Cart;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -30,15 +29,20 @@ class CartController extends Controller
         $user = $this->getUser();
 
         if ($user){
-            $cart = $em->getRepository("AppBundle:Cart")->findBy(array('user'=>$user->getId()));
+
+            $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user'=>$user->getId()));
 
             if (!$cart){
-                $cart = new Cart();
-                $cart->setIp($request->getClientIp());
-                $em->persist($cart);
-                $em->flush();
-            }
+                $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('ip'=>$request->getClientIp()));
 
+                if (!$cart) {
+                    $cart = new Cart();
+                    $cart->setIp($request->getClientIp());
+                    $cart->setUser($user);
+                    $em->persist($cart);
+                    $em->flush();
+                }
+            }
         } else {
             $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('ip'=>$request->getClientIp()));
 

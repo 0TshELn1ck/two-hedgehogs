@@ -14,15 +14,17 @@ class CartType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('dishes', HiddenType::class, array(
-                    'data' => $options['dish']->getId(),
-                )
-            );
+                'class' => 'AppBundle:Dish',
+                'choice_label' => 'id',
+                'choices' => array($options['dish']),
+            ));
     }
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Cart',
-                                'dish' => null]);
+                                'dish' => 'AppBundle\Entity\Dish']);
     }
 }
