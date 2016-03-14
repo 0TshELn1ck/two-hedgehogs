@@ -20,7 +20,7 @@
                     <div class="col-sm-6">
                         <div class="flexslider">
                             <ul class="slides">
-                                {% if dish.pictPath != '' and dish.pictPath != 'not_set' %}
+                                {% if dish and dish.pictPath != '' and dish.pictPath != 'not_set' %}
                                     {% for pict in dish.uploadPicture %}
                                         <li data-thumb="{{ asset(pict.path) }}">
                                             <img src="{{ asset(pict.path) | imagine_filter('thumb_230') }}"
@@ -71,6 +71,10 @@
                                 <button class="addToCart">Замовити <i class="fa fa-cutlery"></i></button>
                             </div>
                         </div>
+                    {% else %}
+                            <div class="dish-info-head">
+                                <h1>Dish not found</h1>
+                            </div>
                     {% endif %}
                 </div>
             </div>

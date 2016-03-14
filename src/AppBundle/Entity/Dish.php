@@ -88,7 +88,7 @@ class Dish
     private $categories;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UploadPicture", mappedBy="dish")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UploadPicture", mappedBy="dish", cascade={"REMOVE"})
      */
     private $uploadPictures;
 

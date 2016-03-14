@@ -8,7 +8,6 @@ use AppBundle\Form\DishType;
 use AppBundle\Form\ChoicePictureType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -73,9 +72,12 @@ class DishController extends Controller
     }
 
     /**
+     * @param Dish $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/edit/{id}", name="admin_dish_edit")
      */
-    public function editAction($id, Request $request)
+    public function editAction(Dish $id, Request $request)
     {
         $pict = new UploadPicture();
 
@@ -92,6 +94,7 @@ class DishController extends Controller
         $countPictures = $em->getRepository('AppBundle:UploadPicture')->countPictures($id);
 
         $formChoose = $this->createForm(ChoicePictureType::class ,$dish, ['data' => $choosePictures]);
+        $delPictForm = $this->createDeleteForm($dish)->createView();
 
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
@@ -125,7 +128,9 @@ class DishController extends Controller
 
         return $this->render('@App/Admin/Dish/edit.html.twig', ['form' => $form->createView(),
             'uploadForm' => $uploadForm->createView(), 'formChoose' => $formChoose->createView(),
-            'msg' => $msg, 'countPictures' => $countPictures]);
+            'msg' => $msg, 'countPictures' => $countPictures, 'choosePicture' => $choosePictures,
+            'delPictForm' => $delPictForm
+        ]);
     }
 
     /**
@@ -133,7 +138,7 @@ class DishController extends Controller
      * @Route("/delete/{id}", name="admin_dish_delete")
      * @Method("DELETE")
      */
-    public function deleteAction($id)
+    public function deleteDishAction($id)
     {
         $em = $this->getDoctrine()->getManager();
         $entity = $em->getRepository('AppBundle:Dish')->find($id);
@@ -141,5 +146,45 @@ class DishController extends Controller
         $em->flush();
 
         return $this->redirectToRoute('admin_dish_list');
+    }
+
+    /**
+     * @param $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/picture/delete/{id}", name="admin_pictures_delete")
+     * @Method("DELETE")
+     */
+    public function deletePicturesAction($id)
+    {
+        if ($id) {
+            $em = $this->getDoctrine()->getManager();
+            $dish = $em->getRepository('AppBundle:Dish')->findOneBy(['id' => $id]);
+
+            if (!$dish) {
+                throw $this->createNotFoundException('Unable to find Dish');
+            }
+            $dish->setPictPath('not_set');
+            $pictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads($id);
+            foreach($pictures as $item){
+                $em->remove($item);
+            }
+            $em->flush();
+        }
+        return $this->redirectToRoute('admin_dish_list');
+    }
+
+    /**
+     * @param Dish $dish
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createDeleteForm(Dish $dish)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin_pictures_delete', ['id' => $dish->getId()]))
+            ->setMethod('DELETE')
+            ->add('delete', SubmitType::class, [
+                'attr' => ['class' => 'btn btn-xs btn-info ace-icon fa fa-trash-o bigger-115']
+            ])
+            ->getForm();
     }
 }

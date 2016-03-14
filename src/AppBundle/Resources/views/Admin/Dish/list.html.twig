@@ -24,7 +24,7 @@
                            href="{{ path('admin_dish_edit', {'id':dish.id}) }}"></a>
                     </td>
                     <td>
-                        {{ form_start(delForms[dish.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}
+                        {{ form_start(delForms[dish.id], {attr : {onsubmit: 'return confirm("Do you really want to delete Dish?");' }}) }}
                         {{ form_widget(delForms[dish.id].submit) }}
                         {{ form_end(delForms[dish.id]) }}
                     </td>

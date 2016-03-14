@@ -82,10 +82,20 @@
             </div>
         </div>
         {{ form_end(formChoose) }}
+
+        <h3>Delete pictures of this dish</h3>
+        {{ form_start(delPictForm, {'attr': {'class': 'form-horizontal', 'role': 'form', onsubmit: 'return confirm("Do you really want to delete pictures?");' }}) }}
+        <div class="form-group">
+            <div class="col-sm-9">
+                <label class="col-sm-3 control-label no-padding-right"></label>
+                {{ form_errors(delPictForm) }}
+                {{ form_widget(delPictForm) }}
+            </div>
+        </div>
+        {{ form_end(delPictForm) }}
     {% endif %}
 
     Uploaded files for this dish: {{ countPictures }}
-
     {% if msg != "" %}
         <p><b>{{ msg }}</b></p>
         <a href="{{ path('admin_dish_list') }}"><b>Admin list/edit dishes</b></a>
