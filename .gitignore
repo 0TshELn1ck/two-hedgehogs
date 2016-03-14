@@ -16,5 +16,9 @@
 /web/css
 /web/fonts
 /web/js
-/web/images
-/web/media
+/web/images/*.*
+!/web/images/.gitkeep
+/web/images/dishes/*
+!/web/images/dishes/.gitkeep
+/web/media/*
+!/web/media/.gitkeep
