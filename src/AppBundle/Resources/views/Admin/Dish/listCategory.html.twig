@@ -1,31 +1,38 @@
 {% extends(':Admin:base.html.twig') %}
 {% block content %}
-    <h3>List of dishes category</h3>
-    <table class="table table-bordered table-hover">
-        <tr>
-            <th>#</th>
-            <th>category</th>
-            <th></th>
-            <th></th>
-        </tr>
-        {% for category in categoryList %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ category.name }}</td>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <a class="btn btn-light btn-xs" href="{{ path('admin_dish_category_add') }}"><i
+                            class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
+                <h3>List of dishes category</h3>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>category</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    {% for category in categoryList %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ category.name }}</td>
 
-                {% if is_granted('ROLE_ADMIN') %}
-                    <td>
-                        <a class="ace-icon glyphicon glyphicon-pencil" title="edit Dish"
-                           href="{{ path('admin_dish_category_edit', {'id':category.id}) }}"></a>
-                    </td>
-                    <td>
-                        {{ form_start(delForms[category.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}
-                        {{ form_widget(delForms[category.id].submit) }}
-                        {{ form_end(delForms[category.id]) }}
-                    </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-    </table>
-    <br>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td>
+                                    <a class="ace-icon glyphicon glyphicon-pencil" title="edit Dish"
+                                       href="{{ path('admin_dish_category_edit', {'id':category.id}) }}"></a>
+                                </td>
+                                <td>
+                                    {{ form_start(delForms[category.id], {attr : {onsubmit: 'return confirm("Do you really want to delete?");' }}) }}
+                                    {{ form_widget(delForms[category.id].submit) }}
+                                    {{ form_end(delForms[category.id]) }}
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div><!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
 {% endblock content %}

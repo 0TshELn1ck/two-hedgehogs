@@ -1,35 +1,43 @@
 {% extends(':Admin:base.html.twig') %}
 {% block content %}
-    <h3>List of Dishes</h3>
-    <table class="table table-bordered table-hover">
-        <tr>
-            <th>#</th>
-            <th>name</th>
-            <th>price</th>
-            <th>modified</th>
-            <th>created</th>
-            <th></th>
-            <th></th>
-        </tr>
-        {% for dish in dishList %}
-            <tr>
-                <td>{{ loop.index }}</td>
-                <td>{{ dish.name }}</td>
-                <td>{{ dish.price }}</td>
-                <td>{{ dish.updatedAt|date }}</td>
-                <td>{{ dish.createdAt|date }}</td>
-                {% if is_granted('ROLE_ADMIN') %}
-                    <td>
-                        <a class="ace-icon glyphicon glyphicon-pencil" title="edit Dish"
-                           href="{{ path('admin_dish_edit', {'id':dish.id}) }}"></a>
-                    </td>
-                    <td>
-                        {{ form_start(delForms[dish.id], {attr : {onsubmit: 'return confirm("Do you really want to delete Dish?");' }}) }}
-                        {{ form_widget(delForms[dish.id].submit) }}
-                        {{ form_end(delForms[dish.id]) }}
-                    </td>
-                {% endif %}
-            </tr>
-        {% endfor %}
-    </table>
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <a class="btn btn-light btn-xs" href="{{ path('admin_dish_add') }}"><i
+                            class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
+                <h3>List of Dishes</h3>
+                <table class="table table-bordered table-hover">
+                    <tr>
+                        <th>#</th>
+                        <th>name</th>
+                        <th>price</th>
+                        <th>modified</th>
+                        <th>created</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    {% for dish in dishList %}
+                        <tr>
+                            <td>{{ loop.index }}</td>
+                            <td>{{ dish.name }}</td>
+                            <td>{{ dish.price }}</td>
+                            <td>{{ dish.updatedAt|date }}</td>
+                            <td>{{ dish.createdAt|date }}</td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <td>
+                                    <a class="ace-icon glyphicon glyphicon-pencil" title="edit Dish"
+                                       href="{{ path('admin_dish_edit', {'id':dish.id}) }}"></a>
+                                </td>
+                                <td>
+                                    {{ form_start(delForms[dish.id], {attr : {onsubmit: 'return confirm("Do you really want to delete Dish?");' }}) }}
+                                    {{ form_widget(delForms[dish.id].submit) }}
+                                    {{ form_end(delForms[dish.id]) }}
+                                </td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div><!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
 {% endblock content %}

@@ -24,7 +24,7 @@ class DishController extends Controller
      */
     public function indexAction()
     {
-        return $this->render('@App/Admin/Dish/index.html.twig');
+        
     }
 
     /**
