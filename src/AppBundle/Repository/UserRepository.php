@@ -12,4 +12,18 @@ use Doctrine\ORM\EntityRepository;
  */
 class UserRepository extends EntityRepository
 {
+    /**
+     * @param $searchItem
+     * @return array
+     * Search item in user.email and user.name
+     */
+    public function searchInUsers($searchItem)
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.email LIKE :search')
+            ->orWhere('u.name LIKE :search')
+            ->setParameter('search', '%' . $searchItem . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

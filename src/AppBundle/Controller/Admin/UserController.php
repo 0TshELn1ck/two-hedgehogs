@@ -3,6 +3,7 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\User;
+use AppBundle\Form\UserType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -38,12 +39,35 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
+     * @Route("/new", name="admin_user_new")
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function newAction(Request $request)
+    {
+        $user = new User();
+
+        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(UserType::class, $user);
+
+        if ($request->getMethod() == 'POST') {
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+                $em->persist($user);
+                $em->flush();
+
+                return $this->redirectToRoute('admin_user_index');
+            }
+        }
+        return ['userForm' => $form->createView()];
+    }
+
+    /**
      * @Route("/show/{id}", name="admin_user_show")
      * @Template()
      * @return array
      */
-    public function showAction(Request $request, $id)
+    public function showAction($id)
     {
         if ($id) {
             $em = $this->getDoctrine()->getManager();
@@ -58,9 +82,51 @@ class UserController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param $id
+     * @return array
+     * @Route("/edit/{id}", name="admin_user_edit")
+     * @Method({"GET", "POST"})
+     */
+    public function editAction(Request $request, $id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array('id' => $id));
+
+        if (!$user) {
+            throw $this->createNotFoundException('Unable to find Container user.');
+        }
+
+        $originalPassword = $user->getPassword();
+        $editForm = $this->createForm(UserType::class, $user);
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+
+            $plainPassword = $editForm->get('password')->getData();
+            if (!empty($plainPassword)) {
+                //encode the password
+                $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+                $tempPassword = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+                $user->setPassword($tempPassword);
+            } else {
+                $user->setPassword($originalPassword);
+            }
+
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_user_index'));
+        }
+
+        return $this->render('@App/Admin/User/new.html.twig', ['userForm' => $editForm->createView()]);
+    }
+
+    /**
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     * @Route("/admin/user/delete/{id}", name="admin_user_delete")
+     * @Route("/delete/{id}", name="admin_user_delete")
      * @Method("DELETE")
      */
     public function deleteAction($id)
@@ -100,5 +166,28 @@ class UserController extends Controller
                 'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-115']
             ])
             ->getForm();
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @Route("/search", name="admin_user_search")
+     * @Method("POST")
+     * @Template()
+     */
+    public function searchAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            $searchItem = $request->request->get('search');
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('AppBundle:User')->searchInUsers($searchItem);
+
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($user, $request->query->getInt('page', 1), 10);
+
+            return ['user' => $pagination];
+        }
+
+        return [];
     }
 }
