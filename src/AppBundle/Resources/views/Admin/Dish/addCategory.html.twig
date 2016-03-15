@@ -2,23 +2,29 @@
 {% form_theme form '@App/Admin/Dish/themeFields.html.twig' %}
 
 {% block content %}
-    <h3>Add new category for dish</h3>
-    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_label(form.name) }}
-            {{ form_errors(form.name) }}
-            {{ form_widget(form.name) }}
-        </div>
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            <input type="submit" value="Create" class="btn btn-default"/>
-        </div>
-    </div>
-    {{ form_end(form) }}
-    <br>
-    {% if msg != "" %}
-        <p><b>{{ msg }}</b></p>
-        <a href="{{ path('adm_dish_cat_list') }}"><b>Admin list/edit categories</b></a>
-    {% endif %}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Add new category for dish</h3>
+                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        {{ form_label(form.name) }}
+                        {{ form_errors(form.name) }}
+                        {{ form_widget(form.name) }}
+                    </div>
+                    <div class="col-sm-9">
+                        <label class="col-sm-3 control-label no-padding-right"></label>
+                        <input type="submit" value="Create" class="btn btn-default"/>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+                <br>
+                {% if msg != "" %}
+                    <p><b>{{ msg }}</b></p>
+                    <a href="{{ path('admin_dish_category_list') }}"><b>Admin list/edit categories</b></a>
+                {% endif %}
+            </div><!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
 {% endblock content %}

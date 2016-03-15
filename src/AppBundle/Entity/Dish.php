@@ -78,9 +78,27 @@ class Dish
     private $updatedAt;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $pictPath;
+
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\DishCategory", inversedBy="dishes")
      */
     private $categories;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UploadPicture", mappedBy="dish", cascade={"REMOVE"})
+     */
+    private $uploadPictures;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -185,19 +203,6 @@ class Dish
     }
 
     /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Dish
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
      * Get slug
      *
      * @return string 
@@ -216,14 +221,6 @@ class Dish
     }
 
     /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getUpdatedAt()
@@ -232,20 +229,19 @@ class Dish
     }
 
     /**
-     * @param \DateTime $updatedAt
+     * @return mixed
      */
-    public function setUpdatedAt($updatedAt)
+    public function getPictPath()
     {
-        $this->updatedAt = $updatedAt;
+        return $this->pictPath;
     }
 
-
     /**
-     * Constructor
+     * @param mixed $pictPath
      */
-    public function __construct()
+    public function setPictPath($pictPath)
     {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->pictPath = $pictPath;
     }
 
     /**
@@ -279,5 +275,38 @@ class Dish
     public function getCategories()
     {
         return $this->categories;
+    }
+    /**
+     * Add uploadPictures
+     *
+     * @param \AppBundle\Entity\UploadPicture $uploadPictures
+     *
+     * @return Dish
+     */
+    public function addUploadFile(\AppBundle\Entity\UploadPicture $uploadPictures)
+    {
+        $this->uploadPictures[] = $uploadPictures;
+
+        return $this;
+    }
+
+    /**
+     * Remove uploadPictures
+     *
+     * @param \AppBundle\Entity\UploadPicture $uploadPictures
+     */
+    public function removeUploadFile(\AppBundle\Entity\UploadPicture $uploadPictures)
+    {
+        $this->uploadPictures->removeElement($uploadPictures);
+    }
+
+    /**
+     * Get $this->uploadPictures
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getuploadPicture()
+    {
+        return $this->uploadPictures;
     }
 }
