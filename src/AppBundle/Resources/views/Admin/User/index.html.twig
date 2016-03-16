@@ -9,7 +9,8 @@
 {% block search %}
     <form class="form-search" METHOD="post" action="{{ path('admin_user_search') }}">
         <span class="input-icon">
-            <input type="text" min="3" placeholder="Пошук ..." class="nav-search-input" name="search" id="nav-search-input" autocomplete="off"/>
+            <input type="text" min="3" placeholder="Пошук ..." class="nav-search-input" name="search"
+                   id="nav-search-input" autocomplete="off"/>
         <i class="ace-icon fa fa-search nav-search-icon"></i>
         </span>
     </form>
@@ -74,8 +75,8 @@
 
                                                 <button class="btn btn-xs btn-danger hidden">
                                                     <i class="">
-                                                        {{ form_start(deleteForm[item.id], {attr :
-                                                            {onsubmit: 'return confirm("Ви дійсно хочете видалити користувача?");' }}) }}
+                                                        {{ form_start(deleteForm[item.id],
+                                                        {attr : {onsubmit: 'return confirm("Ви дійсно бажаєте видалити користувача?");' }}) }}
                                                         {{ form_widget(deleteForm[item.id].submit) }}
                                                         {{ form_end(deleteForm[item.id]) }}
                                                     </i>
