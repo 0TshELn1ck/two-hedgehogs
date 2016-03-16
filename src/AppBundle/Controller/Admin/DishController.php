@@ -24,7 +24,7 @@ class DishController extends Controller
      */
     public function indexAction()
     {
-        
+
     }
 
     /**
@@ -63,12 +63,15 @@ class DishController extends Controller
             $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
                 ->setAction($this->generateUrl('admin_dish_delete', array('id' => $entity->getId())))
                 ->setMethod('DELETE')
-                ->add('submit', SubmitType::class, ['label' => ' ', 'attr' => ['class' => 'glyphicon glyphicon-trash btn-link']])
+                ->add('submit', SubmitType::class, [
+                    'label' => ' ',
+                    'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-115']
+                ])
                 ->getForm()->createView();
         }
 
         return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList,
-            'delForms' => $deleteForms]);
+            'deleteForm' => $deleteForms]);
     }
 
     /**
@@ -93,7 +96,7 @@ class DishController extends Controller
         $choosePictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads($id);
         $countPictures = $em->getRepository('AppBundle:UploadPicture')->countPictures($id);
 
-        $formChoose = $this->createForm(ChoicePictureType::class ,$dish, ['data' => $choosePictures]);
+        $formChoose = $this->createForm(ChoicePictureType::class, $dish, ['data' => $choosePictures]);
         $delPictForm = $this->createDeleteForm($dish)->createView();
 
         if ($request->getMethod() === 'POST') {
@@ -165,7 +168,7 @@ class DishController extends Controller
             }
             $dish->setPictPath('not_set');
             $pictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads($id);
-            foreach($pictures as $item){
+            foreach ($pictures as $item) {
                 $em->remove($item);
             }
             $em->flush();
