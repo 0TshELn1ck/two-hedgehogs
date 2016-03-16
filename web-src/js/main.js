@@ -17,7 +17,6 @@ $(document).ready(function(){
 			$('#' + new_btn_id).html(btn_content);
 	}
 
-
 	$(document).on('click', 'a#more_items', function(event) {	    
 		event.preventDefault();
 		$('.menu .hidden_items').slideDown({duration:800,  easing: "easeInOutQuart", complete : function(){

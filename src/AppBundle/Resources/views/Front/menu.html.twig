@@ -51,7 +51,7 @@
                                     </div>
                                     <h3><a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">{{ dish.name }}</a>
                                     </h3>
-                                    {{form(form[dish.id])}}
+                                    <button data-dish="{{ dish.id }}" class="addToCart">Замовити <i class="fa fa-cutlery"></i></button>
                                 </a>
                             </li>
                         {% endfor %}
@@ -65,6 +65,22 @@
 {% block initialize_plagins %}
     <script>
         $(document).ready(function () {
+            //add to cart ajax
+            $('.addToCart').click(function(){
+                var dish = $(this).data("dish");
+                $.ajax({
+                    url: "{{ path('addToCart')}}/"+dish,
+                    method: "POST",
+                    success: function(data){
+                        if (data.added == 1){
+                            var count = parseInt($('.cart_count_heder').html()) + 1;
+                            console.log(count);
+                            $('.cart_count_heder').html(count);
+                        }
+                    }
+                });
+            });
+
             // init Isotope
             var $container = $('.isotope').isotope({
                 itemSelector: '.element-item',
