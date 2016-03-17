@@ -18,10 +18,10 @@ class DishType extends AbstractType
             ->add('name', TextType::class, [
                 'attr' => array('size' => '68')
             ])
-            ->add('recipe', TextareaType::class,[
+            ->add('recipe', TextareaType::class, [
                 'attr' => array('cols' => '68', 'rows' => '10')
             ])
-            ->add('ingredients', TextareaType::class,[
+            ->add('ingredients', TextareaType::class, [
                 'attr' => array('cols' => '68', 'rows' => '5')
             ])
             ->add('price', IntegerType::class)
@@ -30,9 +30,9 @@ class DishType extends AbstractType
                 'choice_label' => 'name',
                 'expanded' => 'true',
                 'multiple' => 'true'
-            ])
-        ;
+            ]);
     }
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Dish']);

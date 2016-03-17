@@ -1,3 +1,21 @@
 AppBundle\Entity\DishCategory:
-    category{1..50}:
-        name (unique): <sentence(1)>
+    dishCategory1:
+        name: 'salad'
+
+    dishCategory2:
+        name: 'vegitarian'
+
+    dishCategory3:
+        name: 'raw'
+
+    dishCategory4:
+        name: 'milk'
+
+    dishCategory5:
+        name: 'roasted'
+
+    dishCategory6:
+        name: 'drinks'
+
+    dishCategory7:
+        name: 'traditional'

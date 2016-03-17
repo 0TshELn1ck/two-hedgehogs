@@ -3,9 +3,15 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li>
-        <a href="{{ path('admin_user_new') }}">Додати нового</a>
-    </li>
+    {% if breadcrumbs is defined %}
+        <li>
+            {{ breadcrumbs }}
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ path('admin_user_new') }}">Додати нового</a>
+        </li>
+    {% endif %}
 {% endblock breadcrumbs %}
 
 {% block content %}

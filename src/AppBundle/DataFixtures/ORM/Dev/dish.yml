@@ -5,4 +5,5 @@ AppBundle\Entity\Dish:
         ingredients: <text(100)>
         price: <randomDigitNotNull()>
         slug: <slug()>
-        category: ['@category*']
+        pictPath: 'not_set'
+        category: ['@dishCategory*']
