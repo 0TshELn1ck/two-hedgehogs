@@ -25,7 +25,7 @@ class DishController extends Controller
      */
     public function indexAction()
     {
-        
+
     }
 
     /**
@@ -52,37 +52,39 @@ class DishController extends Controller
     }
 
     /**
-     * @Route("/list/page/{page}", name="admin_dish_list", defaults={"page" = 1})
+     * @Route("/list/page/{page}", name="admin_dish_list", defaults={"page" = 1},
+     *     requirements={"page": "\d+"})
      */
     public function listAction(Request $request, $page)
     {
-        $maxResults = 10;
-        $offset = ($page-1)*$maxResults;
+        $maxResults = 4;
+        /* if page = 0 */
+        if ($page >= 1) {
+            $offset = ($page - 1) * $maxResults;
+        } else {
+            $offset = 0;
+            $page = 1;
+        }
+
         $em = $this->getDoctrine()->getManager();
         $query = $em->getRepository('AppBundle:Dish')->getAdminDishes($offset, $maxResults);
-
-        $paginator = new Paginator($query, $fetchJoin = false);
-        $count =count($paginator);
-        $maxPages = ceil($count/$maxResults);
-        /* if - need to activate or disactivate page block in Twig */
-        if ($count <= $maxResults) {
-            $count = 0;
-        }
+        $paginate = $this->paginate($query, $maxResults, $page);
         $i = 0;
         $dishList = [];
         $deleteForms = [];
-        foreach ($paginator as $entity) {
+        foreach ($paginate['pagesList'] as $entity) {
             $dishList[$i] = $entity;
             $i++;
             $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
                 ->setAction($this->generateUrl('admin_dish_delete', array('id' => $entity->getId())))
                 ->setMethod('DELETE')
-                ->add('submit', SubmitType::class, ['label' => ' ', 'attr' => ['class' => 'glyphicon glyphicon-trash btn-link']])
+                ->add('submit', SubmitType::class,
+                    ['label' => ' ', 'attr' => ['class' => 'glyphicon glyphicon-trash btn-link']])
                 ->getForm()->createView();
         }
 
-        return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList, 'count' => $count,
-            'maxPages' => $maxPages, 'page' => $page, 'delForms' => $deleteForms]);
+        return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList, 'delForms' => $deleteForms,
+            'paginate' => $paginate]);
     }
 
     /**
@@ -107,7 +109,7 @@ class DishController extends Controller
         $choosePictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads($id);
         $countPictures = $em->getRepository('AppBundle:UploadPicture')->countPictures($id);
 
-        $formChoose = $this->createForm(ChoicePictureType::class ,$dish, ['data' => $choosePictures]);
+        $formChoose = $this->createForm(ChoicePictureType::class, $dish, ['data' => $choosePictures]);
         $delPictForm = $this->createDeleteForm($dish)->createView();
 
         if ($request->getMethod() === 'POST') {
@@ -179,7 +181,7 @@ class DishController extends Controller
             }
             $dish->setPictPath('not_set');
             $pictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads($id);
-            foreach($pictures as $item){
+            foreach ($pictures as $item) {
                 $em->remove($item);
             }
             $em->flush();
@@ -200,5 +202,17 @@ class DishController extends Controller
                 'attr' => ['class' => 'btn btn-xs btn-info ace-icon fa fa-trash-o bigger-115']
             ])
             ->getForm();
+    }
+
+    private function paginate($query, $maxResults, $page)
+    {
+        $pagesList = new Paginator($query, $fetchJoin = false);
+        $count = count($pagesList);
+        $maxPages = ceil($count / $maxResults);
+        /* if - need to activate or disactivate page block in Twig */
+        if ($count <= $maxResults) {
+            $count = 0;
+        }
+        return ['pagesList' => $pagesList, 'count' => $count, 'maxPages' => $maxPages, 'page' => $page];
     }
 }

@@ -15,13 +15,13 @@ class DishRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getAdminDishes($first, $max)
+    public function getAdminDishes($offset, $max)
     {
         return $this->getEntityManager()
             ->createQuery(
              'SELECT d FROM AppBundle:Dish d'
             )
-            ->setFirstResult($first)
+            ->setFirstResult($offset)
             ->setMaxResults($max);
     }
 
