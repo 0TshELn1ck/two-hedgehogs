@@ -41,7 +41,6 @@
                 </aside>
 
                 <div class="dishes_wrapp col-sm-8  col-lg-9">
-                    {%  dump(app.user) %}
                     <ul class="dish_list isotope">
                         {% for dish in dishList %}
                             <li class="dish col-xs-6 col-md-3 element-item {% for item in dish.categories %}{{ item.slug }} {% endfor %}">

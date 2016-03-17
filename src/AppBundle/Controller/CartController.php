@@ -72,6 +72,7 @@ class CartController extends Controller
     }
 
     /**
+     * Ajax adding to cart route
      * @Route("/add/{dish}", name="addToCart")
      * @Method("POST")
      */
@@ -82,7 +83,6 @@ class CartController extends Controller
         $user = $this->getUser();
 
         if ($user instanceof User) {
-            /** Cart var $cart **/
             $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user' => $user->getId()));
             $dishInCart = $cart->getDishes();
 
