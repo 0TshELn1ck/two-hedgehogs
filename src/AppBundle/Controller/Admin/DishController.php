@@ -57,7 +57,7 @@ class DishController extends Controller
      */
     public function listAction(Request $request, $page)
     {
-        $maxResults = 4;
+        $maxResults = 15;
         /* if page = 0 */
         if ($page >= 1) {
             $offset = ($page - 1) * $maxResults;
