@@ -231,6 +231,14 @@ class Dish
     }
 
     /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+    
+    /**
      * @return mixed
      */
     public function getPictPath()
