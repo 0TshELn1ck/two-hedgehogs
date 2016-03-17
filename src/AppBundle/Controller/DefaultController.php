@@ -24,14 +24,6 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/order", name="order")
-     */
-    public function orderAction(Request $request)
-    {
-        return $this->render('AppBundle:Front:order.html.twig');
-    }
-
-    /**
      * @Route("/profile", name="userProfile")
      */
     public function profileAction(Request $request)

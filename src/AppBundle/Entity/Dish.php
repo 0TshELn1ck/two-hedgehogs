@@ -88,6 +88,11 @@ class Dish
     private $categories;
 
     /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="dishes")
+     */
+    private $carts;
+
+    /**
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\UploadPicture", mappedBy="dish", cascade={"REMOVE"})
      */
     private $uploadPictures;
@@ -98,12 +103,13 @@ class Dish
     public function __construct()
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->carts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -114,6 +120,7 @@ class Dish
      * Set name
      *
      * @param string $name
+     *
      * @return Dish
      */
     public function setName($name)
@@ -126,7 +133,7 @@ class Dish
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -137,6 +144,7 @@ class Dish
      * Set recipe
      *
      * @param string $recipe
+     *
      * @return Dish
      */
     public function setRecipe($recipe)
@@ -149,7 +157,7 @@ class Dish
     /**
      * Get recipe
      *
-     * @return string 
+     * @return string
      */
     public function getRecipe()
     {
@@ -160,6 +168,7 @@ class Dish
      * Set ingredients
      *
      * @param string $ingredients
+     *
      * @return Dish
      */
     public function setIngredients($ingredients)
@@ -172,7 +181,7 @@ class Dish
     /**
      * Get ingredients
      *
-     * @return string 
+     * @return string
      */
     public function getIngredients()
     {
@@ -183,6 +192,7 @@ class Dish
      * Set price
      *
      * @param string $price
+     *
      * @return Dish
      */
     public function setPrice($price)
@@ -195,7 +205,7 @@ class Dish
     /**
      * Get price
      *
-     * @return string 
+     * @return string
      */
     public function getPrice()
     {
@@ -205,7 +215,7 @@ class Dish
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -218,14 +228,6 @@ class Dish
     public function getCreatedAt()
     {
         return $this->createdAt;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getUpdatedAt()
-    {
-        return $this->updatedAt;
     }
 
     /**
@@ -245,9 +247,10 @@ class Dish
     }
 
     /**
-     * Add categories
+     * Add category
      *
      * @param \AppBundle\Entity\DishCategory $category
+     *
      * @return Dish
      */
     public function addCategory(\AppBundle\Entity\DishCategory $category)
@@ -258,7 +261,7 @@ class Dish
     }
 
     /**
-     * Remove categories
+     * Remove category
      *
      * @param \AppBundle\Entity\DishCategory $category
      */
@@ -270,12 +273,25 @@ class Dish
     /**
      * Get categories
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCategories()
     {
         return $this->categories;
     }
+
+    /**
+     * Add cart
+     *
+     * @param \AppBundle\Entity\Cart $cart
+     *
+     * @return Dish
+     */
+    public function addCart(\AppBundle\Entity\Cart $cart)
+    {
+        $this->carts[] = $cart;
+    }
+
     /**
      * Add uploadPictures
      *
@@ -288,6 +304,26 @@ class Dish
         $this->uploadPictures[] = $uploadPictures;
 
         return $this;
+    }
+
+    /**
+     * Remove cart
+     *
+     * @param \AppBundle\Entity\Cart $cart
+     */
+    public function removeCart(\AppBundle\Entity\Cart $cart)
+    {
+        $this->carts->removeElement($cart);
+    }
+
+    /**
+     * Get carts
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCarts()
+    {
+        return $this->carts;
     }
 
     /**
@@ -308,5 +344,6 @@ class Dish
     public function getuploadPicture()
     {
         return $this->uploadPictures;
+
     }
 }
