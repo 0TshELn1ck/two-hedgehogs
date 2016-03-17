@@ -78,6 +78,11 @@ class Dish
     private $updatedAt;
 
     /**
+     * @ORM\Column(type="string")
+     */
+    private $pictPath;
+
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\DishCategory", inversedBy="dishes")
      */
     private $categories;
@@ -86,6 +91,19 @@ class Dish
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Cart", mappedBy="dishes")
      */
     private $carts;
+
+    /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\UploadPicture", mappedBy="dish", cascade={"REMOVE"})
+     */
+    private $uploadPictures;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -190,19 +208,6 @@ class Dish
     }
 
     /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Dish
-     */
-    public function setSlug($slug)
-    {
-        $this->slug = $slug;
-
-        return $this;
-    }
-
-    /**
      * Get slug
      *
      * @return string 
@@ -221,14 +226,6 @@ class Dish
     }
 
     /**
-     * @param \DateTime $createdAt
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getUpdatedAt()
@@ -237,12 +234,19 @@ class Dish
     }
 
     /**
-     * Constructor
+     * @return mixed
      */
-    public function __construct()
+    public function getPictPath()
     {
-        $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->carts = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->pictPath;
+    }
+
+    /**
+     * @param mixed $pictPath
+     */
+    public function setPictPath($pictPath)
+    {
+        $this->pictPath = $pictPath;
     }
 
     /**
@@ -288,6 +292,18 @@ class Dish
     public function addCart(\AppBundle\Entity\Cart $cart)
     {
         $this->carts[] = $cart;
+    }
+
+    /**
+     * Add uploadPictures
+     *
+     * @param \AppBundle\Entity\UploadPicture $uploadPictures
+     *
+     * @return Dish
+     */
+    public function addUploadFile(\AppBundle\Entity\UploadPicture $uploadPictures)
+    {
+        $this->uploadPictures[] = $uploadPictures;
 
         return $this;
     }
@@ -310,5 +326,25 @@ class Dish
     public function getCarts()
     {
         return $this->carts;
+    }
+
+    /**
+     * Remove uploadPictures
+     *
+     * @param \AppBundle\Entity\UploadPicture $uploadPictures
+     */
+    public function removeUploadFile(\AppBundle\Entity\UploadPicture $uploadPictures)
+    {
+        $this->uploadPictures->removeElement($uploadPictures);
+    }
+
+    /**
+     * Get $this->uploadPictures
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getuploadPicture()
+    {
+        return $this->uploadPictures;
     }
 }

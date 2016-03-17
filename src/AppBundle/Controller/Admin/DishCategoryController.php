@@ -5,6 +5,7 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\DishCategory;
 use AppBundle\Form\DishCategoryType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,73 +19,84 @@ class DishCategoryController extends Controller
 {
 
     /**
-     * @Route("/add", name="adm_dish_cat_add")
+     * @Route("/add", name="admin_dish_category_add")
+     * @Template()
      */
     public function addAction(Request $request)
     {
         $category = new DishCategory();
 
         $form = $this->createForm(DishCategoryType::class, $category);
-        $msg ="";
+        $msg = "";
 
         $form->handleRequest($request);
-        if ($form->isValid()){
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
-            $msg ="New dish category successfully added";
+            $msg = "New dish category successfully added";
         }
 
-        return $this->render('@App/Admin/Dish/addCategory.html.twig', ['form' => $form->createView(),
-            'msg' => $msg]);
+        return [
+            'form' => $form->createView(),
+            'msg' => $msg
+        ];
     }
 
     /**
-     * @Route("/list", name="adm_dish_cat_list")
+     * @Route("/list", name="admin_dish_category_list")
+     * @Template()
      */
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $categoryList = $em->getRepository('AppBundle:DishCategory')->findAll();
 
-        $deleteForms = [];
+        $deleteForm = [];
         foreach ($categoryList as $entity) {
-            $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
-                ->setAction($this->generateUrl('adm_dish_cat_del', array('id' => $entity->getId())))
+            $deleteForm[$entity->getId()] = $this->createFormBuilder($entity)
+                ->setAction($this->generateUrl('admin_dish_category_delete', array('id' => $entity->getId())))
                 ->setMethod('DELETE')
-                ->add('submit', SubmitType::class, ['label' => ' ', 'attr' => ['class' => 'glyphicon glyphicon-trash btn-link']])
+                ->add('submit', SubmitType::class, [
+                    'label' => ' ',
+                    'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-115']
+                ])
                 ->getForm()->createView();
         }
 
-        return $this->render('@App/Admin/Dish/listCategory.html.twig', ['categoryList' => $categoryList,
-        'delForms' => $deleteForms]);
+        return [
+            'categoryList' => $categoryList,
+            'deleteForm' => $deleteForm
+        ];
     }
 
     /**
-     * @Route("/edit/{id}", name="adm_dish_cat_edit")
+     * @Route("/edit/{id}", name="admin_dish_category_edit")
+     * @Template()
      */
     public function editAction($id, Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $categoryList = $em->getRepository('AppBundle:DishCategory')->find($id);
-        $msg ="";
+        $msg = "";
 
         $form = $this->createForm(DishCategoryType::class, $categoryList);
 
         $form->handleRequest($request);
-        if ($form->isValid()){
+        if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $msg ="Category was successfully edited";
+            $msg = "Category was successfully edited";
         }
 
-        return $this->render('@App/Admin/Dish/editCategory.html.twig', ['form' => $form->createView(),
-        'msg' => $msg]);
+        return [
+            'form' => $form->createView(),
+            'msg' => $msg
+        ];
     }
 
     /**
-     *
-     * @Route("/delete/{id}", name="adm_dish_cat_del")
+     * @Route("/delete/{id}", name="admin_dish_category_delete")
      * @Method("DELETE")
      */
     public function deleteAction($id)
@@ -94,6 +106,6 @@ class DishCategoryController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirectToRoute('adm_dish_cat_list');
+        return $this->redirectToRoute('admin_dish_category_list');
     }
 }

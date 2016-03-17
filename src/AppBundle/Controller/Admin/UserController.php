@@ -76,9 +76,58 @@ class UserController extends Controller
             if (!$user) {
                 throw $this->createNotFoundException('Unable to find User.');
             }
+
+            return ['user' => $user];
         }
 
-        return ['user' => $user];
+        return [];
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return array
+     * @Route("/edit/{id}", name="admin_user_edit")
+     * @Method({"GET", "POST"})
+     * @Template("@App/Admin/User/new.html.twig")
+     */
+    public function editAction(Request $request, $id)
+    {
+        $breadcrumbs = "Рудагувати";
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('AppBundle:User')->findOneBy(array('id' => $id));
+
+        if (!$user) {
+            throw $this->createNotFoundException('Unable to find Container user.');
+        }
+
+        $originalPassword = $user->getPassword();
+        $editForm = $this->createForm(UserType::class, $user);
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isValid()) {
+
+            $plainPassword = $editForm->get('password')->getData();
+            if (!empty($plainPassword)) {
+                //encode the password
+                $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
+                $tempPassword = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+                $user->setPassword($tempPassword);
+            } else {
+                $user->setPassword($originalPassword);
+            }
+
+            $em->persist($user);
+            $em->flush();
+
+            return $this->redirect($this->generateUrl('admin_user_index'));
+        }
+
+        return [
+            'userForm' => $editForm->createView(),
+            'breadcrumbs' => $breadcrumbs
+        ];
     }
 
     /**
@@ -168,5 +217,28 @@ class UserController extends Controller
                 'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-115']
             ])
             ->getForm();
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @Route("/search", name="admin_user_search")
+     * @Method("POST")
+     * @Template()
+     */
+    public function searchAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            $searchItem = $request->request->get('search');
+            $em = $this->getDoctrine()->getManager();
+            $user = $em->getRepository('AppBundle:User')->searchInUsers($searchItem);
+
+            $paginator = $this->get('knp_paginator');
+            $pagination = $paginator->paginate($user, $request->query->getInt('page', 1), 10);
+
+            return ['user' => $pagination];
+        }
+
+        return [];
     }
 }
