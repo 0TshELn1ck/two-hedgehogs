@@ -58,20 +58,6 @@ class Cart
     }
 
     /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Cart
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
-    /**
      * Get createdAt
      *
      * @return \DateTime

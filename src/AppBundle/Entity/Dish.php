@@ -344,5 +344,6 @@ class Dish
     public function getuploadPicture()
     {
         return $this->uploadPictures;
+
     }
 }
