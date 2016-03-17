@@ -41,7 +41,7 @@ class CartController extends Controller
             ];
         }
 
-        return $this->redirect($this->generateUrl('login'));
+        return $this->redirect($this->generateUrl('user_login'));
     }
 
     /**

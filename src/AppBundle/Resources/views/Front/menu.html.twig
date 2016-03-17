@@ -41,6 +41,7 @@
                 </aside>
 
                 <div class="dishes_wrapp col-sm-8  col-lg-9">
+                    {%  dump(app.user) %}
                     <ul class="dish_list isotope">
                         {% for dish in dishList %}
                             <li class="dish col-xs-6 col-md-3 element-item {% for item in dish.categories %}{{ item.slug }} {% endfor %}">
@@ -51,7 +52,20 @@
                                     </div>
                                     <h3><a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">{{ dish.name }}</a>
                                     </h3>
-                                    <button data-dish="{{ dish.id }}" class="addToCart">Замовити <i class="fa fa-cutlery"></i></button>
+                                    {% if app.user %}
+                                        {% if app.user.cart.dishes.contains(dish) %}
+                                            <button data-dish="{{ dish.id }}" class="addToCart" style="background-color: grey">
+                                                В кошику <i class="fa fa-check"></i>
+                                            </button>
+                                        {% else %}
+                                            <button data-dish="{{ dish.id }}" class="addToCart">
+                                                Замовити <i class="fa fa-cutlery"></i>
+                                            </button>
+                                        {% endif %}
+                                    {% else %}
+                                        <a class="addToCartBlocked" href="{{ path('user_login') }}">Замовити <i class="fa fa-cutlery"></i></a>
+                                    {% endif %}
+
                                 </a>
                             </li>
                         {% endfor %}
@@ -67,14 +81,15 @@
         $(document).ready(function () {
             //add to cart ajax
             $('.addToCart').click(function(){
-                var dish = $(this).data("dish");
+                var addButton = $(this);
+                var dish = addButton.data("dish");
                 $.ajax({
                     url: "{{ path('addToCart')}}/"+dish,
                     method: "POST",
                     success: function(data){
                         if (data.added == 1){
                             var count = parseInt($('.cart_count_heder').html()) + 1;
-                            console.log(count);
+                            addButton.html('В кошику <i class="fa fa-check"></i>').css("background-color","grey");
                             $('.cart_count_heder').html(count);
                         }
                     }
