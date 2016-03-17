@@ -6,6 +6,7 @@ use AppBundle\Entity\Dish;
 use AppBundle\Entity\UploadPicture;
 use AppBundle\Form\DishType;
 use AppBundle\Form\ChoicePictureType;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -51,15 +52,28 @@ class DishController extends Controller
     }
 
     /**
-     * @Route("/list", name="admin_dish_list")
+     * @Route("/list/page/{page}", name="admin_dish_list", defaults={"page" = 1})
      */
-    public function listAction(Request $request)
+    public function listAction(Request $request, $page)
     {
+        $maxResults = 10;
+        $offset = ($page-1)*$maxResults;
         $em = $this->getDoctrine()->getManager();
-        $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
+        $query = $em->getRepository('AppBundle:Dish')->getAdminDishes($offset, $maxResults);
 
+        $paginator = new Paginator($query, $fetchJoin = false);
+        $count =count($paginator);
+        $maxPages = ceil($count/$maxResults);
+        /* if - need to activate or disactivate page block in Twig */
+        if ($count <= $maxResults) {
+            $count = 0;
+        }
+        $i = 0;
+        $dishList = [];
         $deleteForms = [];
-        foreach ($dishList as $entity) {
+        foreach ($paginator as $entity) {
+            $dishList[$i] = $entity;
+            $i++;
             $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
                 ->setAction($this->generateUrl('admin_dish_delete', array('id' => $entity->getId())))
                 ->setMethod('DELETE')
@@ -67,8 +81,8 @@ class DishController extends Controller
                 ->getForm()->createView();
         }
 
-        return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList,
-            'delForms' => $deleteForms]);
+        return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList, 'count' => $count,
+            'maxPages' => $maxPages, 'page' => $page, 'delForms' => $deleteForms]);
     }
 
     /**

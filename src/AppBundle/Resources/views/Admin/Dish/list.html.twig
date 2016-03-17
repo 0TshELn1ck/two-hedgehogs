@@ -5,6 +5,7 @@
             <div class="col-xs-12">
                 <a class="btn btn-light btn-xs" href="{{ path('admin_dish_add') }}"><i
                             class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
+
                 <h3>List of Dishes</h3>
                 <table class="table table-bordered table-hover">
                     <tr>
@@ -37,6 +38,18 @@
                         </tr>
                     {% endfor %}
                 </table>
+                {% if count != 0 %}
+                    Page: {{ page }}, count results: {{ count }}<br/><br/>
+                    <ul class="pagination">
+                        <li><a href="{{ path('admin_dish_list', {'page': 1}) }}"><i class="ace-icon fa fa-angle-double-left"></i></a></li>
+                        {% if page == 1 %}{% set disablePrev = 'disabled' %}{% else %}{% set disablePrev = '' %}{% endif %}
+                        <li class="{{ disablePrev }}"><a href="{{ path('admin_dish_list', {'page': page-1}) }}"><b>prev</b></a></li>
+                        <li class="active"><a href="{{ path('admin_dish_list', {'page': page}) }}"><b>{{ page }}</b></a></li>
+                        {% if page >= maxPages %}{% set disableNext = 'disabled' %}{% else %}{% set disableNext = '' %}{% endif %}
+                        <li class="{{ disableNext }}"><a href="{{ path('admin_dish_list', {'page': page+1}) }}"><b>next</b></a></li>
+                        <li><a href="{{ path('admin_dish_list', {'page': maxPages}) }}"><i class="ace-icon fa fa-angle-double-right"></i></a></li>
+                    </ul>
+                {% endif %}
             </div><!-- PAGE CONTENT ENDS -->
         </div><!-- /.col -->
     </div><!-- /.row -->
