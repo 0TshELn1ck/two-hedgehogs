@@ -18,6 +18,11 @@ class User extends BaseUser
     private $cart;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Order", mappedBy="user")
+     */
+    private $orders;
+
+    /**
      * Set cart
      *
      * @param \AppBundle\Entity\Cart $cart
