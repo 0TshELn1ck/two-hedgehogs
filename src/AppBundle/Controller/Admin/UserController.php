@@ -131,55 +131,12 @@ class UserController extends Controller
     }
 
     /**
-     * @param Request $request
-     * @param $id
-     * @return array
-     * @Route("/edit/{id}", name="admin_user_edit")
-     * @Method({"GET", "POST"})
-     */
-    public function editAction(Request $request, $id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user = $em->getRepository('AppBundle:User')->findOneBy(array('id' => $id));
-
-        if (!$user) {
-            throw $this->createNotFoundException('Unable to find Container user.');
-        }
-
-        $originalPassword = $user->getPassword();
-        $editForm = $this->createForm(UserType::class, $user);
-
-        $editForm->handleRequest($request);
-
-        if ($editForm->isValid()) {
-
-            $plainPassword = $editForm->get('password')->getData();
-            if (!empty($plainPassword)) {
-                //encode the password
-                $encoder = $this->container->get('security.encoder_factory')->getEncoder($user);
-                $tempPassword = $encoder->encodePassword($user->getPassword(), $user->getSalt());
-                $user->setPassword($tempPassword);
-            } else {
-                $user->setPassword($originalPassword);
-            }
-
-            $em->persist($user);
-            $em->flush();
-
-            return $this->redirect($this->generateUrl('admin_user_index'));
-        }
-
-        return $this->render('@App/Admin/User/new.html.twig', ['userForm' => $editForm->createView()]);
-    }
-
-    /**
      * @param $id
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/delete/{id}", name="admin_user_delete")
      * @Method("DELETE")
      */
-    public
-    function deleteAction($id)
+    public function deleteAction($id)
     {
         if ($id) {
             $em = $this->getDoctrine()->getManager();
@@ -205,8 +162,7 @@ class UserController extends Controller
      * @param User $user The User entity
      * @return \Symfony\Component\Form\Form The form
      */
-    private
-    function createDeleteForm(User $user)
+    private function createDeleteForm(User $user)
     {
 
         return $this->createFormBuilder()

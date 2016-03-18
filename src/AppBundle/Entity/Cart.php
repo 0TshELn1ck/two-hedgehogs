@@ -23,13 +23,6 @@ class Cart
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="ip", type="string", length=15, nullable=true, unique=true)
-     */
-    private $ip;
-
-    /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", inversedBy="cart")
      */
     private $user;
@@ -46,39 +39,22 @@ class Cart
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Dish", inversedBy="carts")
      */
     private $dishes;
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->dishes = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
      *
-     * @return int
+     * @return integer
      */
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set ip
-     *
-     * @param string $ip
-     *
-     * @return Cart
-     */
-    public function setIp($ip)
-    {
-        $this->ip = $ip;
-
-        return $this;
-    }
-
-    /**
-     * Get ip
-     *
-     * @return string
-     */
-    public function getIp()
-    {
-        return $this->ip;
     }
 
     /**
@@ -114,16 +90,9 @@ class Cart
     {
         return $this->user;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->dishes = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
-     * Add dishes
+     * Add dish
      *
      * @param \AppBundle\Entity\Dish $dish
      *
@@ -137,7 +106,7 @@ class Cart
     }
 
     /**
-     * Remove dishes
+     * Remove dish
      *
      * @param \AppBundle\Entity\Dish $dish
      */
@@ -154,19 +123,5 @@ class Cart
     public function getDishes()
     {
         return $this->dishes;
-    }
-
-    /**
-     * Set createdAt
-     *
-     * @param \DateTime $createdAt
-     *
-     * @return Cart
-     */
-    public function setCreatedAt($createdAt)
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
     }
 }

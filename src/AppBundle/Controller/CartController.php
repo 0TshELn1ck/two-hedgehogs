@@ -9,9 +9,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Cart;
+use AppBundle\Entity\User;
+use AppBundle\Entity\Dish;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -22,37 +26,78 @@ use Symfony\Component\HttpFoundation\Response;
 class CartController extends Controller
 {
     /**
+     * @Route("/", name="cart")
+     * @Template("AppBundle:Front:order.html.twig")
+     */
+    public function getCartAction()
+    {
+        $user = $this->getUser();
+
+        if ($user instanceof User){
+            $cart = $user->getCart();
+
+            return [
+                'cart'=>$cart
+            ];
+        }
+
+        return $this->redirect($this->generateUrl('user_login'));
+    }
+
+    /**
      * @Route("/check", name="cartCheck")
      */
-    public function getCartAction(Request $request)
+    public function getCartCheckAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
+        $count_dish = 0;
 
-        if ($user){
-            $cart = $em->getRepository("AppBundle:Cart")->findBy(array('user'=>$user->getId()));
+        if ($user instanceof User){
+            $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user'=>$user->getId()));
 
             if (!$cart){
                 $cart = new Cart();
-                $cart->setIp($request->getClientIp());
+                $cart->setUser($user);
                 $em->persist($cart);
                 $em->flush();
             }
 
-        } else {
-            $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('ip'=>$request->getClientIp()));
-
-            if (!$cart){
-                $cart = new Cart();
-                $cart->setIp($request->getClientIp());
-                $em->persist($cart);
-                $em->flush();
-            }
+            $count_dish = count($cart->getDishes());
         }
 
         return new Response(
-            count($cart->getDishes())
+            $count_dish
         );
+    }
+
+    /**
+     * Ajax adding to cart route
+     * @Route("/add/{dish}", name="addToCart")
+     * @Method("POST")
+     */
+    public function addToCartAction(Request $request, Dish $dish=null)
+    {
+        $response = new JsonResponse();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        if ($user instanceof User) {
+            $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user' => $user->getId()));
+            $dishInCart = $cart->getDishes();
+
+            if (!$dishInCart->contains($dish)){
+                $cart->addDish($dish);
+                $em->persist($cart);
+                $em->flush();
+                $response->setData(array('added' => 1));
+
+                return $response;
+            }
+        }
+        $response->setData(array('added' => 0));
+
+        return $response;
     }
 
 }

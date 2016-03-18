@@ -103,12 +103,13 @@ class Dish
     public function __construct()
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->carts = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -119,6 +120,7 @@ class Dish
      * Set name
      *
      * @param string $name
+     *
      * @return Dish
      */
     public function setName($name)
@@ -131,7 +133,7 @@ class Dish
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -142,6 +144,7 @@ class Dish
      * Set recipe
      *
      * @param string $recipe
+     *
      * @return Dish
      */
     public function setRecipe($recipe)
@@ -154,7 +157,7 @@ class Dish
     /**
      * Get recipe
      *
-     * @return string 
+     * @return string
      */
     public function getRecipe()
     {
@@ -165,6 +168,7 @@ class Dish
      * Set ingredients
      *
      * @param string $ingredients
+     *
      * @return Dish
      */
     public function setIngredients($ingredients)
@@ -177,7 +181,7 @@ class Dish
     /**
      * Get ingredients
      *
-     * @return string 
+     * @return string
      */
     public function getIngredients()
     {
@@ -188,6 +192,7 @@ class Dish
      * Set price
      *
      * @param string $price
+     *
      * @return Dish
      */
     public function setPrice($price)
@@ -200,7 +205,7 @@ class Dish
     /**
      * Get price
      *
-     * @return string 
+     * @return string
      */
     public function getPrice()
     {
@@ -210,7 +215,7 @@ class Dish
     /**
      * Get slug
      *
-     * @return string 
+     * @return string
      */
     public function getSlug()
     {
@@ -232,7 +237,7 @@ class Dish
     {
         return $this->updatedAt;
     }
-
+    
     /**
      * @return mixed
      */
@@ -250,9 +255,10 @@ class Dish
     }
 
     /**
-     * Add categories
+     * Add category
      *
      * @param \AppBundle\Entity\DishCategory $category
+     *
      * @return Dish
      */
     public function addCategory(\AppBundle\Entity\DishCategory $category)
@@ -263,7 +269,7 @@ class Dish
     }
 
     /**
-     * Remove categories
+     * Remove category
      *
      * @param \AppBundle\Entity\DishCategory $category
      */
@@ -275,7 +281,7 @@ class Dish
     /**
      * Get categories
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getCategories()
     {
