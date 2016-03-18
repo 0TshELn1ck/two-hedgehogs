@@ -44,7 +44,7 @@ class DishController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($dish);
             $em->flush();
-            $msg = "New dish successfully added";
+            $msg = "New dish \"".$dish->getName()."\" successfully added";
         }
 
         return $this->render('@App/Admin/Dish/add.html.twig', ['form' => $form->createView(),
@@ -78,13 +78,15 @@ class DishController extends Controller
             $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
                 ->setAction($this->generateUrl('admin_dish_delete', array('id' => $entity->getId())))
                 ->setMethod('DELETE')
-                ->add('submit', SubmitType::class,
-                    ['label' => ' ', 'attr' => ['class' => 'glyphicon glyphicon-trash btn-link']])
+                ->add('submit', SubmitType::class, [
+                    'label' => ' ',
+                    'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-115']
+                ])
                 ->getForm()->createView();
         }
 
-        return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList, 'delForms' => $deleteForms,
-            'paginate' => $paginate]);
+        return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList,
+            'deleteForm' => $deleteForms, 'paginate' => $paginate]);
     }
 
     /**

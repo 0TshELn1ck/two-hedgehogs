@@ -76,9 +76,11 @@ class UserController extends Controller
             if (!$user) {
                 throw $this->createNotFoundException('Unable to find User.');
             }
+
+            return ['user' => $user];
         }
 
-        return ['user' => $user];
+        return [];
     }
 
     /**
@@ -87,9 +89,11 @@ class UserController extends Controller
      * @return array
      * @Route("/edit/{id}", name="admin_user_edit")
      * @Method({"GET", "POST"})
+     * @Template("@App/Admin/User/new.html.twig")
      */
     public function editAction(Request $request, $id)
     {
+        $breadcrumbs = "Рудагувати";
         $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('AppBundle:User')->findOneBy(array('id' => $id));
 
@@ -120,7 +124,10 @@ class UserController extends Controller
             return $this->redirect($this->generateUrl('admin_user_index'));
         }
 
-        return $this->render('@App/Admin/User/new.html.twig', ['userForm' => $editForm->createView()]);
+        return [
+            'userForm' => $editForm->createView(),
+            'breadcrumbs' => $breadcrumbs
+        ];
     }
 
     /**

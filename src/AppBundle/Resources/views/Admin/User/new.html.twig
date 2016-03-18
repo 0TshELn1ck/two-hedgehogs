@@ -3,9 +3,15 @@
 
 {% block breadcrumbs %}
     {{ parent() }}
-    <li>
-        <a href="{{ path('admin_user_new') }}">Додати нового</a>
-    </li>
+    {% if breadcrumbs is defined %}
+        <li>
+            {{ breadcrumbs }}
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ path('admin_user_new') }}">Додати нового</a>
+        </li>
+    {% endif %}
 {% endblock breadcrumbs %}
 
 {% block content %}
@@ -32,7 +38,7 @@
                         </li>
 
                         <li>
-                            <a data-toggle="tab" href="#edit-password">
+                            <a class="password_block_tab" data-toggle="tab" href="#edit-password">
                                 <i class="blue ace-icon fa fa-key bigger-125"></i>
                                 Пароль
                             </a>
@@ -91,9 +97,9 @@
                                             <input class="input-medium date-picker" type="text"
                                                    data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy"
                                                    id="datepicker">
-																			<span class="input-group-addon">
-																				<i class="ace-icon fa fa-calendar"></i>
-																			</span>
+                                            <span class="input-group-addon">
+                                                <i class="ace-icon fa fa-calendar"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -133,31 +139,27 @@
                             <h4 class="header blue bolder smaller">Контактна інформація</h4>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"
-                                       for="form-field-email">Почтова адреса</label>
-
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-email">Почтова адреса</label>
                                 <div class="col-sm-9">
+                                    <span class="input-icon input-icon-right">
+                                        {{ form_widget(userForm.email) }}
+                                        <i class="ace-icon fa fa-envelope"></i>
 
-																	<span class="input-icon input-icon-right">
-																		{{ form_widget(userForm.email) }}
-                                                                        <i class="ace-icon fa fa-envelope"></i>
-
-																	</span>
+                                    </span>
                                 </div>
                             </div>
 
                             <div class="space-4"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"
-                                       for="form-field-phone">Телефонний номер</label>
-
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-phone">
+                                    Телефонний номер
+                                </label>
                                 <div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input class="input-medium input-mask-phone"
-                                                                               type="text" id="form-field-phone">
-																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																	</span>
+                                    <span class="input-icon input-icon-right">
+                                        <input class="input-medium input-mask-phone" type="text" id="form-field-phone">
+                                        <i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
+                                    </span>
                                 </div>
                             </div>
 
@@ -168,26 +170,22 @@
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
 
                                 <div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="facebook_alexdoe"
-                                                                               id="form-field-facebook">
-																		<i class="ace-icon fa fa-facebook blue"></i>
-																	</span>
+                                    <span class="input-icon">
+                                        <input type="text" placeholder="facebook_alexdoe" id="form-field-facebook">
+                                        <i class="ace-icon fa fa-facebook blue"></i>
+                                    </span>
                                 </div>
                             </div>
 
                             <div class="space-4"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"
-                                       for="form-field-twitter">Twitter</label>
-
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-twitter">Twitter</label>
                                 <div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="twitter_alexdoe"
-                                                                               id="form-field-twitter">
-																		<i class="ace-icon fa fa-twitter light-blue"></i>
-																	</span>
+                                    <span class="input-icon">
+                                        <input type="text" placeholder="twitter_alexdoe" id="form-field-twitter">
+                                        <i class="ace-icon fa fa-twitter light-blue"></i>
+                                    </span>
                                 </div>
                             </div>
 
@@ -198,11 +196,10 @@
                                        for="form-field-gplus">Google+</label>
 
                                 <div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="google_alexdoe"
-                                                                               id="form-field-gplus">
-																		<i class="ace-icon fa fa-google-plus red"></i>
-																	</span>
+                                    <span class="input-icon">
+                                        <input type="text" placeholder="google_alexdoe" id="form-field-gplus">
+                                        <i class="ace-icon fa fa-google-plus red"></i>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -271,6 +268,25 @@
     {{ parent() }}
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script>
+        $('document').ready(function(){
+
+            $('form[name="app_bundle_user_type"]').submit(function () {
+                pass = $('#app_bundle_user_type_password_first');
+                conf_pass = $('#app_bundle_user_type_password_second');
+
+                if(pass.val().length > 5 && pass.val() == conf_pass.val()){
+
+                    return true;
+                }
+
+                $('.password_block_tab').click();
+                pass.css('border', '1px solid red');
+                conf_pass.css('border', '1px solid red');
+
+                return false;
+            });
+        });
+
         $(function () {
             $("#datepicker").datepicker();
         });
