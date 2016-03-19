@@ -11,20 +11,22 @@
             <div class="menu_title">
                 <h2>Замовлення</h2>
             </div>
+            {% if dishes|length != 0 %}
             <div class="container order_page">
                 <div class="instruction">
                     Тут якесь пояснення, щодо оформлення замовлення
                 </div>
-                <form>
                 <ul class="dish_list">
-                    <li class="row">
+                    {% for dish in dishes %}
+                    <li class="row dish_{{ dish.id }}">
                         <div class="img-wrapp col-xs-6 col-md-3">
-                            <img src="/images/dish1.jpg" alt="">
+                            <img src="{{ asset(dish.pictPath) | imagine_filter('thumb_230') }}"
+                                 alt="{{ dish.name }}" title="{{ dish.name }}"/>
                         </div>
                         <div class="dish_info col-xs-6">
-                            <h2><a href="#">Борщ український з сметаною</a></h2>
+                            <h2><a href="#">{{ dish.name }}</a></h2>
                             <div class="ingridients">
-                                 Склад: свинина, буряк, капуста, морква, фасоля, томатна паста, часнік, картопля.
+                                 Склад: {{ dish.ingredients }}.
                             </div>
                         </div>
                          <div class="order_info col-md-3">
@@ -35,58 +37,16 @@
                                     </div>
 
                              </div>
-                             <span class="price col-xs-8">130 грн</span>
+                             <span class="price col-xs-8">{{ dish.price }} грн</span>
                          </div>
                         <div class="delete_position">
-                            <i class="fa fa-times"></i>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="img-wrapp col-xs-6 col-md-3">
-                            <img src="/images/dish1.jpg" alt="">
-                        </div>
-                        <div class="dish_info col-xs-6">
-                            <h2><a href="#">Борщ український з сметаною</a></h2>
-                            <div class="ingridients">
-                                 Склад: свинина, буряк, капуста, морква, фасоля, томатна паста, часнік, картопля.
-                            </div>
-                        </div>
-                         <div class="order_info col-md-3">
-                             <div class="count-wrapp col-xs-4">
+                            <button data-dish="{{ dish.id }}" class="del_dishCart btn btn-xs">
+                                <i class="fa fa-times"></i>
+                            </button>
 
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="count" min="0" value="1">
-                                    </div>
-
-                             </div>
-                             <span class="price col-xs-8">130 грн</span>
-                         </div>
-                        <div class="delete_position">
-                            <i class="fa fa-times"></i>
                         </div>
                     </li>
-                    <li class="row">
-                        <div class="img-wrapp col-xs-6 col-md-3">
-                            <img src="/images/dish1.jpg" alt="">
-                        </div>
-                        <div class="dish_info col-xs-6">
-                            <h2><a href="#">Борщ український з сметаною</a></h2>
-                            <div class="ingridients">
-                                 Склад: свинина, буряк, капуста, морква, фасоля, томатна паста, часнік, картопля.
-                            </div>
-                        </div>
-                         <div class="order_info col-md-3">
-                             <div class="count-wrapp col-xs-4">
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="count" min="0" value="1">
-                                    </div>
-                             </div>
-                             <span class="price col-xs-8">130 грн</span>
-                         </div>
-                        <div class="delete_position">
-                            <i class="fa fa-times"></i>
-                        </div>
-                    </li>
+                    {% endfor %}
                 </ul>
                 <div class="row">
                     <div class="location_block col-md-6">
@@ -120,10 +80,38 @@
                     </div>
                 </div>
                     <input class="addToCart" type="submit" value="Підтвердити">
-                </form>
+
             </div>
+            {% else %}
+                <h1>Ви не видрали жодної страви до замовлення. Перегляньте <a href="{{ path('list_dish') }}">меню</a>, та оберіть що Вам за смаком!</h1>
+            {% endif %}
         </div>
     </section>
 
 </div>
+{% endblock %}
+
+{% block initialize_plagins %}
+<script>
+    $(document).ready(function () {
+        //delete from cart ajax
+        $('.del_dishCart').click(function () {
+            var addButton = $(this);
+            var dish = addButton.data("dish");
+            $.ajax({
+                url: "{{ path('dellFromCart')}}/" + dish,
+                method: "POST",
+                success: function (data) {
+                    if (data.deleted == 1) {
+                        $('.dish_'+dish).fadeOut("fast");
+                        $('.cart_count_heder').html($('.cart_count_heder').html() - 1) ;
+                        setTimeout(function(){
+                            $('.dish_'+dish).remove();
+                        }, 1000);
+                    }
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}

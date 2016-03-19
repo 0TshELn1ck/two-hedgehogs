@@ -56,7 +56,7 @@ class DishInOrder
      *
      * @return DishInOrder
      */
-    public function setCount($count)
+    public function setCount($count = 1)
     {
         $this->count = $count;
 
