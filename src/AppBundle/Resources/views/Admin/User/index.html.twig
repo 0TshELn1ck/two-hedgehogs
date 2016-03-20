@@ -39,7 +39,7 @@
                                 </th>
                                 <th>
                                     <i class="ace-icon fa fa-clock-o"></i>
-                                    Дата редагуваня профілю
+                                    Дата останнього входу
                                 </th>
                                 <th></th>
                             </tr>
@@ -55,10 +55,10 @@
                                         <td>{{ item.email }}</td>
                                         <td class="hidden-480">{{ item.createdAt|date("M d, Y  h:i A") }}</td>
                                         <td>
-                                            {% if item.createdAt == item.updatedAt %}
-                                                Профіль не редагувався
+                                            {% if item.lastLogin == NULL %}
+                                                Вхід не відбувався
                                             {% else %}
-                                                {{ item.updatedAt|date("M d, Y  h:i A") }}
+                                                {{ item.lastLogin|date("d-m-Y  h:i A") }}
                                             {% endif %}
                                         </td>
                                         <td>
