@@ -34,8 +34,7 @@ class UserType extends AbstractType
                     'placeholder' => 'Логін',
                     'class' => 'form-control'
                 ),
-                'label' => false,
-                'required' => false
+                'label' => false
             ))
             ->add('password', RepeatedType::class, array(
                     'type' => PasswordType::class,
