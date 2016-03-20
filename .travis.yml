@@ -1,11 +1,9 @@
 language: php
-services:
-  - sqlite
-
 php:
   - 5.6
 
 before_script:
+  - mysql -u root -e 'create database symfony;'
   - composer self-update
   - composer install
 
