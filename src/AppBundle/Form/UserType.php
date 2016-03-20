@@ -29,9 +29,10 @@ class UserType extends AbstractType
                 ),
                 'label' => false
             ))
-            ->add('name', TextType::class, array(
+            ->add('username', TextType::class, array(
                 'attr' => array(
-                    'placeholder' => 'Ім\'я'
+                    'placeholder' => 'Логін',
+                    'class' => 'form-control'
                 ),
                 'label' => false,
                 'required' => false
