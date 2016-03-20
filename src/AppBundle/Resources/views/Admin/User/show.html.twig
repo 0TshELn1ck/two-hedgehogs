@@ -150,6 +150,18 @@
                                 </div>
 
                                 <div class="profile-info-row">
+                                    <div class="profile-info-name"> Активний</div>
+
+                                    <div class="profile-info-value">
+                                        <span>{% if user.enabled %}
+                                                Так
+                                            {% else %}
+                                                Ні
+                                            {% endif %}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
                                     <div class="profile-info-name"> Зареєстровано</div>
 
                                     <div class="profile-info-value">
@@ -168,6 +180,7 @@
                                             {% endif %}</span>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="space-20"></div>
