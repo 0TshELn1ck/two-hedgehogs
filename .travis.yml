@@ -1,4 +1,7 @@
 language: php
+services:
+  - sqlite
+
 php:
   - 5.6
 
