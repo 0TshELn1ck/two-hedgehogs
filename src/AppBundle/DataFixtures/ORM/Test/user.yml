@@ -1,4 +1,5 @@
 AppBundle\Entity\User:
     user{1..50}:
+        username (unique): <firstName()>
         email (unique): <email()>
         password: <password()>

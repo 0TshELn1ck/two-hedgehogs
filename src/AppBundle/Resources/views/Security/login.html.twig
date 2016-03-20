@@ -58,7 +58,7 @@
 														<span class="block input-icon input-icon-right">
 															<input type="text" name="_username" class="form-control"
                                                                    placeholder="Почтова адреса"/>
-															<i class="ace-icon fa fa-envelope"></i>
+															<i class="ace-icon fa fa-user"></i>
 														</span>
                                                 </label>
 
@@ -78,7 +78,9 @@
                                                                name="_remember_me" checked/>
                                                         <span class="lbl"> Запам'ятати </span>
                                                     </label>
-
+                                                    <input type="hidden" name="_csrf_token"
+                                                           value="{{ csrf_token('authenticate') }}"
+                                                    >
                                                     <button type="submit"
                                                             class="pull-right submit_button">
                                                         <i class="ace-icon fa fa-key"></i>
@@ -188,6 +190,13 @@
                                         <fieldset>
                                             <label class="block clearfix">
 														<span class="block input-icon input-icon-right">
+                                                            {{ form_row(registrationForm.username) }}
+                                                            <i class="ace-icon fa fa-user"></i>
+														</span>
+                                            </label>
+
+                                            <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
                                                             {{ form_row(registrationForm.email) }}
                                                             <i class="ace-icon fa fa-envelope"></i>
 														</span>
@@ -256,11 +265,11 @@
     {{ parent() }}
     <script type="text/javascript">
         /* Compere confirm password field  start*/
-        $('document').ready(function(){
-            $('form[name="app_bundle_user_type"]').submit(function (){
+        $('document').ready(function () {
+            $('form[name="app_bundle_user_type"]').submit(function () {
                 var pass = $('#app_bundle_user_type_password_first').val();
                 var confirm_pass = $('#app_bundle_user_type_password_second').val();
-                if ( pass != confirm_pass){
+                if (pass != confirm_pass) {
                     console.log(1);
                     $('#app_bundle_user_type_password_second').val('').addClass('bad_confirm');
                     return false;

@@ -142,10 +142,22 @@
                                 </div>
 
                                 <div class="profile-info-row">
-                                    <div class="profile-info-name"> Ім'я</div>
+                                    <div class="profile-info-name"> Логін</div>
 
                                     <div class="profile-info-value">
-                                        <span>{{ user.name }}</span>
+                                        <span>{{ user.username }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Активний</div>
+
+                                    <div class="profile-info-value">
+                                        <span>{% if user.enabled %}
+                                                Так
+                                            {% else %}
+                                                Ні
+                                            {% endif %}</span>
                                     </div>
                                 </div>
 
@@ -158,16 +170,17 @@
                                 </div>
 
                                 <div class="profile-info-row">
-                                    <div class="profile-info-name"> Відредаговано</div>
+                                    <div class="profile-info-name"> Останній вхід</div>
 
                                     <div class="profile-info-value">
-                                        <span>{% if user.createdAt == user.updatedAt %}
-                                                Профіль не редагувався
+                                        <span>{% if user.lastLogin == NULL %}
+                                                Вхід не відбувався
                                             {% else %}
-                                                {{ user.updatedAt|date("d-m-Y  h:i A") }}
+                                                {{ user.lastLogin|date("d-m-Y  h:i A") }}
                                             {% endif %}</span>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="space-20"></div>
