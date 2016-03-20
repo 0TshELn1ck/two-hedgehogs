@@ -38,7 +38,11 @@ class UserType extends AbstractType
                 'label' => false
             ))
             ->add('enabled', CheckboxType::class, array(
-                'label' => false
+                'attr' => array(
+                'class' => 'ace ace-switch ace-switch-5'
+                ),
+                'label' => false,
+                'required' => false
             ))
             ->add('password', RepeatedType::class, array(
                     'type' => PasswordType::class,

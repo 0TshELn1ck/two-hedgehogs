@@ -64,7 +64,7 @@
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label no-padding-right"
-                                               for="form-field-username"></label>
+                                               for="form-field-username">Ім'я</label>
 
                                         <div class="col-sm-8">
                                             {{ form_row(userForm.username) }}
@@ -210,12 +210,14 @@
                             <div class="space-10"></div>
 
                             <div>
-                                <label class="inline">
-                                    {{ form(userForm.enabled) }}
-                                    <span class="lbl"> Профіль активований</span>
-                                </label>
+                                <span class="col-sm-6">
+									<label class="pull-right inline">
+                                        <small class="muted smaller-90">Профіль активовано:</small>
+                                        {{ form_widget(userForm.enabled) }}
+                                        <span class="lbl middle"></span>
+                                    </label>
+								</span>
                             </div>
-
                         </div>
 
                         <div id="edit-password" class="tab-pane">
