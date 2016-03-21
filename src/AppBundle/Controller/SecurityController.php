@@ -25,7 +25,7 @@ class SecurityController extends Controller
         $form = $this->createFormBuilder($user)
             ->add('email', EmailType::class, array(
                 'attr' => array(
-                    'placeholder' => 'Почтова адреса',
+                    'placeholder' => 'Поштова адреса',
                     'class' => 'form-control'
                 ),
                 'label' => false
