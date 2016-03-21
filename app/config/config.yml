@@ -64,6 +64,7 @@ swiftmailer:
     host:      "%mailer_host%"
     username:  "%mailer_user%"
     password:  "%mailer_password%"
+    port:      "%mailer_port%"
     spool:     { type: memory }
 
 # Stof doctrine extention bundle
@@ -108,7 +109,44 @@ knp_paginator:
         pagination: KnpPaginatorBundle:Pagination:twitter_bootstrap_v3_pagination.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
 
+# fos_user Bundle
 fos_user:
-    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    db_driver: orm
     firewall_name: main
     user_class: AppBundle\Entity\User
+    use_listener:            true
+    use_flash_notifications: true
+    from_email:
+        address:        norep@uch.net
+        sender_name:    Demo Registration
+    profile:
+        form:
+            type:               FOS\UserBundle\Form\Type\ProfileFormType
+            name:               fos_user_profile_form
+            validation_groups:  [Profile, Default]
+    change_password:
+        form:
+            type:               FOS\UserBundle\Form\Type\ChangePasswordFormType
+            name:               fos_user_change_password_form
+            validation_groups:  [ChangePassword, Default]
+    registration:
+        confirmation:
+            enabled:    true # change to true for required email confirmation
+            template:   FOSUserBundle:Registration:email.txt.twig
+        form:
+            type:
+            name:               fos_user_registration_form
+            validation_groups:  [Registration, Default]
+    resetting:
+        token_ttl: 86400
+        email:
+            template:   FOSUserBundle:Resetting:email.txt.twig
+        form:
+            type:               FOS\UserBundle\Form\Type\ResettingFormType
+            validation_groups:  [ResetPassword, Default]
+    service:
+        mailer:                 fos_user.mailer.default
+        email_canonicalizer:    fos_user.util.canonicalizer.default
+        username_canonicalizer: fos_user.util.canonicalizer.default
+        token_generator:        fos_user.util.token_generator.default
+        user_manager:           fos_user.user_manager.default
