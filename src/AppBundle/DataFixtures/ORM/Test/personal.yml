@@ -1,4 +1,0 @@
-AppBundle\Entity\Personal:
-    post{1..12}:
-        email (unique): <email()>
-        password: <password()>

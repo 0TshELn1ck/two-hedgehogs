@@ -5,6 +5,10 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\User;
 use AppBundle\Form\UserType;
@@ -17,10 +21,42 @@ class SecurityController extends Controller
      */
     public function loginAction(Request $request)
     {
-
         $user = new User();
-        $form = $this->createForm(UserType::class, $user);
-        $form->offsetUnset('name');
+        $form = $this->createFormBuilder($user)
+            ->add('email', EmailType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Почтова адреса',
+                    'class' => 'form-control'
+                ),
+                'label' => false
+            ))
+            ->add('username', TextType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Логін',
+                    'class' => 'form-control'
+                ),
+                'label' => false
+            ))
+            ->add('password', RepeatedType::class, array(
+                    'type' => PasswordType::class,
+                    'first_options' => array(
+                        'attr' => array(
+                            'placeholder' => 'Пароль',
+                            'class' => 'form-control'
+                        ),
+                        'label' => false
+                    ),
+                    'second_options' => array(
+                        'attr' => array(
+                            'placeholder' => 'Повторіть пароль',
+                            'class' => 'form-control'
+                        ),
+                        'label' => false
+                    ),
+                    'required' => false
+                )
+            )
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -34,7 +70,7 @@ class SecurityController extends Controller
             $em->flush();
 // ... do any other work - like send them an email, etc
 // maybe set a "flash" success message for the user
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('user_login');
         }
 
         $authenticationUtils = $this->get('security.authentication_utils');

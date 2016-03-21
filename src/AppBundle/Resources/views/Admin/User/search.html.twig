@@ -18,15 +18,20 @@
                             <thead>
                             <tr>
                                 <th>id</th>
+                                <th>Логін</th>
                                 <th>Пошта</th>
                             </tr>
                             </thead>
                             {% if user %}
+                                <span class="center"><h4> За вашим запитом знайдено {{ user|length }} користувачів</h4></span>
                                 {% for item in user %}
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <a href="#">{{ item.id }}</a>
+                                            <a href="{{ path('admin_user_show', {'id': item.id}) }}"><h4>{{ item.id }}</h4></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('admin_user_show', {'id': item.id}) }}"><h4>{{ item.username }}</h4></a>
                                         </td>
                                         <td>
                                             <a href="{{ path('admin_user_show', {'id': item.id}) }}">
@@ -37,9 +42,6 @@
                                 </tbody>
                             {% endif %}
                         </table>
-                        <ul class="pager">
-                            {{ knp_pagination_render(user) }}
-                        </ul>
                     </div><!-- /.span -->
                 </div><!-- /.row -->
             </div><!-- PAGE CONTENT ENDS -->

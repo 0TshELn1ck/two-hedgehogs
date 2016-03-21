@@ -3,6 +3,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,9 +30,16 @@ class UserType extends AbstractType
                 ),
                 'label' => false
             ))
-            ->add('name', TextType::class, array(
+            ->add('username', TextType::class, array(
                 'attr' => array(
-                    'placeholder' => 'Ім\'я'
+                    'placeholder' => 'Логін',
+                    'class' => 'form-control'
+                ),
+                'label' => false
+            ))
+            ->add('enabled', CheckboxType::class, array(
+                'attr' => array(
+                'class' => 'ace ace-switch ace-switch-5'
                 ),
                 'label' => false,
                 'required' => false
