@@ -96,8 +96,4 @@
     {% endif %}
 
     Uploaded files for this dish: {{ countPictures }}
-    {% if msg != "" %}
-        <p><b>{{ msg }}</b></p>
-        <a href="{{ path('admin_dish_list') }}"><b>Admin list/edit dishes</b></a>
-    {% endif %}
 {% endblock content %}

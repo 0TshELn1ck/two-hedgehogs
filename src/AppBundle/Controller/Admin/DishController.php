@@ -37,18 +37,17 @@ class DishController extends Controller
         $dish->setPictPath('not_set');
 
         $form = $this->createForm(DishType::class, $dish);
-        $msg = "";
 
         $form->handleRequest($request);
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($dish);
             $em->flush();
-            $msg = "New dish \"".$dish->getName()."\" successfully added";
-        }
+            $message = "New dish \"".$dish->getName()."\" was successfully added";
 
-        return $this->render('@App/Admin/Dish/add.html.twig', ['form' => $form->createView(),
-            'msg' => $msg]);
+            return $this->render('@App/Admin/Dish/addMessage.html.twig', ['dish' => $dish, 'message' => $message]);
+        }
+        return $this->render('@App/Admin/Dish/add.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -84,7 +83,6 @@ class DishController extends Controller
                 ])
                 ->getForm()->createView();
         }
-
         return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList,
             'deleteForm' => $deleteForms, 'paginate' => $paginate]);
     }
@@ -101,7 +99,6 @@ class DishController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $dish = $em->getRepository('AppBundle:Dish')->find($id);
-        $msg = "";
 
         $form = $this->createForm(DishType::class, $dish);
         $uploadForm = $this->createFormBuilder($pict)
@@ -123,7 +120,9 @@ class DishController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $msg = "Dish was successfully edited";
+            $message = "Dish was successfully edited";
+
+            return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
 
         if ($uploadForm->isValid()) {
@@ -135,19 +134,21 @@ class DishController extends Controller
             $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
             $uploadableManager->markEntityToUpload($pict, $pict->getFile());
             $em->flush();
-            $msg = 'Picture was added to dish';
+            $message = 'Picture was added to dish';
+
+            return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
 
         if ($formChoose->isValid()) {
             $dish->setPictPath($formChoose['pict_path']->getData()->getPath());
             $em->flush();
-            $msg = 'Picture changes for dish "' . $dish->getName() . '"';
-        }
+            $message = 'Main picture changes for dish "' . $dish->getName() . '"';
 
+            return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
+        }
         return $this->render('@App/Admin/Dish/edit.html.twig', ['form' => $form->createView(),
             'uploadForm' => $uploadForm->createView(), 'formChoose' => $formChoose->createView(),
-            'msg' => $msg, 'countPictures' => $countPictures, 'choosePicture' => $choosePictures,
-            'delPictForm' => $delPictForm
+            'countPictures' => $countPictures, 'choosePicture' => $choosePictures, 'delPictForm' => $delPictForm
         ]);
     }
 
@@ -187,6 +188,8 @@ class DishController extends Controller
                 $em->remove($item);
             }
             $em->flush();
+
+            return $this->redirectToRoute('admin_dish_edit', ['id' => $dish->getId()]);
         }
         return $this->redirectToRoute('admin_dish_list');
     }
