@@ -8,8 +8,10 @@
                     <a href="{{ path('admin_dish_add') }}"><i
                                 class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
                 </span>
+
                 <div class="row">
                     <br>
+
                     <div class="col-xs-12">
                         <table id="simple-table" class="table table-striped table-bordered table-hover">
                             <thead>
@@ -54,6 +56,7 @@
                                 </tbody>
                             {% endif %}
                         </table>
+                        {% include ':Admin:paginate.html.twig' %}
                     </div><!-- /.span -->
                 </div><!-- /.row -->
             </div><!-- PAGE CONTENT ENDS -->

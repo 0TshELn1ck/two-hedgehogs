@@ -34,7 +34,7 @@ class DishCategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
-            $msg = "New dish category successfully added";
+            $msg = "New dish category \"".$category->getName()."\"  successfully added";
         }
 
         return [
