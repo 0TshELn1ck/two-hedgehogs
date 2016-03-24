@@ -29,9 +29,9 @@ class DishController extends Controller
     }
 
     /**
-     * @Route("/add", name="admin_dish_add")
+     * @Route("/new", name="admin_dish_new")
      */
-    public function addAction(Request $request)
+    public function newAction(Request $request)
     {
         $dish = new Dish();
         $dish->setPictPath('not_set');
@@ -45,9 +45,9 @@ class DishController extends Controller
             $em->flush();
             $message = "New dish \"".$dish->getName()."\" was successfully added";
 
-            return $this->render('@App/Admin/Dish/addMessage.html.twig', ['dish' => $dish, 'message' => $message]);
+            return $this->render('@App/Admin/Dish/newMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
-        return $this->render('@App/Admin/Dish/add.html.twig', ['form' => $form->createView()]);
+        return $this->render('@App/Admin/Dish/new.html.twig', ['form' => $form->createView()]);
     }
 
     /**

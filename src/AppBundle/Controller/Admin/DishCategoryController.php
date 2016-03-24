@@ -19,10 +19,10 @@ class DishCategoryController extends Controller
 {
 
     /**
-     * @Route("/add", name="admin_dish_category_add")
+     * @Route("/new", name="admin_dish_category_new")
      * @Template()
      */
-    public function addAction(Request $request)
+    public function newAction(Request $request)
     {
         $category = new DishCategory();
 
