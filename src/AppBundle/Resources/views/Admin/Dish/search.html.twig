@@ -1,30 +1,17 @@
-{% extends(':Admin:base.html.twig') %}
+{% extends('@App/Admin/Dish/index.html.twig') %}
 {% block breadcrumbs %}
     {{ parent() }}
     <li>
-        <a href="{{ path('admin_dish_index') }}">Страви</a>
+        Пошук страв
     </li>
 {% endblock breadcrumbs %}
 
-{% block search %}
-    <form class="form-search" METHOD="post" action="{{ path('admin_dish_search') }}">
-        <span class="input-icon">
-            <input type="text" min="3" placeholder="Search dishes..." class="nav-search-input" name="search"
-                   id="nav-search-input" autocomplete="off"/>
-        <i class="ace-icon fa fa-search nav-search-icon"></i>
-        </span>
-    </form>
-{% endblock search %}
-
 {% block content %}
+    <h3>Search results: </h3>
     <div class="page-content">
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
-                <span class="btn btn-light btn-xs">
-                    <a href="{{ path('admin_dish_new') }}"><i
-                                class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
-                </span>
                 <div class="row">
                     <br>
                     <div class="col-xs-12">
@@ -50,20 +37,9 @@
                                         <td>{{ item.updatedAt|date }}</td>
                                         <td>
                                             <div class="hidden-sm hidden-xs btn-group">
-                                                <span class="btn btn-xs btn-info">
-                                                    <a href="{{ path('admin_dish_edit', {'id': item.id}) }}">
-                                                        <i class="ace-icon fa fa-pencil bigger-120"></i>
-                                                    </a>
-                                                </span>
-
-                                                <button class="btn btn-xs btn-danger hidden">
-                                                    <i class="">
-                                                        {{ form_start(deleteForm[item.id],
-                                                        {attr : {onsubmit: 'return confirm("Ви дійсно бажаєте видалити страву?");' }}) }}
-                                                        {{ form_widget(deleteForm[item.id].submit) }}
-                                                        {{ form_end(deleteForm[item.id]) }}
-                                                    </i>
-                                                </button>
+                                                <a class="ace-icon fa fa-pencil bigger-120"
+                                                   href="{{ path('admin_dish_edit', {'id': item.id}) }}">
+                                                </a>
                                             </div>
                                         </td>
                                     </tr>

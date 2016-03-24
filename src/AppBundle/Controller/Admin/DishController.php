@@ -213,4 +213,22 @@ class DishController extends Controller
         }
         return ['pagesList' => $pagesList, 'count' => $count, 'maxPages' => $maxPages, 'page' => $page];
     }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @Route("/search", name="admin_dish_search")
+     */
+    public function searchAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            $searchItem = $request->request->get('search');
+            $em = $this->getDoctrine()->getManager();
+            $dishList = $em->getRepository('AppBundle:Dish')->search($searchItem);
+
+            return $this->render('@App/Admin/Dish/search.html.twig', ['dishList' => $dishList]);
+        }
+
+        return $this->render('@App/Admin/Dish/search.html.twig');
+    }
 }
