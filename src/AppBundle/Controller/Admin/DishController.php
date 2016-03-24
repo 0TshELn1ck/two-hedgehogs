@@ -22,41 +22,12 @@ class DishController extends Controller
 {
     /**
      * @Route("/", name="admin_dish_index")
+     * @Method({"GET"})
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-
-    }
-
-    /**
-     * @Route("/add", name="admin_dish_add")
-     */
-    public function addAction(Request $request)
-    {
-        $dish = new Dish();
-        $dish->setPictPath('not_set');
-
-        $form = $this->createForm(DishType::class, $dish);
-
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($dish);
-            $em->flush();
-            $message = "New dish \"".$dish->getName()."\" was successfully added";
-
-            return $this->render('@App/Admin/Dish/addMessage.html.twig', ['dish' => $dish, 'message' => $message]);
-        }
-        return $this->render('@App/Admin/Dish/add.html.twig', ['form' => $form->createView()]);
-    }
-
-    /**
-     * @Route("/list/page/{page}", name="admin_dish_list", defaults={"page" = 1},
-     *     requirements={"page": "\d+"})
-     */
-    public function listAction(Request $request, $page)
-    {
-        $maxResults = 15;
+        $page = $request->query->getInt('page', 1);
+        $maxResults = 10;
         /* if page = 0 */
         if ($page >= 1) {
             $offset = ($page - 1) * $maxResults;
@@ -83,8 +54,30 @@ class DishController extends Controller
                 ])
                 ->getForm()->createView();
         }
-        return $this->render('@App/Admin/Dish/list.html.twig', ['dishList' => $dishList,
+        return $this->render('@App/Admin/Dish/index.html.twig', ['dishList' => $dishList,
             'deleteForm' => $deleteForms, 'paginate' => $paginate]);
+    }
+
+    /**
+     * @Route("/new", name="admin_dish_new")
+     */
+    public function newAction(Request $request)
+    {
+        $dish = new Dish();
+        $dish->setPictPath('not_set');
+
+        $form = $this->createForm(DishType::class, $dish);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($dish);
+            $em->flush();
+            $message = "New dish \"".$dish->getName()."\" was successfully added";
+
+            return $this->render('@App/Admin/Dish/newMessage.html.twig', ['dish' => $dish, 'message' => $message]);
+        }
+        return $this->render('@App/Admin/Dish/new.html.twig', ['form' => $form->createView()]);
     }
 
     /**
@@ -164,7 +157,7 @@ class DishController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirectToRoute('admin_dish_list');
+        return $this->redirectToRoute('admin_dish_index');
     }
 
     /**
@@ -191,7 +184,7 @@ class DishController extends Controller
 
             return $this->redirectToRoute('admin_dish_edit', ['id' => $dish->getId()]);
         }
-        return $this->redirectToRoute('admin_dish_list');
+        return $this->redirectToRoute('admin_dish_index');
     }
 
     /**
@@ -219,5 +212,23 @@ class DishController extends Controller
             $count = 0;
         }
         return ['pagesList' => $pagesList, 'count' => $count, 'maxPages' => $maxPages, 'page' => $page];
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @Route("/search", name="admin_dish_search")
+     */
+    public function searchAction(Request $request)
+    {
+        if ($request->getMethod() == 'POST') {
+            $searchItem = $request->request->get('search');
+            $em = $this->getDoctrine()->getManager();
+            $dishList = $em->getRepository('AppBundle:Dish')->search($searchItem);
+
+            return $this->render('@App/Admin/Dish/search.html.twig', ['dishList' => $dishList]);
+        }
+
+        return $this->render('@App/Admin/Dish/search.html.twig');
     }
 }

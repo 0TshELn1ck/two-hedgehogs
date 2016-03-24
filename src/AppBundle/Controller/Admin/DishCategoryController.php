@@ -17,37 +17,11 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class DishCategoryController extends Controller
 {
-
     /**
-     * @Route("/add", name="admin_dish_category_add")
+     * @Route("/", name="admin_dish_category_index")
      * @Template()
      */
-    public function addAction(Request $request)
-    {
-        $category = new DishCategory();
-
-        $form = $this->createForm(DishCategoryType::class, $category);
-        $msg = "";
-
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($category);
-            $em->flush();
-            $msg = "New dish category \"".$category->getName()."\"  successfully added";
-        }
-
-        return [
-            'form' => $form->createView(),
-            'msg' => $msg
-        ];
-    }
-
-    /**
-     * @Route("/list", name="admin_dish_category_list")
-     * @Template()
-     */
-    public function listAction(Request $request)
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $categoryList = $em->getRepository('AppBundle:DishCategory')->findAll();
@@ -67,6 +41,31 @@ class DishCategoryController extends Controller
         return [
             'categoryList' => $categoryList,
             'deleteForm' => $deleteForm
+        ];
+    }
+
+    /**
+     * @Route("/new", name="admin_dish_category_new")
+     * @Template()
+     */
+    public function newAction(Request $request)
+    {
+        $category = new DishCategory();
+
+        $form = $this->createForm(DishCategoryType::class, $category);
+        $msg = "";
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            $msg = "New dish category \"".$category->getName()."\"  successfully added";
+        }
+
+        return [
+            'form' => $form->createView(),
+            'msg' => $msg
         ];
     }
 
@@ -106,6 +105,6 @@ class DishCategoryController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirectToRoute('admin_dish_category_list');
+        return $this->redirectToRoute('admin_dish_category_index');
     }
 }

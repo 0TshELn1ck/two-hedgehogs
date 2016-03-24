@@ -1,11 +1,29 @@
 {% extends(':Admin:base.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('admin_dish_index') }}">Страви</a>
+    </li>
+{% endblock breadcrumbs %}
+
+{% block search %}
+    <form class="form-search" METHOD="post" action="{{ path('admin_dish_search') }}">
+        <span class="input-icon">
+            <input type="text" min="3" placeholder="Search dishes..." class="nav-search-input" name="search"
+                   id="nav-search-input" autocomplete="off"/>
+        <i class="ace-icon fa fa-search nav-search-icon"></i>
+        </span>
+    </form>
+{% endblock search %}
+
 {% block content %}
     <div class="page-content">
         <div class="row">
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
                 <span class="btn btn-light btn-xs">
-                    <a href="{{ path('admin_dish_category_add') }}"><i class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
+                    <a href="{{ path('admin_dish_new') }}"><i
+                                class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
                 </span>
                 <div class="row">
                     <br>
@@ -14,22 +32,26 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Назва категорії</th>
+                                <th>name</th>
+                                <th>price</th>
+                                <th>created</th>
+                                <th>modified</th>
                                 <th></th>
                             </tr>
                             </thead>
-                            {% if categoryList %}
-                                {% for item in categoryList %}
+                            {% if dishList %}
+                                {% for item in dishList %}
                                     <tbody>
                                     <tr>
-                                        <td>
-                                            <a href="#">{{ loop.index }}</a>
-                                        </td>
+                                        <td>{{ loop.index }}</td>
                                         <td>{{ item.name }}</td>
+                                        <td>{{ item.price }}</td>
+                                        <td>{{ item.createdAt|date }}</td>
+                                        <td>{{ item.updatedAt|date }}</td>
                                         <td>
                                             <div class="hidden-sm hidden-xs btn-group">
                                                 <span class="btn btn-xs btn-info">
-                                                    <a href="{{ path('admin_dish_category_edit', {'id': item.id}) }}">
+                                                    <a href="{{ path('admin_dish_edit', {'id': item.id}) }}">
                                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                     </a>
                                                 </span>
@@ -37,7 +59,7 @@
                                                 <button class="btn btn-xs btn-danger hidden">
                                                     <i class="">
                                                         {{ form_start(deleteForm[item.id],
-                                                        {attr : {onsubmit: 'return confirm("Ви дійсно бажаєте видалити категорію?");' }}) }}
+                                                        {attr : {onsubmit: 'return confirm("Ви дійсно бажаєте видалити страву?");' }}) }}
                                                         {{ form_widget(deleteForm[item.id].submit) }}
                                                         {{ form_end(deleteForm[item.id]) }}
                                                     </i>
@@ -49,6 +71,7 @@
                                 </tbody>
                             {% endif %}
                         </table>
+                        {% include ':Admin:paginate.html.twig' %}
                     </div><!-- /.span -->
                 </div><!-- /.row -->
             </div><!-- PAGE CONTENT ENDS -->
