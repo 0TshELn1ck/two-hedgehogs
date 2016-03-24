@@ -1,50 +1,54 @@
-{% extends(':Admin:base.html.twig') %}
+{% extends('@App/Admin/Dish/index.html.twig') %}
 
-    {% form_theme form ':Admin:themeFields.html.twig' %}
+{% form_theme form ':Admin:themeFields.html.twig' %}
+{% block breadcrumbs %}
+    {{ parent() }}
+        <li>Нова страва</li>
+{% endblock breadcrumbs %}
 
-    {% block content %}
-        <h3>Add new Dish</h3>
-        {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-        <div class="form-group">
-            <div class="col-sm-9">
-                {{ form_label(form.name) }}
-                {{ form_errors(form.name) }}
-                {{ form_widget(form.name) }}
-            </div>
+{% block content %}
+    <h3>Add new Dish</h3>
+    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.name) }}
+            {{ form_errors(form.name) }}
+            {{ form_widget(form.name) }}
         </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                {{ form_label(form.recipe) }}
-                {{ form_errors(form.recipe) }}
-                {{ form_widget(form.recipe) }}
-            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.recipe) }}
+            {{ form_errors(form.recipe) }}
+            {{ form_widget(form.recipe) }}
         </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                {{ form_label(form.ingredients) }}
-                {{ form_errors(form.ingredients) }}
-                {{ form_widget(form.ingredients) }}
-            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.ingredients) }}
+            {{ form_errors(form.ingredients) }}
+            {{ form_widget(form.ingredients) }}
         </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                {{ form_label(form.price) }}
-                {{ form_errors(form.price) }}
-                {{ form_widget(form.price) }}
-            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.price) }}
+            {{ form_errors(form.price) }}
+            {{ form_widget(form.price) }}
         </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                {{ form_label(form.categories) }}
-                {{ form_errors(form.categories) }}
-                {{ form_widget(form.categories) }}
-            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.categories) }}
+            {{ form_errors(form.categories) }}
+            {{ form_widget(form.categories) }}
         </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                <label class="col-sm-3 control-label no-padding-right"></label>
-                <input type="submit" value="Create" class="btn btn-default"/>
-            </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            <label class="col-sm-3 control-label no-padding-right"></label>
+            <input type="submit" value="Create" class="btn btn-default"/>
         </div>
-        {{ form_end(form) }}
-    {% endblock content %}
+    </div>
+    {{ form_end(form) }}
+{% endblock content %}

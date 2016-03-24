@@ -27,7 +27,7 @@ class DishController extends Controller
     public function indexAction(Request $request)
     {
         $page = $request->query->getInt('page', 1);
-        $maxResults = 15;
+        $maxResults = 10;
         /* if page = 0 */
         if ($page >= 1) {
             $offset = ($page - 1) * $maxResults;
@@ -55,7 +55,7 @@ class DishController extends Controller
                 ->getForm()->createView();
         }
         return $this->render('@App/Admin/Dish/index.html.twig', ['dishList' => $dishList,
-            'deleteForm' => $deleteForms, 'paginate' => $paginate, 'pageGet' => $page]);
+            'deleteForm' => $deleteForms, 'paginate' => $paginate]);
     }
 
     /**

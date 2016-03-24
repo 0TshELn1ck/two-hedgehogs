@@ -1,5 +1,10 @@
-{% extends(':Admin:base.html.twig') %}
+{% extends('@App/Admin/DishCategory/index.html.twig') %}
+
 {% form_theme form ':Admin:themeFields.html.twig' %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>Редагувати категорію</li>
+{% endblock breadcrumbs %}
 
 {% block content %}
     <h3>Edit Category</h3>

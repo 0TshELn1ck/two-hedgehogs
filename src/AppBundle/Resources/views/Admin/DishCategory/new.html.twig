@@ -1,5 +1,9 @@
-{% extends(':Admin:base.html.twig') %}
+{% extends('@App/Admin/DishCategory/index.html.twig') %}
 {% form_theme form ':Admin:themeFields.html.twig' %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>Нова категорія</li>
+{% endblock breadcrumbs %}
 
 {% block content %}
     <div class="page-content">

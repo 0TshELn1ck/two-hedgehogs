@@ -1,4 +1,11 @@
 {% extends(':Admin:base.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('admin_dish_category_index') }}">Категорії страв</a>
+    </li>
+{% endblock breadcrumbs %}
+
 {% block content %}
     <div class="page-content">
         <div class="row">

@@ -1,4 +1,11 @@
 {% extends(':Admin:base.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('admin_dish_index') }}">Страви</a>
+    </li>
+{% endblock breadcrumbs %}
+
 {% block content %}
     <div class="page-content">
         <div class="row">
@@ -8,10 +15,8 @@
                     <a href="{{ path('admin_dish_new') }}"><i
                                 class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
                 </span>
-
                 <div class="row">
                     <br>
-
                     <div class="col-xs-12">
                         <table id="simple-table" class="table table-striped table-bordered table-hover">
                             <thead>
@@ -56,7 +61,6 @@
                                 </tbody>
                             {% endif %}
                         </table>
-                        <p>pageGet: <b>{{ pageGet }}</b></p>
                         {% include ':Admin:paginate.html.twig' %}
                     </div><!-- /.span -->
                 </div><!-- /.row -->
