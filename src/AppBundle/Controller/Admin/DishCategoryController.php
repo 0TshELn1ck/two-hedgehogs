@@ -17,6 +17,32 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class DishCategoryController extends Controller
 {
+    /**
+     * @Route("/", name="admin_dish_category_index")
+     * @Template()
+     */
+    public function indexAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $categoryList = $em->getRepository('AppBundle:DishCategory')->findAll();
+
+        $deleteForm = [];
+        foreach ($categoryList as $entity) {
+            $deleteForm[$entity->getId()] = $this->createFormBuilder($entity)
+                ->setAction($this->generateUrl('admin_dish_category_delete', array('id' => $entity->getId())))
+                ->setMethod('DELETE')
+                ->add('submit', SubmitType::class, [
+                    'label' => ' ',
+                    'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-115']
+                ])
+                ->getForm()->createView();
+        }
+
+        return [
+            'categoryList' => $categoryList,
+            'deleteForm' => $deleteForm
+        ];
+    }
 
     /**
      * @Route("/new", name="admin_dish_category_new")
@@ -40,33 +66,6 @@ class DishCategoryController extends Controller
         return [
             'form' => $form->createView(),
             'msg' => $msg
-        ];
-    }
-
-    /**
-     * @Route("/list", name="admin_dish_category_list")
-     * @Template()
-     */
-    public function listAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $categoryList = $em->getRepository('AppBundle:DishCategory')->findAll();
-
-        $deleteForm = [];
-        foreach ($categoryList as $entity) {
-            $deleteForm[$entity->getId()] = $this->createFormBuilder($entity)
-                ->setAction($this->generateUrl('admin_dish_category_delete', array('id' => $entity->getId())))
-                ->setMethod('DELETE')
-                ->add('submit', SubmitType::class, [
-                    'label' => ' ',
-                    'attr' => ['class' => 'btn btn-xs btn-danger ace-icon fa fa-trash-o bigger-115']
-                ])
-                ->getForm()->createView();
-        }
-
-        return [
-            'categoryList' => $categoryList,
-            'deleteForm' => $deleteForm
         ];
     }
 
@@ -106,6 +105,6 @@ class DishCategoryController extends Controller
         $em->remove($entity);
         $em->flush();
 
-        return $this->redirectToRoute('admin_dish_category_list');
+        return $this->redirectToRoute('admin_dish_category_index');
     }
 }

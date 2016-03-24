@@ -1,22 +1,22 @@
     {% if paginate is defined and paginate.count != 0 %}
         Page: {{ paginate.page }}, count results: {{ paginate.count }}<br/>
         <ul class="pagination">
-            <li><a href="{{ path('admin_dish_list', {'page': 1}) }}"><i
+            <li><a href="{{ path('admin_dish_index', {'page': 1}) }}"><i
                             class="ace-icon fa fa-angle-double-left"></i></a></li>
             {% if paginate.page <= 1 %}
                 <li class="disabled"><a><b>prev</b></a></li>
             {% else %}
-                <li><a href="{{ path('admin_dish_list', {'page': paginate.page-1}) }}"><b>prev</b></a></li>
+                <li><a href="{{ path('admin_dish_index', {'page': paginate.page-1}) }}"><b>prev</b></a></li>
             {% endif %}
             <li class="active"><a
-                        href="{{ path('admin_dish_list', {'page': paginate.page}) }}"><b>{{ paginate.page }}</b></a>
+                        href="{{ path('admin_dish_index', {'page': paginate.page}) }}"><b>{{ paginate.page }}</b></a>
             </li>
             {% if paginate.page >= paginate.maxPages %}
                 <li class="disabled"><a><b>next</b></a></li>
             {% else %}
-                <li><a href="{{ path('admin_dish_list', {'page': paginate.page+1}) }}"><b>next</b></a></li>
+                <li><a href="{{ path('admin_dish_index', {'page': paginate.page+1}) }}"><b>next</b></a></li>
             {% endif %}
-            <li><a href="{{ path('admin_dish_list', {'page': paginate.maxPages}) }}"><i
+            <li><a href="{{ path('admin_dish_index', {'page': paginate.maxPages}) }}"><i
                             class="ace-icon fa fa-angle-double-right"></i></a></li>
         </ul>
     {% endif %}
