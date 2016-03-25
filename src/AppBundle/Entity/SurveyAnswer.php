@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SurveyQuestion
+ * SurveyAnswer
  *
- * @ORM\Table(name="survey_question")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SurveyQuestionRepository")
+ * @ORM\Table(name="survey_answer")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SurveyAnswerRepository")
  */
-class SurveyQuestion
+class SurveyAnswer
 {
     /**
      * @var int
@@ -24,12 +24,12 @@ class SurveyQuestion
     /**
      * @var string
      *
-     * @ORM\Column(name="question", type="string", length=255)
+     * @ORM\Column(name="answer", type="string", length=255)
      */
-    private $question;
+    private $answer;
     
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Survey", inversedBy="surveyQuestions")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Survey", inversedBy="surveyAnswers")
      */
     private $survey;
 
@@ -44,27 +44,27 @@ class SurveyQuestion
     }
 
     /**
-     * Set question
+     * Set answer
      *
-     * @param string $question
+     * @param string $answer
      *
-     * @return SurveyQuestion
+     * @return SurveyAnswer
      */
-    public function setQuestion($question)
+    public function setAnswer($answer)
     {
-        $this->question = $question;
+        $this->answer = $answer;
 
         return $this;
     }
 
     /**
-     * Get question
+     * Get answer
      *
      * @return string
      */
-    public function getQuestion()
+    public function getAnswer()
     {
-        return $this->question;
+        return $this->answer;
     }
 
     /**
@@ -72,7 +72,7 @@ class SurveyQuestion
      *
      * @param \AppBundle\Entity\Survey $survey
      *
-     * @return SurveyQuestion
+     * @return SurveyAnswer
      */
     public function setSurvey(\AppBundle\Entity\Survey $survey = null)
     {

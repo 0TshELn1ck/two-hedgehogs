@@ -45,16 +45,16 @@ class Survey
     private $createdAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SurveyQuestion", mappedBy="survey", cascade={"REMOVE"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SurveyAnswer", mappedBy="survey", cascade={"REMOVE"})
      */
-    private $surveyQuestions;
+    private $surveyAnswers;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->surveyQuestions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->surveyAnswers = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -124,50 +124,36 @@ class Survey
     }
 
     /**
-     * Set createdAt
+     * Add surveyAnswer
      *
-     * @param \DateTime $createdAt
+     * @param \AppBundle\Entity\SurveyAnswer $surveyAnswer
      *
      * @return Survey
      */
-    public function setCreatedAt($createdAt)
+    public function addSurveyAnswer(\AppBundle\Entity\SurveyAnswer $surveyAnswer)
     {
-        $this->createdAt = $createdAt;
+        $this->surveyAnswers[] = $surveyAnswer;
 
         return $this;
     }
 
     /**
-     * Add surveyQuestion
+     * Remove surveyAnswer
      *
-     * @param \AppBundle\Entity\SurveyQuestion $surveyQuestion
-     *
-     * @return Survey
+     * @param \AppBundle\Entity\SurveyAnswer $surveyAnswer
      */
-    public function addSurveyQuestion(\AppBundle\Entity\SurveyQuestion $surveyQuestion)
+    public function removeSurveyAnswer(\AppBundle\Entity\SurveyAnswer $surveyAnswer)
     {
-        $this->surveyQuestions[] = $surveyQuestion;
-
-        return $this;
+        $this->surveyAnswers->removeElement($surveyAnswer);
     }
 
     /**
-     * Remove surveyQuestion
-     *
-     * @param \AppBundle\Entity\SurveyQuestion $surveyQuestion
-     */
-    public function removeSurveyQuestion(\AppBundle\Entity\SurveyQuestion $surveyQuestion)
-    {
-        $this->surveyQuestions->removeElement($surveyQuestion);
-    }
-
-    /**
-     * Get surveyQuestions
+     * Get surveyAnswer
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSurveyQuestions()
+    public function getSurveyAnswer()
     {
-        return $this->surveyQuestions;
+        return $this->surveyAnswers;
     }
 }
