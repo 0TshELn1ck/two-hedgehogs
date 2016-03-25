@@ -224,7 +224,7 @@ class DishController extends Controller
         if ($request->getMethod() == 'POST') {
             $searchItem = $request->request->get('search');
             $em = $this->getDoctrine()->getManager();
-            $dishList = $em->getRepository('AppBundle:Dish')->search($searchItem);
+            $dishList = $em->getRepository('AppBundle:Dish')->searchDishes($searchItem);
 
             return $this->render('@App/Admin/Dish/search.html.twig', ['dishList' => $dishList]);
         }

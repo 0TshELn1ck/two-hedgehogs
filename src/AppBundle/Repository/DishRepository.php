@@ -35,16 +35,15 @@ class DishRepository extends EntityRepository
             ->getOneOrNullResult();
     }
 
-    public function search($query)
+    public function searchDishes($searchItem)
     {
         return $this->createQueryBuilder('d')
-            ->select('d, dc')
-            ->leftJoin('d.categories', 'dc')
-            ->orWhere('d.name = :q')
-            ->orWhere("d.ingredients LIKE '%$query%'")
-            ->orWhere("d.recipe LIKE '%$query%'")
-            ->orWhere("dc.name LIKE '%$query%'")
-            ->setParameter('q', $query)
+            ->select('d')
+            ->where('d.name LIKE :q1')
+            ->orWhere('d.ingredients LIKE :q')
+            ->orWhere('d.recipe LIKE :q')
+            ->setParameter('q',  '%' . $searchItem . '%')
+            ->setParameter('q1',  $searchItem)
             ->getQuery()
             ->getResult();
     }
