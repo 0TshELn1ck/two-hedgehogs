@@ -2,23 +2,125 @@
 
 {% trans_default_domain 'FOSUserBundle' %}
 
+{% block title %}Login{% endblock %}
+
 {% block fos_user_content %}
-{% if error %}
-    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-{% endif %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
 
-<form action="{{ path("fos_user_security_check") }}" method="post">
-    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+    <body class="login-layout light-login">
+    <div class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="login-container">
+                        <div class="center">
+                            <h1>
+                                <img src="{{ asset('images/logo.png') }}" alt="logo">
+                                <span class="red">Два</span>
+                                <span class="grey" id="id-text2">Їжа</span>
+                            </h1>
+                        </div>
 
-    <label for="username">{{ 'security.login.username'|trans }}</label>
-    <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+                        <div class="space-6"></div>
 
-    <label for="password">{{ 'security.login.password'|trans }}</label>
-    <input type="password" id="password" name="_password" required="required" />
+                        <div class="position-relative">
+                            <div id="login-box" class="login-box visible widget-box no-border">
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <h4 class="header header_title bigger">
+                                            <i class="ace-icon fa fa-coffee"></i>
+                                            Введіть Вашу інформацію
+                                        </h4>
 
-    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                                        <div class="space-6"></div>
 
-    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
-</form>
+                                        <form class="form-signin" action="{{ path("fos_user_security_check") }}"
+                                              method="post">
+                                            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
+                                            <fieldset>
+                                                <label class="block clearfix">
+
+                                                    <span class="block input-icon input-icon-right">
+                                                    <input type="text" id="username" class="form-control"
+                                                           placeholder="Логін" name="_username"
+                                                           value="{{ last_username }}" required="required"/>
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+                                                </label>
+
+                                                <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+                                                    <input type="password" id="password" class="form-control"
+                                                           placeholder="Пароль" name="_password" required="required"/>
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+                                                </label>
+
+                                                <div class="space"></div>
+
+                                                <div class="clearfix">
+                                                    <label class="inline">
+                                                        <input type="checkbox" class="ace" id="remember_me"
+                                                               name="_remember_me" value="on"/>
+                                                        <span class="lbl"> Запам'ятати </span>
+                                                    </label>
+                                                    <button type="submit"
+                                                            class="pull-right submit_button">
+                                                        <i class="ace-icon fa fa-key"></i>
+                                                        <span class="bigger-110">Вхід</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="space-4"></div>
+                                            </fieldset>
+                                        </form>
+
+                                        <div class="social-or-login center">
+                                            <span class="bigger-110">Вхід за допомогою</span>
+                                        </div>
+
+                                        <div class="space-6"></div>
+
+                                        <div class="social-login center">
+                                            <a class="btn btn-primary">
+                                                <i class="ace-icon fa fa-facebook"></i>
+                                            </a>
+
+                                            <a class="btn btn-info">
+                                                <i class="ace-icon fa fa-twitter"></i>
+                                            </a>
+
+                                            <a class="btn btn-danger">
+                                                <i class="ace-icon fa fa-google-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div><!-- /.widget-main -->
+
+                                    <div class="toolbar clearfix">
+                                        <div>
+                                            <a href="#" data-target="#forgot-box" class="forgot-password-link">
+                                                <i class="ace-icon fa fa-arrow-left"></i>
+                                                Відновити пароль
+                                            </a>
+                                        </div>
+
+                                        <div>
+                                            <a href="#" data-target="#signup-box" class="user-signup-link">
+                                                Зареєструватись
+                                                <i class="ace-icon fa fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div><!-- /.widget-body -->
+                            </div><!-- /.login-box -->
+                        </div><!-- /.position-relative -->
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container -->
+
+    </body>
 {% endblock fos_user_content %}
