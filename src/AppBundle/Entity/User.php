@@ -45,9 +45,13 @@ class User extends BaseUser
      */
     private $updatedAt;
 
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -90,4 +94,40 @@ class User extends BaseUser
     {
         return $this->cart;
     }
+
+    /**
+     * Add order
+     *
+     * @param \AppBundle\Entity\Order $order
+     *
+     * @return Order
+     */
+    public function addOrder(\AppBundle\Entity\Order  $order)
+    {
+        $this->orders[] = $order;
+
+        return $this;
+    }
+
+    /**
+     * Remove order
+     *
+     * @param \AppBundle\Entity\Order $order
+     */
+    public function removeDishesInOrder(\AppBundle\Entity\Order $order)
+    {
+        $this->orders->removeElement($order);
+    }
+
+    /**
+     * Get orders
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getOrders()
+    {
+        return $this->orders;
+    }
+
+
 }
