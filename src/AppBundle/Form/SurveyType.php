@@ -26,8 +26,14 @@ class SurveyType extends AbstractType
                 'multiple' => false,
                 'choices_as_values' => true,
             ])
-            ->add('number_of_answers', IntegerType::class, [
-                'attr' => array('cols' => '68'), 'mapped' => false
+            ->add('answer1', TextType::class, [
+                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false
+            ])
+            ->add('answer2', TextType::class, [
+                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false
+            ])
+            ->add('answer3', TextType::class, [
+                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false
             ]);
     }
 

@@ -24,9 +24,22 @@
     </div>
     <div class="form-group">
         <div class="col-sm-9">
-            {{ form_label(form.number_of_answers) }}
-            {{ form_errors(form.number_of_answers) }}
-            {{ form_widget(form.number_of_answers) }}
+
+            <label class="col-sm-3 control-label no-padding-right">Answers:</label>
+            {{ form_errors(form.answer1) }}
+            {{ form_widget(form.answer1) }}
+        </div>
+    </div><div class="form-group">
+        <div class="col-sm-9">
+            <label class="col-sm-3 control-label no-padding-right"></label>
+            {{ form_errors(form.answer2) }}
+            {{ form_widget(form.answer2) }}
+        </div>
+    </div><div class="form-group">
+        <div class="col-sm-9">
+            <label class="col-sm-3 control-label no-padding-right"></label>
+            {{ form_errors(form.answer3) }}
+            {{ form_widget(form.answer3) }}
         </div>
     </div>
     <div class="form-group">
@@ -36,26 +49,6 @@
         </div>
     </div>
     {{ form_end(form) }}
-
-    {% if number is defined %}
-        {{ form_start(surveyAnswerForm, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-        {% for i in range(1, number) %}
-            <div class="form-group">
-                <div class="col-sm-9">
-                    <label class="col-sm-3 control-label no-padding-right">Answer</label>
-                    {{ form_errors(surveyAnswerForm.answer) }}
-                    {{ form_widget(surveyAnswerForm.answer) }}
-                </div>
-            </div>
-        {% endfor %}
-        <div class="form-group">
-            <div class="col-sm-9">
-                <label class="col-sm-3 control-label no-padding-right"></label>
-                <input type="submit" value="Create" class="btn btn-default"/>
-            </div>
-        </div>
-        {{ form_end(surveyAnswerForm) }}
-    {% endif %}
 
     <br>
     {% if message %}

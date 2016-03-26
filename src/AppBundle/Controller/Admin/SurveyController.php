@@ -42,10 +42,6 @@ class SurveyController extends Controller
         $message = '';
 
         if ($form->isValid()) {
-            $number = $form['number_of_answers']->getData();
-            $surveyAnswerForm = $this->createFormBuilder($answer)
-                ->add('answer', TextType::class, ['label' => false])
-                ->getform();
 
             /*$em = $this->getDoctrine()->getManager();
             $em->persist($survey);
@@ -53,7 +49,7 @@ class SurveyController extends Controller
             $message = "New survey \"" . $survey->getTitle() . "\" was successfully added";
 
             return $this->render('@App/Admin/Survey/new.html.twig', ['form' => $form->createView(),
-                'surveyAnswerForm' => $surveyAnswerForm->createView(), 'message' => $message, 'number'=>$number]);
+                'message' => $message]);
         }
 
         return $this->render('@App/Admin/Survey/new.html.twig', ['form' => $form->createView(),
