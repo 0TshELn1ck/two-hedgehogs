@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+</head>
+{% block stylesheets %}
+    <!-- fontawesome -->
+    <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet"/>
+    <!-- text fonts -->
+    <link href="{{ asset('css/fonts.googleapis.com.css') }}" rel="stylesheet"/>
+    <!-- ace styles -->
+    <link href="{{ asset('css/ace.min.css') }}" rel="stylesheet"/>
+
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet"/>
+{% endblock %}
+<body>
+
+{% if app.request.hasPreviousSession %}
+    {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+            <div class="flash-{{ type }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+{% endif %}
+
+<div>
+    {% block fos_user_content %}
+    {% endblock fos_user_content %}
+</div>
+{% block javascripts %}
+    <script src="{{ asset('js/jquery.js') }}"></script>
+{% endblock %}
+</body>
+</html>
