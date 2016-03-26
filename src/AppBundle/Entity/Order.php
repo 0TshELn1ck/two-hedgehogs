@@ -27,14 +27,14 @@ class Order
      *
      * @ORM\Column(name="status", type="string", length=255, options={"default" = "processing"})
      */
-    private $status;
+    private $status = 'processing';
 
     /**
      * @var string
      *
      * @ORM\Column(name="summ", type="decimal", precision=10, scale=2)
      */
-    private $summ;
+    private $summ = 0;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="orders")

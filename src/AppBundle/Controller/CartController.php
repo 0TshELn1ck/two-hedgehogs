@@ -11,9 +11,6 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Cart;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Dish;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,7 +31,7 @@ class CartController extends Controller
         $user = $this->getUser();
         $count_dish = 0;
 
-        if ($user instanceof User){
+        if ($user){
             $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user'=>$user->getId()));
 
             if (!$cart){
@@ -63,7 +60,7 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        if ($user instanceof User) {
+        if ($user) {
             $cart = $user->getCart();
             $dishInCart = $cart->getDishes();
 

@@ -26,10 +26,10 @@ class DishInOrder
      *
      * @ORM\Column(name="count", type="integer")
      */
-    private $count;
+    private $count = 1;
 
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order", inversedBy="dishesInOrder")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Order", inversedBy="dishesInOrder", cascade={"persist"})
      */
     private $order;
 
