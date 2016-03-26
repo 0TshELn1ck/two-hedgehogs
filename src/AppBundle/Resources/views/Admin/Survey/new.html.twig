@@ -1,0 +1,44 @@
+{% extends('@App/Admin/Survey/index.html.twig') %}
+
+{% form_theme form ':Admin:themeFields.html.twig' %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>Нове опитування</li>
+{% endblock breadcrumbs %}
+
+{% block content %}
+    <h3>New survey</h3>
+    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.title) }}
+            {{ form_errors(form.title) }}
+            {{ form_widget(form.title) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.status) }}
+            {{ form_errors(form.status) }}
+            {{ form_widget(form.status) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            {{ form_label(form.number_of_answers) }}
+            {{ form_errors(form.number_of_answers) }}
+            {{ form_widget(form.number_of_answers) }}
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-sm-9">
+            <label class="col-sm-3 control-label no-padding-right"></label>
+            <input type="submit" value="Create" class="btn btn-default"/>
+        </div>
+    </div>
+    {{ form_end(form) }}
+    <br>
+    {% if message %}
+        <b>{{ message }}</b>
+    {% endif %}
+{% endblock content %}

@@ -21,8 +21,8 @@ class SurveyType extends AbstractType
             ->add('status', TextareaType::class, [
                 'attr' => array('cols' => '68', 'rows' => '10')
             ])
-            ->add('number of questions', IntegerType::class, [
-                'attr' => array('cols' => '68', 'rows' => '5')
+            ->add('number_of_answers', IntegerType::class, [
+                'attr' => array('cols' => '68', 'rows' => '5'), 'mapped' => false
             ])
             /*->add('categories', EntityType::class, [
                 'class' => 'AppBundle\Entity\DishCategory',
