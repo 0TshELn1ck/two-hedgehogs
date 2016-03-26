@@ -3,8 +3,10 @@
 namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Survey;
+use AppBundle\Entity\SurveyAnswer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\SurveyType;
 
@@ -33,18 +35,25 @@ class SurveyController extends Controller
     public function newAction(Request $request)
     {
         $survey = new Survey();
+        $answer = new SurveyAnswer();
 
         $form = $this->createForm(SurveyType::class, $survey);
         $form->handleRequest($request);
         $message = '';
 
         if ($form->isValid()) {
-            
+            $number = $form['number_of_answers']->getData();
+            $surveyAnswerForm = $this->createFormBuilder($answer)
+                ->add('answer', TextType::class, ['label' => false])
+                ->getform();
 
-            $em = $this->getDoctrine()->getManager();
+            /*$em = $this->getDoctrine()->getManager();
             $em->persist($survey);
-            $em->flush();
-            $message = "New survey \"".$survey->getTitle()."\" was successfully added";
+            $em->flush();*/
+            $message = "New survey \"" . $survey->getTitle() . "\" was successfully added";
+
+            return $this->render('@App/Admin/Survey/new.html.twig', ['form' => $form->createView(),
+                'surveyAnswerForm' => $surveyAnswerForm->createView(), 'message' => $message, 'number'=>$number]);
         }
 
         return $this->render('@App/Admin/Survey/new.html.twig', ['form' => $form->createView(),

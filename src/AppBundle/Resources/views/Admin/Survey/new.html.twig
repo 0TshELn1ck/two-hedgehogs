@@ -18,7 +18,6 @@
     </div>
     <div class="form-group">
         <div class="col-sm-9">
-            {{ form_label(form.status) }}
             {{ form_errors(form.status) }}
             {{ form_widget(form.status) }}
         </div>
@@ -37,6 +36,27 @@
         </div>
     </div>
     {{ form_end(form) }}
+
+    {% if number is defined %}
+        {{ form_start(surveyAnswerForm, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+        {% for i in range(1, number) %}
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right">Answer</label>
+                    {{ form_errors(surveyAnswerForm.answer) }}
+                    {{ form_widget(surveyAnswerForm.answer) }}
+                </div>
+            </div>
+        {% endfor %}
+        <div class="form-group">
+            <div class="col-sm-9">
+                <label class="col-sm-3 control-label no-padding-right"></label>
+                <input type="submit" value="Create" class="btn btn-default"/>
+            </div>
+        </div>
+        {{ form_end(surveyAnswerForm) }}
+    {% endif %}
+
     <br>
     {% if message %}
         <b>{{ message }}</b>

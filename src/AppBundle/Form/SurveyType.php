@@ -2,12 +2,11 @@
 
 namespace AppBundle\Form;
 
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class SurveyType extends AbstractType
@@ -18,18 +17,18 @@ class SurveyType extends AbstractType
             ->add('title', TextType::class, [
                 'attr' => array('size' => '68')
             ])
-            ->add('status', TextareaType::class, [
-                'attr' => array('cols' => '68', 'rows' => '10')
+            ->add('status', ChoiceType::class, [
+                'choices' => [
+                    'active' => true,
+                    'no actice' => false
+                ],
+                'expanded' => true,
+                'multiple' => false,
+                'choices_as_values' => true,
             ])
             ->add('number_of_answers', IntegerType::class, [
-                'attr' => array('cols' => '68', 'rows' => '5'), 'mapped' => false
-            ])
-            /*->add('categories', EntityType::class, [
-                'class' => 'AppBundle\Entity\DishCategory',
-                'choice_label' => 'name',
-                'expanded' => 'true',
-                'multiple' => 'true'
-            ])*/;
+                'attr' => array('cols' => '68'), 'mapped' => false
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
