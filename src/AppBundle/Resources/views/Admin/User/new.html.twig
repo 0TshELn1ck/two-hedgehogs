@@ -64,10 +64,9 @@
                                 <div class="col-xs-12 col-sm-8">
                                     <div class="form-group">
                                         <label class="col-sm-4 control-label no-padding-right"
-                                               for="form-field-username">Ім'я</label>
-
+                                               for="form-field-username">Логін</label>
                                         <div class="col-sm-8">
-                                            {{ form_row(userForm.name) }}
+                                            {{ form_row(userForm.username) }}
                                         </div>
                                     </div>
 
@@ -139,7 +138,8 @@
                             <h4 class="header blue bolder smaller">Контактна інформація</h4>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-email">Почтова адреса</label>
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-email">Поштова
+                                    адреса</label>
                                 <div class="col-sm-9">
                                     <span class="input-icon input-icon-right">
                                         {{ form_widget(userForm.email) }}
@@ -180,7 +180,8 @@
                             <div class="space-4"></div>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-twitter">Twitter</label>
+                                <label class="col-sm-3 control-label no-padding-right"
+                                       for="form-field-twitter">Twitter</label>
                                 <div class="col-sm-9">
                                     <span class="input-icon">
                                         <input type="text" placeholder="twitter_alexdoe" id="form-field-twitter">
@@ -208,12 +209,14 @@
                             <div class="space-10"></div>
 
                             <div>
-                                <label class="inline">
-                                    <input type="checkbox" name="form-field-checkbox" class="ace">
-                                    <span class="lbl"> Заблокувати профіль</span>
-                                </label>
+                                <span class="col-sm-6">
+									<label class="pull-right inline">
+                                        <small class="muted smaller-90">Профіль активовано:</small>
+                                        {{ form_widget(userForm.enabled) }}
+                                        <span class="lbl middle"></span>
+                                    </label>
+								</span>
                             </div>
-
                         </div>
 
                         <div id="edit-password" class="tab-pane">
@@ -268,13 +271,13 @@
     {{ parent() }}
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
     <script>
-        $('document').ready(function(){
+        $('document').ready(function () {
 
             $('form[name="app_bundle_user_type"]').submit(function () {
                 pass = $('#app_bundle_user_type_password_first');
                 conf_pass = $('#app_bundle_user_type_password_second');
 
-                if(pass.val().length > 5 && pass.val() == conf_pass.val()){
+                if (pass.val().length > 5 && pass.val() == conf_pass.val()) {
 
                     return true;
                 }

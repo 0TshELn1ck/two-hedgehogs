@@ -179,7 +179,6 @@ class UserController extends Controller
      * @param Request $request
      * @return array
      * @Route("/search", name="admin_user_search")
-     * @Method("POST")
      * @Template()
      */
     public function searchAction(Request $request)
@@ -189,10 +188,7 @@ class UserController extends Controller
             $em = $this->getDoctrine()->getManager();
             $user = $em->getRepository('AppBundle:User')->searchInUsers($searchItem);
 
-            $paginator = $this->get('knp_paginator');
-            $pagination = $paginator->paginate($user, $request->query->getInt('page', 1), 10);
-
-            return ['user' => $pagination];
+            return ['user' => $user];
         }
 
         return [];

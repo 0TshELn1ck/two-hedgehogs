@@ -1,0 +1,17 @@
+{% extends ':Admin:base.html.twig' %}
+{% block content %}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                {% if message %}
+                    <h4>New dish</h4>
+                    <h3><b>{{ message }}</b></h3>
+                    <a href="{{ path('admin_dish_new') }}" class="btn btn-white btn-primary"
+                       type="button"><b>Add one more dish</b></a>
+                    <a href="{{ path('admin_dish_index') }}" class="btn btn-white btn-primary" type="button"><b>Admin
+                            list/edit dishes</b></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

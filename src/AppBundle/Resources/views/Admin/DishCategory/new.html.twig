@@ -1,5 +1,9 @@
-{% extends(':Admin:base.html.twig') %}
-{% form_theme form '@App/Admin/Dish/themeFields.html.twig' %}
+{% extends('@App/Admin/DishCategory/index.html.twig') %}
+{% form_theme form ':Admin:themeFields.html.twig' %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>Нова категорія</li>
+{% endblock breadcrumbs %}
 
 {% block content %}
     <div class="page-content">
@@ -22,7 +26,7 @@
                 <br>
                 {% if msg != "" %}
                     <p><b>{{ msg }}</b></p>
-                    <a href="{{ path('admin_dish_category_list') }}"><b>Admin list/edit categories</b></a>
+                    <a href="{{ path('admin_dish_category_index') }}"><b>Admin list/edit categories</b></a>
                 {% endif %}
             </div><!-- PAGE CONTENT ENDS -->
         </div><!-- /.col -->

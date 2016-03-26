@@ -17,17 +17,8 @@
         </li>
 
         <li class="">
-            <a href="{{ path('admin_personal_index') }}">
-                <i class="menu-icon fa fa-user"></i>
-                <span class="menu-text"> Персонал </span>
-            </a>
-
-            <b class="arrow"></b>
-        </li>
-
-        <li class="">
             <a href="{{ path('admin_user_index') }}">
-                <i class="menu-icon fa fa-users"></i>
+                <i class="menu-icon fa fa-user"></i>
                 <span class="menu-text"> Користувачі </span>
             </a>
 
@@ -44,7 +35,7 @@
             <b class="arrow"></b>
             <ul class="submenu nav-hide" style="display: none;">
                 <li class="">
-                    <a href="{{ path('admin_dish_list') }}">
+                    <a href="{{ path('admin_dish_index') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Страви
                     </a>
@@ -52,7 +43,7 @@
                     <b class="arrow"></b>
                 </li>
                 <li class="">
-                    <a href="{{ path('admin_dish_category_list') }}">
+                    <a href="{{ path('admin_dish_category_index') }}">
                         <i class="menu-icon fa fa-caret-right"></i>
                         Категорії страв
                     </a>
