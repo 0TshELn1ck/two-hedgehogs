@@ -33,36 +33,6 @@
 </div>
 {% block javascripts %}
     <script src="{{ asset('js/jquery.js') }}"></script>
-
-    <script type="text/javascript">
-        /* Compere confirm password field  start*/
-        $('document').ready(function () {
-            $('form[name="app_bundle_user_type"]').submit(function () {
-                var pass = $('#app_bundle_user_type_password_first').val();
-                var confirm_pass = $('#app_bundle_user_type_password_second').val();
-                if (pass != confirm_pass) {
-                    console.log(1);
-                    $('#app_bundle_user_type_password_second').val('').addClass('bad_confirm');
-                    return false;
-                }
-            });
-        });
-        /* Compere confirm password field end */
-
-        if ('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('js/jquery.mobile.custom.min.js') }}'>" + "<" + "/script>");
-    </script>
-
-    <!-- inline scripts related to this page -->
-    <script type="text/javascript">
-        jQuery(function ($) {
-            $(document).on('click', '.toolbar a[data-target]', function (e) {
-                e.preventDefault();
-                var target = $(this).data('target');
-                $('.widget-box.visible').removeClass('visible');//hide others
-                $(target).addClass('visible');//show target
-            });
-        });
-    </script>
 {% endblock %}
 </body>
 </html>
