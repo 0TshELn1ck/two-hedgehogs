@@ -7,7 +7,6 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 class SurveyType extends AbstractType
 {
@@ -20,11 +19,11 @@ class SurveyType extends AbstractType
             ->add('status', ChoiceType::class, [
                 'choices' => [
                     'active' => true,
-                    'no actice' => false
+                    'no' => false
                 ],
-                'expanded' => true,
-                'multiple' => false,
-                'choices_as_values' => true,
+                /*'expanded' => true,
+                'multiple' => false,*/
+                'choices_as_values' => true, 'label' => false
             ])
             ->add('answer1', TextType::class, [
                 'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false
