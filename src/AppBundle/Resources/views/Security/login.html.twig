@@ -1,0 +1,295 @@
+{% extends('base.html.twig') %}
+
+{% block title %}Login{% endblock %}
+
+    {% block stylesheets %}
+        {{ parent() }}
+        <!-- fontawesome -->
+        <link href="{{ asset('css/font-awesome.min.css') }}" rel="stylesheet"/>
+        <!-- text fonts -->
+        <link href="{{ asset('css/fonts.googleapis.com.css') }}" rel="stylesheet"/>
+        <!-- ace styles -->
+        <link href="{{ asset('css/ace.min.css') }}" rel="stylesheet"/>
+
+        <link href="{{ asset('css/style.css') }}" rel="stylesheet"/>
+    {% endblock %}
+
+{% block content %}
+
+    {% if error %}
+        <br>
+        <div class="alert alert-danger">
+            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+        </div>
+
+    {% endif %}
+
+    <body class="login-layout light-login">
+    <div class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="login-container">
+                        <div class="center">
+                            <h1>
+                                <img src="{{ asset('images/logo.png') }}" alt="logo">
+                                <span class="red">Два</span>
+                                <span class="grey" id="id-text2">Їжа</span>
+                            </h1>
+                        </div>
+
+                        <div class="space-6"></div>
+
+                        <div class="position-relative">
+                            <div id="login-box" class="login-box visible widget-box no-border">
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <h4 class="header header_title bigger">
+                                            <i class="ace-icon fa fa-coffee"></i>
+                                            Введіть Вашу інформацію
+                                        </h4>
+
+                                        <div class="space-6"></div>
+
+                                        <form class="form-signin" role="form" action="{{ path('login_check') }}"
+                                              method="post">
+                                            <fieldset>
+                                                <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" name="_username" class="form-control"
+                                                                   placeholder="Логін"/>
+															<i class="ace-icon fa fa-user"></i>
+														</span>
+                                                </label>
+
+                                                <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="password" name="_password" class="form-control"
+                                                                   placeholder="Пароль"/>
+															<i class="ace-icon fa fa-lock"></i>
+														</span>
+                                                </label>
+
+                                                <div class="space"></div>
+
+                                                <div class="clearfix">
+                                                    <label class="inline">
+                                                        <input type="checkbox" class="ace" id="remember_me"
+                                                               name="_remember_me" checked/>
+                                                        <span class="lbl"> Запам'ятати </span>
+                                                    </label>
+                                                    <input type="hidden" name="_csrf_token"
+                                                           value="{{ csrf_token('authenticate') }}"
+                                                    >
+                                                    <button type="submit"
+                                                            class="pull-right submit_button">
+                                                        <i class="ace-icon fa fa-key"></i>
+                                                        <span class="bigger-110">Вхід</span>
+                                                    </button>
+                                                </div>
+
+                                                <div class="space-4"></div>
+                                            </fieldset>
+                                        </form>
+
+                                        <div class="social-or-login center">
+                                            <span class="bigger-110">Вхід за допомогою</span>
+                                        </div>
+
+                                        <div class="space-6"></div>
+
+                                        <div class="social-login center">
+                                            <a class="btn btn-primary">
+                                                <i class="ace-icon fa fa-facebook"></i>
+                                            </a>
+
+                                            <a class="btn btn-info">
+                                                <i class="ace-icon fa fa-twitter"></i>
+                                            </a>
+
+                                            <a class="btn btn-danger">
+                                                <i class="ace-icon fa fa-google-plus"></i>
+                                            </a>
+                                        </div>
+                                    </div><!-- /.widget-main -->
+
+                                    <div class="toolbar clearfix">
+                                        <div>
+                                            <a href="#" data-target="#forgot-box" class="forgot-password-link">
+                                                <i class="ace-icon fa fa-arrow-left"></i>
+                                                Відновити пароль
+                                            </a>
+                                        </div>
+
+                                        <div>
+                                            <a href="#" data-target="#signup-box" class="user-signup-link">
+                                                Зареєструватись
+                                                <i class="ace-icon fa fa-arrow-right"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div><!-- /.widget-body -->
+                            </div><!-- /.login-box -->
+
+                            <div id="forgot-box" class="forgot-box widget-box no-border">
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <h4 class="header header_title bigger">
+                                            <i class="ace-icon fa fa-key"></i>
+                                            Відновити пароль
+                                        </h4>
+
+                                        <div class="space-6"></div>
+                                        <p>
+                                            Введіть Вашу поштову адресу
+                                        </p>
+
+                                        <form>
+                                            <fieldset>
+                                                <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="email" class="form-control"
+                                                                   placeholder="Поштова адреса"/>
+															<i class="ace-icon fa fa-envelope"></i>
+														</span>
+                                                </label>
+
+                                                <div class="clearfix">
+                                                    <button type="button"
+                                                            class="submit_button pull-right">
+                                                        <i class="ace-icon fa fa-lightbulb-o"></i>
+                                                        <span class="bigger-110">Надіслати </span>
+                                                    </button>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div><!-- /.widget-main -->
+
+                                    <div class="toolbar center">
+                                        <a href="#" data-target="#login-box" class="back-to-login-link">
+                                            Повернутись
+                                            <i class="ace-icon fa fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div><!-- /.widget-body -->
+                            </div><!-- /.forgot-box -->
+
+                            <div id="signup-box" class="signup-box widget-box no-border">
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <h4 class="header header_title bigger ">
+                                            <i class="ace-icon fa fa-users"></i>
+                                            Зареєструватись
+                                        </h4>
+
+                                        <div class="space-6"></div>
+                                        <p> Для продовження введіть: </p>
+
+                                        {{ form_start(registrationForm) }}
+
+                                        <fieldset>
+                                            <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+                                                            {{ form_row(registrationForm.username) }}
+                                                            <i class="ace-icon fa fa-user"></i>
+														</span>
+                                            </label>
+
+                                            <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+                                                            {{ form_row(registrationForm.email) }}
+                                                            <i class="ace-icon fa fa-envelope"></i>
+														</span>
+                                            </label>
+
+                                            <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+                                                            {{ form_row(registrationForm.password.first) }}
+                                                            <i class="ace-icon fa fa-lock"></i>
+														</span>
+                                            </label>
+
+                                            <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+                                                            {{ form_row(registrationForm.password.second) }}
+                                                            <i class="ace-icon fa fa-retweet"></i>
+														</span>
+                                            </label>
+
+                                            <label class="block">
+                                                <input type="checkbox" required class="ace"/>
+														<span class="lbl">
+															Я приймаю
+															<a href="#">угоду користувача</a>
+														</span>
+                                            </label>
+
+                                            <div class="space-24"></div>
+
+                                            <div class="clearfix">
+                                                <button type="reset" class="width-30 reset_button">
+                                                    <i class="ace-icon fa fa-refresh"></i>
+                                                    <span class="bigger-110">Стерти</span>
+                                                </button>
+                                                <button type="submit"
+                                                        class="width-65 pull-right submit_button">
+                                                    <span class="bigger-110">Зареєструватись</span>
+
+                                                    <i class="ace-icon fa fa-arrow-right icon-on-right"></i>
+                                                </button>
+                                            </div>
+                                        </fieldset>
+
+                                        {{ form_end(registrationForm) }}
+
+                                    </div>
+
+                                    <div class="toolbar center">
+                                        <a href="#" data-target="#login-box" class="back-to-login-link">
+                                            <i class="ace-icon fa fa-arrow-left"></i>
+                                            Повернутись
+                                        </a>
+                                    </div>
+                                </div><!-- /.widget-body -->
+                            </div><!-- /.signup-box -->
+                        </div><!-- /.position-relative -->
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container -->
+
+    </body>
+{% endblock content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        /* Compere confirm password field  start*/
+        $('document').ready(function () {
+            $('form[name="app_bundle_user_type"]').submit(function () {
+                var pass = $('#app_bundle_user_type_password_first').val();
+                var confirm_pass = $('#app_bundle_user_type_password_second').val();
+                if (pass != confirm_pass) {
+                    console.log(1);
+                    $('#app_bundle_user_type_password_second').val('').addClass('bad_confirm');
+                    return false;
+                }
+            });
+        });
+        /* Compere confirm password field end */
+
+        if ('ontouchstart' in document.documentElement) document.write("<script src='{{ asset('js/jquery.mobile.custom.min.js') }}'>" + "<" + "/script>");
+    </script>
+
+    <!-- inline scripts related to this page -->
+    <script type="text/javascript">
+        jQuery(function ($) {
+            $(document).on('click', '.toolbar a[data-target]', function (e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible');//hide others
+                $(target).addClass('visible');//show target
+            });
+        });
+    </script>
+{% endblock %}

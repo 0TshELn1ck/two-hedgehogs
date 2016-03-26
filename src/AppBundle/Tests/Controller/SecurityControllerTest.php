@@ -4,12 +4,12 @@ namespace AppBundle\Tests\Controller;
 
 use AppBundle\Tests\TestBaseWeb;
 
-class DishControllerTest extends TestBaseWeb
+class SecurityControllerTest extends TestBaseWeb
 {
-    public function testShowOne()
+    public function testLogin()
     {
         $client = static::createClient();
-        $client->request('GET', '/menu/dish/salad');
+        $client->request('GET', '/login');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }
