@@ -274,7 +274,7 @@ footer{
       border-right: 3px solid @base-red;
       padding: 10px;
       margin-bottom: 20px;
-      min-height: 250px;
+      min-height: 180px;
 
       .dish_info {
         h2 {
@@ -295,7 +295,7 @@ footer{
 
       .img-wrapp {
         overflow: hidden;
-        max-height: 250px;
+        max-height: 180px;
         img {
           width: 100%;
           height: auto;
@@ -305,7 +305,7 @@ footer{
       .order_info {
 
         .count-wrapp {
-          padding-top: 105px;
+          padding-top: 75px;
         }
 
         .price {
@@ -313,7 +313,7 @@ footer{
           font-weight: bold;
           color: @base-red;
           text-align: center;
-          line-height: 250px;
+          line-height: 180px;
         }
       }
 
@@ -362,6 +362,25 @@ footer{
     padding: 20px;
     font-size: 20px;
     float: right;
+  }
+  .count_input{
+    text-align: center;
+  }
+  #order_cookTo{
+    overflow: hidden;
+    padding: 10px 5px;
+    height: auto;
+    #order_cookTo_date{
+      width:70%;
+      padding:5px;
+    }
+    #order_cookTo_time {
+      width:30%;
+      padding:5px;
+    }
+  }
+  .show_address {
+    display: block !important;
   }
 }
 
@@ -481,5 +500,7 @@ footer{
   }
 }
 
-
+.f_hidden{
+  display:none !important;
+}
 

@@ -24,7 +24,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/profile", name="userProfile")
+     * @Route("/user/orders", name="userProfile")
      */
     public function profileAction(Request $request)
     {

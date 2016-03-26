@@ -35,12 +35,18 @@ $(document).ready(function(){
 	$(".radio .address").bind("change click", function () {
 		if ($(this).hasClass('new_addr_radio')){
 			if ($(this).prop('checked')) {
-				$('.new_addr').slideDown("fast");
+				$('.new_addr').val('').slideDown("fast");
 			}
 		} else {
 				$('.new_addr').slideUp("fast");
 		}
 	});
+	$(".radio .last_address").click(
+		function(){
+			var addr = $(this).data("address");
+			$(".new_addr").val(addr);
+		}
+	);
 
 	$(".radio .time").bind("change click", function () {
 		if ($(this).hasClass('new_time_radio')) {

@@ -10,4 +10,23 @@ namespace AppBundle\Repository;
  */
 class OrdersRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getLastUserAddress($user_id, $limit)
+    {
+        $orders = $this->getEntityManager()
+            ->createQuery(
+                'SELECT DISTINCT o.address FROM AppBundle:Order o 
+                  WHERE o.user = :user ORDER BY o.createdAt DESC'
+            )
+            ->setMaxResults($limit)
+            ->setParameter('user', $user_id)
+            ->getResult();
+        
+        $adresses = array();
+        
+        foreach ($orders as $order){
+            $adresses[] = $order['address'];
+        }
+
+        return $adresses;
+    }
 }

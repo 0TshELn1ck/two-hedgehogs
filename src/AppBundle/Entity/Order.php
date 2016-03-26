@@ -65,9 +65,17 @@ class Order
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DishInOrder", mappedBy="order")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DishInOrder", mappedBy="order", cascade={"persist"})
      */
     private $dishesInOrder;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=255)
+     */
+    private $address;
+
     /**
      * Constructor
      */
@@ -234,5 +242,29 @@ class Order
     public function getUpdatedAt()
     {
         return $this->updatedAt;
+    }
+
+    /**
+     * Set address
+     *
+     * @param string $address
+     *
+     * @return Order
+     */
+    public function setAddress($address)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return string
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 }

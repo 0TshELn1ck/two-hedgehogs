@@ -3,12 +3,13 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\DishInOrder;
 
+use AppBundle\Entity\Order;
 use AppBundle\Form\OrderType;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class DishController
@@ -24,46 +25,52 @@ class OrderController extends Controller
     {
         $user = $this->getUser();
 
-        if ($user){
+        if ($user) {
+            $em = $this->getDoctrine()->getManager();
             $cart = $user->getCart();
+            if ($cart->getDishes()->count() > 0) {
+                $order = new Order();
+                $address = $em->getRepository("AppBundle:Order")->getLastUserAddress($user->getId(), 3);
 
-                $dish = $cart->getDishes()[0];
-                $dishInOrder = new DishInOrder();
-                $dishInOrder->setDish($dish);
-                $form = $this->createFormBuilder($dishInOrder)
-                    ->add('dish', EntityType::class, array(
-                        'class' => 'AppBundle:Dish',
-                        'choice_label' => 'name',
-                        'choices' => array($dishInOrder->getDish()),
-                    ))
-                    ->add('count', IntegerType::class, array(
-                        'scale'=>0,
-                        'data' =>1,
-                        'attr' => array(
-                            'min'=>0,
-                            'max'=>20,
-                        )
-                    ))
-                    ->add('order', OrderType::class)
-                    ->add('submit', SubmitType::class)
-                    ->getForm();
+                foreach ($cart->getDishes() as $dish) {
+                    $dishInOrder = new DishInOrder();
+                    $dishInOrder->setDish($dish)
+                        ->setOrder($order);
+                    $order->addDishesInOrder($dishInOrder);
+                }
 
+                $form = $this->createForm(OrderType::class, $order);
 
-            if ($request->getMethod() === 'POST') {
-                $form->handleRequest($request);
-                $dishInOrder->getOrder()->setUser($user);
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($dishInOrder);
-                $em->flush();
+                if ($request->getMethod() === 'POST') {
+                    $form->handleRequest($request);
+                    $summ = 0;
+
+                    foreach ($order->getDishesInOrder() as $dish) {
+                        $price = $dish->getDish()->getPrice();
+                        $summ = $summ + ($price * $dish->getCount());
+                    }
+
+                    $order->setUser($user)
+                          ->setSumm($summ);
+                    $cart->getDishes()->clear();
+                    $em->persist($order);
+                    $em->persist($cart);
+                    $em->flush();
+
+                    return $this->redirectToRoute('userProfile');
+                }
+
+                return [
+                    'dishes' => $cart->getDishes(),
+                    'cart' => $cart,
+                    'form' => $form->createView(),
+                    'addresses'=>$address,
+                ];
+            } else {
+                return ['massage' => 'Ви не додали жодного блюда з меню собі в замовлення',];
             }
-
-            return [
-                'dishes'=>$cart->getDishes(),
-                'cart'=>$cart,
-                'form' => $form->createView(),
-            ];
         }
 
-        return $this->redirect($this->generateUrl('user_login'));
+        return $this->redirectToRoute('user_login');
     }
 }
