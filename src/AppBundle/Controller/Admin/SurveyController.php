@@ -6,7 +6,6 @@ use AppBundle\Entity\Survey;
 use AppBundle\Entity\SurveyAnswer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\SurveyType;
 
@@ -35,17 +34,24 @@ class SurveyController extends Controller
     public function newAction(Request $request)
     {
         $survey = new Survey();
-        $answer = new SurveyAnswer();
-
+        $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(SurveyType::class, $survey);
         $form->handleRequest($request);
         $message = '';
 
         if ($form->isValid()) {
-
-            /*$em = $this->getDoctrine()->getManager();
+            for($i = 1 ; $i <= 5 ; $i++){
+                $formAnswer = $form['answer'.$i]->getData();
+                if ($formAnswer != ""){
+                    $answer = new SurveyAnswer();
+                    $answer->setAnswer($formAnswer);
+                    $answer->setSurvey($survey);
+                    $em->persist($answer);
+                }
+            }
             $em->persist($survey);
-            $em->flush();*/
+            $em->flush();
+
             $message = "New survey \"" . $survey->getTitle() . "\" was successfully added";
 
             return $this->render('@App/Admin/Survey/new.html.twig', ['form' => $form->createView(),

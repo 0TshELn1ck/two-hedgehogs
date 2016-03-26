@@ -21,18 +21,22 @@ class SurveyType extends AbstractType
                     'active' => true,
                     'no' => false
                 ],
-                /*'expanded' => true,
-                'multiple' => false,*/
                 'choices_as_values' => true, 'label' => false
             ])
             ->add('answer1', TextType::class, [
-                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false
+                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false, 'required' => false,
             ])
             ->add('answer2', TextType::class, [
-                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false
+                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false, 'required' => false,
             ])
             ->add('answer3', TextType::class, [
-                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false
+                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false, 'required' => false,
+            ])
+            ->add('answer4', TextType::class, [
+                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false, 'required' => false,
+            ])
+            ->add('answer5', TextType::class, [
+                'attr' => array('cols' => '68'), 'mapped' => false, 'label' => false, 'required' => false,
             ]);
     }
 
