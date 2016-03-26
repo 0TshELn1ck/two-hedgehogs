@@ -5,10 +5,6 @@
 {% block title %}Login{% endblock %}
 
 {% block fos_user_content %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
-
     <body class="login-layout light-login">
     <div class="main-container">
         <div class="main-content">
@@ -38,6 +34,9 @@
 
                                         <form class="form-signin" action="{{ path("fos_user_security_check") }}"
                                               method="post">
+                                            {% if error %}
+                                                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                            {% endif %}
                                             <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
                                             <fieldset>
                                                 <label class="block clearfix">
