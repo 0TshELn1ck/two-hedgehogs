@@ -8,6 +8,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\AppBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,10 +27,11 @@ class UserController extends Controller
     public function profileAction(Request $request)
     {
         $user = $this->getUser();
+        $em = $this->getDoctrine()->getManager();
         
         if ($user){
             return [
-                'orders'=>$user->getOrders()
+                'orders'=>$em->getRepository('AppBundle:Order')->getSortableOrder($user->getId()),
             ];
         }
         
