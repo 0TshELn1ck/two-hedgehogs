@@ -81,17 +81,17 @@ class DishController extends Controller
     }
 
     /**
-     * @param Dish $id
+     * @param $id
+     * @param Dish $dish
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/edit/{id}", name="admin_dish_edit")
      */
-    public function editAction(Dish $id, Request $request)
+    public function editAction(Dish $dish, $id, Request $request)
     {
         $pict = new UploadPicture();
 
         $em = $this->getDoctrine()->getManager();
-        $dish = $em->getRepository('AppBundle:Dish')->find($id);
 
         $form = $this->createForm(DishType::class, $dish);
         $uploadForm = $this->createFormBuilder($pict)
@@ -111,7 +111,6 @@ class DishController extends Controller
         }
 
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->flush();
             $message = "Dish was successfully edited";
 
@@ -224,7 +223,7 @@ class DishController extends Controller
         if ($request->getMethod() == 'POST') {
             $searchItem = $request->request->get('search');
             $em = $this->getDoctrine()->getManager();
-            $dishList = $em->getRepository('AppBundle:Dish')->search($searchItem);
+            $dishList = $em->getRepository('AppBundle:Dish')->searchDishes($searchItem);
 
             return $this->render('@App/Admin/Dish/search.html.twig', ['dishList' => $dishList]);
         }

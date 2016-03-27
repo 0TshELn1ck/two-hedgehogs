@@ -1,0 +1,71 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% block fos_user_content %}
+    <body class="login-layout light-login">
+    <div class="main-container">
+        <div class="main-content">
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="login-container">
+                        <div class="space-6"></div>
+                        <div class="center">
+                            <h1>
+                                <img src="{{ asset('images/logo.png') }}" alt="logo">
+                                <span class="red">Два</span>
+                                <span class="grey" id="id-text2">Їжа</span>
+                            </h1>
+                        </div>
+                        <div class="position-relative">
+                            <div id="forgot-box" class="forgot-box visible widget-box no-border">
+                                <div class="widget-body">
+                                    <div class="widget-main">
+                                        <h4 class="header header_title bigger">
+                                            <i class="ace-icon fa fa-key"></i>
+                                            Відновити пароль
+                                        </h4>
+
+                                        <div class="space-6"></div>
+                                        <p>
+                                            Введіть Вашу поштову адресу або ім'я
+                                        </p>
+
+                                        <form action="{{ path('fos_user_resetting_send_email') }}" method="POST" class="fos_user_resetting_request">
+                                            {% if invalid_username is defined %}
+                                                <p>Такого користувача немає в системі!</p>
+                                            {% endif %}
+                                            <fieldset>
+                                                <label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+													        <input type="text" class="form-control" id="username" name="username" required="required">
+															<i class="ace-icon fa fa-envelope"></i>
+														</span>
+                                                </label>
+
+                                                <div class="clearfix">
+                                                    <button type="submit"
+                                                            class="submit_button pull-right">
+                                                        <i class="ace-icon fa fa-lightbulb-o"></i>
+                                                        <span class="bigger-110">Надіслати </span>
+                                                    </button>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div><!-- /.widget-main -->
+
+                                    <div class="toolbar center">
+                                        <a href="{{ path('fos_user_security_login') }}" data-target="#login-box" class="back-to-login-link">
+                                            Вхід
+                                            <i class="ace-icon fa fa-arrow-right"></i>
+                                        </a>
+                                    </div>
+                                </div><!-- /.widget-body -->
+                            </div><!-- /.forgot-box -->
+                        </div><!-- /.position-relative -->
+                    </div>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.main-content -->
+    </div><!-- /.main-container -->
+
+    </body>
+{% endblock fos_user_content %}
