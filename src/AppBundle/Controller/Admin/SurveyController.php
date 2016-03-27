@@ -60,6 +60,15 @@ class SurveyController extends Controller
 
         return $this->render('@App/Admin/Survey/new.html.twig', ['form' => $form->createView(),
             'message' => $message]);
+    }
 
+    /**
+     * @param Survey $survey
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/edit/{id}", name="admin_survey_edit")
+     */
+    public function editAction(Survey $survey)
+    {
+        return $this->render('@App/Admin/Survey/edit.html.twig');
     }
 }

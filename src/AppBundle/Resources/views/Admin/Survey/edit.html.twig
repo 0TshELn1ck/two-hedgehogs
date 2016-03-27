@@ -1,0 +1,27 @@
+{% extends('@App/Admin/Survey/index.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        Редагування опитування
+    </li>
+{% endblock breadcrumbs %}
+
+{% block search %}
+    <form class="form-search" METHOD="post" action="{{ path('admin_dish_search') }}">
+        <span class="input-icon">
+            <input type="text" min="3" placeholder="Search SurVeyS..." class="nav-search-input" name="search"
+                   id="nav-search-input" autocomplete="off"/>
+        <i class="ace-icon fa fa-search nav-search-icon"></i>
+        </span>
+    </form>
+{% endblock search %}
+
+{% block content %}
+<div class="page-content">
+    <div class="row">
+        <div class="col-xs-12">
+            <h3>Editing in progress...</h3>
+        </div><!-- PAGE CONTENT ENDS -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+{% endblock %}
