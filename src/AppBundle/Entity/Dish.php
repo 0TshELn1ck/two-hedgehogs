@@ -98,12 +98,18 @@ class Dish
     private $uploadPictures;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DishInOrder", mappedBy="dish")
+     */
+    private $orders;
+
+    /**
      * Constructor
      */
     public function __construct()
     {
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->carts = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -352,6 +358,5 @@ class Dish
     public function getuploadPicture()
     {
         return $this->uploadPictures;
-
     }
 }

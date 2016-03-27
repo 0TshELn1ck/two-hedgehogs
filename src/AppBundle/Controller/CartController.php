@@ -11,13 +11,13 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Cart;
 use AppBundle\Entity\User;
 use AppBundle\Entity\Dish;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class DishController
@@ -25,25 +25,6 @@ use Symfony\Component\HttpFoundation\Response;
  */
 class CartController extends Controller
 {
-    /**
-     * @Route("/", name="cart")
-     * @Template("AppBundle:Front:order.html.twig")
-     */
-    public function getCartAction()
-    {
-        $user = $this->getUser();
-
-        if ($user instanceof User){
-            $cart = $user->getCart();
-
-            return [
-                'cart'=>$cart
-            ];
-        }
-
-        return $this->redirect($this->generateUrl('fos_user_security_login'));
-    }
-
     /**
      * @Route("/check", name="cartCheck")
      */
@@ -53,7 +34,7 @@ class CartController extends Controller
         $user = $this->getUser();
         $count_dish = 0;
 
-        if ($user instanceof User){
+        if ($user){
             $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user'=>$user->getId()));
 
             if (!$cart){
@@ -82,20 +63,41 @@ class CartController extends Controller
         $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
 
-        if ($user instanceof User) {
-            $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user' => $user->getId()));
+        if ($user) {
+            $cart = $user->getCart();
             $dishInCart = $cart->getDishes();
 
             if (!$dishInCart->contains($dish)){
                 $cart->addDish($dish);
-                $em->persist($cart);
                 $em->flush();
                 $response->setData(array('added' => 1));
-
-                return $response;
             }
         }
-        $response->setData(array('added' => 0));
+
+        return $response;
+    }
+
+    /**
+     * Ajax deleting dish from cart
+     * @Route("/delete/{dish}", name="dellFromCart")
+     * @Method("POST")
+     */
+    public function dellFromCartAction(Dish $dish=null)
+    {
+        $response = new JsonResponse();
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+
+        if ($user instanceof User) {
+            $cart = $user->getCart();
+            $dishInCart = $cart->getDishes();
+
+            if ($dishInCart->contains($dish)){
+                $cart->removeDish($dish);
+                $em->flush();
+                $response->setData(array('deleted' => 1));
+            }
+        }
 
         return $response;
     }

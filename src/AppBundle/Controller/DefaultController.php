@@ -22,12 +22,4 @@ class DefaultController extends Controller
 
         return $this->render('AppBundle:Front:homepage.html.twig', ['dishList' => $dishList]);
     }
-
-    /**
-     * @Route("/profile", name="userProfile")
-     */
-    public function profileAction(Request $request)
-    {
-        return $this->render('AppBundle:Front:userProfile.html.twig');
-    }
 }

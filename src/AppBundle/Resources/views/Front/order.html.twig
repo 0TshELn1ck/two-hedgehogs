@@ -11,100 +11,65 @@
             <div class="menu_title">
                 <h2>Замовлення</h2>
             </div>
+            {% if massage is defined %}
+                <h1>{{ massage }}</h1>
+            {% else %}
+            {{ form_start(form) }}
             <div class="container order_page">
                 <div class="instruction">
                     Тут якесь пояснення, щодо оформлення замовлення
                 </div>
-                <form>
                 <ul class="dish_list">
-                    <li class="row">
-                        <div class="img-wrapp col-xs-6 col-md-3">
-                            <img src="/images/dish1.jpg" alt="">
+                    {% for dish in dishes %}
+                    <li class="row dish_{{ dish.id }}">
+                        <div class="img-wrapp col-xs-6 col-md-2">
+                            <img src="{{ asset(dish.pictPath) | imagine_filter('thumb_230') }}"
+                                 alt="{{ dish.name }}" title="{{ dish.name }}"/>
                         </div>
                         <div class="dish_info col-xs-6">
-                            <h2><a href="#">Борщ український з сметаною</a></h2>
+                            <h2><a href="#">{{ dish.name }}</a></h2>
                             <div class="ingridients">
-                                 Склад: свинина, буряк, капуста, морква, фасоля, томатна паста, часнік, картопля.
+                                 Склад: {{ dish.ingredients }}.
                             </div>
                         </div>
-                         <div class="order_info col-md-3">
+                         <div class="order_info col-md-4">
                              <div class="count-wrapp col-xs-4">
-
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="count" min="0" value="1">
-                                    </div>
-
+                                 <div class="form-group">
+                                     {{ form_widget(form.dishesInOrder[loop.index0].dish) }}
+                                     {{ form_widget(form.dishesInOrder[loop.index0].count) }}
+                                 </div>
                              </div>
-                             <span class="price col-xs-8">130 грн</span>
+                             <span class="price col-xs-8">{{ dish.price }} грн</span>
                          </div>
                         <div class="delete_position">
-                            <i class="fa fa-times"></i>
-                        </div>
-                    </li>
-                    <li class="row">
-                        <div class="img-wrapp col-xs-6 col-md-3">
-                            <img src="/images/dish1.jpg" alt="">
-                        </div>
-                        <div class="dish_info col-xs-6">
-                            <h2><a href="#">Борщ український з сметаною</a></h2>
-                            <div class="ingridients">
-                                 Склад: свинина, буряк, капуста, морква, фасоля, томатна паста, часнік, картопля.
-                            </div>
-                        </div>
-                         <div class="order_info col-md-3">
-                             <div class="count-wrapp col-xs-4">
+                            <button data-dish="{{ dish.id }}" class="del_dishCart btn btn-xs">
+                                <i class="fa fa-times"></i>
+                            </button>
 
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="count" min="0" value="1">
-                                    </div>
-
-                             </div>
-                             <span class="price col-xs-8">130 грн</span>
-                         </div>
-                        <div class="delete_position">
-                            <i class="fa fa-times"></i>
                         </div>
                     </li>
-                    <li class="row">
-                        <div class="img-wrapp col-xs-6 col-md-3">
-                            <img src="/images/dish1.jpg" alt="">
-                        </div>
-                        <div class="dish_info col-xs-6">
-                            <h2><a href="#">Борщ український з сметаною</a></h2>
-                            <div class="ingridients">
-                                 Склад: свинина, буряк, капуста, морква, фасоля, томатна паста, часнік, картопля.
-                            </div>
-                        </div>
-                         <div class="order_info col-md-3">
-                             <div class="count-wrapp col-xs-4">
-                                    <div class="form-group">
-                                        <input type="number" class="form-control" name="count" min="0" value="1">
-                                    </div>
-                             </div>
-                             <span class="price col-xs-8">130 грн</span>
-                         </div>
-                        <div class="delete_position">
-                            <i class="fa fa-times"></i>
-                        </div>
-                    </li>
+                    {% endfor %}
                 </ul>
                 <div class="row">
                     <div class="location_block col-md-6">
-                    <h2>Вкажіть адрессу доставки</h2>
+                        <h2>Вкажіть адрессу доставки</h2>
+                        {%  if addresses|length > 0 %}
+                            {%  for address in addresses %}
+                        <div class="radio">
+                            <label><input type="radio" name="optradio" class="address last_address" data-address="{{ address }}">{{ address }}</label>
+                        </div>
+                        {% endfor %}
 
-                    <div class="radio">
-                        <label><input type="radio" name="optradio" class="address">вул. Героїв Сталінграду 46</label>
+                            <div class="radio">
+                                <label><input type="radio" name="optradio" class="address new_addr_radio">Інша адреса</label>
+                            </div>
+                            <div class="form-group">
+                                {{ form_widget(form.address) }}
+                            </div>
+                        {% else %}
+                            {{ form_widget(form.address, {'attr': {'class': 'show_address form-control new_addr'}}) }}
+                        {% endif %}
                     </div>
-                    <div class="radio">
-                        <label><input type="radio" name="optradio" class="address">вул. Смілянська 231</label>
-                    </div>
-                    <div class="radio">
-                        <label><input type="radio" name="optradio" class="address new_addr_radio">Інша адреса</label>
-                    </div>
-                    <div class="form-group">
-                        <input type="text" class="form-control new_addr" name="count" placeholder="Введіть адресу">
-                    </div>
-                </div>
                     <div class="location_block col-md-6">
                         <h2>Вкажіть час доставки</h2>
 
@@ -114,16 +79,47 @@
                         <div class="radio">
                             <label><input type="radio" name="time" class="time new_time_radio">На первний час</label>
                             </div>
-                        <div class="form-group">
-                            <input type="text" placeholder="01/01/2016 16:00" id="datepicker" class="form-control new_time" name="new_time">
+                        <div>
+                            {{ form_widget(form.cookTo) }}
                         </div>
                     </div>
                 </div>
-                    <input class="addToCart" type="submit" value="Підтвердити">
-                </form>
+                <input class="addToCart" type="submit" value="Підтвердити">
+                {{ form_end(form) }}
             </div>
+            {% endif %}
         </div>
     </section>
 
 </div>
+{% endblock %}
+
+{% block initialize_plagins %}
+<script>
+    $(document).ready(function () {
+        //delete from cart ajax
+        $('.del_dishCart').click(function () {
+            var addButton = $(this);
+            var dish = addButton.data("dish");
+            $.ajax({
+                url: "{{ path('dellFromCart')}}/" + dish,
+                method: "POST",
+                success: function (data) {
+                    if (data.deleted == 1) {
+                        $('.dish_'+dish).fadeOut("fast");
+                        $('.cart_count_heder').html($('.cart_count_heder').html() - 1) ;
+                        setTimeout(function(){
+                            $('.dish_'+dish).remove();
+                        }, 1000);
+                    }
+                }
+            });
+        });
+    });
+
+    $('form[name="order"]').submit(function(){
+        $('input[type="submit"]').prop('disabled', true);
+        return true;
+    });
+</script>
 {% endblock %}
