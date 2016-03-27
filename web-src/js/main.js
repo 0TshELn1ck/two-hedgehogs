@@ -20,7 +20,7 @@ $(document).ready(function(){
 	$(document).on('click', 'a#more_items', function(event) {	    
 		event.preventDefault();
 		$('.menu .hidden_items').slideDown({duration:800,  easing: "easeInOutQuart", complete : function(){
-			update_btn('#more_items', 'hide_items', 'hide items<hr/><span class="top_arrow"></span>');
+			update_btn('#more_items', 'hide_items', 'приховати<hr/><span class="top_arrow"></span>');
 		}});
 	});
 	
@@ -28,7 +28,7 @@ $(document).ready(function(){
 	$(document).on('click', 'a#hide_items', function(event) {	    
 		event.preventDefault();		
 		$('.menu .hidden_items').slideUp({duration:800,  easing: "easeInOutQuart", complete : function(){
-			update_btn('#hide_items', 'more_items', 'show more<hr/><span class="bottom_arrow"></span>');
+			update_btn('#hide_items', 'more_items', 'показати більше<hr/><span class="bottom_arrow"></span>');
 		}});	    
 	});
 
