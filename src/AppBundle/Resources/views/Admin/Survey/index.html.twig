@@ -43,7 +43,10 @@
                                     <tbody>
                                     <tr>
                                         <td>{{ loop.index }}</td>
-                                        <td>{{ item.title }}</td>
+                                        <td><a href="{{ path('admin_survey_edit', {'id': item.id}) }}"
+                                               title="edit survey">
+                                                {{ item.title }}</a>
+                                        </td>
                                         <td>{{ item.status }}</td>
                                         <td>{{ item.createdAt|date }}</td>
                                         <td>

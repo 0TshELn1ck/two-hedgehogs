@@ -71,6 +71,6 @@ class OrderController extends Controller
             }
         }
 
-        return $this->redirectToRoute('user_login');
+        return $this->redirectToRoute('fos_user_security_login');
     }
 }

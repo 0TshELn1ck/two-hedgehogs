@@ -4,6 +4,7 @@ namespace AppBundle\Controller\Admin;
 
 use AppBundle\Entity\Survey;
 use AppBundle\Entity\SurveyAnswer;
+use AppBundle\Form\SurveyEditType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -69,7 +70,7 @@ class SurveyController extends Controller
      */
     public function editAction(Survey $survey, Request $request)
     {
-        $form = $this->createForm(SurveyType::class, $survey);
+        $form = $this->createForm(SurveyEditType::class, $survey);
         $em = $this->getDoctrine()->getManager();
         $form->handleRequest($request);
 

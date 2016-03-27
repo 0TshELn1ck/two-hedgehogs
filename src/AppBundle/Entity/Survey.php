@@ -152,7 +152,7 @@ class Survey
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getSurveyAnswer()
+    public function getSurveyAnswers()
     {
         return $this->surveyAnswers;
     }

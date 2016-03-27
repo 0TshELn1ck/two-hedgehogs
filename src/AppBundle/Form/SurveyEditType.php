@@ -4,11 +4,12 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class SurveyType extends AbstractType
+class SurveyEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -23,20 +24,10 @@ class SurveyType extends AbstractType
                 ],
                 'choices_as_values' => true, 'label' => false
             ])
-            ->add('answer1', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
-            ])
-            ->add('answer2', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
-            ])
-            ->add('answer3', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
-            ])
-            ->add('answer4', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
-            ])
-            ->add('answer5', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
+            ->add('surveyAnswers', CollectionType::class, [
+                'label' => false,
+                'required' => false,
+                'entry_type' => SurveyAnswerType::class,
             ]);
     }
 
