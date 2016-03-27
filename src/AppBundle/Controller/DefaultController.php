@@ -12,7 +12,7 @@ class DefaultController extends Controller
 
     /**
      * @Route("/", name="homepage")
-     * @Template("default/index.html.twig")
+     * @Template("AppBundle:Front:homepage.html.twig")
      */
 
     public function indextestAction(Request $request)
@@ -20,6 +20,8 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
 
-        return $this->render('AppBundle:Front:homepage.html.twig', ['dishList' => $dishList]);
+        return [
+            'dishList' => $dishList
+        ];
     }
 }
