@@ -19,7 +19,7 @@ class SurveyType extends AbstractType
             ->add('status', ChoiceType::class, [
                 'choices' => [
                     'active' => true,
-                    'no' => false
+                    'no active' => false
                 ],
                 'choices_as_values' => true, 'label' => false
             ])

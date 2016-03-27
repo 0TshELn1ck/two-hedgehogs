@@ -20,7 +20,36 @@
 <div class="page-content">
     <div class="row">
         <div class="col-xs-12">
-            <h3>Editing in progress...</h3>
+            <h3>Editing <b>in progress...</b></h3>
+            {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right">Title</label>
+                    {{ form_errors(form.title) }}
+                    {{ form_widget(form.title) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right">Status</label>
+                    {{ form_errors(form.status) }}
+                    {{ form_widget(form.status) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right">Answers:</label>
+                    {{ form_errors(form.answer1) }}
+                    {{ form_widget(form.answer1) }}
+                </div>
+            </div>
+            {#<div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    <input type="submit" value="Modify" class="btn btn-default"/>
+                </div>
+            </div>#}
+            {{ form_end(form) }}
         </div><!-- PAGE CONTENT ENDS -->
     </div><!-- /.col -->
 </div><!-- /.row -->

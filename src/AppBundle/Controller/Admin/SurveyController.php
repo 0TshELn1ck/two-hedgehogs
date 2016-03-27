@@ -67,8 +67,18 @@ class SurveyController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/edit/{id}", name="admin_survey_edit")
      */
-    public function editAction(Survey $survey)
+    public function editAction(Survey $survey, Request $request)
     {
-        return $this->render('@App/Admin/Survey/edit.html.twig');
+        $form = $this->createForm(SurveyType::class, $survey);
+        $em = $this->getDoctrine()->getManager();
+        $form->handleRequest($request);
+
+        if ($form->isValid()){
+            $em->flush();
+
+            return $this->redirectToRoute('admin_survey_index');
+        }
+
+        return $this->render('@App/Admin/Survey/edit.html.twig', ['form' => $form->createView()]);
     }
 }
