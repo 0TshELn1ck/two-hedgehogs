@@ -1,14 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: den
- * Date: 26.03.16
- * Time: 21:46
- */
 
 namespace AppBundle\Controller;
 
-use AppBundle\AppBundle;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

@@ -41,9 +41,9 @@ class SurveyController extends Controller
         $message = '';
 
         if ($form->isValid()) {
-            for($i = 1 ; $i <= 5 ; $i++){
-                $formAnswer = $form['answer'.$i]->getData();
-                if ($formAnswer != ""){
+            for ($i = 1; $i <= 5; $i++) {
+                $formAnswer = $form['answer' . $i]->getData();
+                if ($formAnswer != "") {
                     $answer = new SurveyAnswer();
                     $answer->setAnswer($formAnswer);
                     $answer->setSurvey($survey);
@@ -74,7 +74,7 @@ class SurveyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form->handleRequest($request);
 
-        if ($form->isValid()){
+        if ($form->isValid()) {
             $em->flush();
 
             return $this->redirectToRoute('admin_survey_index');

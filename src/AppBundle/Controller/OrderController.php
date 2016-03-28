@@ -1,4 +1,5 @@
 <?php
+
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\DishInOrder;
@@ -51,7 +52,7 @@ class OrderController extends Controller
                     }
 
                     $order->setUser($user)
-                          ->setSumm($summ);
+                        ->setSumm($summ);
                     $cart->getDishes()->clear();
                     $em->persist($order);
                     $em->persist($cart);
@@ -64,7 +65,7 @@ class OrderController extends Controller
                     'dishes' => $cart->getDishes(),
                     'cart' => $cart,
                     'form' => $form->createView(),
-                    'addresses'=>$address,
+                    'addresses' => $address,
                 ];
             } else {
                 return ['massage' => 'Ви не додали жодного блюда з меню собі в замовлення',];
