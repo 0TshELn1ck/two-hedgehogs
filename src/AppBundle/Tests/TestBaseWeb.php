@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class TestBaseWeb extends WebTestCase
 {
@@ -35,5 +37,18 @@ class TestBaseWeb extends WebTestCase
         $arguments['-e'] = 'test';
         $input = new ArrayInput($arguments);
         $application->run($input, new ConsoleOutput());
+    }
+
+    protected function logIn()
+    {
+        $session = $this->client->getContainer()->get('session');
+
+        $firewall = 'main';
+        $token = new UsernamePasswordToken('admin', null, $firewall, array('ROLE_ADMIN'));
+        $session->set('_security_'.$firewall, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->client->getCookieJar()->set($cookie);
     }
 }
