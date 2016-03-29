@@ -35,7 +35,7 @@ class AddAdminCommand extends ContainerAwareCommand
         $user = new User();
         $user->setUsername('admin');
         $user->setEmail('admin@change.me');
-        $user->setRoles(['ROLE_ADMIN']);
+        $user->setRoles(['ROLE_SUPER_ADMIN']);
         $user->setEnabled('1');
 
         $encoder = $this->getContainer()->get('security.password_encoder');

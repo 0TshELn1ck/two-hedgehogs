@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: hibro
- * Date: 11.03.16
- * Time: 23:35
- */
 
 namespace AppBundle\Controller;
 
@@ -17,7 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
 /**
  * Class DishController
@@ -34,10 +27,10 @@ class CartController extends Controller
         $user = $this->getUser();
         $count_dish = 0;
 
-        if ($user){
-            $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user'=>$user->getId()));
+        if ($user) {
+            $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user' => $user->getId()));
 
-            if (!$cart){
+            if (!$cart) {
                 $cart = new Cart();
                 $cart->setUser($user);
                 $em->persist($cart);
@@ -57,7 +50,7 @@ class CartController extends Controller
      * @Route("/add/{dish}", name="addToCart")
      * @Method("POST")
      */
-    public function addToCartAction(Request $request, Dish $dish=null)
+    public function addToCartAction(Request $request, Dish $dish = null)
     {
         $response = new JsonResponse();
         $em = $this->getDoctrine()->getManager();
@@ -67,7 +60,7 @@ class CartController extends Controller
             $cart = $user->getCart();
             $dishInCart = $cart->getDishes();
 
-            if (!$dishInCart->contains($dish)){
+            if (!$dishInCart->contains($dish)) {
                 $cart->addDish($dish);
                 $em->flush();
                 $response->setData(array('added' => 1));
@@ -82,7 +75,7 @@ class CartController extends Controller
      * @Route("/delete/{dish}", name="dellFromCart")
      * @Method("POST")
      */
-    public function dellFromCartAction(Dish $dish=null)
+    public function dellFromCartAction(Dish $dish = null)
     {
         $response = new JsonResponse();
         $em = $this->getDoctrine()->getManager();
@@ -92,7 +85,7 @@ class CartController extends Controller
             $cart = $user->getCart();
             $dishInCart = $cart->getDishes();
 
-            if ($dishInCart->contains($dish)){
+            if ($dishInCart->contains($dish)) {
                 $cart->removeDish($dish);
                 $em->flush();
                 $response->setData(array('deleted' => 1));

@@ -7,6 +7,8 @@ use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Output\ConsoleOutput;
+use Symfony\Component\BrowserKit\Cookie;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 
 class TestBaseWeb extends WebTestCase
 {
@@ -36,4 +38,34 @@ class TestBaseWeb extends WebTestCase
         $input = new ArrayInput($arguments);
         $application->run($input, new ConsoleOutput());
     }
+
+    protected function logIn()
+    {
+        $session = $this->client->getContainer()->get('session');
+
+        $userManager = $this->client->getContainer()->get('fos_user.user_manager');
+
+        $user=$userManager->findUserByUsername('admin');
+        if (!$user) {
+            $user = $userManager->createUser();
+
+            $user->setEmail('test@example.com');
+            $user->setUsername('admin');
+            $user->setPlainPassword('password');
+            $user->setEnabled(true);
+            $user->addRole('ROLE_SUPER_ADMIN');
+
+            $userManager->updateUser($user);
+        }
+
+        $firewall = 'main';
+        $token = new UsernamePasswordToken($user, null, $firewall, array('ROLE_SUPER_ADMIN'));
+
+        $session->set('_security_'.$firewall, serialize($token));
+        $session->save();
+
+        $cookie = new Cookie($session->getName(), $session->getId());
+        $this->client->getCookieJar()->set($cookie);
+    }
+
 }

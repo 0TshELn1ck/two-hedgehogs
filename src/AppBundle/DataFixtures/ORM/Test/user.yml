@@ -1,5 +1,7 @@
 AppBundle\Entity\User:
-    user{1..50}:
-        username (unique): <firstName()>
-        email (unique): <email()>
-        password: <password()>
+    user1:
+        username (unique): 'admin'
+        email (unique): 'admin@change.me'
+        password: '$2a$08$LfQCuBq9vls8VDXZG.YsrOHGpkpYnschgmt1hVroooxajeR7Ihxl2'
+        roles: ['ROLE_ADMIN']
+        enabled: '1'

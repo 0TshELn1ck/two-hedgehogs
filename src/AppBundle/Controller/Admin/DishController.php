@@ -73,7 +73,7 @@ class DishController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($dish);
             $em->flush();
-            $message = "New dish \"".$dish->getName()."\" was successfully added";
+            $message = "New dish \"" . $dish->getName() . "\" was successfully added";
 
             return $this->render('@App/Admin/Dish/newMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
