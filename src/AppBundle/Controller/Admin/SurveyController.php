@@ -5,8 +5,10 @@ namespace AppBundle\Controller\Admin;
 use AppBundle\Entity\Survey;
 use AppBundle\Entity\SurveyAnswer;
 use AppBundle\Form\SurveyEditType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Form\SurveyType;
 
@@ -24,7 +26,13 @@ class SurveyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $surveyList = $em->getRepository('AppBundle:Survey')->findAll();
 
-        return $this->render('@App/Admin/Survey/index.html.twig', ['surveyList' => $surveyList]);
+        $delForms = [];
+        foreach ($surveyList as $item) {
+            $delForms[$item->getId()] = $this->createDeleteForm($item)->createView();
+        }
+
+        return $this->render('@App/Admin/Survey/index.html.twig', ['surveyList' => $surveyList,
+            'delForms' => $delForms]);
     }
 
     /**
@@ -81,5 +89,39 @@ class SurveyController extends Controller
         }
 
         return $this->render('@App/Admin/Survey/edit.html.twig', ['form' => $form->createView()]);
+    }
+
+    /**
+     *
+     * @Route("/delete/{id}", name="admin_survey_delete")
+     * @Method("DELETE")
+     */
+    public function deleteSurveyAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $survey = $em->getRepository('AppBundle:Survey')->findOneBy(['id' => $id]);
+        if (!$survey) {
+            throw $this->createNotFoundException('Unable to find Survey');
+        }
+        $em->remove($survey);
+        $em->flush();
+
+        return $this->redirectToRoute('admin_survey_index');
+    }
+
+    /**
+     * @param Survey $survey
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createDeleteForm(Survey $survey)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('admin_survey_delete', ['id' => $survey->getId()]))
+            ->setMethod('DELETE')
+            ->add('submit', SubmitType::class, [
+                'label' => ' ',
+                'attr' => ['class' => 'btn btn-minier btn-danger ace-icon fa fa-trash-o bigger-115']
+            ])
+            ->getForm();
     }
 }
