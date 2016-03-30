@@ -10,7 +10,7 @@ namespace AppBundle\Repository;
  */
 class SurveyRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getAllSurveys()
+    public function getAllActiveSurveys()
     {
         return $this->createQueryBuilder('s')
             ->select('s', 'sa')

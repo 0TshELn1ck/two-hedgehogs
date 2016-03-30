@@ -50,6 +50,11 @@ class Survey
     private $surveyAnswers;
 
     /**
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SurveyResult", mappedBy="survey")
+     */
+    private $surveyResult;
+    
+    /**
      * Constructor
      */
     public function __construct()
@@ -155,5 +160,53 @@ class Survey
     public function getSurveyAnswers()
     {
         return $this->surveyAnswers;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Survey
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Add surveyResult
+     *
+     * @param \AppBundle\Entity\SurveyResult $surveyResult
+     *
+     * @return Survey
+     */
+    public function addSurveyResult(\AppBundle\Entity\SurveyResult $surveyResult)
+    {
+        $this->surveyResult[] = $surveyResult;
+
+        return $this;
+    }
+
+    /**
+     * Remove surveyResult
+     *
+     * @param \AppBundle\Entity\SurveyResult $surveyResult
+     */
+    public function removeSurveyResult(\AppBundle\Entity\SurveyResult $surveyResult)
+    {
+        $this->surveyResult->removeElement($surveyResult);
+    }
+
+    /**
+     * Get surveyResult
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSurveyResult()
+    {
+        return $this->surveyResult;
     }
 }

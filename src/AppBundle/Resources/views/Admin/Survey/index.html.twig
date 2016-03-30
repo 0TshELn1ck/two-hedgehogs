@@ -49,7 +49,13 @@
                                                title="edit survey">
                                                 {{ item.title }}</a>
                                         </td>
-                                        <td>{{ item.status }}</td>
+                                        <td>
+                                            {% if item.status == 1 %}
+                                                <span class="green">active</span>
+                                            {% else %}
+                                                <span class="lighter grey">no active</span>
+                                            {% endif %}
+                                        </td>
                                         <td>{{ item.createdAt|date }}</td>
                                         <td>
                                             <div class="hidden-sm hidden-xs btn-group">
