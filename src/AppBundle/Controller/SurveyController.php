@@ -19,17 +19,29 @@ class SurveyController extends Controller
      */
     public function listAction(Request $request)
     {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
         $em = $this->getDoctrine()->getManager();
-        $surveyList = $em->getRepository('AppBundle:Survey')->getAllActiveSurveys(/*$this->getUser()->getid()*/);
-        /*$formSurveyList = [];
-        $form1Survey = $this->createForm(SurveyFrontType::class, $surveyList[0])->createView();
+        $surveyList = $em->getRepository('AppBundle:Survey')->getAllActiveSurveys(/*$this->getUser()*/);
+        $newSurveys = [];
+        /*$surveyDump = $surveyTest->getSurveyResult()->getValues()[0]->getUser();*/
+        foreach ($surveyList as $survey) {
+            if ($survey->getSurveyResult()->getValues()) {
+                foreach ($survey->getSurveyResult()->getValues() as $user) {
 
-        foreach ($surveyList as $item) {
-            $formSurveyList[$item->getId()] = $this->createForm(SurveyFrontType::class, $item)->createView();
-        }*/
+                    $userFromResult = $user->getUser()->getId();
+                    if ($userFromResult == $this->getUser()->getId()) {
+                    } else {
+                        $newSurveys[$survey->getId()] = $survey;
+                    }
+                }
+            } else {
+                $newSurveys[$survey->getId()] = $survey;
+            }
+        }
 
-        return $this->render('AppBundle:Front:survey.html.twig', ['surveyList' => $surveyList/*,
-            'formSurveyList' => $formSurveyList, 'form1Survey' => $form1Survey*/]);
+        return $this->render('AppBundle:Front:survey.html.twig', ['newSurveys' => $newSurveys]);
     }
 
     /**

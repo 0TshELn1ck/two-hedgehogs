@@ -10,12 +10,15 @@ namespace AppBundle\Repository;
  */
 class SurveyRepository extends \Doctrine\ORM\EntityRepository
 {
-    public function getAllActiveSurveys()
+    public function getAllActiveSurveys(/*$user*/)
     {
         return $this->createQueryBuilder('s')
-            ->select('s', 'sa')
+            ->select('s', 'sa'/*, 'sr'*/)
             ->where('s.status = 1')
+            /*->andWhere('sr.user <> :user')*/
             ->leftJoin('s.surveyAnswers', 'sa')
+            /*->leftjoin('s.surveyResult', 'sr')
+            ->setParameter('user', $user)*/
             ->getQuery()
             ->getResult();
     }
