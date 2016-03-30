@@ -16,11 +16,7 @@ security:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
-#                csrf_token_generator: security.csrf.token_manager
-                csrf_parameter: _csrf_security_token
-                csrf_token_id: a_private_string
-                # if you are using Symfony < 2.8, use the following config instead:
-                # csrf_provider: form.csrf_provider
+                csrf_token_generator: security.csrf.token_manager
 
             logout:       true
             anonymous:    true
