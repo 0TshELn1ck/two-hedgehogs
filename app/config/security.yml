@@ -10,17 +10,33 @@ security:
     providers:
         fos_userbundle:
             id: fos_user.user_provider.username
+        hwi:
+            id: oauth.user_provider
 
     firewalls:
         dev:
             pattern:  ^/(_(profiler|wdt)|css|images|js)/
             security: false
-                
+
         main:
             pattern: ^/
             form_login:
                 provider: fos_userbundle
                 csrf_token_generator: security.csrf.token_manager
+                login_path: /login
+                check_path: /login_check
+
+            oauth:
+                resource_owners:
+                    facebook:           "/login/check-facebook"
+                    google:             "/login/check-google"
+                login_path:        /login
+                failure_path:      /login
+
+                oauth_user_provider:
+                    #this is my custom user provider, created from FOSUBUserProvider - will manage the
+                    #automatic user registration on your site, with data from the provider (facebook. google, etc.)
+                    service: oauth.user_provider
 
             logout:       true
             anonymous:    true
