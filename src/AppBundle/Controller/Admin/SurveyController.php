@@ -46,7 +46,6 @@ class SurveyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(SurveyType::class, $survey);
         $form->handleRequest($request);
-        $message = '';
 
         if ($form->isValid()) {
             for ($i = 1; $i <= 5; $i++) {
@@ -61,14 +60,10 @@ class SurveyController extends Controller
             $em->persist($survey);
             $em->flush();
 
-            $message = "New survey \"" . $survey->getTitle() . "\" was successfully added";
-
-            return $this->render('@App/Admin/Survey/new.html.twig', ['form' => $form->createView(),
-                'message' => $message]);
+            return $this->redirectToRoute('admin_survey_index');
         }
 
-        return $this->render('@App/Admin/Survey/new.html.twig', ['form' => $form->createView(),
-            'message' => $message]);
+        return $this->render('@App/Admin/Survey/new.html.twig', ['form' => $form->createView()]);
     }
 
     /**
