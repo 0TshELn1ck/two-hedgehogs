@@ -177,9 +177,9 @@ hwi_oauth:
             options:
                 display:         popup
             csrf:                true
-            infos_url:          "https://graph.facebook.com/me?fields=id,name,email,picture.type(square)"
+            infos_url:           "https://graph.facebook.com/me?fields=id,name,email,picture.type(square)"
             paths:
-                email:     email
+                email:           email
 
         google:
             type:                google
