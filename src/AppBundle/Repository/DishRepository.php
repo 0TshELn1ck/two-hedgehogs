@@ -11,6 +11,7 @@ class DishRepository extends EntityRepository
         return $this->createQueryBuilder('d')
             ->select('d', 'dc')
             ->leftJoin('d.categories', 'dc')
+            ->where('d.status =1')
             ->getQuery()
             ->getResult();
     }
@@ -19,7 +20,7 @@ class DishRepository extends EntityRepository
     {
         return $this->getEntityManager()
             ->createQuery(
-             'SELECT d FROM AppBundle:Dish d'
+                'SELECT d FROM AppBundle:Dish d'
             )
             ->setFirstResult($offset)
             ->setMaxResults($max);
@@ -42,8 +43,8 @@ class DishRepository extends EntityRepository
             ->where('d.name LIKE :q1')
             ->orWhere('d.ingredients LIKE :q')
             ->orWhere('d.recipe LIKE :q')
-            ->setParameter('q',  '%' . $searchItem . '%')
-            ->setParameter('q1',  $searchItem)
+            ->setParameter('q', '%' . $searchItem . '%')
+            ->setParameter('q1', $searchItem)
             ->getQuery()
             ->getResult();
     }

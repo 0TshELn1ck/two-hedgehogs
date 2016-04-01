@@ -33,6 +33,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>name</th>
+                                <th>status</th>
                                 <th>price</th>
                                 <th>created</th>
                                 <th>modified</th>
@@ -44,7 +45,17 @@
                                     <tbody>
                                     <tr>
                                         <td>{{ loop.index }}</td>
-                                        <td>{{ item.name }}</td>
+                                        <td><a href="{{ path('admin_dish_edit', {'id': item.id}) }}"
+                                               title="edit dish">
+                                                {{ item.name }}
+                                            </a>
+                                        </td>
+                                        <td>{% if item.status == 1 %}
+                                                <span class="green">active</span>
+                                            {% else %}
+                                                <span class="lighter grey">no active</span>
+                                            {% endif %}
+                                        </td>
                                         <td>{{ item.price }}</td>
                                         <td>{{ item.createdAt|date }}</td>
                                         <td>{{ item.updatedAt|date }}</td>
