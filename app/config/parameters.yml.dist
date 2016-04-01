@@ -16,5 +16,11 @@ parameters:
     mailer_user:       ~
     mailer_password:   ~
 
+    facebook_app_id:   0
+    facebook_app_secret: 0
+
+    google_app_id:         0
+    google_app_secret:     0
+
     # A secret key that's used to generate certain security-related tokens
     secret:            ThisTokenIsNotSoSecretChangeIt
