@@ -17,7 +17,7 @@ class TestBaseWeb extends WebTestCase
 
     public function setUp()
     {
-        $this->client = static::createClient();
+        $this->client = $this->createClient();
         $this->runCommand(['command' => 'doctrine:database:create']);
         $this->runCommand(['command' => 'doctrine:schema:update', '--force' => true]);
         $this->runCommand(['command' => 'hautelook_alice:doctrine:fixtures:load', '--no-interaction' => true]);
