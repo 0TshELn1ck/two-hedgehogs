@@ -4,12 +4,14 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Gedmo\SoftDeleteable\Traits\SoftDeleteableEntity;
 
 /**
  * Order
  *
  * @ORM\Table(name="ord")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\OrdersRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deletedAt")
  */
 class Order
 {
@@ -65,7 +67,7 @@ class Order
     private $updatedAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DishInOrder", mappedBy="order", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\DishInOrder", mappedBy="order", cascade={"persist", "remove"})
      */
     private $dishesInOrder;
 
@@ -75,6 +77,12 @@ class Order
      * @ORM\Column(name="address", type="string", length=255)
      */
     private $address;
+
+    /**
+     * Hook SoftDeleteable behavior
+     * updates deletedAt field
+     */
+    use SoftDeleteableEntity;
 
     /**
      * Constructor
