@@ -50,7 +50,7 @@ class Survey
     private $surveyAnswers;
 
     /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SurveyResult", mappedBy="survey")
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\SurveyResult", mappedBy="survey", cascade={"REMOVE"})
      */
     private $surveyResult;
     
