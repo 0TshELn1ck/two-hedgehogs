@@ -27,6 +27,15 @@ class SurveyController extends Controller
     }
 
     /**
+     * @Route("/stat", name="survey_statistics")
+     */
+    public function statisticsAction()
+    {
+        /* in progress... */
+         return $this->redirectToRoute('survey_list');
+    }
+
+    /**
      * @param $aid
      * @Route("/result/{aid}", name="survey_result",  requirements={"aid": "\d+"}))
      * @return \Symfony\Component\HttpFoundation\RedirectResponse

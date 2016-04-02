@@ -53,6 +53,7 @@ class SurveyController extends Controller
                 if ($formAnswer != "") {
                     $answer = new SurveyAnswer();
                     $answer->setAnswer($formAnswer);
+                    $answer->setCount(0);
                     $answer->setSurvey($survey);
                     $em->persist($answer);
                 }
