@@ -22,7 +22,7 @@
                                         <ul>
                                             {% for item in survey.surveyAnswers %}
                                                 <li><a class="btn btn-sm btn-success"
-                                                       href="{{ path('result_survey', {'aid': item.id}) }}">
+                                                       href="{{ path('survey_result', {'aid': item.id}) }}">
                                                         {{ item.answer }}
                                                     </a></li>
                                             {% endfor %}

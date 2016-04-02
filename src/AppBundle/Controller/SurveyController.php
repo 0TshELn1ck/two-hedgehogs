@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 class SurveyController extends Controller
 {
     /**
-     * @Route("/", name="list_survey")
+     * @Route("/", name="survey_list")
      */
     public function listAction(Request $request)
     {
@@ -28,10 +28,10 @@ class SurveyController extends Controller
 
     /**
      * @param $aid
-     * @Route("/result/{aid}", name="result_survey",  requirements={"aid": "\d+"}))
+     * @Route("/result/{aid}", name="survey_result",  requirements={"aid": "\d+"}))
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function surveyResultAction($aid)
+    public function resultAction($aid)
     {
         $result = new SurveyResult();
         $em = $this->getDoctrine()->getManager();
@@ -48,7 +48,7 @@ class SurveyController extends Controller
         $em->persist($result);
         $em->flush();
 
-        return $this->redirectToRoute('list_survey');
+        return $this->redirectToRoute('survey_list');
     }
 
     private function findNewSurveys()
@@ -63,7 +63,11 @@ class SurveyController extends Controller
                 foreach ($survey->getSurveyResult()->getValues() as $result) {
 
                     $currentUser = $this->getUser()->getid();
-                    $userFromResult = $result->getUser()->getId();
+                    if ($result->getUser()) {
+                        $userFromResult = $result->getUser()->getId();
+                    } else {
+                        $userFromResult = null;
+                    }
 
                     if ($userFromResult == $currentUser) {
                         $vote = true;

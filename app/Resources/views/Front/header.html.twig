@@ -19,7 +19,7 @@
                         <li><a href="{{ path('userProfile') }}" class="{{ 'Profile' in app.request.get('_route') ? 'active' : '' }}">Профіль</a></li>
                         <li><a href="{{ path('cart') }}" class="{{ 'cart' in app.request.get('_route') ? 'active' : '' }}">Замовлення <span class="ord_count">(<span class="cart_count_heder">{{ render(controller('AppBundle:Cart:getCartCheck')) }}</span>)</span></a></li>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                            <li><a href="{{ path('list_survey') }}" class="{{ 'survey' in app.request.get('_route') ? 'active' : '' }}">Опитування</a></li>
+                            <li><a href="{{ path('survey_list') }}" class="{{ 'survey' in app.request.get('_route') ? 'active' : '' }}">Опитування</a></li>
                         {% endif %}
                     </ul>
                 </div>
