@@ -27,6 +27,13 @@ class SurveyAnswer
      * @ORM\Column(name="answer", type="string", length=255)
      */
     private $answer;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="count", type="integer")
+     */
+    private $count;
     
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Survey", inversedBy="surveyAnswers")
@@ -65,6 +72,30 @@ class SurveyAnswer
     public function getAnswer()
     {
         return $this->answer;
+    }
+
+    /**
+     * Set count
+     *
+     * @param integer $count
+     *
+     * @return SurveyAnswer
+     */
+    public function setCount($count)
+    {
+        $this->count = $count;
+
+        return $this;
+    }
+
+    /**
+     * Get count
+     *
+     * @return int
+     */
+    public function getCount()
+    {
+        return $this->count;
     }
 
     /**

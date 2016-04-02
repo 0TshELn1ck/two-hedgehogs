@@ -39,6 +39,8 @@ class SurveyController extends Controller
         if (!$answer) {
             throw $this->createNotFoundException('Unable to find answer');
         }
+        $count = $answer->getCount();
+        $answer->setCount($count + 1);
         $result->setUser($this->getUser());
         $result->setAnswer($answer);
         $result->setSurvey($answer->getSurvey());
