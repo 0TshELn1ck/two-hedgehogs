@@ -1,0 +1,18 @@
+{% if orders %}
+    {% for order in orders %}
+        <li>
+            <a href="#">
+                <div class="clearfix">
+                    <span class="pull-left">
+						<i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>
+						№{{ order.id }} ({{ order.address }})
+                        Приготувати на : <div>{{ order.cookTo|date("d.m.Y h:m") }}</div>
+						</span>
+                    <span class="pull-right badge">{{ order.summ }}грн</span>
+                </div>
+            </a>
+        </li>
+    {% endfor %}
+{% else %}
+    <li>Немає нових замовлень</li>
+{% endif %}

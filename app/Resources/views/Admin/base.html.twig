@@ -95,5 +95,18 @@
     <!-- inline scripts related to this page -->
 {% endblock %}
 
+{% block ajaxRequests %}
+    <script>
+        $(document).ready(function () {
+                $.ajax({
+                    url: "{{ path('get_processing_orders')}}",
+                    method: "POST",
+                    success: function (data) {
+                        $('.order_modal').html(data);
+                    }
+                });
+        });
+    </script>
+{% endblock %}
 </body>
 </html>
