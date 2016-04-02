@@ -23,6 +23,13 @@ class StaticPage
     private $id;
 
     /**
+     * @var String
+     * @ORM\Column(name="route", type="string", length=32, unique=true)
+
+     */
+    private $route;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=32, unique=true)
@@ -31,7 +38,7 @@ class StaticPage
 
     /**
      * @var string
-     * @Gedmo\Slug(fields={"name"})
+     * @Gedmo\Slug(fields={"route"})
      * @ORM\Column(name="slug", type="string", length=32, unique=true)
      */
     private $slug;
