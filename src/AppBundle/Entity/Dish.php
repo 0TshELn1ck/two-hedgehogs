@@ -83,6 +83,12 @@ class Dish
     private $pictPath;
 
     /**
+     * @var bool
+     * @ORM\Column(name="status", type="boolean")
+     */
+    private $status;
+
+    /**
      * @ORM\ManyToMany(targetEntity="AppBundle\Entity\DishCategory", inversedBy="dishes")
      */
     private $categories;
@@ -258,6 +264,22 @@ class Dish
     public function setPictPath($pictPath)
     {
         $this->pictPath = $pictPath;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param boolean $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
     /**

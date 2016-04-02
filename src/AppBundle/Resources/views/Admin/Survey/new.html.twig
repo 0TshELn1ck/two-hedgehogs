@@ -7,6 +7,7 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
+
     <h3>New survey</h3>
     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
     <div class="form-group">
@@ -63,8 +64,5 @@
         </div>
     </div>
     {{ form_end(form) }}
-    <br>
-    {% if message is defined %}
-        <b>{{ message }}</b>
-    {% endif %}
+
 {% endblock content %}

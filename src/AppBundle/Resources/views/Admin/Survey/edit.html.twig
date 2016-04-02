@@ -1,4 +1,13 @@
 {% extends('@App/Admin/Survey/index.html.twig') %}
+{% form_theme form _self %}
+{%- block form_widget_compound -%}
+    {%- if form.parent is empty -%}
+        {{ form_errors(form) }}
+    {%- endif -%}
+    {{- block('form_rows') -}}
+    {{- form_rest(form) -}}
+{%- endblock form_widget_compound -%}
+
 {% block breadcrumbs %}
     {{ parent() }}
     <li>
@@ -17,42 +26,46 @@
 {% endblock search %}
 
 {% block content %}
-<div class="page-content">
-    <div class="row">
-        <div class="col-xs-12">
-            <h3>Edit survey</h3>
-            {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-            <div class="form-group">
-                <div class="col-sm-9">
-                    <label class="col-sm-3 control-label no-padding-right">Title</label>
-                    {{ form_errors(form.title) }}
-                    {{ form_widget(form.title) }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-9">
-                    <label class="col-sm-3 control-label no-padding-right">Status</label>
-                    {{ form_errors(form.status) }}
-                    {{ form_widget(form.status) }}
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-9">
-                    <label class="col-sm-3 control-label no-padding-right">Answers:</label>
-                    <div class="col-sm-6 no-padding-left">
-                    {{ form_errors(form.surveyAnswers) }}
-                    {{ form_widget(form.surveyAnswers) }}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Edit survey</h3>
+                {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+                <div class="form-group has-info">
+                    <div class="col-sm-9">
+                        <label class="col-sm-3 control-label no-padding-right">Title</label>
+                        {{ form_errors(form.title) }}
+                        {{ form_widget(form.title) }}
                     </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="col-sm-9">
-                    <label class="col-sm-3 control-label no-padding-right"></label>
-                    <input type="submit" value="Modify" class="btn btn-default"/>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label class="col-sm-3 control-label no-padding-right">Status</label>
+                        {{ form_errors(form.status) }}
+                        {{ form_widget(form.status) }}
+                    </div>
                 </div>
-            </div>
-            {{ form_end(form) }}
-        </div><!-- PAGE CONTENT ENDS -->
-    </div><!-- /.col -->
-</div><!-- /.row -->
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label class="col-sm-3 control-label no-padding-right">Answers:</label>
+                        <div class="col-sm-6">
+                            {% for sAnswer in form.surveyAnswers %}
+                                <div class="form-group has-success">
+                                    {{ form_errors(sAnswer) }}
+                                    {{ form_widget(sAnswer) }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-9">
+                        <label class="col-sm-3 control-label no-padding-right"></label>
+                        <input type="submit" value="Modify" class="btn btn-default"/>
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div><!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
 {% endblock %}

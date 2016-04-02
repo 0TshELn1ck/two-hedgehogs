@@ -12,7 +12,9 @@ class SurveyAnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('answer', TextType::class, ['label' => false, 'required' => false]);
+            ->add('answer', TextType::class, [
+                'attr' => ['class' => 'form-control'],
+                'label' => false, 'required' => false]);
     }
 
     public function configureOptions(OptionsResolver $resolver)

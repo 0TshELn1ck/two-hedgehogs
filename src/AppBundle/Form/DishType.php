@@ -4,6 +4,7 @@ namespace AppBundle\Form;
 
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -23,6 +24,13 @@ class DishType extends AbstractType
             ])
             ->add('ingredients', TextareaType::class, [
                 'attr' => array('cols' => '68', 'rows' => '5')
+            ])
+            ->add('status', ChoiceType::class, [
+                'choices' => [
+                    'active' => true,
+                    'no active' => false
+                ],
+                'choices_as_values' => true
             ])
             ->add('price', IntegerType::class)
             ->add('categories', EntityType::class, [

@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SurveyAnswer
+ * SurveyResult
  *
- * @ORM\Table(name="survey_answer")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\SurveyAnswerRepository")
+ * @ORM\Table(name="survey_result")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\SurveyResultRepository")
  */
-class SurveyAnswer
+class SurveyResult
 {
     /**
      * @var int
@@ -22,23 +22,20 @@ class SurveyAnswer
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="answer", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\SurveyAnswer")
      */
     private $answer;
 
     /**
-     * @var int
-     *
-     * @ORM\Column(name="count", type="integer")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      */
-    private $count;
-    
+    private $user;
+
     /**
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Survey", inversedBy="surveyAnswers")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Survey", inversedBy="surveyResult")
      */
     private $survey;
+
 
     /**
      * Get id
@@ -53,11 +50,11 @@ class SurveyAnswer
     /**
      * Set answer
      *
-     * @param string $answer
+     * @param \AppBundle\Entity\SurveyAnswer $answer
      *
-     * @return SurveyAnswer
+     * @return SurveyResult
      */
-    public function setAnswer($answer)
+    public function setAnswer(\AppBundle\Entity\SurveyAnswer $answer = null)
     {
         $this->answer = $answer;
 
@@ -67,7 +64,7 @@ class SurveyAnswer
     /**
      * Get answer
      *
-     * @return string
+     * @return \AppBundle\Entity\SurveyAnswer
      */
     public function getAnswer()
     {
@@ -75,27 +72,27 @@ class SurveyAnswer
     }
 
     /**
-     * Set count
+     * Set user
      *
-     * @param integer $count
+     * @param \AppBundle\Entity\User $user
      *
-     * @return SurveyAnswer
+     * @return SurveyResult
      */
-    public function setCount($count)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        $this->count = $count;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get count
+     * Get user
      *
-     * @return int
+     * @return \AppBundle\Entity\User
      */
-    public function getCount()
+    public function getUser()
     {
-        return $this->count;
+        return $this->user;
     }
 
     /**
@@ -103,7 +100,7 @@ class SurveyAnswer
      *
      * @param \AppBundle\Entity\Survey $survey
      *
-     * @return SurveyAnswer
+     * @return SurveyResult
      */
     public function setSurvey(\AppBundle\Entity\Survey $survey = null)
     {
