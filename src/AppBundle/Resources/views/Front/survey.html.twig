@@ -33,7 +33,12 @@
                                     <h3 class="alert-danger text-center">Нових опитувань немає</h3>
                                 {% endif %}
                             </div>
-                            <div class="col-xs-5"></div>
+                            <div class="col-xs-5">
+                                <span class="btn btn-light btn-xs">
+                    <a href="{{ path('survey_statistics') }}"><i
+                                class="glyphicon glyphicon-stats"> Статистика</i></a>
+                </span>
+                            </div>
                         </div>
                     </div> {# end row #}
                 {% else %}
