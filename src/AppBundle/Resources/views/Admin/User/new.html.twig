@@ -6,6 +6,9 @@
     {% if breadcrumbs is defined %}
         <li>
             {{ breadcrumbs }}
+            <script>
+                var update = true;
+            </script>
         </li>
     {% else %}
         <li>
@@ -278,7 +281,8 @@
                 conf_pass = $('#app_bundle_user_type_password_second');
 
                 if (pass.val().length > 5 && pass.val() == conf_pass.val()) {
-
+                    return true;
+                } else if (update && pass.val() == conf_pass.val()){
                     return true;
                 }
 
