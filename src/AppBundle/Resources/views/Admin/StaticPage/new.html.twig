@@ -1,0 +1,24 @@
+{% extends('@App/Admin/StaticPage/index.html.twig') %}
+
+{% block breadcrumbs %}
+    {{ parent() }}
+    {% if breadcrumbs is defined %}
+        <li>
+            {{ breadcrumbs }}
+        </li>
+    {% else %}
+        <li>
+            <a href="{{ path('admin_static_new') }}">Додати нову</a>
+        </li>
+    {% endif %}
+{% endblock breadcrumbs %}
+
+{% block content %}
+
+    {{ form(pageForm) }}
+
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+{% endblock %}
