@@ -1,0 +1,97 @@
+<li>
+    <a href="#">
+        <div class="clearfix">
+            <span class="pull-left">Не підтверджені</span>
+            <span class="pull-right">
+                {% if  stats.processing.count is defined %}
+                    {{ (stats.processing.count/orderCount)*100 }}%
+                {% else %}
+                     0%
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="progress progress-mini">
+            <div style="width:
+            {% if  stats.processing.count is defined %}
+                    {{ (stats.processing.count/orderCount)*100 }}%
+                {% else %}
+                     0
+            {% endif %}" class="progress-bar"></div>
+        </div>
+    </a>
+</li>
+
+<li>
+    <a href="#">
+        <div class="clearfix">
+            <span class="pull-left">О чікують приготування</span>
+            <span class="pull-right">
+                {% if  stats.confirmed.count is defined %}
+                    {{ (stats.confirmed.count/orderCount)*100 }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="progress progress-mini">
+            <div style="width:
+            {% if  stats.confirmed.count is defined %}
+                {{ (stats.confirmed.count/orderCount)*100 }}%
+            {% else %}
+                    0
+            {% endif %}
+            " class="progress-bar progress-bar-danger"></div>
+        </div>
+    </a>
+</li>
+
+<li>
+    <a href="#">
+        <div class="clearfix">
+            <span class="pull-left">Готуються</span>
+            <span class="pull-right">
+                {% if  stats.cooking.count is defined %}
+                    {{ (stats.cooking.count/orderCount)*100 }}%
+                {% else %}
+                    0%
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="progress progress-mini">
+            <div style="width:
+            {% if  stats.cooking.count is defined %}
+                {{ (stats.cooking.count/orderCount)*100 }}%
+            {% else %}
+                    0
+            {% endif %}
+            " class="progress-bar progress-bar-warning"></div>
+        </div>
+    </a>
+</li>
+
+<li>
+    <a href="#">
+        <div class="clearfix">
+            <span class="pull-left">Доставляються замовнику</span>
+            <span class="pull-right">
+                 {% if  stats.shipping.count is defined %}
+                    {{ (stats.shipping.count/orderCount)*100 }}%
+                 {% else %}
+                     0%
+                 {% endif %}
+            </span>
+        </div>
+
+        <div class="progress progress-mini progress-striped active">
+            <div style="width:
+            {% if  stats.shipping.count is defined %}
+                {{ (stats.shipping.count/orderCount)*100 }}%
+            {% else %}
+                    0
+            {% endif %}" class="progress-bar progress-bar-success"></div>
+        </div>
+    </a>
+</li>

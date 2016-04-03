@@ -98,13 +98,25 @@
 {% block ajaxRequests %}
     <script>
         $(document).ready(function () {
+            $('.order_btn').click(function() {
                 $.ajax({
-                    url: "{{ path('get_processing_orders')}}",
+                    url: "{{ path('get_processing_orders') }}",
                     method: "POST",
                     success: function (data) {
                         $('.order_modal').html(data);
                     }
                 });
+            });
+
+            $('.stats_btn').click(function() {
+                $.ajax({
+                    url: "{{ path('get_order_stats') }}",
+                    method: "POST",
+                    success: function (data) {
+                        $('.stats_modal').html(data);
+                    }
+                });
+            });
         });
     </script>
 {% endblock %}

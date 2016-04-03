@@ -33,12 +33,37 @@ class OrderController extends Controller
      * @Method("POST")
      * @Template("AppBundle:Admin/Modals:orders.html.twig")
      */
-    public function getProcessingOrders()
+    public function getProcessingOrdersAction()
     {
         $em = $this->getDoctrine()->getManager();
         $orders = $em->getRepository('AppBundle:Order')
                      ->findBy(array('status'=>'processing'), array('cookTo'=>'ASC'));
         
         return ['orders' => $orders];
+    }
+
+    /**
+     * Get stats by order status
+     * @Route("/stats", name="get_order_stats")
+     * @Template("AppBundle:Admin/Modals:orderStats.html.twig")
+     */
+    public function getOrdersAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $orders = $em->getRepository("AppBundle:Order")->findBy(array('status'=>array('confirmed','processing', 'cooking', 'shipping')));
+        
+        $stats = [];
+        foreach ($orders as $order){
+            if (isset($stats[$order->getStatus()]['count'])){
+                $stats[$order->getStatus()]['count']++;
+            } else {
+                $stats[$order->getStatus()]['count'] = 1;
+            }
+        }
+        
+        return [
+                'stats'=>$stats,
+                'orderCount'=> count($orders)
+        ];
     }
 }
