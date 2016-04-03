@@ -12,7 +12,8 @@ class StaticPageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class)
+            ->add('title', TextType::class)
+            ->add('route', TextType::class)
             ->add('text', TextType::class);
     }
 
@@ -21,7 +22,7 @@ class StaticPageType extends AbstractType
         $resolver->setDefaults(array('data_class' => 'AppBundle\Entity\StaticPage'));
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'app_bundle_static_page_type';
     }

@@ -7,7 +7,7 @@
                 <ul>
                     <li><a href="">Blog</a></li>
                     <li><a href="">Careers</a></li>
-                    <li><a href="">Privacy Policy</a></li>
+                    <li><a href="{{ path('app_staticpage_show', {'route': 'policy'}) }}">Угода користувача</a></li>
                     <li><a href="">Contact</a></li>
                 </ul>
             </nav>
@@ -15,7 +15,7 @@
 
         <!-- address  -->
         <section class="adress col-xs-6">
-            <p class="footer_info">Ресторан "Два їжа" м. Черкаси бул. Шевченка 246, 718-749-1714
+            <p class="footer_info"> "Два їжа" м. Черкаси бул. Шевченка 246, 718-749-1714
             <p>© All Rights Reserved {{ "now"|date("Y") }}.</p>
         </section>
 

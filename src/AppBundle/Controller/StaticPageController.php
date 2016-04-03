@@ -2,6 +2,8 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\StaticPage;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -9,13 +11,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class StaticPageController extends Controller
 {
     /**
-     * @return array
+     * @Route("/pages/{route}")
+     * @ParamConverter("staticPage", class="AppBundle:StaticPage")
      * @Template("@App/Front/staticPage.html.twig")
-     * @Route("/pages/{slug}",name="static_page", defaults={"slug" = "none"})
      */
-    public function indexAction($slug)
+    public function showAction(StaticPage $page)
     {
-        return ['slug' => $slug];
     }
 
 }

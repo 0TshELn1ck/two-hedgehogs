@@ -32,16 +32,9 @@ class StaticPage
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=32, unique=true)
+     * @ORM\Column(name="title", type="string", length=12, unique=true)
      */
-    private $name;
-
-    /**
-     * @var string
-     * @Gedmo\Slug(fields={"route"})
-     * @ORM\Column(name="slug", type="string", length=32, unique=true)
-     */
-    private $slug;
+    private $title;
 
     /**
      * @var string
@@ -64,13 +57,13 @@ class StaticPage
     /**
      * Set name
      *
-     * @param string $name
+     * @param string $title
      *
      * @return StaticPage
      */
-    public function setName($name)
+    public function setTitle($title)
     {
-        $this->name = $name;
+        $this->title = $title;
 
         return $this;
     }
@@ -80,9 +73,9 @@ class StaticPage
      *
      * @return string
      */
-    public function getName()
+    public function getTitle()
     {
-        return $this->name;
+        return $this->title;
     }
 
     /**
@@ -110,11 +103,19 @@ class StaticPage
     }
 
     /**
-     * @return string
+     * @return String
      */
-    public function getSlug()
+    public function getRoute()
     {
-        return $this->slug;
+        return $this->route;
+    }
+
+    /**
+     * @param String $route
+     */
+    public function setRoute($route)
+    {
+        $this->route = $route;
     }
 }
 
