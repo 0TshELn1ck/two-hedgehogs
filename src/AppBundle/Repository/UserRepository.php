@@ -27,4 +27,12 @@ class UserRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function countUsers()
+    {
+        return $this->createQueryBuilder('u')
+            ->select('count(u.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

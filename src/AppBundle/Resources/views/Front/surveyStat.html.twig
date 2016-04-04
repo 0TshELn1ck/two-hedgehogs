@@ -1,6 +1,6 @@
 {% extends(':Front:base.html.twig') %}
 
-{% block title %}Опитування{% endblock %}
+{% block title %}Статистика опитувань{% endblock %}
 
 {% block content %}
     <div class="content-wrapper">
@@ -9,22 +9,28 @@
         <section class="menu">
             <div class="container">
                 <div class="menu_title">
-                    <h2>Опитування</h2>
+                    <h2>Статистика</h2>
                 </div>
                 {% if app.user %}
                     <div class="row">
                         <div class="col-xs-12">
                             <div class="col-xs-3"></div>
                             <div class="col-xs-4">
-                                {% if newSurveys|length > 0 %}
-                                    {% for survey in newSurveys %}
-                                        <h3>{{ survey.title }}</h3>
-                                        <div>
-                                            {% for item in survey.surveyAnswers %}
-                                                <p>{{ form(answerForm[item.id]) }}</p>
-                                            {% endfor %}
+                                {% if statList|length > 0 %}
+                                    {% for survey in statList %}
+                                        <div class="widget-box widget-main">
+                                            <h3 class="blue">{{ survey.title }}</h3>
+                                            <ul>
+                                                {% for item in survey.surveyAnswers %}
+                                                    <li class="green">{{ item.answer }}</li>
+                                                    {% set statPercents = item.count/percent %}
+                                                    <div class="progress progress-mini">
+                                                        <div class="progress-bar progress-bar-success progress-bar-striped"
+                                                             style="width: {{ statPercents|round }}%;"></div>
+                                                    </div>
+                                                {% endfor %}
+                                            </ul>
                                         </div>
-                                        <hr>
                                     {% endfor %}
                                 {% else %}
                                     <h3 class="alert-danger text-center">Нових опитувань немає</h3>
@@ -32,8 +38,8 @@
                             </div>
                             <div class="col-xs-5">
                                 <span class="btn btn-light btn-xs">
-                    <a href="{{ path('survey_statistics') }}"><i
-                                class="glyphicon glyphicon-stats"> Статистика</i></a>
+                    <a href="{{ path('survey_list') }}"><i
+                                class="glyphicon glyphicon-list-alt"> Опитування</i></a>
                 </span>
                             </div>
                         </div>

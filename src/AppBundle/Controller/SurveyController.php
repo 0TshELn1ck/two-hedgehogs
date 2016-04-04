@@ -2,9 +2,11 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Survey;
 use AppBundle\Entity\SurveyResult;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -22,8 +24,15 @@ class SurveyController extends Controller
             throw $this->createAccessDeniedException();
         }
         $newSurveys = $this->findNewSurveys();
+        $answerForm = [];
+        foreach ($newSurveys as $survey) {
+            $answers = $survey->getSurveyAnswers()->getValues();
+            foreach ($answers as $answer) {
+                $answerForm[$answer->getId()] = $this->createAnswerForm($answer)->createView();
+            }
+        }
 
-        return $this->render('AppBundle:Front:survey.html.twig', ['newSurveys' => $newSurveys]);
+        return $this->render('AppBundle:Front:survey.html.twig', ['newSurveys' => $newSurveys, 'answerForm' => $answerForm]);
     }
 
     /**
@@ -31,8 +40,16 @@ class SurveyController extends Controller
      */
     public function statisticsAction()
     {
-        /* in progress... */
-         return $this->redirectToRoute('survey_list');
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $statList = $em->getRepository('AppBundle:Survey')->getAllActiveSurveys();
+        $countUsers = $em->getRepository('AppBundle:User')->countUsers();
+        $percent = $countUsers / 100;
+
+        return $this->render('@App/Front/surveyStat.html.twig', ['statList' => $statList, 'percent' => $percent]);
     }
 
     /**
@@ -94,5 +111,21 @@ class SurveyController extends Controller
             }
         }
         return $newSurveys;
+    }
+
+    /**
+     * @param $answer
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createAnswerForm($answer)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('survey_result', ['aid' => $answer->getId()]))
+            ->setMethod('POST')
+            ->add('submit', SubmitType::class, [
+                'label' => $answer->getanswer(),
+                'attr' => ['class' => 'btn btn-sm btn-success']
+            ])
+            ->getForm();
     }
 }
