@@ -37,7 +37,30 @@ class UserType extends AbstractType
                 ),
                 'label' => false
             ))
+            ->add('facebook_id', TextType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Facebook ID',
+                    'class' => 'form-control'
+                ),
+                'label' => false,
+                'required' => false
+            ))
+            ->add('google_id', TextType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Google+ ID',
+                    'class' => 'form-control'
+                ),
+                'label' => false,
+                'required' => false
+            ))
             ->add('enabled', CheckboxType::class, array(
+                'attr' => array(
+                'class' => 'ace ace-switch ace-switch-5'
+                ),
+                'label' => false,
+                'required' => false
+            ))
+            ->add('locked', CheckboxType::class, array(
                 'attr' => array(
                 'class' => 'ace ace-switch ace-switch-5'
                 ),
