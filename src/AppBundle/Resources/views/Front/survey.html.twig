@@ -21,12 +21,7 @@
                                         <h3>{{ survey.title }}</h3>
                                         <div>
                                             {% for item in survey.surveyAnswers %}
-                                                <p>
-                                                    <span><a class="btn btn-sm btn-success"
-                                                             href="{{ path('survey_result', {'aid': item.id}) }}">
-                                                            {{ item.answer }}
-                                                        </a></span>
-                                                </p>
+                                                <p>{{ form(answerForm[item.id]) }}</p>
                                             {% endfor %}
                                         </div>
                                         <hr>
