@@ -31,8 +31,16 @@ class SurveyController extends Controller
      */
     public function statisticsAction()
     {
-        /* in progress... */
-         return $this->redirectToRoute('survey_list');
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $statList = $em->getRepository('AppBundle:Survey')->getAllActiveSurveys();
+        $countUsers = $em->getRepository('AppBundle:User')->countUsers();
+        $percent = $countUsers/100;
+
+         return $this->render('@App/Front/surveyStat.html.twig', ['statList' => $statList, 'percent' => $percent]);
     }
 
     /**
