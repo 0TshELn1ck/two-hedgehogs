@@ -92,14 +92,30 @@ header {
           margin: 0 auto;
           float: none;
         }
-
-        .auth_block{
-          margin-top:10px;
-          .auth_btn{
-            background-color: @base-red;
-            color:white;
-          }
-
+      }
+      .navbar-nav .auth_btn_login {
+        border:1px solid @base-red;
+        border-radius: 4px;
+        margin:5px 0 0 15px !important;
+        background-color: @base-red;
+        color:white;
+        padding:7px 25px;
+      }
+      .navbar-nav .auth_block{
+        margin:30px 0 0 15px !important;
+        .auth_btn{
+          background-color: @base-red;
+          color:white;
+        }
+        .auth_btn:hover{
+          background-color: @hover-red;
+          color:white;
+        }
+        li {
+          margin:0;
+          width:100%;
+          text-align: center;
+          padding: 5px 10px;
         }
       }
       .navbar-nav a {

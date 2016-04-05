@@ -28,12 +28,13 @@
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ path('user_orders') }}">Історія замовлень</a></li>
                                         <li><a href="#">Налаштування</a></li>
+                                        <li><a href="{{ path('fos_user_security_logout') }}">Вихід</a></li>
                                     </ul>
                                 </div>
                             </li>
                             {% else %}
                                 <li>
-                                    <a href="{{ path('fos_user_security_login') }}">Вхід</a>
+                                    <a href="{{ path('fos_user_security_login') }}" class="auth_btn_login">Вхід</a>
                                 </li>
                         {% endif %}
                     </ul>
