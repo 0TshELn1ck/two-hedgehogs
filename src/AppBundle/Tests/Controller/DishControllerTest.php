@@ -9,7 +9,7 @@ class DishControllerTest extends TestBaseWeb
     public function testList()
     {
         $client = static::createClient();
-        $client->request('GET', '/menu/dish/list');
+        $client->request('GET', '/dishes');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
 
     }
@@ -21,7 +21,7 @@ class DishControllerTest extends TestBaseWeb
         $slug = $em
             ->getRepository('AppBundle:Dish')
             ->findOneBy([])->getSlug();
-        $crawler = $client->request('GET', "/menu/dish/{$slug}");
+        $crawler = $client->request('GET', "/dish/{$slug}");
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
         $this->assertEquals(1, $crawler->filter('h1')->count());
     }
