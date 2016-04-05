@@ -45,7 +45,7 @@ class SurveyController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $statList = $em->getRepository('AppBundle:Survey')->getAllActiveSurveys();
+        $statList = $em->getRepository('AppBundle:Survey')->getAllActiveVoteSurveys($this->getUser());
         $countUsers = $em->getRepository('AppBundle:User')->countUsers();
         $percent = $countUsers / 100;
 
