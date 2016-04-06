@@ -17,7 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends Controller
 {
     /**
-     * @Route("/orders", name="userProfile")
+     * @Route("/orders", name="user_orders")
      * @Template("AppBundle:Front:userOrders.html.twig")
      */
     public function profileAction(Request $request)
