@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Survey;
+use AppBundle\Entity\SurveyAnswer;
 use AppBundle\Entity\SurveyResult;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -20,15 +21,16 @@ class SurveyController extends Controller
      */
     public function listAction(Request $request)
     {
-        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException();
-        }
-        $newSurveys = $this->findNewSurveys();
         $answerForm = [];
-        foreach ($newSurveys as $survey) {
-            $answers = $survey->getSurveyAnswers()->getValues();
-            foreach ($answers as $answer) {
-                $answerForm[$answer->getId()] = $this->createAnswerForm($answer)->createView();
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            $newSurveys = $this->getDoctrine()->getRepository('AppBundle:Survey')->getAllActiveSurveys();
+        } else {
+            $newSurveys = $this->findNewSurveys();
+            foreach ($newSurveys as $survey) {
+                $answers = $survey->getSurveyAnswers()->getValues();
+                foreach ($answers as $answer) {
+                    $answerForm[$answer->getId()] = $this->createAnswerForm($answer)->createView();
+                }
             }
         }
 
@@ -45,7 +47,7 @@ class SurveyController extends Controller
         }
 
         $em = $this->getDoctrine()->getManager();
-        $statList = $em->getRepository('AppBundle:Survey')->getAllActiveSurveys();
+        $statList = $em->getRepository('AppBundle:Survey')->getAllActiveVoteSurveys($this->getUser());
         $countUsers = $em->getRepository('AppBundle:User')->countUsers();
         $percent = $countUsers / 100;
 
@@ -53,7 +55,7 @@ class SurveyController extends Controller
     }
 
     /**
-     * @param $aid
+     * @param SurveyAnswer $aid
      * @Route("/result/{aid}", name="survey_result",  requirements={"aid": "\d+"}))
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -84,8 +86,10 @@ class SurveyController extends Controller
 
         $vote = true;
         $newSurveys = [];
+        /** @var Survey $survey */
         foreach ($surveyList as $survey) {
             if ($survey->getSurveyResult()->getValues()) {
+                /** @var SurveyResult $result */
                 foreach ($survey->getSurveyResult()->getValues() as $result) {
 
                     $currentUser = $this->getUser()->getid();
@@ -114,7 +118,7 @@ class SurveyController extends Controller
     }
 
     /**
-     * @param $answer
+     * @param SurveyAnswer $answer
      * @return \Symfony\Component\Form\Form
      */
     private function createAnswerForm($answer)

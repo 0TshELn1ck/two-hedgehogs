@@ -8,14 +8,10 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class DishController
- * @Route("/menu/dish")
- */
 class DishController extends Controller
 {
     /**
-     * @Route("/list", name="list_dish")
+     * @Route("/dishes", name="list_dish")
      */
     public function listAction(Request $request)
     {
@@ -27,7 +23,7 @@ class DishController extends Controller
     }
 
     /**
-     * @Route("/{slug}", name="show_one_dish")
+     * @Route("/dish/{slug}", name="show_one_dish")
      */
     public function showOneAction($slug)
     {
