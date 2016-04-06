@@ -9,7 +9,7 @@ class SurveyControllerTest extends TestBaseWeb
     public function testList()
     {
         $client = static::createClient();
-        $client->request('GET', '/survey');
+        $client->request('GET', '/survey/');
         $this->assertEquals(200, $client->getResponse()->getStatusCode());
     }
 }
