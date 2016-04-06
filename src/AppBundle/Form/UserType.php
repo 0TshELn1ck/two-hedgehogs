@@ -40,6 +40,7 @@ class UserType extends AbstractType
                 'label' => false
             ))
             ->add('roles', CollectionType::class, array(
+                'allow_delete' => true,
                 'entry_type' => ChoiceType::class,
                 'entry_options' => array(
                     'choices' => array(
