@@ -6,6 +6,19 @@
     <li>Редагувати страву</li>
 {% endblock breadcrumbs %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <style type="text/css">
+        .label-lg-cat {
+            padding: 0em .3em 0em;
+            font-size: 13px;
+            line-height: 1.1;
+            height: 24px;
+            border-radius: 3px;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
     <h3>Edit Dish</h3>
     {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
@@ -36,7 +49,14 @@
     </div>
     <div class="form-group">
         <div class="col-sm-9">
-            {{ form_row(form.categories) }}
+            <div class="col-sm-3"></div>
+            {% for categories in form.categories %}
+                <div class="label label-lg-cat label-success">
+                    {{ form_label(categories) }}
+                    {{ form_errors(categories) }}
+                    {{ form_widget(categories) }}
+                </div>
+            {% endfor %}
         </div>
     </div>
     <div class="form-group">

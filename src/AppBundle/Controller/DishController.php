@@ -17,7 +17,7 @@ class DishController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
-        $categories = $em->getRepository('AppBundle:DishCategory')->getCategoriesDishes();
+        $categories = $em->getRepository('AppBundle:DishCategory')->getCategoriesActiveDishes();
 
         return $this->render('AppBundle:Front:menu.html.twig', ['dishList' => $dishList, 'categories' => $categories]);
     }

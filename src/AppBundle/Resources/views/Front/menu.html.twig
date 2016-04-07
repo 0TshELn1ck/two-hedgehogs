@@ -58,17 +58,21 @@
                                     <h3><a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">{{ dish.name }}</a>
                                     </h3>
                                     {% if app.user.cart is defined %}
-                                        {% if app.user.cart.dishes.contains(dish) %}
-                                            <button data-dish="{{ dish.id }}" class="addToCart" style="background-color: grey">
-                                                В кошику <i class="fa fa-check"></i>
-                                            </button>
-                                        {% else %}
-                                            <button data-dish="{{ dish.id }}" class="addToCart">
-                                                Замовити <i class="fa fa-cutlery"></i>
-                                            </button>
+                                        {% if app.user.cart.dishes %}
+                                            {% if app.user.cart.dishes.contains(dish) %}
+                                                <button data-dish="{{ dish.id }}" class="addToCart"
+                                                        style="background-color: grey">
+                                                    В кошику <i class="fa fa-check"></i>
+                                                </button>
+                                            {% else %}
+                                                <button data-dish="{{ dish.id }}" class="addToCart">
+                                                    Замовити <i class="fa fa-cutlery"></i>
+                                                </button>
+                                            {% endif %}
                                         {% endif %}
                                     {% else %}
-                                        <a class="addToCartBlocked" href="{{ path('fos_user_security_login') }}">Замовити <i class="fa fa-cutlery"></i></a>
+                                        <a class="addToCartBlocked" href="{{ path('fos_user_security_login') }}">Замовити
+                                            <i class="fa fa-cutlery"></i></a>
                                     {% endif %}
                                 </a>
                             </li>
@@ -84,16 +88,16 @@
     <script>
         $(document).ready(function () {
             //add to cart ajax
-            $('.addToCart').click(function(){
+            $('.addToCart').click(function () {
                 var addButton = $(this);
                 var dish = addButton.data("dish");
                 $.ajax({
-                    url: "{{ path('addToCart')}}/"+dish,
+                    url: "{{ path('addToCart') }}/" + dish,
                     method: "POST",
-                    success: function(data){
-                        if (data.added == 1){
+                    success: function (data) {
+                        if (data.added == 1) {
                             var count = parseInt($('.cart_count_heder').html()) + 1;
-                            addButton.html('В кошику <i class="fa fa-check"></i>').css("background-color","grey");
+                            addButton.html('В кошику <i class="fa fa-check"></i>').css("background-color", "grey");
                             $('.cart_count_heder').html(count);
                         }
                     }
