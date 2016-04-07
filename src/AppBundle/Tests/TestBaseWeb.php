@@ -53,13 +53,13 @@ class TestBaseWeb extends WebTestCase
             $user->setUsername('admin');
             $user->setPlainPassword('password');
             $user->setEnabled(true);
-            $user->addRole('ROLE_SUPER_ADMIN');
+            $user->addRole('ROLE_ADMIN');
 
             $userManager->updateUser($user);
         }
 
         $firewall = 'main';
-        $token = new UsernamePasswordToken($user, null, $firewall, array('ROLE_SUPER_ADMIN'));
+        $token = new UsernamePasswordToken($user, null, $firewall, array('ROLE_ADMIN'));
 
         $session->set('_security_'.$firewall, serialize($token));
         $session->save();
