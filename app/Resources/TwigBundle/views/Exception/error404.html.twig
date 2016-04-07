@@ -1,0 +1,27 @@
+{% extends ':Front:base.html.twig' %}
+
+{% block content %}
+    <div class="content-wrapper">
+
+        {#Page label#}
+        <section class="menu">
+            <div class="container">
+                <div class="menu_title">
+                    <h2>Error 404</h2>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-sm-2"></div>
+                        <div class="col-xs-4">
+                            <h1 style="color: red">Error 404</h1>
+                            <h3 style="color: red">Page not found</h3>
+                            <h3 style="color: red">Сторінки яку ви шукаєте не знайдено</h3>
+                        </div>
+                        <div class="col-xs-6"><img src="{{ asset('images/hedgehogErrPage.png') }}"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock content %}
