@@ -7,62 +7,64 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-
-    <h3>New survey</h3>
-    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.title) }}
+    <div class="page-content">
+        <div class="col-sm-12">
+            <h3>New survey</h3>
+            {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+            <div class="form-group">
+                <div class="col-sm-9">
+                    {{ form_row(form.title) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right">Status</label>
+                    {{ form_errors(form.status) }}
+                    {{ form_widget(form.status) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right">Answers:</label>
+                    {{ form_errors(form.answer1) }}
+                    {{ form_widget(form.answer1) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    {{ form_errors(form.answer2) }}
+                    {{ form_widget(form.answer2) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    {{ form_errors(form.answer3) }}
+                    {{ form_widget(form.answer3) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    {{ form_errors(form.answer4) }}
+                    {{ form_widget(form.answer4) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    {{ form_errors(form.answer5) }}
+                    {{ form_widget(form.answer5) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    <input type="submit" value="Create" class="btn btn-default"/>
+                </div>
+            </div>
+            {{ form_end(form) }}
         </div>
     </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right">Status</label>
-            {{ form_errors(form.status) }}
-            {{ form_widget(form.status) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right">Answers:</label>
-            {{ form_errors(form.answer1) }}
-            {{ form_widget(form.answer1) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            {{ form_errors(form.answer2) }}
-            {{ form_widget(form.answer2) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            {{ form_errors(form.answer3) }}
-            {{ form_widget(form.answer3) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            {{ form_errors(form.answer4) }}
-            {{ form_widget(form.answer4) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            {{ form_errors(form.answer5) }}
-            {{ form_widget(form.answer5) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            <input type="submit" value="Create" class="btn btn-default"/>
-        </div>
-    </div>
-    {{ form_end(form) }}
-
 {% endblock content %}
