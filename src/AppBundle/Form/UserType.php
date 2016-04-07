@@ -4,6 +4,8 @@ namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -37,6 +39,18 @@ class UserType extends AbstractType
                 ),
                 'label' => false
             ))
+            ->add('roles', CollectionType::class, array(
+                'allow_delete' => true,
+                'entry_type' => ChoiceType::class,
+                'entry_options' => array(
+                    'choices' => array(
+                        'ROLE_USER' => 'Користувач',
+                        'ROLE_ADMIN' => 'Адміністратор',
+                        'ROLE_COOK' => 'Повар',
+                        'ROLE_CARRIER' => 'Кур\'єр',
+                    ),
+                    'label' => false,
+                )))
             ->add('facebook_id', TextType::class, array(
                 'attr' => array(
                     'placeholder' => 'Facebook ID',
@@ -55,14 +69,14 @@ class UserType extends AbstractType
             ))
             ->add('enabled', CheckboxType::class, array(
                 'attr' => array(
-                'class' => 'ace ace-switch ace-switch-5'
+                    'class' => 'ace ace-switch ace-switch-5'
                 ),
                 'label' => false,
                 'required' => false
             ))
             ->add('locked', CheckboxType::class, array(
                 'attr' => array(
-                'class' => 'ace ace-switch ace-switch-5'
+                    'class' => 'ace ace-switch ace-switch-5'
                 ),
                 'label' => false,
                 'required' => false
