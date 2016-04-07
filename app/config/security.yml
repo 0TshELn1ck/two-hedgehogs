@@ -7,7 +7,6 @@ security:
         ROLE_CARRIER:       ROLE_USER
         ROLE_COOK:       ROLE_CARRIER
         ROLE_ADMIN:       ROLE_COOK
-        ROLE_SUPER_ADMIN: ROLE_ADMIN
 
     providers:
         fos_userbundle:
