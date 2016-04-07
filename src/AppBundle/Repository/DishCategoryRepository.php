@@ -12,11 +12,11 @@ use Doctrine\ORM\EntityRepository;
  */
 class DishCategoryRepository extends EntityRepository
 {
-    public function getCategoriesDishes()
+    public function getCategoriesActiveDishes()
     {
         $query = $this->getEntityManager()->createQuery(
             'SELECT c FROM AppBundle:DishCategory c
-             JOIN c.dishes d'
+             JOIN c.dishes d WHERE d.status = 1'
         );
 
         return $query->getResult();
