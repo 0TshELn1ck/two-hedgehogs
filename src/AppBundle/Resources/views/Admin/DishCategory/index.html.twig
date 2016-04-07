@@ -30,9 +30,14 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            <a href="#">{{ loop.index }}</a>
+                                            {{ loop.index }}
                                         </td>
-                                        <td>{{ item.name }}</td>
+                                        <td>
+                                            <a href="{{ path('admin_dish_category_edit', {'id': item.id}) }}"
+                                               title="edit dish">
+                                                {{ item.name }}
+                                            </a>
+                                        </td>
                                         <td>
                                             <div class="hidden-sm hidden-xs btn-group">
                                                 <span class="btn btn-xs btn-info">
