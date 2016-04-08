@@ -20,7 +20,7 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\Column(name="phone_number", type="text", unique=false)
+     * @ORM\Column(name="phone_number", type="text", unique=false, nullable=true)
      */
     protected $phoneNumber;
 
