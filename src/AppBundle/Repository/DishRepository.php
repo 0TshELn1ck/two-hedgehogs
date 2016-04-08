@@ -19,8 +19,7 @@ class DishRepository extends EntityRepository
     public function getPictDishes()
     {
         return $this->createQueryBuilder('d')
-            ->select('d', 'dc')
-            ->leftJoin('d.categories', 'dc')
+            ->select('d')
             ->where('d.status =1')
             ->andWhere('d.pictPath <> :path')
             ->setParameter('path', 'not_set')

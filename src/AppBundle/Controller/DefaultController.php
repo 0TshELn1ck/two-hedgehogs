@@ -19,8 +19,8 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
-        $dishPictList = $em->getRepository('AppBundle:Dish')->getPictDishes();
-
+        $dishPictList = $this->get('gallery.dishes')->randomPictures(5);
+        
         return [
             'dishList' => $dishList, 'dishPictList' => $dishPictList
         ];

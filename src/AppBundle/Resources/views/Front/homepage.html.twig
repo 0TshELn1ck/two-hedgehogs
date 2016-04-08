@@ -264,18 +264,18 @@
                 <section>
                     <div class="hhalf">
                         {% if dishPictList[1] is defined %}
-                        <a href="{{ path('show_one_dish', {'slug': dishPictList[1].slug }) }}">
-                            <img src="{{ asset(dishPictList[1].pictPath) | imagine_filter('thumb_367') }}"
-                                 alt="{{ dishPictList[1].name }}" title="{{ dishPictList[1].name }}"/>
-                        </a>
+                            <a href="{{ path('show_one_dish', {'slug': dishPictList[1].slug }) }}">
+                                <img src="{{ asset(dishPictList[1].pictPath) | imagine_filter('thumb_367') }}"
+                                     alt="{{ dishPictList[1].name }}" title="{{ dishPictList[1].name }}"/>
+                            </a>
                         {% endif %}
                     </div>
                     <div class="hhalf">
                         {% if dishPictList[2] is defined %}
-                        <a href="{{ path('show_one_dish', {'slug': dishPictList[2].slug }) }}">
-                            <img src="{{ asset(dishPictList[2].pictPath) | imagine_filter('thumb_367') }}"
-                                 alt="{{ dishPictList[2].name }}" title="{{ dishPictList[2].name }}"/>
-                        </a>
+                            <a href="{{ path('show_one_dish', {'slug': dishPictList[2].slug }) }}">
+                                <img src="{{ asset(dishPictList[2].pictPath) | imagine_filter('thumb_367') }}"
+                                     alt="{{ dishPictList[2].name }}" title="{{ dishPictList[2].name }}"/>
+                            </a>
                         {% endif %}
                     </div>
                 </section>
@@ -283,16 +283,14 @@
                 <section>
                     <div class="hhalf">
                         {% if dishPictList[3] is defined %}
-                        <a href="{{ path('show_one_dish', {'slug': dishPictList[3].slug }) }}">
                             <a href="{{ path('show_one_dish', {'slug': dishPictList[3].slug }) }}">
                                 <img src="{{ asset(dishPictList[3].pictPath) | imagine_filter('thumb_367') }}"
                                      alt="{{ dishPictList[3].name }}" title="{{ dishPictList[3].name }}"/>
                             </a>
-                            {% endif %}
+                        {% endif %}
                     </div>
                     <div class="hhalf">
                         {% if dishPictList[4] is defined %}
-                        <a href="{{ path('show_one_dish', {'slug': dishPictList[4].slug }) }}">
                             <a href="{{ path('show_one_dish', {'slug': dishPictList[4].slug }) }}">
                                 <img src="{{ asset(dishPictList[4].pictPath) | imagine_filter('thumb_367') }}"
                                      alt="{{ dishPictList[4].name }}" title="{{ dishPictList[4].name }}"/>
