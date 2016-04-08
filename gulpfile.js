@@ -15,6 +15,7 @@ gulp.task('css', function() {
             'bower_components/bootstrap/dist/css/bootstrap.css',
             'bower_components/slick-carousel/slick/slick.css',
             'bower_components/flexslider/flexslider.css',
+            'bower_components/chosen/chosen.css',
             'web-src/css/**/*.css'
         ])
         .pipe(less({compress: true}))
@@ -58,6 +59,7 @@ gulp.task('pages-js', function() {
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/slick-carousel/slick/slick.min.js',
             'bower_components/flexslider/jquery.flexslider-min.js',
+            'bower_components/chosen/chosen.jquery.js',
             'web-src/js/**/*.js'
         ])
         .pipe(minifyJs())
