@@ -15,13 +15,14 @@ class DefaultController extends Controller
      * @Template("AppBundle:Front:homepage.html.twig")
      */
 
-    public function indextestAction(Request $request)
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
+        $dishPictList = $em->getRepository('AppBundle:Dish')->getPictDishes();
 
         return [
-            'dishList' => $dishList
+            'dishList' => $dishList, 'dishPictList' => $dishPictList
         ];
     }
 }
