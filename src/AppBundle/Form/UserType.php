@@ -39,6 +39,12 @@ class UserType extends AbstractType
                 ),
                 'label' => false
             ))
+            ->add('phoneNumber', TextType::class, array(
+                'attr' => array(
+                    'placeholder' => 'Телефонний номер',
+                    'class' => 'form-control input-mask-phone'
+                ),
+            ))
             ->add('roles', CollectionType::class, array(
                 'allow_delete' => true,
                 'entry_type' => ChoiceType::class,
