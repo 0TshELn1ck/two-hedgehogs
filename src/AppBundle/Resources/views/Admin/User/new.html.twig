@@ -160,7 +160,7 @@
                                 </label>
                                 <div class="col-sm-9">
                                     <span class="input-icon input-icon-right">
-                                        <input class="input-medium input-mask-phone" type="text" id="form-field-phone">
+                                        {{ form_widget(userForm.phoneNumber) }}
                                         <i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
                                     </span>
                                 </div>
@@ -273,9 +273,14 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
     <script>
-        $('document').ready(function () {
+        $(function(){
+            $.mask.definitions['~']='[+-]';
+            $('.input-mask-phone').mask('(999) 999-9999');
+        });
 
+        $('document').ready(function () {
             $('form[name="app_bundle_user_type"]').submit(function () {
                 pass = $('#app_bundle_user_type_password_first');
                 conf_pass = $('#app_bundle_user_type_password_second');
@@ -297,5 +302,6 @@
         $(function () {
             $("#datepicker").datepicker();
         });
+
     </script>
 {% endblock %}
