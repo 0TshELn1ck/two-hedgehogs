@@ -1,0 +1,112 @@
+{% extends('@App/Admin/Order/index.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        {% if order is defined %}<a href="{{ path('admin_show_order', {'order':order.id }) }}">Замовлення  №{{ order.id }}</a>{% endif %}
+    </li>
+{% endblock breadcrumbs %}
+
+{% block search %}
+    <form class="form-search" METHOD="post" action="{{ path('admin_user_search') }}">
+        <span class="input-icon">
+            <input type="text" min="3" placeholder="Пошук ..." class="nav-search-input" name="search"
+                   id="nav-search-input" autocomplete="off"/>
+        <i class="ace-icon fa fa-search nav-search-icon"></i>
+        </span>
+    </form>
+{% endblock search %}
+
+{% block content %}
+<div class="page-content">
+    <div class="row">
+        <h2 class="center">Замовлення №{{ order.id }}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('admin_edit_order', {'order':order.id}) }}">
+                    <i class="fa fa-pencil"></i>
+                </a>
+            {% endif %}</h2>
+        {% if error is defined %}
+            <h2 class="alert-danger">{{ error }}</h2>
+        {% else %}
+        <div class="col-sm-7 order-left-side no-float center-block row {{ order.status }}">
+            <table class="table">
+            <thead>
+                <tr>
+                    <td class="col-xs-10">Страва</td>
+                    <td class="col-xs-2">Кількість</td>
+                </tr>
+            </thead>
+                <tbody>
+                {% for dishInOrder in order.dishesInOrder %}
+                    <tr>
+                        <td class="col-xs-10"><a href="{{ path('show_one_dish', {'slug': dishInOrder.dish.slug }) }}">
+                                {{ dishInOrder.dish.name }}
+                            </a></td>
+                        <td>{{ dishInOrder.count }}</td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td class="col-xs-10"><h4>До сплати:</h4></td>
+                        <td><h4>{{ order.summ }} грн</h4></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-7 order-right-side no-float center-block row {{ order.status }}">
+            <div class="row">
+                <span class="col-sm-6"><span class="bolder">Створено</span>:
+                    {{ order.createdAt|date("d.m.Y h:m") }}</span>
+                <span class="col-sm-6 "><span class="bolder">Замовленно на</span>:
+                    {% if order.createdAt == order.cookTo %}Негайно{% else %}{{ order.createdAt|date("d.m.Y h:m") }}{% endif %}</span>
+            </div>
+            <div class="row">
+                <span class="col-sm-6"><span class="bolder">Замовник</span>:
+                    <a href="{{ path('admin_user_show', {'id': order.user.id}) }}">{{ order.user.username }}</a></span>
+                <span class="col-sm-6"><span class="bolder">Адреса</span>:
+                    {{ order.address }}
+                </span>
+                <span class="col-sm-6 "><span class="bolder">Телефон</span>:
+                    {% if order.user.phoneNumber is defined %}
+                        {{ order.user.phoneNumber }}
+                    {% else %}
+                        невідомий телефон
+                    {% endif %}</span>
+            </div>
+            {{ form_start(form) }}
+                <div class="form-group col-sm-12">
+                   {{ form_widget(form.status) }}
+                </div>
+                <div class="form-group col-sm-7 text-right">
+                    <button class="btn btn-info" type="submit">
+                        <i class="ace-icon fa fa-check bigger-110"></i>Зберегти
+                    </button>
+                </div>
+            {{ form_end(form) }}
+        </div>
+        {% endif %}
+    </div>
+    <style>
+        .canceled {
+            border-left: 2px solid #848a86;
+        }
+        .shipping {
+            border-left: 2px solid #dd6b4f;
+        }
+        .closed {
+            border-left: 2px solid red;
+        }
+        .cooking {
+            border-left: 2px solid #eea27a;
+        }
+        .cooked {
+            border-left: 2px solid #eea27a;
+        }
+        .processing {
+            border-left: 2px solid #ee9650;
+        }
+        .confirmed {
+            border-left: 2px solid #4cc634;
+        }
+        </style>
+</div>
+{% endblock %}
