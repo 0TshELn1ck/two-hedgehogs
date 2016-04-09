@@ -2,7 +2,7 @@
 {% block breadcrumbs %}
     {{ parent() }}
     <li>
-        <a href="{{ path('admin_orders') }}">Замовлення</a>
+        {% if order is defined %}<a href="{{ path('admin_show_order', {'order':order.id }) }}">Замовлення  №{{ order.id }}</a>{% endif %}
     </li>
 {% endblock breadcrumbs %}
 
@@ -19,8 +19,11 @@
 {% block content %}
 <div class="page-content">
     <div class="row">
-        <h2 class="center">Замовлення №1</h2>
-        <div class="col-sm-6 order-left-side no-float center-block">
+        <h2 class="center">Замовлення №{{ order.id }} {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('admin_edit_order', {'order':order.id}) }}"><i class="fa fa-pencil"></i></a>{% endif %}</h2>
+        {% if error is defined %}
+            <h2 class="alert-danger">{{ error }}</h2>
+        {% else %}
+        <div class="col-sm-7 order-left-side no-float center-block row">
             <table class="table">
             <thead>
                 <tr>
@@ -42,29 +45,28 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-6 order-right-side no-float center-block">
-            <div>
+        <div class="col-sm-7 order-right-side no-float center-block row">
+            <div class="row">
                 <span class="col-sm-6"><span class="bolder">Створено</span>: {{ order.createdAt|date("d.m.Y h:m") }}</span>
                 <span class="col-sm-6 "><span class="bolder">Замовленно на</span>: {% if order.createdAt == order.cookTo %}Негайно{% else %}{{ order.createdAt|date("d.m.Y h:m") }}{% endif %}</span>
             </div>
-            <div>
+            <div class="row">
                 <span class="col-sm-6"><span class="bolder">Замовник</span>: <a href="{{ path('admin_user_show', {'id': order.user.id}) }}">{{ order.user.username }}</a></span>
                 <span class="col-sm-6"><span class="bolder">Адреса</span>: {{ order.address }}</span>
+                <span class="col-sm-6 "><span class="bolder">Телефон</span>: {% if order.user.phoneNumber is defined %}{{ order.user.phoneNumber }}{% else %}невідомий телефон{% endif %}</span>
             </div>
-
             {{ form_start(form) }}
-                <span class="col-sm-6 "><span class="bolder">Телефон</span>: {% if order.user.phoneNumber is defined %}{{ order.user.phoneNumber }}{% else %}+3809320543992{% endif %}</span>
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-12">
                    {{ form_widget(form.status) }}
                 </div>
-                <button class="btn btn-info" type="submit">
-                    <i class="ace-icon fa fa-check bigger-110"></i>
-                    Зберегти
-                </button>
+                <div class="form-group col-sm-7 text-right">
+                    <button class="btn btn-info" type="submit">
+                        <i class="ace-icon fa fa-check bigger-110"></i>Зберегти
+                    </button>
+                </div>
             {{ form_end(form) }}
-            </form>
         </div>
-
+        {% endif %}
     </div>
 </div>
 {% endblock %}

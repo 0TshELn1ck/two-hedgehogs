@@ -2,8 +2,12 @@
 
 namespace AppBundle\Controller\Admin;
 
+use AppBundle\Entity\Dish;
+use AppBundle\Entity\DishInOrder;
 use AppBundle\Entity\Order;
+use AppBundle\Entity\User;
 use AppBundle\Form\OrderStatusType;
+use AppBundle\Form\OrderType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -21,21 +25,18 @@ class OrderController extends Controller
     /**
      * Get single order
      *
-     * @Route ("/{order}", name="admin_show_order")
+     * @Route ("/{order}", name="admin_show_order",  requirements={"order": "\d+"})
      * @Template("AppBundle:Admin/Order:show.html.twig")
      */
-    public function getOrder(Request $request, Order $order)
+    public function getOrderAction(Request $request, Order $order)
     {
-        if (!$order){
-            return ['error'=>'Такого замовлення не існує'];
-        }
-
         $form = $this->createForm(OrderStatusType::class, $order);
         $em = $this->getDoctrine()->getManager();
 
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
             if ($form->isValid()) {
+
                 $em->persist($order);
                 $em->flush();
             }
@@ -43,6 +44,37 @@ class OrderController extends Controller
 
         return [
             'order' => $order,
+            'form' => $form->createView(),
+        ];
+    }
+
+    /**
+     * Change order info only by admin
+     *
+     * @Route("/{order}/edit", name="admin_edit_order")
+     * @Template("AppBundle:Admin/Order:edit.html.twig")
+     */
+    public function editOrderAction(Request $request, Order $order)
+    {
+        $form = $this->createForm(OrderType::class, $order);
+        $em = $this->getDoctrine()->getManager();
+        
+        if ($request->getMethod() === 'POST') {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $newDishes = $order->getDishesInOrder();
+                $summ = 0;
+
+                foreach ($newDishes as $dishInOrder){
+                    $summ += $dishInOrder->getDish()->getPrice() * $dishInOrder->getCount();
+                }
+                $order->setSumm($summ);
+                $em->persist($order);
+                $em->flush();
+            }
+        }
+        return [
+            'order'=>$order,
             'form' => $form->createView(),
         ];
     }
@@ -63,20 +95,6 @@ class OrderController extends Controller
             $orders = $em->getRepository("AppBundle:Order")->findBy(array(),array('cookTo'=>'DESC'));
             $pagination = $paginator->paginate($orders, $request->query->getInt('page', 1), 10);
             return ['orders' => $pagination, 'tableStyle'=>'manager'];
-        }
-
-        if ($user->hasRole('ROLE_COOK')){
-            $orders = $em->getRepository("AppBundle:Order")->findBy(array('status'=>'confirmed'),array('cookTo'=>'DESC'));
-            $pagination = $paginator->paginate($orders, $request->query->getInt('page', 1), 10);
-
-            return ['orders' => $pagination, 'tableStyle'=>'cook'];
-        }
-
-        if ($user->hasRole('ROLE_CARRIER')){
-            $orders = $em->getRepository("AppBundle:Order")->findBy(array('status'=>'cooked'),array('cookTo'=>'DESC'));
-            $pagination = $paginator->paginate($orders, $request->query->getInt('page', 1), 10);
-
-            return ['orders' => $pagination, 'tableStyle'=>'carrier'];
         }
         
         return ['error' => 'Нажаль Ви не маєте доступу'];
@@ -134,6 +152,60 @@ class OrderController extends Controller
         return [
                 'stats'=>$stats,
                 'orderCount'=> count($orders)
+        ];
+    }
+
+    /**
+     * Ajax deleting dish from order
+     * 
+     * @Route("/delete/{order}/{dish}", name="dellFromOrder")
+     * @Method("POST")
+     */
+    public function dellDishFromOrderAction(DishInOrder $dish = null, Order $order=null)
+    {
+        $response = new JsonResponse();
+        $em = $this->getDoctrine()->getManager();
+
+        if ($dish && $order){
+            $dishes = $order->getDishesInOrder();
+                
+            if ($dishes->contains($dish)) {
+                $em->remove($dish);
+                $em->flush();
+                
+                if ($order->getDishesInOrder()->count() == 0){
+                    $em->remove($order);
+                } else {
+                    $newDishes = $order->getDishesInOrder();
+                    $summ = 0;
+
+                    foreach ($newDishes as $dishInOrder){
+                        $summ += $dishInOrder->getDish()->getPrice() * $dishInOrder->getCount();
+                    }
+                    $order->setSumm($summ);
+                }
+                $em->flush();
+                
+                return $response->setData(array('deleted' => 1));
+            }
+        }
+   
+        return $response->setData(array('deleted' => 0));
+    }
+
+    /**
+     * Get orders by status
+     *
+     * @Route ("/{status}", name="admin_show_order_by_status")
+     * @Template("AppBundle:Admin/Order:index.html.twig")
+     */
+    public function getOrderByStatusAction(Request $request, $status)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $orders = $em->getRepository("AppBundle:Order")->findAll();
+
+        return [
+            'orders' => $orders,
         ];
     }
 
