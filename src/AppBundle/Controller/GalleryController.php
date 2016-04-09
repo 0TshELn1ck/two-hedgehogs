@@ -2,22 +2,21 @@
 
 namespace AppBundle\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 class GalleryController extends Controller
 {
     /**
      * @param Request $request
-     * @Route("/Gallery")
+     * @Route("/gallery", name="gallery")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction(Request $request)
     {
-        $dishPictList = $this->getDoctrine()->getRepository('AppBundle:Dish')->getPictDishes();
+        $dishPictList = $this->get('gallery.dishes')->randomPictures(12);
 
-        return $this->render('@App/Front/homepage.html.twig', ['dishPictList' => $dishPictList]);
+        return $this->render('@App/Front/gallery.html.twig', ['dishPictList' => $dishPictList]);
     }
 }
