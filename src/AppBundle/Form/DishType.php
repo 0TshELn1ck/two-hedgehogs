@@ -17,30 +17,33 @@ class DishType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'attr' => array('size' => '68')
+                'attr' => ['size' => '68', 'placeholder' => 'Назва'],
+                'label' => false
             ])
             ->add('recipe', TextareaType::class, [
-                'attr' => array('cols' => '68', 'rows' => '10')
+                'attr' => ['cols' => '68', 'rows' => '10', 'placeholder' => 'рецепт'],
+                'label' => false
             ])
             ->add('ingredients', TextareaType::class, [
-                'attr' => array('cols' => '68', 'rows' => '5')
+                'attr' => ['cols' => '68', 'rows' => '5', 'placeholder' => 'інгрідієнти'],
+                'label' => false
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
                     'active' => true,
                     'no active' => false
                 ],
-                'choices_as_values' => true
+                'choices_as_values' => true,
+                'label' => false
             ])
-            ->add('price', IntegerType::class)
+            ->add('price', IntegerType::class, ['attr' => ['placeholder' => 'ціна'],'label' => false])
             ->add('categories', EntityType::class, [
                 'class' => 'AppBundle\Entity\DishCategory',
                 'property' => 'name',
-                'attr' => array(
-                    'class' => 'chosen',
-                    'data-placeholder' => '-- Віберіть категорію --'
-                ),
-                'multiple' => 'true'
+                'attr' => [
+                    'class' => 'chosen', 'data-placeholder' => '-- виберіть категорію --'
+                ],
+                'multiple' => 'true', 'label' => false
             ]);
     }
 

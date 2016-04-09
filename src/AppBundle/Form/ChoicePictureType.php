@@ -16,7 +16,7 @@ class ChoicePictureType extends AbstractType
                 'choices' => $options['data'],
                 'choices_as_values' => true,
                 'choice_label' => 'origNameSize',
-                'placeholder' => 'choose the picture'
+                'placeholder' => '-- виберіть фото --'
             ]);
     }
 
