@@ -8,32 +8,46 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="{{ path('homepage') }}"  class="logo"><img src="{{ asset('images/logo.png') }}" alt="Resto" title=""/></a>
+                    <a href="{{ path('homepage') }}" class="logo"><img src="{{ asset('images/logo.png') }}" alt="Resto"
+                                                                       title=""/></a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ path("homepage") }}" class="{{ 'home' in app.request.get('_route') ? 'active' : '' }}">Головна сторінка</a></li>
-                        <li><a href="{{ path("list_dish") }}" class="{{ 'dish' in app.request.get('_route') ? 'active' : '' }}">Меню</a></li>
-                        <li><a href="{{ path("gallery") }}" class="{{ 'gallery' in app.request.get('_route') ? 'active' : '' }}">Галерея</a></li>
+                        <li><a href="{{ path("homepage") }}"
+                               class="{{ 'home' in app.request.get('_route') ? 'active' : '' }}">Головна сторінка</a>
+                        </li>
+                        <li><a href="{{ path("list_dish") }}"
+                               class="{{ 'dish' in app.request.get('_route') ? 'active' : '' }}">Меню</a></li>
+                        <li><a href="{{ path("gallery") }}"
+                               class="{{ 'gallery' in app.request.get('_route') ? 'active' : '' }}">Галерея</a></li>
                         <li><a href="">Відгуки</a></li>
-                        <li><a href="{{ path('cart') }}" class="{{ 'cart' in app.request.get('_route') ? 'active' : '' }}">Замовлення <span class="ord_count">(<span class="cart_count_heder">{{ render(controller('AppBundle:Cart:getCartCheck')) }}</span>)</span></a></li>
-                        <li><a href="{{ path('survey_list') }}" class="{{ 'survey' in app.request.get('_route') ? 'active' : '' }}">Опитування</a></li>
+                        <li><a href="{{ path('cart') }}"
+                               class="{{ 'cart' in app.request.get('_route') ? 'active' : '' }}">Замовлення <span
+                                        class="ord_count">(<span
+                                            class="cart_count_heder">{{ render(controller('AppBundle:Cart:getCartCheck')) }}</span>)</span></a>
+                        </li>
+                        <li><a href="{{ path('survey_list') }}"
+                               class="{{ 'survey' in app.request.get('_route') ? 'active' : '' }}">Опитування</a></li>
                         {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                             <li class="auth_block">
                                 <div class="dropdown">
-                                    <button class="btn dropdown-toggle auth_btn" type="button" data-toggle="dropdown">{{ app.user.username }}
+                                    <button class="btn dropdown-toggle auth_btn" type="button"
+                                            data-toggle="dropdown">{{ app.user.username }}
                                         <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ path('user_orders') }}">Історія замовлень</a></li>
                                         <li><a href="#">Налаштування</a></li>
+                                        {% if is_granted('ROLE_CARRIER') %}
+                                            <li><a href="{{ path('admin_index') }}">Адміністративна панель</a></li>
+                                        {% endif %}
                                         <li><a href="{{ path('fos_user_security_logout') }}">Вихід</a></li>
                                     </ul>
                                 </div>
                             </li>
-                            {% else %}
-                                <li>
-                                    <a href="{{ path('fos_user_security_login') }}" class="auth_btn_login">Вхід</a>
-                                </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ path('fos_user_security_login') }}" class="auth_btn_login">Вхід</a>
+                            </li>
                         {% endif %}
                     </ul>
                 </div>

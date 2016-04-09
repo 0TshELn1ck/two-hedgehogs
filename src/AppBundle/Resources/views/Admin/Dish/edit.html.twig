@@ -3,6 +3,7 @@
 {% form_theme form ':Admin:themeFields.html.twig' %}
 {% block stylesheets %}
     {{ parent() }}
+    <link href="{{ asset('css/chosen.css') }}" rel="stylesheet"/>
     <style type="text/css">
         .label-lg-cat {
             padding: 0em .3em 0em;
@@ -52,16 +53,7 @@
         </div>
         <div class="form-group">
             <div class="col-sm-9">
-                <div class="col-sm-3"></div>
-                <div class="col-sm-9 no-padding-left">
-                    {% for categories in form.categories %}
-                        <div class="label label-lg-cat label-success">
-                            {{ form_label(categories) }}
-                            {{ form_errors(categories) }}
-                            {{ form_widget(categories) }}
-                        </div>
-                    {% endfor %}
-                </div>
+                {{ form_row(form.categories) }}
             </div>
         </div>
         <div class="form-group">
@@ -122,3 +114,10 @@
         Uploaded files for this dish: {{ countPictures }}
     </div>
 {% endblock content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/chosen.jquery.js') }}"></script>
+    <script>
+        $('.chosen').chosen();
+    </script>
+{% endblock %}
