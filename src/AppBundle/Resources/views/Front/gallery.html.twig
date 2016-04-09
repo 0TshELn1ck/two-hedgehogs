@@ -1,0 +1,33 @@
+{% extends('Front/base.html.twig') %}
+
+{% block title %}Галерея страв{% endblock %}
+
+{% block content %}
+
+    <section class="menu">
+        <div class="container">
+            <div class="menu_title">
+                <h2>Галерея</h2>
+            </div>
+            <section class="gallery">
+                <div class="container">
+
+                    {% for pict in dishPictList %}
+                        {% if loop.index0 == 0 or loop.index0 == 6 %}<div class="media">{% endif %}
+                        {% if loop.index0 is even %}
+                        <section class="{{ loop.index0 }}">{% endif %}
+                        <div class="hhalf">
+                            <a href="{{ path('show_one_dish', {'slug': pict.slug }) }}">
+                                <img src="{{ asset(pict.pictPath) | imagine_filter('thumb_367') }}"
+                                     alt="{{ pict.name }}" title="{{ pict.name }}"/></a>
+                        </div>
+                        {% if loop.index0 is odd %}</section>{% endif %}
+                        {% if loop.index0 == 5 or loop.index0 == 11 %}</div>{% endif %}
+                    {% endfor %}
+                </div>
+
+            </section>
+        </div>
+    </section>
+
+{% endblock %}

@@ -10,5 +10,8 @@
                 <argument key="google">google_id</argument>
             </argument>
         </service>
+        <service id="gallery.dishes" class="AppBundle\Services\Gallery">
+            <argument key="doctrine" type="service" id="doctrine"/>
+        </service>
     </services>
 </container>

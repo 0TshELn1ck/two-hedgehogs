@@ -18,7 +18,8 @@
                         </li>
                         <li><a href="{{ path("list_dish") }}"
                                class="{{ 'dish' in app.request.get('_route') ? 'active' : '' }}">Меню</a></li>
-                        <li><a href="">Галерея</a></li>
+                        <li><a href="{{ path("gallery") }}"
+                               class="{{ 'gallery' in app.request.get('_route') ? 'active' : '' }}">Галерея</a></li>
                         <li><a href="">Відгуки</a></li>
                         <li><a href="{{ path('cart') }}"
                                class="{{ 'cart' in app.request.get('_route') ? 'active' : '' }}">Замовлення <span

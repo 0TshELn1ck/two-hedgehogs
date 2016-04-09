@@ -15,6 +15,17 @@ class DishRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+    
+    public function getPictDishes()
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d')
+            ->where('d.status =1')
+            ->andWhere('d.pictPath <> :path')
+            ->setParameter('path', 'not_set')
+            ->getQuery()
+            ->getResult();
+    }
 
     public function getAdminDishes($offset, $max)
     {
