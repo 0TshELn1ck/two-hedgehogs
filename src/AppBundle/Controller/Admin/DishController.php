@@ -73,7 +73,7 @@ class DishController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($dish);
             $em->flush();
-            $message = "New dish \"" . $dish->getName() . "\" was successfully added";
+            $message = "Нова страва \"" . $dish->getName() . "\" була успішно додана";
 
             return $this->render('@App/Admin/Dish/newMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
@@ -112,7 +112,7 @@ class DishController extends Controller
 
         if ($form->isValid()) {
             $em->flush();
-            $message = "Dish was successfully edited";
+            $message = "Страва була успішно відредагована";
 
             return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
@@ -126,7 +126,7 @@ class DishController extends Controller
             $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
             $uploadableManager->markEntityToUpload($pict, $pict->getFile());
             $em->flush();
-            $message = 'Picture was added to dish';
+            $message = 'Фото було успішно додано до страви';
 
             return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
@@ -134,7 +134,7 @@ class DishController extends Controller
         if ($formChoose->isValid()) {
             $dish->setPictPath($formChoose['pict_path']->getData()->getPath());
             $em->flush();
-            $message = 'Main picture changes for dish "' . $dish->getName() . '"';
+            $message = 'Змінено головне фото для страви "' . $dish->getName() . '"';
 
             return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
