@@ -19,11 +19,16 @@
 {% block content %}
 <div class="page-content">
     <div class="row">
-        <h2 class="center">Замовлення №{{ order.id }} {% if is_granted('ROLE_ADMIN') %}<a href="{{ path('admin_edit_order', {'order':order.id}) }}"><i class="fa fa-pencil"></i></a>{% endif %}</h2>
+        <h2 class="center">Замовлення №{{ order.id }}
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('admin_edit_order', {'order':order.id}) }}">
+                    <i class="fa fa-pencil"></i>
+                </a>
+            {% endif %}</h2>
         {% if error is defined %}
             <h2 class="alert-danger">{{ error }}</h2>
         {% else %}
-        <div class="col-sm-7 order-left-side no-float center-block row">
+        <div class="col-sm-7 order-left-side no-float center-block row {{ order.status }}">
             <table class="table">
             <thead>
                 <tr>
@@ -34,7 +39,9 @@
                 <tbody>
                 {% for dishInOrder in order.dishesInOrder %}
                     <tr>
-                        <td class="col-xs-10"><a href="{{ path('show_one_dish', {'slug': dishInOrder.dish.slug }) }}">{{ dishInOrder.dish.name }}</a></td>
+                        <td class="col-xs-10"><a href="{{ path('show_one_dish', {'slug': dishInOrder.dish.slug }) }}">
+                                {{ dishInOrder.dish.name }}
+                            </a></td>
                         <td>{{ dishInOrder.count }}</td>
                     </tr>
                 {% endfor %}
@@ -45,15 +52,25 @@
                 </tbody>
             </table>
         </div>
-        <div class="col-sm-7 order-right-side no-float center-block row">
+        <div class="col-sm-7 order-right-side no-float center-block row {{ order.status }}">
             <div class="row">
-                <span class="col-sm-6"><span class="bolder">Створено</span>: {{ order.createdAt|date("d.m.Y h:m") }}</span>
-                <span class="col-sm-6 "><span class="bolder">Замовленно на</span>: {% if order.createdAt == order.cookTo %}Негайно{% else %}{{ order.createdAt|date("d.m.Y h:m") }}{% endif %}</span>
+                <span class="col-sm-6"><span class="bolder">Створено</span>:
+                    {{ order.createdAt|date("d.m.Y h:m") }}</span>
+                <span class="col-sm-6 "><span class="bolder">Замовленно на</span>:
+                    {% if order.createdAt == order.cookTo %}Негайно{% else %}{{ order.createdAt|date("d.m.Y h:m") }}{% endif %}</span>
             </div>
             <div class="row">
-                <span class="col-sm-6"><span class="bolder">Замовник</span>: <a href="{{ path('admin_user_show', {'id': order.user.id}) }}">{{ order.user.username }}</a></span>
-                <span class="col-sm-6"><span class="bolder">Адреса</span>: {{ order.address }}</span>
-                <span class="col-sm-6 "><span class="bolder">Телефон</span>: {% if order.user.phoneNumber is defined %}{{ order.user.phoneNumber }}{% else %}невідомий телефон{% endif %}</span>
+                <span class="col-sm-6"><span class="bolder">Замовник</span>:
+                    <a href="{{ path('admin_user_show', {'id': order.user.id}) }}">{{ order.user.username }}</a></span>
+                <span class="col-sm-6"><span class="bolder">Адреса</span>:
+                    {{ order.address }}
+                </span>
+                <span class="col-sm-6 "><span class="bolder">Телефон</span>:
+                    {% if order.user.phoneNumber is defined %}
+                        {{ order.user.phoneNumber }}
+                    {% else %}
+                        невідомий телефон
+                    {% endif %}</span>
             </div>
             {{ form_start(form) }}
                 <div class="form-group col-sm-12">
@@ -68,5 +85,28 @@
         </div>
         {% endif %}
     </div>
+    <style>
+        .canceled {
+            border-left: 2px solid #848a86;
+        }
+        .shipping {
+            border-left: 2px solid #dd6b4f;
+        }
+        .closed {
+            border-left: 2px solid red;
+        }
+        .cooking {
+            border-left: 2px solid #eea27a;
+        }
+        .cooked {
+            border-left: 2px solid #eea27a;
+        }
+        .processing {
+            border-left: 2px solid #ee9650;
+        }
+        .confirmed {
+            border-left: 2px solid #4cc634;
+        }
+        </style>
 </div>
 {% endblock %}

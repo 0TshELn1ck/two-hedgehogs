@@ -19,10 +19,35 @@
     <div class="page-content">
         <div class="row">
             <div class="col-xs-12">
+                <div class="status_btn">
                 <!-- PAGE CONTENT BEGINS -->
-                <span class="btn btn-light btn-xs">
-                    <a href="{{ path('admin_user_new') }}"><i class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
+                <span class="btn btn-xs">
+                    <a href="{{ path('admin_orders') }}">Всі</a>
                 </span>
+                <span class="btn btn-xs processing">
+                    <a href="{{ path('admin_orders', {'status':'processing'}) }}">Очікують підтвердження</a>
+                </span>
+                <span class="btn btn-xs confirmed">
+                    <a href="{{ path('admin_orders', {'status':'confirmed'}) }}">Підтверджені</a>
+                </span>
+                <span class="btn btn-xs cooking">
+                    <a href="{{ path('admin_orders', {'status':'cooking'}) }}">Готуються</a>
+                </span>
+                <span class="btn btn-xs cooked">
+                    <a href="{{ path('admin_orders', {'status':'cooked'}) }}">Приготовані</a>
+                </span>
+                <span class="btn btn-xs shipping">
+                    <a href="{{ path('admin_orders', {'status':'shipping'}) }}">Доставляються</a>
+                </span>
+                <span class="btn btn-xs closed">
+                    <a href="{{ path('admin_orders', {'status':'closed'}) }}">Завершені</a>
+                </span>
+                <span class="btn btn-xs canceled">
+                    <a href="{{ path('admin_orders', {'status':'canceled'}) }}">Відмовлені</a>
+                </span>
+                </div>
+
+
                 <div class="row">
                     <div class="col-xs-12">
                         {% if orders %}
@@ -44,14 +69,14 @@
                                 <th>Статус</th>
                             </tr>
                             </thead>
+                            <tbody>
                                 {% for order in orders %}
-                                <tbody>
-                                <tr>
+                                <tr class="{{ order.status }}">
                                     <td>
-                                        <a href="#">{{ order.id }}</a>
+                                        <a href="{{ path('admin_show_order', {'order':order.id}) }}">{{ order.id }}</a>
                                     </td>
                                     <td>
-                                        <a href="#">{{ order.user.username }}</a>
+                                        <a href="{{ path('admin_user_show', {'id':order.user.id}) }}">{{ order.user.username }}</a>
                                     </td>
                                     <td>
                                         <ul class="dish_list">
@@ -70,7 +95,21 @@
                                         {{ order.summ }}
                                     </td>
                                     <td>
-                                        {{ order.status }}
+                                        {% if order.status == 'processing' %}
+                                            Очікує підтвердження
+                                        {% elseif order.status == 'canceled' %}
+                                            Відмовлено
+                                        {% elseif order.status == 'confirmed' %}
+                                            Підтверджено
+                                        {% elseif order.status == 'cooking' %}
+                                            Готується
+                                        {% elseif order.status == 'cooked' %}
+                                            Приготовано
+                                        {% elseif order.status == 'shipping' %}
+                                            В дорозі
+                                        {% elseif order.status == 'closed' %}
+                                            Завершено
+                                        {% endif %}
                                     </td>
                                 </tr>
 
@@ -86,6 +125,60 @@
             </div><!-- PAGE CONTENT ENDS -->
         </div><!-- /.col -->
     </div><!-- /.row -->
+    <style>
+        .canceled {
+            border-left: 2px solid #848a86;
+        }
+        .shipping {
+            border-left: 2px solid #dd6b4f;
+        }
+        .closed {
+            border-left: 2px solid red;
+        }
+        .cooking {
+            border-left: 2px solid #eea27a;
+        }
+        .cooked {
+            border-left: 2px solid #eea27a;
+        }
+        .processing {
+            border-left: 2px solid #ee9650;
+        }
+        .confirmed {
+            border-left: 2px solid #4cc634;
+        }
+        .status_btn .btn {
+            background-color: none;
+            border:none;
+            margin:0;
+            padding:5px;
+        }
+        .status_btn  .canceled {
+            background-color: #848a86 !important;
+        }
+        .status_btn  .shipping {
+            background-color: #dd6b4f !important;
+        }
+        .status_btn  .closed {
+            background-color: red !important;
+        }
+        .status_btn  .cooking {
+            background-color: #eea27a !important;
+        }
+        .status_btn  .cooked {
+            background-color: #eea27a !important;
+        }
+        .status_btn  .processing {
+            background-color: #ee9650 !important;
+        }
+        .status_btn  .confirmed {
+            background-color: #4cc634 !important;
+        }
+        .status_btn a {
+            color:white;
+        }
+
+    </style>
 {% endblock content %}
 
 

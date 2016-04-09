@@ -1,7 +1,7 @@
 {% if orders %}
     {% for order in orders %}
         <li>
-            <a href="#">
+            <a href="{{ path('admin_show_order', {'order':order.id}) }}">
                 <div class="clearfix">
                     <span class="pull-left">
 						<i class="btn btn-xs no-hover btn-pink fa fa-comment"></i>

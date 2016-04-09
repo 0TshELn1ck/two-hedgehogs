@@ -10,6 +10,7 @@ use AppBundle\Form\OrderStatusType;
 use AppBundle\Form\OrderType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -49,10 +50,31 @@ class OrderController extends Controller
     }
 
     /**
+     * Get orders for diferent roles
+     *
+     * @Route("/{status}", name="admin_orders")
+     * @Template("AppBundle:Admin/Order:index.html.twig")
+     */
+    public function getOrdersAction(Request $request, $status = null)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $paginator = $this->get('knp_paginator');
+        if (!$status) {
+            $orders = $em->getRepository("AppBundle:Order")->findBy(array(), array('cookTo' => 'DESC'));
+        } else {
+            $orders = $em->getRepository("AppBundle:Order")->findBy(array('status'=>$status), array('cookTo' => 'DESC'));
+        }
+        $pagination = $paginator->paginate($orders, $request->query->getInt('page', 1), 10);
+        return ['orders' => $pagination, 'tableStyle'=>'manager'];
+
+    }
+
+    /**
      * Change order info only by admin
      *
      * @Route("/{order}/edit", name="admin_edit_order")
      * @Template("AppBundle:Admin/Order:edit.html.twig")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function editOrderAction(Request $request, Order $order)
     {
@@ -80,27 +102,6 @@ class OrderController extends Controller
     }
 
     /**
-     * Get orders for diferent roles
-     *
-     * @Route("/", name="admin_orders")
-     * @Template("AppBundle:Admin/Order:index.html.twig")
-     */
-    public function getOrdersAction(Request $request)
-    {
-        $user = $this->getUser();
-        $em = $this->getDoctrine()->getManager();
-        $paginator = $this->get('knp_paginator');
-
-        if ($user->hasRole('ROLE_ADMIN')){
-            $orders = $em->getRepository("AppBundle:Order")->findBy(array(),array('cookTo'=>'DESC'));
-            $pagination = $paginator->paginate($orders, $request->query->getInt('page', 1), 10);
-            return ['orders' => $pagination, 'tableStyle'=>'manager'];
-        }
-        
-        return ['error' => 'Нажаль Ви не маєте доступу'];
-    }
-
-    /**
      * Count of new order
      *
      * @Route("/count", name="get_order_count")
@@ -116,7 +117,7 @@ class OrderController extends Controller
     /**
      * Get new order by ajax
      *
-     * @Route("/processing", name="get_processing_orders")
+     * @Route("/modal/processing", name="get_processing_orders")
      * @Method("POST")
      * @Template("AppBundle:Admin/Modals:orders.html.twig")
      */
@@ -130,9 +131,9 @@ class OrderController extends Controller
     }
 
     /**
-     * Get stats by order status
+     * Get stats of order
      *
-     * @Route("/stats", name="get_order_stats")
+     * @Route("/modal/stats", name="get_order_stats")
      * @Template("AppBundle:Admin/Modals:orderStats.html.twig")
      */
     public function getOrdersStatsAction()
@@ -160,6 +161,7 @@ class OrderController extends Controller
      * 
      * @Route("/delete/{order}/{dish}", name="dellFromOrder")
      * @Method("POST")
+     * @Security("has_role('ROLE_ADMIN')")
      */
     public function dellDishFromOrderAction(DishInOrder $dish = null, Order $order=null)
     {
@@ -192,22 +194,5 @@ class OrderController extends Controller
    
         return $response->setData(array('deleted' => 0));
     }
-
-    /**
-     * Get orders by status
-     *
-     * @Route ("/{status}", name="admin_show_order_by_status")
-     * @Template("AppBundle:Admin/Order:index.html.twig")
-     */
-    public function getOrderByStatusAction(Request $request, $status)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $orders = $em->getRepository("AppBundle:Order")->findAll();
-
-        return [
-            'orders' => $orders,
-        ];
-    }
-
 
 }

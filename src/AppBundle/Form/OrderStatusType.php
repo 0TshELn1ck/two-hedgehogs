@@ -22,7 +22,9 @@ class OrderStatusType extends AbstractType
                     'shipping'    => 'Доставляється',
                     'closed'      => 'Завершений',
                 ),
-                'attr'=>array('class'=>'form-control'),
+                'attr'=>array(
+                    'class'=>'form-control'
+                ),
             ));
     }
 
