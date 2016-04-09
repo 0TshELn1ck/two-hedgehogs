@@ -8,26 +8,22 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Class DishController
- * @Route("/menu/dish")
- */
 class DishController extends Controller
 {
     /**
-     * @Route("/list", name="list_dish")
+     * @Route("/dishes", name="list_dish")
      */
     public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $dishList = $em->getRepository('AppBundle:Dish')->getDishes();
-        $categories = $em->getRepository('AppBundle:DishCategory')->getCategoriesDishes();
+        $categories = $em->getRepository('AppBundle:DishCategory')->getCategoriesActiveDishes();
 
         return $this->render('AppBundle:Front:menu.html.twig', ['dishList' => $dishList, 'categories' => $categories]);
     }
 
     /**
-     * @Route("/{slug}", name="show_one_dish")
+     * @Route("/dish/{slug}", name="show_one_dish")
      */
     public function showOneAction($slug)
     {

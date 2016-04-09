@@ -1,0 +1,29 @@
+{% extends ':Front:base.html.twig' %}
+
+{% block title %}Error 403 (Forbidden){% endblock title %}
+{% block content %}
+    <div class="content-wrapper">
+
+        {#Page label#}
+        <section class="menu">
+            <div class="container">
+                <div class="menu_title">
+                    <h2>Error 403</h2>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="col-sm-2"></div>
+                        <div class="col-xs-4">
+                            <h1 style="font-size: 3em" class="red text_center">Error 403</h1>
+                            <h3 class="red text-center">Forbidden</h3>
+                            <h3 class="red text_center">Доступ заборонено</h3>
+                            <p class="text_center"> Зайдіть на іншу сторінку</p>
+                        </div>
+                        <div class="col-xs-6"><img src="{{ asset('images/errorPagePicture.png') }}"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+{% endblock content %}

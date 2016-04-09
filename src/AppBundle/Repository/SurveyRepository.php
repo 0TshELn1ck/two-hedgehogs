@@ -19,4 +19,17 @@ class SurveyRepository extends \Doctrine\ORM\EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getAllActiveVoteSurveys($user)
+    {
+        return $this->createQueryBuilder('s')
+            ->select('s', 'sa')
+            ->where('s.status = 1')
+            ->andWhere('sr.user = :user')
+            ->leftJoin('s.surveyAnswers', 'sa')
+            ->leftJoin('s.surveyResult', 'sr')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
 }

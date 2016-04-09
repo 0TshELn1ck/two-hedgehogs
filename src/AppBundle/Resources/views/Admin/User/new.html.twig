@@ -159,8 +159,8 @@
                                     Телефонний номер
                                 </label>
                                 <div class="col-sm-9">
-                                    <span class="input-icon input-icon-right">
-                                        <input class="input-medium input-mask-phone" type="text" id="form-field-phone">
+                                    <span class="input-icon input-icon-right input-medium">
+                                        {{ form_widget(userForm.phoneNumber) }}
                                         <i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
                                     </span>
                                 </div>
@@ -170,11 +170,11 @@
                             <h4 class="header blue bolder smaller">Соціальні мережі</h4>
 
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
+                                <label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook ID</label>
 
                                 <div class="col-sm-9">
                                     <span class="input-icon">
-                                        <input type="text" placeholder="facebook_alexdoe" id="form-field-facebook">
+                                        {{ form_widget(userForm.facebook_id) }}
                                         <i class="ace-icon fa fa-facebook blue"></i>
                                     </span>
                                 </div>
@@ -184,24 +184,11 @@
 
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right"
-                                       for="form-field-twitter">Twitter</label>
-                                <div class="col-sm-9">
-                                    <span class="input-icon">
-                                        <input type="text" placeholder="twitter_alexdoe" id="form-field-twitter">
-                                        <i class="ace-icon fa fa-twitter light-blue"></i>
-                                    </span>
-                                </div>
-                            </div>
-
-                            <div class="space-4"></div>
-
-                            <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right"
-                                       for="form-field-gplus">Google+</label>
+                                       for="form-field-gplus">Google+ ID</label>
 
                                 <div class="col-sm-9">
                                     <span class="input-icon">
-                                        <input type="text" placeholder="google_alexdoe" id="form-field-gplus">
+                                        {{ form_widget(userForm.google_id) }}
                                         <i class="ace-icon fa fa-google-plus red"></i>
                                     </span>
                                 </div>
@@ -211,14 +198,27 @@
                         <div id="edit-settings" class="tab-pane">
                             <div class="space-10"></div>
 
-                            <div>
-                                <span class="col-sm-6">
-									<label class="pull-right inline">
+                            <div class="row">
+                                <div class="col-sm-12 text-center">
+									<label>
                                         <small class="muted smaller-90">Профіль активовано:</small>
                                         {{ form_widget(userForm.enabled) }}
                                         <span class="lbl middle"></span>
                                     </label>
-								</span>
+								</div>
+                                <div class="col-sm-12 text-center">
+                                    <label>
+                                        <small class="muted smaller-90">Профіль заблоковано:</small>
+                                        {{ form_widget(userForm.locked) }}
+                                        <span class="lbl middle"></span>
+                                    </label>
+                                </div>
+                                <div class="col-sm-12 text-center">
+                                    <label>
+                                        <small class="muted smaller-90">Ролі користувача:</small>
+                                        {{ form_widget(userForm.roles) }}
+                                    </label>
+                                </div>
                             </div>
                         </div>
 
@@ -273,9 +273,14 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.maskedinput.min.js') }}"></script>
     <script>
-        $('document').ready(function () {
+        $(function(){
+            $.mask.definitions['~']='[+-]';
+            $('.input-mask-phone').mask('+38'+'(999) 999-9999');
+        });
 
+        $('document').ready(function () {
             $('form[name="app_bundle_user_type"]').submit(function () {
                 pass = $('#app_bundle_user_type_password_first');
                 conf_pass = $('#app_bundle_user_type_password_second');
@@ -297,5 +302,6 @@
         $(function () {
             $("#datepicker").datepicker();
         });
+
     </script>
 {% endblock %}

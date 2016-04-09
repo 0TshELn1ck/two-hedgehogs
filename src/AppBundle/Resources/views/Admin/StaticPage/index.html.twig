@@ -2,9 +2,13 @@
 {% block breadcrumbs %}
     {{ parent() }}
     <li>
-        <a href="{{ path('admin_dish_category_index') }}">Категорії страв</a>
+        <a href="{{ path('admin_static_index') }}">Статичні сторінки</a>
     </li>
 {% endblock breadcrumbs %}
+
+{% block search %}
+
+{% endblock search %}
 
 {% block content %}
     <div class="page-content">
@@ -12,7 +16,7 @@
             <div class="col-xs-12">
                 <!-- PAGE CONTENT BEGINS -->
                 <span class="btn btn-light btn-xs">
-                    <a href="{{ path('admin_dish_category_new') }}"><i class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
+                    <a href="{{ path('admin_static_new') }}"><i class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
                 </span>
                 <div class="row">
                     <br>
@@ -21,27 +25,30 @@
                             <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Назва категорії</th>
+                                <th>Назва сторінки</th>
+                                <th>Маршрут</th>
                                 <th></th>
                             </tr>
                             </thead>
-                            {% if categoryList %}
-                                {% for item in categoryList %}
+                            {% if pages %}
+                                {% for item in pages %}
                                     <tbody>
                                     <tr>
                                         <td>
-                                            {{ loop.index }}
+                                            <a href="#">{{ loop.index }}</a>
                                         </td>
-                                        <td>
-                                            <a href="{{ path('admin_dish_category_edit', {'id': item.id}) }}"
-                                               title="edit dish">
-                                                {{ item.name }}
-                                            </a>
-                                        </td>
+                                        <td>{{ item.title }}</td>
+                                        <td>{{ item.route }}</td>
                                         <td>
                                             <div class="hidden-sm hidden-xs btn-group">
+                                                <span class="btn btn-xs btn-success">
+                                                    <a href="{{ path('admin_static_show', {'id': item.id}) }}">
+                                                        <i class="ace-icon fa fa-eye bigger-120"></i>
+                                                    </a>
+                                                </span>
+
                                                 <span class="btn btn-xs btn-info">
-                                                    <a href="{{ path('admin_dish_category_edit', {'id': item.id}) }}">
+                                                    <a href="{{ path('admin_static_edit', {'id': item.id}) }}">
                                                         <i class="ace-icon fa fa-pencil bigger-120"></i>
                                                     </a>
                                                 </span>
@@ -49,7 +56,7 @@
                                                 <button class="btn btn-xs btn-danger hidden">
                                                     <i class="">
                                                         {{ form_start(deleteForm[item.id],
-                                                        {attr : {onsubmit: 'return confirm("Ви дійсно бажаєте видалити категорію?");' }}) }}
+                                                        {attr : {onsubmit: 'return confirm("Ви дійсно бажаєте видалити сторінку?");' }}) }}
                                                         {{ form_widget(deleteForm[item.id].submit) }}
                                                         {{ form_end(deleteForm[item.id]) }}
                                                     </i>
@@ -60,10 +67,16 @@
                                 {% endfor %}
                                 </tbody>
                             {% endif %}
+
                         </table>
+                        <ul class="pager">
+                            {{ knp_pagination_render(pages) }}
+                        </ul>
                     </div><!-- /.span -->
                 </div><!-- /.row -->
             </div><!-- PAGE CONTENT ENDS -->
         </div><!-- /.col -->
     </div><!-- /.row -->
 {% endblock content %}
+
+

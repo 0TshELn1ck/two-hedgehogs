@@ -1,49 +1,73 @@
 {% extends('@App/Admin/Dish/index.html.twig') %}
 
 {% form_theme form ':Admin:themeFields.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/chosen.css') }}" rel="stylesheet"/>
+    <style type="text/css">
+        .label-lg-cat {
+            padding: 0em .3em 0em;
+            font-size: 13px;
+            line-height: 1.1;
+            height: 27px;
+            border-radius: 3px;
+            margin: 1px 0px;
+        }
+    </style>
+{% endblock %}
+
 {% block breadcrumbs %}
     {{ parent() }}
-        <li>Нова страва</li>
+    <li>Нова страва</li>
 {% endblock breadcrumbs %}
 
 {% block content %}
-    <h3>Add new Dish</h3>
-    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.name) }}
+    <div class="col-sm-12">
+        <h3>Add new Dish</h3>
+        {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.name) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.recipe) }}
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.recipe) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.ingredients) }}
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.ingredients) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.status) }}
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.status) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.price) }}
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.price) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.categories) }}
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.categories) }}
+            </div>
         </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            <input type="submit" value="Create" class="btn btn-default"/>
+        <div class="form-group">
+            <div class="col-sm-9">
+                <label class="col-sm-3 control-label no-padding-right"></label>
+                <input type="submit" value="Create" class="btn btn-default"/>
+            </div>
         </div>
+        {{ form_end(form) }}
     </div>
-    {{ form_end(form) }}
 {% endblock content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/chosen.jquery.js') }}"></script>
+    <script>
+        $('.chosen').chosen();
+    </script>
+{% endblock %}

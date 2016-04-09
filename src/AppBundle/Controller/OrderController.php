@@ -58,7 +58,7 @@ class OrderController extends Controller
                     $em->persist($cart);
                     $em->flush();
 
-                    return $this->redirectToRoute('userProfile');
+                    return $this->redirectToRoute('user_orders');
                 }
 
                 return [

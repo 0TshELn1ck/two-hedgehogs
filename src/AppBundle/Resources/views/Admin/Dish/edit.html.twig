@@ -1,98 +1,123 @@
 {% extends('@App/Admin/Dish/index.html.twig') %}
 
 {% form_theme form ':Admin:themeFields.html.twig' %}
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset('css/chosen.css') }}" rel="stylesheet"/>
+    <style type="text/css">
+        .label-lg-cat {
+            padding: 0em .3em 0em;
+            font-size: 13px;
+            line-height: 1.1;
+            height: 27px;
+            border-radius: 3px;
+            margin: 1px 0px;
+        }
+    </style>
+{% endblock %}
+
 {% block breadcrumbs %}
     {{ parent() }}
     <li>Редагувати страву</li>
 {% endblock breadcrumbs %}
 
+
 {% block content %}
-    <h3>Edit Dish</h3>
-    {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.name) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.recipe) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.ingredients) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.status) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.price) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            {{ form_row(form.categories) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            <input type="submit" value="Modify" class="btn btn-default"/>
-        </div>
-    </div>
-    {{ form_end(form) }}
-
-    <h3>Upload picture</h3>
-    {{ form_start(uploadForm, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            {{ form_errors(uploadForm.file) }}
-            {{ form_widget(uploadForm.file) }}
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-sm-9">
-            <label class="col-sm-3 control-label no-padding-right"></label>
-            <input type="submit" value="Upload"/>
-        </div>
-    </div>
-    {{ form_end(uploadForm) }}
-
-    {% if countPictures != 0 %}
-        <h3>Choose picture</h3>
-        {{ form_start(formChoose, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+    <div class="col-sm-12">
+        <h3>Edit Dish</h3>
+        {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
         <div class="form-group">
             <div class="col-sm-9">
-                <label class="col-sm-3 control-label no-padding-right"></label>
-                {{ form_errors(formChoose.pict_path) }}
-                {{ form_widget(formChoose.pict_path) }}
+                {{ form_row(form.name) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.recipe) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.ingredients) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.status) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.price) }}
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-9">
+                {{ form_row(form.categories) }}
             </div>
         </div>
         <div class="form-group">
             <div class="col-sm-9">
                 <label class="col-sm-3 control-label no-padding-right"></label>
-                <input type="submit" value="Choose"/>
+                <input type="submit" value="Modify" class="btn btn-default"/>
             </div>
         </div>
-        {{ form_end(formChoose) }}
+        {{ form_end(form) }}
 
-        <h3>Delete pictures of this dish</h3>
-        {{ form_start(delPictForm, {'attr': {'class': 'form-horizontal', 'role': 'form', onsubmit: 'return confirm("Do you really want to delete pictures?");' }}) }}
+        <h3>Upload picture</h3>
+        {{ form_start(uploadForm, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
         <div class="form-group">
             <div class="col-sm-9">
                 <label class="col-sm-3 control-label no-padding-right"></label>
-                {{ form_errors(delPictForm) }}
-                {{ form_widget(delPictForm) }}
+                {{ form_errors(uploadForm.file) }}
+                {{ form_widget(uploadForm.file) }}
             </div>
         </div>
-        {{ form_end(delPictForm) }}
-    {% endif %}
+        <div class="form-group">
+            <div class="col-sm-9">
+                <label class="col-sm-3 control-label no-padding-right"></label>
+                <input type="submit" value="Upload"/>
+            </div>
+        </div>
+        {{ form_end(uploadForm) }}
 
-    Uploaded files for this dish: {{ countPictures }}
+        {% if countPictures != 0 %}
+            <h3>Choose picture</h3>
+            {{ form_start(formChoose, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    {{ form_errors(formChoose.pict_path) }}
+                    {{ form_widget(formChoose.pict_path) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    <input type="submit" value="Choose"/>
+                </div>
+            </div>
+            {{ form_end(formChoose) }}
+
+            <h3>Delete pictures of this dish</h3>
+            {{ form_start(delPictForm, {'attr': {'class': 'form-horizontal', 'role': 'form', onsubmit: 'return confirm("Do you really want to delete pictures?");' }}) }}
+            <div class="form-group">
+                <div class="col-sm-9">
+                    <label class="col-sm-3 control-label no-padding-right"></label>
+                    {{ form_errors(delPictForm) }}
+                    {{ form_widget(delPictForm) }}
+                </div>
+            </div>
+            {{ form_end(delPictForm) }}
+        {% endif %}
+
+        Uploaded files for this dish: {{ countPictures }}
+    </div>
 {% endblock content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/chosen.jquery.js') }}"></script>
+    <script>
+        $('.chosen').chosen();
+    </script>
+{% endblock %}

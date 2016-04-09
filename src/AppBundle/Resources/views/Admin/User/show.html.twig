@@ -150,7 +150,15 @@
                                 </div>
 
                                 <div class="profile-info-row">
-                                    <div class="profile-info-name"> Активний</div>
+                                    <div class="profile-info-name"> Номер телефону</div>
+
+                                    <div class="profile-info-value">
+                                        <span>{{ user.phoneNumber }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Активований</div>
 
                                     <div class="profile-info-value">
                                         <span>{% if user.enabled %}
@@ -161,6 +169,44 @@
                                     </div>
                                 </div>
 
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Заблокований</div>
+
+                                    <div class="profile-info-value">
+                                        <span>{% if user.locked %}
+                                                Так
+                                            {% else %}
+                                                Ні
+                                            {% endif %}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Facebook ID</div>
+
+                                    <div class="profile-info-value">
+                                        <span>{{ user.facebookId }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Google+ ID</div>
+
+                                    <div class="profile-info-value">
+                                        <span>{{ user.googleId }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="profile-info-row">
+                                    <div class="profile-info-name"> Ролі</div>
+
+                                    <div class="profile-info-value">
+                                        <span>{% for item in user.roles %}
+                                                {{ item }}<br>
+                                        {% endfor %}
+                                        </span>
+                                    </div>
+                                </div>
                                 <div class="profile-info-row">
                                     <div class="profile-info-name"> Зареєстровано</div>
 

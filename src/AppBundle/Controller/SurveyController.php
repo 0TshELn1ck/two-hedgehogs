@@ -2,9 +2,12 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Survey;
+use AppBundle\Entity\SurveyAnswer;
 use AppBundle\Entity\SurveyResult;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -18,16 +21,41 @@ class SurveyController extends Controller
      */
     public function listAction(Request $request)
     {
+        $answerForm = [];
         if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
-            throw $this->createAccessDeniedException();
+            $newSurveys = $this->getDoctrine()->getRepository('AppBundle:Survey')->getAllActiveSurveys();
+        } else {
+            $newSurveys = $this->findNewSurveys();
+            foreach ($newSurveys as $survey) {
+                $answers = $survey->getSurveyAnswers()->getValues();
+                foreach ($answers as $answer) {
+                    $answerForm[$answer->getId()] = $this->createAnswerForm($answer)->createView();
+                }
+            }
         }
-        $newSurveys = $this->findNewSurveys();
 
-        return $this->render('AppBundle:Front:survey.html.twig', ['newSurveys' => $newSurveys]);
+        return $this->render('AppBundle:Front:survey.html.twig', ['newSurveys' => $newSurveys, 'answerForm' => $answerForm]);
     }
 
     /**
-     * @param $aid
+     * @Route("/stat", name="survey_statistics")
+     */
+    public function statisticsAction()
+    {
+        if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+            throw $this->createAccessDeniedException();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $statList = $em->getRepository('AppBundle:Survey')->getAllActiveVoteSurveys($this->getUser());
+        $countUsers = $em->getRepository('AppBundle:User')->countUsers();
+        $percent = $countUsers / 100;
+
+        return $this->render('@App/Front/surveyStat.html.twig', ['statList' => $statList, 'percent' => $percent]);
+    }
+
+    /**
+     * @param SurveyAnswer $aid
      * @Route("/result/{aid}", name="survey_result",  requirements={"aid": "\d+"}))
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -58,8 +86,10 @@ class SurveyController extends Controller
 
         $vote = true;
         $newSurveys = [];
+        /** @var Survey $survey */
         foreach ($surveyList as $survey) {
             if ($survey->getSurveyResult()->getValues()) {
+                /** @var SurveyResult $result */
                 foreach ($survey->getSurveyResult()->getValues() as $result) {
 
                     $currentUser = $this->getUser()->getid();
@@ -85,5 +115,21 @@ class SurveyController extends Controller
             }
         }
         return $newSurveys;
+    }
+
+    /**
+     * @param SurveyAnswer $answer
+     * @return \Symfony\Component\Form\Form
+     */
+    private function createAnswerForm($answer)
+    {
+        return $this->createFormBuilder()
+            ->setAction($this->generateUrl('survey_result', ['aid' => $answer->getId()]))
+            ->setMethod('POST')
+            ->add('submit', SubmitType::class, [
+                'label' => $answer->getanswer(),
+                'attr' => ['class' => 'btn btn-sm btn-success']
+            ])
+            ->getForm();
     }
 }
