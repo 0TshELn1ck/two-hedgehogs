@@ -4,7 +4,7 @@
             <span class="pull-left">Не підтверджені</span>
             <span class="pull-right">
                 {% if  stats.processing.count is defined %}
-                    {{ (stats.processing.count/orderCount)*100 }}%
+                    {{ ((stats.processing.count/orderCount)*100)|round }}%
                 {% else %}
                      0%
                 {% endif %}
@@ -28,7 +28,7 @@
             <span class="pull-left">О чікують приготування</span>
             <span class="pull-right">
                 {% if  stats.confirmed.count is defined %}
-                    {{ (stats.confirmed.count/orderCount)*100 }}%
+                    {{ ((stats.confirmed.count/orderCount)*100)|round }}%
                 {% else %}
                     0%
                 {% endif %}
@@ -53,7 +53,7 @@
             <span class="pull-left">Готуються</span>
             <span class="pull-right">
                 {% if  stats.cooking.count is defined %}
-                    {{ (stats.cooking.count/orderCount)*100 }}%
+                    {{ ((stats.cooking.count/orderCount)*100)|round  }}%
                 {% else %}
                     0%
                 {% endif %}
@@ -78,7 +78,7 @@
             <span class="pull-left">Доставляються замовнику</span>
             <span class="pull-right">
                  {% if  stats.shipping.count is defined %}
-                    {{ (stats.shipping.count/orderCount)*100 }}%
+                    {{ ((stats.shipping.count/orderCount)*100)|round  }}%
                  {% else %}
                      0%
                  {% endif %}

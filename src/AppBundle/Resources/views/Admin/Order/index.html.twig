@@ -1,0 +1,91 @@
+{% extends(':Admin:base.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('admin_orders') }}">Замовлення</a>
+    </li>
+{% endblock breadcrumbs %}
+
+{% block search %}
+    <form class="form-search" METHOD="post" action="{{ path('admin_user_search') }}">
+        <span class="input-icon">
+            <input type="text" min="3" placeholder="Пошук ..." class="nav-search-input" name="search"
+                   id="nav-search-input" autocomplete="off"/>
+        <i class="ace-icon fa fa-search nav-search-icon"></i>
+        </span>
+    </form>
+{% endblock search %}
+{% block content %}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <!-- PAGE CONTENT BEGINS -->
+                <span class="btn btn-light btn-xs">
+                    <a href="{{ path('admin_user_new') }}"><i class="ace-icon fa fa-plus bigger-10"> Додати</i></a>
+                </span>
+                <div class="row">
+                    <div class="col-xs-12">
+                        {% if orders %}
+                        <table id="simple-table" class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>id</th>
+                                <th>Логін</th>
+                                <th>Страви</th>
+                                <th>
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    Дата створення замовлення
+                                </th>
+                                <th>
+                                    <i class="ace-icon fa fa-clock-o"></i>
+                                    Дата доставки
+                                </th>
+                                <th>Ціна (грн)</th>
+                                <th>Статус</th>
+                            </tr>
+                            </thead>
+                                {% for order in orders %}
+                                <tbody>
+                                <tr>
+                                    <td>
+                                        <a href="#">{{ order.id }}</a>
+                                    </td>
+                                    <td>
+                                        <a href="#">{{ order.user.username }}</a>
+                                    </td>
+                                    <td>
+                                        <ul class="dish_list">
+                                            {% for dishInOrder in order.dishesInOrder %}
+                                                <li><a href="{{ path('show_one_dish', {'slug': dishInOrder.dish.slug }) }}">{{ dishInOrder.dish.name }} х{{ dishInOrder.count }}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        {{ order.createdAt|date("d.m.Y h:m") }}
+                                    </td>
+                                    <td>
+                                        {{ order.cookTo|date("d.m.Y h:m") }}
+                                    </td>
+                                    <td>
+                                        {{ order.summ }}
+                                    </td>
+                                    <td>
+                                        {{ order.status }}
+                                    </td>
+                                </tr>
+
+                                {% endfor %}
+                                </tbody>
+                        </table>
+                        <ul class="pager">
+                            {{ knp_pagination_render(orders) }}
+                        </ul>
+                        {% endif %}
+                    </div><!-- /.span -->
+                </div><!-- /.row -->
+            </div><!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+{% endblock content %}
+
+

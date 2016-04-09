@@ -1,0 +1,70 @@
+{% extends('@App/Admin/Order/index.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('admin_orders') }}">Замовлення</a>
+    </li>
+{% endblock breadcrumbs %}
+
+{% block search %}
+    <form class="form-search" METHOD="post" action="{{ path('admin_user_search') }}">
+        <span class="input-icon">
+            <input type="text" min="3" placeholder="Пошук ..." class="nav-search-input" name="search"
+                   id="nav-search-input" autocomplete="off"/>
+        <i class="ace-icon fa fa-search nav-search-icon"></i>
+        </span>
+    </form>
+{% endblock search %}
+
+{% block content %}
+<div class="page-content">
+    <div class="row">
+        <h2 class="center">Замовлення №1</h2>
+        <div class="col-sm-6 order-left-side no-float center-block">
+            <table class="table">
+            <thead>
+                <tr>
+                    <td class="col-xs-10">Страва</td>
+                    <td class="col-xs-2">Кількість</td>
+                </tr>
+            </thead>
+                <tbody>
+                {% for dishInOrder in order.dishesInOrder %}
+                    <tr>
+                        <td class="col-xs-10"><a href="{{ path('show_one_dish', {'slug': dishInOrder.dish.slug }) }}">{{ dishInOrder.dish.name }}</a></td>
+                        <td>{{ dishInOrder.count }}</td>
+                    </tr>
+                {% endfor %}
+                    <tr>
+                        <td class="col-xs-10"><h4>До сплати:</h4></td>
+                        <td><h4>{{ order.summ }} грн</h4></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-sm-6 order-right-side no-float center-block">
+            <div>
+                <span class="col-sm-6"><span class="bolder">Створено</span>: {{ order.createdAt|date("d.m.Y h:m") }}</span>
+                <span class="col-sm-6 "><span class="bolder">Замовленно на</span>: {% if order.createdAt == order.cookTo %}Негайно{% else %}{{ order.createdAt|date("d.m.Y h:m") }}{% endif %}</span>
+            </div>
+            <div>
+                <span class="col-sm-6"><span class="bolder">Замовник</span>: <a href="{{ path('admin_user_show', {'id': order.user.id}) }}">{{ order.user.username }}</a></span>
+                <span class="col-sm-6"><span class="bolder">Адреса</span>: {{ order.address }}</span>
+            </div>
+
+            {{ form_start(form) }}
+                <span class="col-sm-6 "><span class="bolder">Телефон</span>: {% if order.user.phoneNumber is defined %}{{ order.user.phoneNumber }}{% else %}+3809320543992{% endif %}</span>
+                <div class="form-group col-sm-6">
+                   {{ form_widget(form.status) }}
+                </div>
+                <button class="btn btn-info" type="submit">
+                    <i class="ace-icon fa fa-check bigger-110"></i>
+                    Зберегти
+                </button>
+            {{ form_end(form) }}
+            </form>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
