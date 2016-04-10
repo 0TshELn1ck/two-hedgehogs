@@ -22,6 +22,7 @@
     "bootstrap": "^3.3.6",
     "slick-carousel": "~1.5.9",
     "flexslider": "~2.6.0",
-    "chosen": "^1.5.1"
+    "chosen": "^1.5.1",
+    "trumbowyg": "^1.1.7"
   }
 }
