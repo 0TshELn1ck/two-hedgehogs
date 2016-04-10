@@ -79,6 +79,11 @@ class Order
     private $address;
 
     /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Feedback", mappedBy="order")
+     */
+    private $feedback;
+
+    /**
      * Hook SoftDeleteable behavior
      * updates deletedAt field
      */
@@ -274,5 +279,29 @@ class Order
     public function getAddress()
     {
         return $this->address;
+    }
+    
+    /**
+     * Set feedback
+     *
+     * @param \AppBundle\Entity\Feedback $feedback
+     *
+     * @return Order
+     */
+    public function setFeedback(\AppBundle\Entity\Feedback $feedback = null)
+    {
+        $this->feedback = $feedback;
+
+        return $this;
+    }
+
+    /**
+     * Get feedback
+     *
+     * @return \AppBundle\Entity\Feedback
+     */
+    public function getFeedback()
+    {
+        return $this->feedback;
     }
 }

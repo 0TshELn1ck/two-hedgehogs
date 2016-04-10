@@ -2,7 +2,9 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Feedback;
 use AppBundle\Entity\Order;
+use AppBundle\Form\FeedbackType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -24,10 +26,24 @@ class UserController extends Controller
     {
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
-        
+
+        $feedback = new Feedback();
+        $form = $this->createForm(FeedbackType::class, $feedback);
+
+        $form->handleRequest($request);
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $feedback->setStatus(false);
+            $feedback->setUser($user);
+            $em->persist($feedback);
+            $em->flush();
+
+        }
+
         if ($user){
             return [
-                'orders'=>$em->getRepository('AppBundle:Order')->getSortableOrder($user->getId()),
+                'orders' => $em->getRepository('AppBundle:Order')->getSortableOrder($user->getId()),
+                'form' => $form->createView()
             ];
         }
         
