@@ -16,37 +16,37 @@
         <h3>Редагування страви</h3>
         {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
         <div class="form-group">
-            <div class="col-sm-2"></div>
+            <div class="col-sm-2 control-label no-padding-right">Назва страви</div>
             <div class="col-sm-9">
                 {{ form_row(form.name) }}
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-2"></div>
+            <div class="col-sm-2 control-label no-padding-right">Рецепт</div>
             <div class="col-sm-9">
                 {{ form_row(form.recipe) }}
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-2"></div>
+            <div class="col-sm-2 control-label no-padding-right">Інгрідієнти</div>
             <div class="col-sm-9">
                 {{ form_row(form.ingredients) }}
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-2"></div>
+            <div class="col-sm-2 control-label no-padding-right">Статус</div>
             <div class="col-sm-9">
                 {{ form_row(form.status) }}
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-2"></div>
+            <div class="col-sm-2 control-label no-padding-right">Ціна</div>
             <div class="col-sm-9">
                 {{ form_row(form.price) }}
             </div>
         </div>
         <div class="form-group">
-            <div class="col-sm-2"></div>
+            <div class="col-sm-2 control-label no-padding-right">Категорії</div>
             <div class="col-sm-9">
                 {{ form_row(form.categories) }}
             </div>
@@ -59,7 +59,7 @@
         </div>
         {{ form_end(form) }}
 
-        <h3>Загрузка фото</h3>
+        <h3>Завантаження фото</h3>
         {{ form_start(uploadForm, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
         <div class="form-group">
             <div class="col-sm-2"></div>
@@ -93,7 +93,7 @@
             </div>
             {{ form_end(formChoose) }}
 
-            <h3>Видалити фотографії цієї страви</h3>
+            <h3>Видалити всі фотографії цієї страви</h3>
             {{ form_start(delPictForm, {'attr': {'class': 'form-horizontal', 'role': 'form', onsubmit: 'return confirm("Ви дійсно хочете видалити фотографії?");' }}) }}
             <div class="form-group">
                 <div class="col-sm-2"></div>

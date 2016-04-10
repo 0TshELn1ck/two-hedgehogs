@@ -36,7 +36,7 @@ class DishType extends AbstractType
                 'choices_as_values' => true,
                 'label' => false
             ])
-            ->add('price', IntegerType::class, ['attr' => ['placeholder' => 'ціна'],'label' => false])
+            ->add('price', IntegerType::class, ['attr' => ['placeholder' => '0'],'label' => false])
             ->add('categories', EntityType::class, [
                 'class' => 'AppBundle\Entity\DishCategory',
                 'property' => 'name',
