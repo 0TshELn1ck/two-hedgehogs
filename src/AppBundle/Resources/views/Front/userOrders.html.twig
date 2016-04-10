@@ -14,9 +14,16 @@
 <section class="menu">
     <div class="container">
         <div class="menu_title">
-            <h2>Ваш профіль</h2>
+            <h2>Замовлення</h2>
         </div>
-        <p  class="page_desc">На цій сторінці ви можете переглядати історію ваших замовлень та відстежувати їх поточний стан.</p>
+        <h2 class="user_profile_tab">
+            <a class="{{ 'user_orders' in app.request.get('_route') ? 'active' : '' }}" href="{{ path("user_orders") }}">
+                Історія замовлень
+            </a>
+            <a class="{{ 'fos_user_profile_edit' in app.request.get('_route') ? 'active' : '' }}" href="{{ path("fos_user_profile_edit") }}">
+                Редагування вашого профілю
+            </a>
+        </h2>
         {% if orders %}
             <ul class="order_history">
                 {% for order in orders %}
@@ -43,6 +50,8 @@
                         Підтверджено, очікує на приготування
                     {% elseif order.status == 'cooking' %}
                         Готується
+                    {% elseif order.status == 'cooked' %}
+                        Приготоване
                     {% elseif order.status == 'shipping' %}
                         В дорозі
                     {% elseif order.status == 'closed' %}

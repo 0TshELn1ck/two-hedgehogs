@@ -20,7 +20,6 @@
                                class="{{ 'dish' in app.request.get('_route') ? 'active' : '' }}">Меню</a></li>
                         <li><a href="{{ path("gallery") }}"
                                class="{{ 'gallery' in app.request.get('_route') ? 'active' : '' }}">Галерея</a></li>
-                        <li><a href="">Відгуки</a></li>
                         <li><a href="{{ path('cart') }}"
                                class="{{ 'cart' in app.request.get('_route') ? 'active' : '' }}">Замовлення <span
                                         class="ord_count">(<span
@@ -36,7 +35,7 @@
                                         <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ path('user_orders') }}">Історія замовлень</a></li>
-                                        <li><a href="#">Налаштування</a></li>
+                                        <li><a href="{{ path('fos_user_profile_edit') }}">Налаштування</a></li>
                                         {% if is_granted('ROLE_CARRIER') %}
                                             <li><a href="{{ path('admin_index') }}">Адміністративна панель</a></li>
                                         {% endif %}
