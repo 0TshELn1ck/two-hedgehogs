@@ -54,7 +54,11 @@ class StaticPageController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $form = $this->createForm(StaticPageType::class, $page)
-            ->add('Зберегти', SubmitType::class);
+            ->add('Зберегти', SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn btn-warning pull-right'
+                )
+            ));
 
         if ($request->getMethod() == 'POST') {
             $form->handleRequest($request);
@@ -109,7 +113,11 @@ class StaticPageController extends Controller
         }
 
         $editForm = $this->createForm(StaticPageType::class, $page)
-            ->add('Редагувати', SubmitType::class);
+            ->add('Редагувати', SubmitType::class, array(
+                'attr' => array(
+                    'class' => 'btn btn-warning pull-right'
+                )
+            ));
         $editForm->handleRequest($request);
 
         if ($editForm->isValid()) {
