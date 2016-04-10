@@ -88,6 +88,19 @@ class SurveyController extends Controller
     }
 
     /**
+     * @Route("/stat", name="admin_survey_statistics")
+     */
+    public function statisticsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $statList = $em->getRepository('AppBundle:Survey')->getAllActiveSurveys();
+        $countUsers = $em->getRepository('AppBundle:User')->countUsers();
+        $percent = $countUsers / 100;
+
+        return $this->render('@App/Admin/Survey/statistics.html.twig', ['statList' => $statList, 'percent' => $percent]);
+    }
+
+    /**
      *
      * @Route("/delete/{id}", name="admin_survey_delete")
      * @Method("DELETE")

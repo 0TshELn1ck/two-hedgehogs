@@ -26,7 +26,7 @@ class Dish
     /**
      * @var string
      *
-     * @Assert\Length(min="4")
+     * @Assert\Length(min="2")
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;

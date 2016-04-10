@@ -29,25 +29,25 @@
     <div class="page-content">
         <div class="row">
             <div class="col-xs-12">
-                <h3>Edit survey</h3>
+                <h3>Редагування опитування</h3>
                 {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
                 <div class="form-group has-info">
                     <div class="col-sm-9">
-                        <label class="col-sm-3 control-label no-padding-right">Title</label>
+                        <label class="col-sm-3 control-label" style="color:#393939 ">Назва-запитання</label>
                         {{ form_errors(form.title) }}
                         {{ form_widget(form.title) }}
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label class="col-sm-3 control-label no-padding-right">Status</label>
+                        <label class="col-sm-3 control-label">Статус</label>
                         {{ form_errors(form.status) }}
                         {{ form_widget(form.status) }}
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-9">
-                        <label class="col-sm-3 control-label no-padding-right">Answers:</label>
+                        <label class="col-sm-3 control-label">Відповіді:</label>
                         <div class="col-sm-6">
                             {% for sAnswer in form.surveyAnswers %}
                                 <div class="form-group has-success">
@@ -61,7 +61,7 @@
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label class="col-sm-3 control-label no-padding-right"></label>
-                        <input type="submit" value="Modify" class="btn btn-default"/>
+                        <input type="submit" value="Зберегти" class="btn btn-default"/>
                     </div>
                 </div>
                 {{ form_end(form) }}

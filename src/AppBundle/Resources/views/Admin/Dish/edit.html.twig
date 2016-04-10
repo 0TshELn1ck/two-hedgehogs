@@ -51,7 +51,7 @@
         </table>
         {{ form_end(form) }}
 
-        <h3>Загрузка фото</h3>
+        <h3>Завантаження фото</h3>
         {{ form_start(uploadForm, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
         <div class="form-group">
             <div class="col-sm-2"></div>
@@ -85,7 +85,7 @@
             </div>
             {{ form_end(formChoose) }}
 
-            <h3>Видалити фотографії цієї страви</h3>
+            <h3>Видалити всі фотографії цієї страви</h3>
             {{ form_start(delPictForm, {'attr': {'class': 'form-horizontal', 'role': 'form', onsubmit: 'return confirm("Ви дійсно хочете видалити фотографії?");' }}) }}
             <div class="form-group">
                 <div class="col-sm-2"></div>
