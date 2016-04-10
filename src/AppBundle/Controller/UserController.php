@@ -27,29 +27,47 @@ class UserController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        $feedback = new Feedback();
-        $form = $this->createForm(FeedbackType::class, $feedback);
+        $forms = [];
+        if ($user) {
+            $orders = $em->getRepository('AppBundle:Order')->getSortableOrder($user->getId());
+            /** @var Order $order */
+            foreach ($orders as $order) {
+                if ($order->getStatus() == 'closed') {
+                    $feedback = new Feedback();
+                    $forms[$order->getId()] = $this->createForm(FeedbackType::class, $feedback)->createView();
+                }
+            }
 
-        $form->handleRequest($request);
-        if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $feedback->setStatus(false);
-            $feedback->setUser($user);
-            $em->persist($feedback);
-            $em->flush();
-
-        }
-
-        if ($user){
             return [
                 'orders' => $em->getRepository('AppBundle:Order')->getSortableOrder($user->getId()),
-                'form' => $form->createView()
+                'forms' => $forms
             ];
         }
-        
+
         return $this->redirectToRoute('homepage');
     }
-    
+
+    /**
+     * @param Order $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     * @Route("/feedback/{id}", name="user_feedback", requirements={"id": "\d+"})
+     */
+    public function feedbackAction(Order $id, Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $feedback = new Feedback();
+        $feedback->setStatus(false);
+        $feedback->setOrder($id);
+        $feedback->setUser($this->getUser());
+        $requestText = $request->request->get('feedback');
+        $feedback->setText($requestText['text']);
+        $em->persist($feedback);
+        $em->flush();
+
+        return $this->redirectToRoute('user_orders');
+    }
+
     /**
      * @Route("/orders/delete/{order}", name="deleteOrderByUser")
      * @Method("POST")
@@ -59,17 +77,17 @@ class UserController extends Controller
         $user = $this->getUser();
         $status = $order->getStatus();
 
-        if ($user->getOrders()->contains($order)){
+        if ($user->getOrders()->contains($order)) {
             if ($status == 'processing' || $status == 'closed' || $status == 'canceled') {
                 $em = $this->getDoctrine()->getManager();
                 $em->remove($order);
                 $em->flush();
-                return new JsonResponse(['success'=>'Успішно видалено']);
+                return new JsonResponse(['success' => 'Успішно видалено']);
             }
-            
-            return new JsonResponse(['error'=>'Ви не можете видалити замовлення №'.$order->getId()]);
+
+            return new JsonResponse(['error' => 'Ви не можете видалити замовлення №' . $order->getId()]);
         }
 
-        return new JsonResponse(['error'=>'Виникла помилка']);
+        return new JsonResponse(['error' => 'Виникла помилка']);
     }
 }

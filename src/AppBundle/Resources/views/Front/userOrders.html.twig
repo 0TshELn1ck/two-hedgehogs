@@ -60,13 +60,13 @@
                                 </div>
                             {% endif %}
                         </li>
-                        {% if order.status == 'closed' %}
+                        {% if order.status == 'closed' and order.feedback.id is not defined %}
                             <li>
                                 Відгук:
-                                {{ form_start(form) }}
-                                {{ form_row(form.text) }}
+                                {{ form_start(forms[order.id], {'action': path('user_feedback', {'id': order.id})}) }}
+                                {{ form_row(forms[order.id].text) }}
                                 <input type="submit" value="Залишити відгук" class="btn btn-default"/>
-                                {{ form_end(form) }}
+                                {{ form_end(forms[order.id]) }}
                             </li>
                         {% endif %}
                     {% endfor %}
@@ -84,15 +84,15 @@
             $('.delete_position').click(function () {
                 var order = $(this).parent().data("order");
                 $.ajax({
-                    url: "{{ path('deleteOrderByUser')}}/" + order,
+                    url: "{{ path('deleteOrderByUser') }}/" + order,
                     method: "POST",
                     success: function (data) {
                         if (data.error) {
-                            $('.page_desc').append('<div class="alert-warning">'+data.error+'</div>');
+                            $('.page_desc').append('<div class="alert-warning">' + data.error + '</div>');
                         } else {
-                            $('.order_'+order).fadeOut("fast");
-                            setTimeout(function(){
-                                $('.order_'+order).remove();
+                            $('.order_' + order).fadeOut("fast");
+                            setTimeout(function () {
+                                $('.order_' + order).remove();
                             }, 1000);
                         }
                     }
@@ -100,7 +100,7 @@
             });
         });
 
-        $('form[name="order"]').submit(function(){
+        $('form[name="order"]').submit(function () {
             $('input[type="submit"]').prop('disabled', true);
             return true;
         });

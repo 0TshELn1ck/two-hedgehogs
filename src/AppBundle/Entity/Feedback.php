@@ -41,10 +41,9 @@ class Feedback
     private $order;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
      */
     private $user;
-
 
     /**
      * Get id
