@@ -11,23 +11,29 @@
             </div>
             <section class="gallery">
                 <div class="container">
-
-                    {% for pict in dishPictList %}
-                        {% if loop.index0 == 0 or loop.index0 == 6 %}<div class="media">{% endif %}
-                        {% if loop.index0 is even %}
-                        <section class="{{ loop.index0 }}">{% endif %}
-                        <div class="hhalf">
-                            <a href="{{ path('show_one_dish', {'slug': pict.slug }) }}">
-                                <img src="{{ asset(pict.pictPath) | imagine_filter('thumb_367') }}"
-                                     alt="{{ pict.name }}" title="{{ pict.name }}"/></a>
-                        </div>
-                        {% if loop.index0 is odd %}</section>{% endif %}
-                        {% if loop.index0 == 5 or loop.index0 == 11 %}</div>{% endif %}
+                    <div class="grid">
+                        <div class="grid-item"></div>
+                        <div class="grid-item grid-item--width2"></div>
+                        <div class="grid-item grid-item--height2"></div>
+                    </div>
+                    {% dump(dishPictList) %}
+                    {% for dish in dishPictList %}
+                    <a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">
+                            <img src="{{ asset(dish.pictPath) | imagine_filter('thumb_367') }}"
+                                 alt="{{ dish.name }}" title="{{ dish.name }}"/></a>
                     {% endfor %}
                 </div>
 
             </section>
         </div>
     </section>
+    <style>
+        .grid-item {
+            width: 425px;
+            float: left;
+        }
+
+        .grid-item--width2 { width: 275px; }
+    </style>
 
 {% endblock %}
