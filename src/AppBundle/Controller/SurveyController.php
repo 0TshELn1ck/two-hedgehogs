@@ -55,15 +55,15 @@ class SurveyController extends Controller
     }
 
     /**
-     * @param SurveyAnswer $aid
-     * @Route("/result/{aid}", name="survey_result",  requirements={"aid": "\d+"}))
+     * @param SurveyAnswer $id
+     * @Route("/result/{id}", name="survey_result",  requirements={"id": "\d+"}))
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function resultAction($aid)
+    public function resultAction(SurveyAnswer $id)
     {
         $result = new SurveyResult();
         $em = $this->getDoctrine()->getManager();
-        $answer = $em->getRepository('AppBundle:SurveyAnswer')->findOneBy(['id' => $aid]);
+        $answer = $em->getRepository('AppBundle:SurveyAnswer')->findOneBy(['id' => $id]);
         if (!$answer) {
             throw $this->createNotFoundException('Unable to find answer');
         }
@@ -124,7 +124,7 @@ class SurveyController extends Controller
     private function createAnswerForm($answer)
     {
         return $this->createFormBuilder()
-            ->setAction($this->generateUrl('survey_result', ['aid' => $answer->getId()]))
+            ->setAction($this->generateUrl('survey_result', ['id' => $answer->getId()]))
             ->setMethod('POST')
             ->add('submit', SubmitType::class, [
                 'label' => $answer->getanswer(),
