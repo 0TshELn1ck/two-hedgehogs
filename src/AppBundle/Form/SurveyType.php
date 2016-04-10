@@ -14,7 +14,7 @@ class SurveyType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'attr' => array('size' => '68')
+                'attr' => ['size' => '68'], 'label' => false
             ])
             ->add('status', ChoiceType::class, [
                 'choices' => [
