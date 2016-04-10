@@ -33,7 +33,10 @@ class StaticPageType extends AbstractType
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array('data_class' => 'AppBundle\Entity\StaticPage'));
+        $resolver->setDefaults(array(
+            'data_class' => 'AppBundle\Entity\StaticPage',
+            'csrf_protection' => false,
+        ));
     }
 
     public function getBlockPrefix()
