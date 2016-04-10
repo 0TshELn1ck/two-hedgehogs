@@ -109,6 +109,10 @@ liip_imagine:
              quality: 75
              filters:
                  thumbnail: { size: [366, 432], mode: outbound }
+        thumb_400_400:
+             quality: 75
+             filters:
+                 thumbnail: { size: [400, 400], mode: outbound }
 
 # Pagination bundle
 knp_paginator:

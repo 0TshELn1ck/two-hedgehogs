@@ -16,6 +16,9 @@
 .menu .container {
   min-height: 60vh;
 }
+.menu{
+  padding:0;
+}
 
 .addToCart, .addToCartBlocked {
   background-color: @base-red;
@@ -476,7 +479,7 @@ ul, ol {
 }
 /******************************************** PROFILE PAGE ************************************************/
 .order_history {
-  padding: 20px 0;
+  margin: 0 0 0 15px;
   .canceled {
     border-left: 10px solid #848a86;
   }
@@ -599,5 +602,32 @@ ul, ol {
 
 .f_hidden {
   display: none !important;
+}
+
+.user_profile_tab{
+  overflow: hidden;
+  border-bottom:2px solid @base-red;
+  margin:0;
+  a {
+    color: @font-base;
+    display: block;
+    float: left;
+    padding: 5px 10px;
+    border: 2px solid @base-red;
+  }
+  a:hover{
+    text-decoration: none;
+    font-style: normal;
+    background-color: @base-red;
+    color:white;
+  }
+  .active {
+    background-color: @base-red;
+    color:white;
+  }
+  .active:hover{
+    color:white;
+    background-color: @hover-red;
+  }
 }
 

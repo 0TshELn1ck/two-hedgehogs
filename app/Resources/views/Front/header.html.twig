@@ -2,14 +2,15 @@
     <div class="header-wrapper">
         <nav class="navbar navbar-inverse">
             <div class="container-fluid">
-                <div class="navbar-header">
+                <div class="navbar-header logo_block">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a href="{{ path('homepage') }}" class="logo"><img src="{{ asset('images/logo.png') }}" alt="Resto"
-                                                                       title=""/></a>
+                    <a href="{{ path('homepage') }}" class="logo">
+                        <img src="{{ asset('images/logo.png') }}" alt="Resto" title=""/>
+                    </a>
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav navbar-right">
@@ -20,7 +21,6 @@
                                class="{{ 'dish' in app.request.get('_route') ? 'active' : '' }}">Меню</a></li>
                         <li><a href="{{ path("gallery") }}"
                                class="{{ 'gallery' in app.request.get('_route') ? 'active' : '' }}">Галерея</a></li>
-                        <li><a href="">Відгуки</a></li>
                         <li><a href="{{ path('cart') }}"
                                class="{{ 'cart' in app.request.get('_route') ? 'active' : '' }}">Замовлення <span
                                         class="ord_count">(<span
@@ -36,7 +36,7 @@
                                         <span class="caret"></span></button>
                                     <ul class="dropdown-menu">
                                         <li><a href="{{ path('user_orders') }}">Історія замовлень</a></li>
-                                        <li><a href="#">Налаштування</a></li>
+                                        <li><a href="{{ path('fos_user_profile_edit') }}">Налаштування</a></li>
                                         {% if is_granted('ROLE_CARRIER') %}
                                             <li><a href="{{ path('admin_index') }}">Адміністративна панель</a></li>
                                         {% endif %}

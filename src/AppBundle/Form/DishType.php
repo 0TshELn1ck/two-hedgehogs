@@ -41,7 +41,7 @@ class DishType extends AbstractType
                 'class' => 'AppBundle\Entity\DishCategory',
                 'property' => 'name',
                 'attr' => [
-                    'class' => 'chosen', 'data-placeholder' => '-- виберіть категорію --'
+                    'class' => 'chosen form-control', 'data-placeholder' => '-- виберіть категорію --'
                 ],
                 'multiple' => 'true', 'label' => false
             ]);

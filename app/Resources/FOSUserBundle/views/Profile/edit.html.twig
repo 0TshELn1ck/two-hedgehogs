@@ -1,5 +1,19 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "Front/base.html.twig" %}
 
-{% block fos_user_content %}
-{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
-{% endblock fos_user_content %}
+{% block title %}Налаштування{% endblock %}
+
+{% block content %}
+<div class="content-wrapper">
+
+    {#Page label#}
+    <section class="menu">
+        <div class="container">
+            <div class="menu_title">
+                <h2>Налаштування</h2>
+            </div>
+            <div class="row">
+            {% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}
