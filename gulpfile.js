@@ -16,6 +16,7 @@ gulp.task('css', function() {
             'bower_components/slick-carousel/slick/slick.css',
             'bower_components/flexslider/flexslider.css',
             'bower_components/chosen/chosen.css',
+            'bower_components/trumbowyg/dist/ui/trumbowyg.min.css',
             'web-src/css/**/*.css'
         ])
         .pipe(less({compress: true}))
@@ -45,6 +46,13 @@ gulp.task('images', function () {
         .pipe(gulp.dest('web/images/'))
 });
 
+gulp.task('imagesForTextArea', function () {
+    return gulp.src([
+            'bower_components/trumbowyg/dist/ui/images/*'
+        ])
+        .pipe(gulp.dest('web/css/images/'))
+});
+
 gulp.task('lib-js', function() {
     return gulp.src([
         ])
@@ -59,6 +67,7 @@ gulp.task('pages-js', function() {
             'bower_components/bootstrap/dist/js/bootstrap.js',
             'bower_components/slick-carousel/slick/slick.min.js',
             'bower_components/flexslider/jquery.flexslider-min.js',
+            'bower_components/trumbowyg/dist/trumbowyg.min.js',
             'bower_components/chosen/chosen.jquery.js',
             'web-src/js/**/*.js'
         ])
@@ -72,7 +81,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('default', ['clean'], function () {
-    var tasks = ['less', 'css', 'fonts', 'font-awesome', 'lib-js', 'pages-js', 'images'];
+    var tasks = ['less', 'css', 'fonts', 'font-awesome', 'lib-js', 'pages-js', 'images','imagesForTextArea'];
     tasks.forEach(function (val) {
         gulp.start(val);
     });
