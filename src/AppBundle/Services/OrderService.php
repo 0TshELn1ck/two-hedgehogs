@@ -9,6 +9,7 @@
 namespace AppBundle\Services;
 
 use AppBundle\Entity\Cart;
+use AppBundle\Entity\Order;
 use AppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -21,7 +22,7 @@ class OrderService
     public function __construct(RegistryInterface $doctrine, $security)
     {
         $this->em = $doctrine->getManager();
-        $this->user = $security->getToken()->getUser();;
+        $this->user = $security->getToken()->getUser();
     }
 
     /**
@@ -98,4 +99,25 @@ class OrderService
 
         return false;
     }
+
+    /**
+     * Get summ of order
+     *
+     * @param $order
+     * @return int
+     */
+    public function getSumm(Order $order)
+    {
+        $summ = 0;
+
+        foreach ($order->getDishesInOrder() as $dish) {
+            $price = $dish->getDish()->getPrice();
+            $summ = $summ + ($price * $dish->getCount());
+        }
+
+        return $summ;
+    }
+    
+    
+
 }

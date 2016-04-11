@@ -36,23 +36,17 @@ class OrderController extends Controller
                 foreach ($cart->getDishes() as $dish) {
                     $dishInOrder = new DishInOrder();
                     $dishInOrder->setDish($dish)
-                        ->setOrder($order);
-                    $order->addDishesInOrder($dishInOrder);
+                                ->setOrder($order);
                 }
 
                 $form = $this->createForm(OrderType::class, $order);
 
                 if ($request->getMethod() === 'POST') {
                     $form->handleRequest($request);
-                    $summ = 0;
-
-                    foreach ($order->getDishesInOrder() as $dish) {
-                        $price = $dish->getDish()->getPrice();
-                        $summ = $summ + ($price * $dish->getCount());
-                    }
-
+                    $summ = $this->get('hedgehogs.order')->getSumm($order);
                     $order->setUser($user)
-                        ->setSumm($summ);
+                          ->setSumm($summ);
+
                     $cart->getDishes()->clear();
                     $em->persist($order);
                     $em->persist($cart);
