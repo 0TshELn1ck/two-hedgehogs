@@ -14,11 +14,53 @@
 {% endblock breadcrumbs %}
 
 {% block content %}
-
-    {{ form(pageForm) }}
+    {{ form_start(pageForm) }}
+    <table class="table">
+        <tbody>
+            <tr>
+                <td class="col-sm-3">
+                    <label for="app_bundle_static_page_type_title">Назва</label>
+                </td>
+                <td>
+                    {{ form_widget(pageForm.title) }}
+                </td>
+            </tr>
+            <tr>
+                <td  class="col-sm-3">
+                    <label for="app_bundle_static_page_type_title">Url(назва сторінки транслітом)</label>
+                </td>
+                <td>
+                    {{ form_widget(pageForm.route) }}
+                </td>
+            </tr>
+            <tr>
+                <td  class="col-sm-3">
+                    <label for="app_bundle_static_page_type_title">Контент</label>
+                </td>
+                <td>
+                    {{ form_widget(pageForm.text) }}
+                </td>
+            </tr>
+            <tr>
+                <td  class="col-sm-3">
+                </td>
+                <td>
+                    {{ form_end(pageForm) }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
+    <script src="{{ asset('js/trumbowyg.min.js') }}"></script>
+    <link rel="stylesheet" href="{{ asset('css/trumbowyg.min.css') }}">
+
+    <script>
+        $('document').ready(function(){
+            $('#app_bundle_static_page_type_text').trumbowyg();
+        });
+    </script>
 {% endblock %}

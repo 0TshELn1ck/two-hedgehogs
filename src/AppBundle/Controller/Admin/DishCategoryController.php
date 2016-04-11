@@ -60,7 +60,7 @@ class DishCategoryController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
             $em->flush();
-            $msg = "New dish category \"" . $category->getName() . "\"  successfully added";
+            $msg = "Нова категорія \"" . $category->getName() . "\"  для страви успішно додана";
         }
 
         return [
@@ -85,7 +85,7 @@ class DishCategoryController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
-            $msg = "Category was successfully edited";
+            $msg = "Категорія була успішно відредагована";
         }
 
         return [

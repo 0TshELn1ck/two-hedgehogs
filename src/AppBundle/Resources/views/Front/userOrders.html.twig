@@ -11,71 +11,75 @@
 {% endblock %}
 
 {% block content %}
-    <section class="menu">
-        <div class="container">
-            <div class="menu_title">
-                <h2>Ваш профіль</h2>
-            </div>
-            <p class="page_desc">На цій сторінці ви можете переглядати історію ваших замовлень та відстежувати їх
-                поточний стан.</p>
-            {% if orders %}
-                <ul class="order_history">
-                    {% for order in orders %}
-                        <li class="row {{ order.status }} order_{{ order.id }}" data-order="{{ order.id }}">
-                            <div class="date cols-sm-3 col-md-3">
-                                <div>№{{ order.id }}</div>
-                                <div class="create_at">
-                                    <div>Створен:</div>{{ order.createdAt|date("d.m.Y h:m") }}</div>
-                                <div class="shipping_to">
-                                    <div>Доставити до:</div>{{ order.cookTo|date("d.m.Y h:m") }}</div>
-                            </div>
-                            <ul class="dish_list col-md-4">
-                                {% for dishInOrder in order.dishesInOrder %}
-                                    <li>
-                                        <a href="{{ path('show_one_dish', {'slug': dishInOrder.dish.slug }) }}">{{ dishInOrder.dish.name }}
-                                            х{{ dishInOrder.count }}</a></li>
-                                {% endfor %}
-                            </ul>
-                            <div class="cost col-md-3">
-                                {{ order.summ }}грн
-                            </div>
-                            <div class="status col-md-2">
-                                {% if order.status == 'processing' %}
-                                    Очікує підтвердження
-                                {% elseif order.status == 'canceled' %}
-                                    Відмовлено
-                                {% elseif order.status == 'confirmed' %}
-                                    Підтверджено, очікує на приготування
-                                {% elseif order.status == 'cooking' %}
-                                    Готується
-                                {% elseif order.status == 'shipping' %}
-                                    В дорозі
-                                {% elseif order.status == 'closed' %}
-                                    Завершено
-                                {% endif %}
-                            </div>
-                            {% if order.status == 'processing' or order.status == 'closed' or order.status == 'canceled' %}
-                                <div class="delete_position">
-                                    <i class="fa fa-times"></i>
-                                </div>
-                            {% endif %}
-                        </li>
-                        {% if order.status == 'closed' and order.feedback.id is not defined %}
-                            <li>
-                                Відгук:
-                                {{ form_start(forms[order.id], {'action': path('user_feedback', {'id': order.id})}) }}
-                                {{ form_row(forms[order.id].text) }}
-                                <input type="submit" value="Залишити відгук" class="btn btn-default"/>
-                                {{ form_end(forms[order.id]) }}
-                            </li>
-                        {% endif %}
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <h1>Поки що ви не здійснили жодного замовлення</h1>
-            {% endif %}
+<section class="menu">
+    <div class="container">
+        <div class="menu_title">
+            <h2>Замовлення</h2>
         </div>
-    </section>
+        <h2 class="user_profile_tab">
+            <a class="{{ 'user_orders' in app.request.get('_route') ? 'active' : '' }}" href="{{ path("user_orders") }}">
+                Історія замовлень
+            </a>
+            <a class="{{ 'fos_user_profile_edit' in app.request.get('_route') ? 'active' : '' }}" href="{{ path("fos_user_profile_edit") }}">
+                Редагування вашого профілю
+            </a>
+        </h2>
+        {% if orders %}
+            <ul class="order_history">
+                {% for order in orders %}
+                <li class="row {{ order.status }} order_{{ order.id }}" data-order="{{ order.id }}">
+                    <div class="date cols-sm-3 col-md-3">
+                        <div>№{{ order.id }}</div>
+                        <div class="create_at"><div>Створен: </div>{{ order.createdAt|date("d.m.Y h:m") }}</div>
+                        <div class="shipping_to"><div>Доставити до: </div>{{ order.cookTo|date("d.m.Y h:m") }}</div>
+                    </div>
+                    <ul class="dish_list col-md-4">
+                    {% for dishInOrder in order.dishesInOrder %}
+                        <li><a href="{{ path('show_one_dish', {'slug': dishInOrder.dish.slug }) }}">{{ dishInOrder.dish.name }} х{{ dishInOrder.count }}</a></li>
+                    {% endfor %}
+                    </ul>
+                    <div class="cost col-md-2">
+                    {{ order.summ }}грн
+                    </div>
+                    <div class="status col-md-2">
+                    {% if order.status == 'processing' %}
+                        Очікує підтвердження
+                    {% elseif order.status == 'canceled' %}
+                        Відмовлено
+                    {% elseif order.status == 'confirmed' %}
+                        Підтверджено, очікує на приготування
+                    {% elseif order.status == 'cooking' %}
+                        Готується
+                    {% elseif order.status == 'cooked' %}
+                        Приготоване
+                    {% elseif order.status == 'shipping' %}
+                        В дорозі
+                    {% elseif order.status == 'closed' %}
+                        Завершено
+                    {% endif %}
+                    </div>
+                    {% if order.status == 'processing' or order.status == 'closed' or order.status == 'canceled' %}
+                        <div class="delete_position">
+                            <i class="fa fa-times"></i>
+                        </div>
+                    {% endif %}
+                </li>
+                    {% if order.status == 'closed' and order.feedback.id is not defined %}
+                        <li>
+                            Відгук:
+                            {{ form_start(forms[order.id], {'action': path('user_feedback', {'id': order.id})}) }}
+                            {{ form_row(forms[order.id].text) }}
+                            <input type="submit" value="Залишити відгук" class="btn btn-default"/>
+                            {{ form_end(forms[order.id]) }}
+                        </li>
+                    {% endif %}
+                {% endfor %}
+        </ul>
+        {% else %}
+            <h1>Поки що ви не здійснили жодного замовлення</h1>
+        {% endif %}
+    </div>
+</section>
 {% endblock %}
 
 {% block initialize_plagins %}

@@ -4,7 +4,7 @@ namespace AppBundle\Services;
 
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
-class Gallery
+class GalleryService
 {
     private $doctrine;
 

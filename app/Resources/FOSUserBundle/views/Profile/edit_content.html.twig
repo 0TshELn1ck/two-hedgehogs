@@ -1,8 +1,58 @@
 {% trans_default_domain 'FOSUserBundle' %}
+<div class="no-float center-block">
+<h2 class="user_profile_tab">
+    <a class="{{ 'user_orders' in app.request.get('_route') ? 'active' : '' }}" href="{{ path("user_orders") }}">
+        Історія замовлень
+    </a>
+    <a class="{{ 'fos_user_profile_edit' in app.request.get('_route') ? 'active' : '' }}" href="{{ path("fos_user_profile_edit") }}">
+        Редагування вашого профілю
+    </a>
+</h2>
+    {{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>
+                    <lable for="username" class="pull-left bolder">Логін:</lable>
+                </td>
+                <td>
+                    <div class="form-group">
 
-{{ form_start(form, { 'action': path('fos_user_profile_edit'), 'attr': { 'class': 'fos_user_profile_edit' } }) }}
-    {{ form_widget(form) }}
-    <div>
-        <input type="submit" value="{{ 'profile.edit.submit'|trans }}" />
-    </div>
-{{ form_end(form) }}
+                        {{ form_widget(form.username, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <lable for="username" class="pull-left bolder">Електронна адреса:</lable>
+                </td>
+                <td>
+                    <div class="form-group">
+                        {{ form_widget(form.email, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <lable for="username" class="pull-left bolder">Пароль:</lable>
+                </td>
+                <td>
+                    <div class="form-group">
+
+                        {{ form_widget(form.current_password, { 'attr': {'class': 'form-control'} }) }}
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+                <td>
+                    <div class="form-group">
+                        <input type="submit" class="submit_button btn-bg btn-warning pull-right" value="{{ 'profile.edit.submit'|trans }}" />
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

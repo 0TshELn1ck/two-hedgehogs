@@ -59,4 +59,17 @@ class DishRepository extends EntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function getPopularDish()
+    {
+        return $this->createQueryBuilder('d')
+            ->select('d, count(o.id) as countOrders')
+            ->add('orderBy', 'countOrders DESC')
+            ->leftJoin('d.orders', 'o')
+            ->groupBy('d')
+            ->getQuery()
+            ->setMaxResults(8)
+            ->getResult();
+
+    }
 }

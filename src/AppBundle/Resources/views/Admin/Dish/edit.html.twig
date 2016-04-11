@@ -15,51 +15,43 @@
     <div class="col-sm-12">
         <h3>Редагування страви</h3>
         {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-        <div class="form-group">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-9">
-                {{ form_row(form.name) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-9">
-                {{ form_row(form.recipe) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-9">
-                {{ form_row(form.ingredients) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-9">
-                {{ form_row(form.status) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-9">
-                {{ form_row(form.price) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-9">
-                {{ form_row(form.categories) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-9">
-                <label class="col-sm-3 control-label no-padding-right"></label>
-                <input type="submit" value="Зберегти" class="btn btn-default"/>
-            </div>
-        </div>
+        <table class="table">
+            <tbody>
+            <tr>
+                <td><label class="col-lg-4">Назва:</label></td>
+                <td>{{ form_row(form.name) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Рецепт:</label></td>
+                <td>{{ form_row(form.recipe) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Ингрідієнти:</label></td>
+                <td>{{ form_row(form.ingredients) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Статус:</label></td>
+                <td>{{ form_row(form.status) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Ціна:</label></td>
+                <td>{{ form_row(form.price) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Категорії:</label></td>
+                <td>{{ form_row(form.categories) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4"></label></td>
+                <td><input type="submit" value="Створити" class="btn btn-default pull-right"/></td>
+            </tr>
+
+
+            </tbody>
+        </table>
         {{ form_end(form) }}
 
-        <h3>Загрузка фото</h3>
+        <h3>Завантаження фото</h3>
         {{ form_start(uploadForm, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
         <div class="form-group">
             <div class="col-sm-2"></div>
@@ -93,7 +85,7 @@
             </div>
             {{ form_end(formChoose) }}
 
-            <h3>Видалити фотографії цієї страви</h3>
+            <h3>Видалити всі фотографії цієї страви</h3>
             {{ form_start(delPictForm, {'attr': {'class': 'form-horizontal', 'role': 'form', onsubmit: 'return confirm("Ви дійсно хочете видалити фотографії?");' }}) }}
             <div class="form-group">
                 <div class="col-sm-2"></div>

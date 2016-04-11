@@ -12,7 +12,7 @@ class DishCategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class);
+            ->add('name', TextType::class, ['label' => false, 'attr' => ['placeholder' => 'Назва категорії']]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
