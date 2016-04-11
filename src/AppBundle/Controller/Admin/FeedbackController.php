@@ -15,7 +15,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 class FeedbackController extends Controller
 {
     /**
-     * @Route("feedback", name="admin_feedback_index")
+     * @Route("/feedback", name="admin_feedback_index")
      */
     public function indexAction()
     {

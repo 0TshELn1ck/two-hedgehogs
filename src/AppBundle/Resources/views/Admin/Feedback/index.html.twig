@@ -29,16 +29,16 @@
                                     <tbody>
                                     <tr>
                                         <td>
-                                            {{ item.id }}
+                                            <a href="{{ path('admin_show_order', {'order': item.id}) }}"
+                                               title="детально">{{ item.id }}</a>
                                         </td>
                                         <td>
-                                            <a href="{{ path('admin_feedback_show', {'id': item.feedback.id}) }}" title="деталі">
-                                                відгук {{ item.feedback.id }}
-                                            </a>
+                                            <a href="{{ path('admin_feedback_show', {'id': item.feedback.id}) }}"
+                                               title="детально"> відгук {{ item.feedback.id }}</a>
                                         </td>
                                         <td>
-                                            <a href="{{ path('admin_user_show', {'id': item.user.id}) }}" title="деталі">
-                                                {{ item.user.username }}</a>
+                                            <a href="{{ path('admin_user_show', {'id': item.user.id}) }}"
+                                               title="детально">{{ item.user.username }}</a>
                                         </td>
                                         <td>
                                             {{ item.createdAt|date }}
@@ -55,9 +55,9 @@
                                 </tbody>
                             {% endif %}
                         </table>
-                    </div><!-- /.span -->
+                    </div><!--/.col  -->
                 </div><!-- /.row -->
-            </div><!-- PAGE CONTENT ENDS -->
-        </div><!-- /.col -->
-    </div><!-- /.row -->
+            </div><!-- .col -->
+        </div><!-- /.row -->
+    </div><!-- / page-content -->
 {% endblock content %}

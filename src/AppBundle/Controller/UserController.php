@@ -27,20 +27,11 @@ class UserController extends Controller
         $user = $this->getUser();
         $em = $this->getDoctrine()->getManager();
 
-        $forms = [];
         if ($user) {
             $orders = $em->getRepository('AppBundle:Order')->getSortableOrder($user->getId());
-            /** @var Order $order */
-            foreach ($orders as $order) {
-                if ($order->getStatus() == 'closed') {
-                    $feedback = new Feedback();
-                    $forms[$order->getId()] = $this->createForm(FeedbackType::class, $feedback)->createView();
-                }
-            }
 
             return [
-                'orders' => $em->getRepository('AppBundle:Order')->getSortableOrder($user->getId()),
-                'forms' => $forms
+                'orders' => $orders, 'forms' => $this->createFeedbackForms($orders)
             ];
         }
 
@@ -90,5 +81,18 @@ class UserController extends Controller
         }
 
         return new JsonResponse(['error' => 'Виникла помилка']);
+    }
+
+    private function createFeedbackForms($orders)
+    {
+        $forms = [];
+        /** @var Order $order */
+        foreach ($orders as $order) {
+            if ($order->getStatus() == 'closed') {
+                $feedback = new Feedback();
+                $forms[$order->getId()] = $this->createForm(FeedbackType::class, $feedback)->createView();
+            }
+        }
+        return $forms;
     }
 }
