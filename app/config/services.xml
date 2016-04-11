@@ -13,5 +13,9 @@
         <service id="gallery.dishes" class="AppBundle\Services\GalleryService">
             <argument key="doctrine" type="service" id="doctrine"/>
         </service>
+        <service id="hedgehogs.order" class="AppBundle\Services\OrderService">
+            <argument key="doctrine" type="service" id="doctrine"/>
+            <argument key="security" type="service" id="security.token_storage" />
+        </service>
     </services>
 </container>

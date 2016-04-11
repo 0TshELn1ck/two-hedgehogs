@@ -23,26 +23,7 @@ class CartController extends Controller
      */
     public function getCartCheckAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-        $count_dish = 0;
-
-        if ($user) {
-            $cart = $em->getRepository("AppBundle:Cart")->findOneBy(array('user' => $user->getId()));
-
-            if (!$cart) {
-                $cart = new Cart();
-                $cart->setUser($user);
-                $em->persist($cart);
-                $em->flush();
-            }
-
-            $count_dish = count($cart->getDishes());
-        }
-
-        return new Response(
-            $count_dish
-        );
+        return new Response($this->get('hedgehogs.order')->getCart());
     }
 
     /**
@@ -53,18 +34,9 @@ class CartController extends Controller
     public function addToCartAction(Request $request, Dish $dish = null)
     {
         $response = new JsonResponse();
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-
-        if ($user) {
-            $cart = $user->getCart();
-            $dishInCart = $cart->getDishes();
-
-            if (!$dishInCart->contains($dish)) {
-                $cart->addDish($dish);
-                $em->flush();
-                $response->setData(array('added' => 1));
-            }
+        
+        if ($this->get('hedgehogs.order')->addToCart($dish)){
+            $response->setData(array('added' => 1));
         }
 
         return $response;
@@ -78,18 +50,9 @@ class CartController extends Controller
     public function dellFromCartAction(Dish $dish = null)
     {
         $response = new JsonResponse();
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->getUser();
-
-        if ($user instanceof User) {
-            $cart = $user->getCart();
-            $dishInCart = $cart->getDishes();
-
-            if ($dishInCart->contains($dish)) {
-                $cart->removeDish($dish);
-                $em->flush();
-                $response->setData(array('deleted' => 1));
-            }
+        
+        if ($this->get('hedgehogs.order')->dellFromCart($dish)){
+            $response->setData(array('deleted' => 1));
         }
 
         return $response;
