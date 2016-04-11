@@ -118,6 +118,16 @@
                     }
                 });
             });
+
+            $('.feed_btn').click(function() {
+                $.ajax({
+                    url: "{{ path('get_new_feedback') }}",
+                    method: "POST",
+                    success: function (data) {
+                        $('.feed_modal').html(data);
+                    }
+                });
+            });
         });
     </script>
     <style>
