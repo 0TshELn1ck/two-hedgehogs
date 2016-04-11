@@ -11,12 +11,6 @@
             </div>
             <section class="gallery">
                 <div class="container">
-                    <div class="grid">
-                        <div class="grid-item"></div>
-                        <div class="grid-item grid-item--width2"></div>
-                        <div class="grid-item grid-item--height2"></div>
-                    </div>
-                    {% dump(dishPictList) %}
                     {% for dish in dishPictList %}
                     <a href="{{ path('show_one_dish', {'slug': dish.slug }) }}">
                             <img src="{{ asset(dish.pictPath) | imagine_filter('thumb_367') }}"
