@@ -62,6 +62,11 @@
                                     В дорозі
                                 {% elseif order.status == 'closed' %}
                                     Завершено
+                                    {% if order.status == 'closed' and order.feedback.id is not defined %}
+                                    <div>
+                                        <span class="left_feed" data-order="{{ order.id }}">Залишити відгук</span>
+                                    </div>
+                                    {% endif %}
                                 {% endif %}
                             </div>
                             {% if order.status == 'processing' or order.status == 'closed' or order.status == 'canceled' %}
@@ -71,7 +76,7 @@
                             {% endif %}
                         </li>
                         {% if order.status == 'closed' and order.feedback.id is not defined %}
-                            <li>
+                            <li class="feed_back feed_{{ order.id }}">
                                 Відгук:
                                 {{ form_start(forms[order.id], {'action': path('user_feedback', {'id': order.id}), 'method': 'POST'}) }}
                                 {{ form_row(forms[order.id].text) }}
@@ -107,6 +112,11 @@
                         }
                     }
                 });
+            });
+
+            $('.left_feed').click(function(){
+                var order = $(this).data('order');
+                $('.feed_'+order).slideToggle("fast");
             });
         });
 
