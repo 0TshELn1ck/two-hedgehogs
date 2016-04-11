@@ -1,0 +1,63 @@
+{% extends('Admin/base.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        <a href="{{ path('admin_feedback_index') }}">Відгуки</a>
+    </li>
+{% endblock breadcrumbs %}
+
+{% block content %}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Відгуки</h3>
+                <div class="row">
+                    <br>
+                    <div class="col-xs-12">
+                        <table id="simple-table" class="table table-striped table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>№ Замовлення</th>
+                                <th>Відгук</th>
+                                <th>Користувач</th>
+                                <th>Дата</th>
+                                <th>Статус</th>
+                            </tr>
+                            </thead>
+                            {% if orderList %}
+                                {% for item in orderList %}
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <a href="{{ path('admin_show_order', {'order': item.id}) }}"
+                                               title="детально">{{ item.id }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('admin_feedback_show', {'id': item.feedback.id}) }}"
+                                               title="детально"> відгук {{ item.feedback.id }}</a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ path('admin_user_show', {'id': item.user.id}) }}"
+                                               title="детально">{{ item.user.username }}</a>
+                                        </td>
+                                        <td>
+                                            {{ item.createdAt|date }}
+                                        </td>
+                                        <td>
+                                            {% if item.feedback.status == 0 %}
+                                                <span class="green">непереглянуте</span>
+                                            {% else %}
+                                                <span class="lighter grey">переглянуте</span>
+                                            {% endif %}
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            {% endif %}
+                        </table>
+                    </div><!--/.col  -->
+                </div><!-- /.row -->
+            </div><!-- .col -->
+        </div><!-- /.row -->
+    </div><!-- / page-content -->
+{% endblock content %}

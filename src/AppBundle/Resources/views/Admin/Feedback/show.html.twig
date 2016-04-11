@@ -1,0 +1,31 @@
+{% extends('AppBundle:Admin/Feedback:index.html.twig') %}
+{% block breadcrumbs %}
+    {{ parent() }}
+    <li>
+        Відгук №:{{ feedback.id }}
+    </li>
+{% endblock breadcrumbs %}
+
+{% block content %}
+    <div class="page-content">
+        <div class="row">
+            <div class="col-xs-12">
+                <h3>Відгук № {{ feedback.id }}</h3>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <ul>
+                        <li>Користувач: {{ feedback.user.username }}</li>
+                        <li>Замовлення №: {{ feedback.order.id }}</li>
+                        <li>Створене: {{ feedback.order.createdAt|date }}</li>
+                        <li>
+                            <div class="widget-box widget-main">
+                                {{ feedback.text }}
+                            </div>
+                        </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
