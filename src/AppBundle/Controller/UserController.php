@@ -52,6 +52,7 @@ class UserController extends Controller
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      * @Route("/feedback/{id}", name="user_feedback", requirements={"id": "\d+"})
+     * @Method("POST")
      */
     public function feedbackAction(Order $id, Request $request)
     {
