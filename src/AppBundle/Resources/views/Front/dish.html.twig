@@ -68,7 +68,7 @@
                                 </p>
                             {% endif %}
                             <div>
-                                <button class="addToCart">Замовити <i class="fa fa-cutlery"></i></button>
+                                <button class="addToCart" data-dish="{{ dish.id }}">Замовити <i class="fa fa-cutlery"></i></button>
                             </div>
                         </div>
                     {% else %}
@@ -92,6 +92,24 @@
             $('.flexslider').flexslider({
                 animation: "slide",
                 controlNav: "thumbnails"
+            });
+        });
+        $(document).ready(function () {
+            //add to cart ajax
+            $('.addToCart').click(function () {
+                var addButton = $(this);
+                var dish = addButton.data("dish");
+                $.ajax({
+                    url: "{{ path('addToCart') }}/" + dish,
+                    method: "POST",
+                    success: function (data) {
+                        if (data.added == 1) {
+                            var count = parseInt($('.cart_count_heder').html()) + 1;
+                            addButton.html('В кошику <i class="fa fa-check"></i>').css("background-color", "grey");
+                            $('.cart_count_heder').html(count);
+                        }
+                    }
+                });
             });
         });
     </script>
