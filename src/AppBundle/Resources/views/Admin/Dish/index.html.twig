@@ -31,7 +31,7 @@
                         <table id="simple-table" class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>#</th>
+                                <th>id</th>
                                 <th>ім'я</th>
                                 <th>статус</th>
                                 <th>ціна</th>
@@ -44,7 +44,7 @@
                                 {% for item in dishList %}
                                     <tbody>
                                     <tr>
-                                        <td>{{ loop.index }}</td>
+                                        <td>{{ item.id }}</td>
                                         <td><a href="{{ path('admin_dish_edit', {'id': item.id}) }}"
                                                title="edit dish">
                                                 {{ item.name }}
@@ -82,7 +82,9 @@
                                 </tbody>
                             {% endif %}
                         </table>
-                        {% include ':Admin:paginate.html.twig' %}
+                        <ul class="pager">
+                            {{ knp_pagination_render(dishList) }}
+                        </ul>
                     </div><!-- /.span -->
                 </div><!-- /.row -->
             </div><!-- PAGE CONTENT ENDS -->

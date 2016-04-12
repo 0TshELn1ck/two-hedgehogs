@@ -27,16 +27,6 @@ class DishRepository extends EntityRepository
             ->getResult();
     }
 
-    public function getAdminDishes($offset, $max)
-    {
-        return $this->getEntityManager()
-            ->createQuery(
-                'SELECT d FROM AppBundle:Dish d'
-            )
-            ->setFirstResult($offset)
-            ->setMaxResults($max);
-    }
-
     public function getOneDish($slug)
     {
         return $this->createQueryBuilder('d')
