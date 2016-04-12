@@ -6,7 +6,6 @@ use AppBundle\Entity\Dish;
 use AppBundle\Entity\UploadPicture;
 use AppBundle\Form\DishType;
 use AppBundle\Form\ChoicePictureType;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -26,25 +25,12 @@ class DishController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $page = $request->query->getInt('page', 1);
-        $maxResults = 10;
-        /* if page = 0 */
-        if ($page >= 1) {
-            $offset = ($page - 1) * $maxResults;
-        } else {
-            $offset = 0;
-            $page = 1;
-        }
-
         $em = $this->getDoctrine()->getManager();
-        $query = $em->getRepository('AppBundle:Dish')->getAdminDishes($offset, $maxResults);
-        $paginate = $this->paginate($query, $maxResults, $page);
-        $i = 0;
-        $dishList = [];
+        $dishList = $em->getRepository('AppBundle:Dish')->findAll();
+        $paginate = $this->get('knp_paginator')->paginate($dishList, $request->query->getInt('page', 1), 10);
+
         $deleteForms = [];
-        foreach ($paginate['pagesList'] as $entity) {
-            $dishList[$i] = $entity;
-            $i++;
+        foreach ($dishList as $entity) {
             $deleteForms[$entity->getId()] = $this->createFormBuilder($entity)
                 ->setAction($this->generateUrl('admin_dish_delete', array('id' => $entity->getId())))
                 ->setMethod('DELETE')
@@ -54,8 +40,7 @@ class DishController extends Controller
                 ])
                 ->getForm()->createView();
         }
-        return $this->render('@App/Admin/Dish/index.html.twig', ['dishList' => $dishList,
-            'deleteForm' => $deleteForms, 'paginate' => $paginate]);
+        return $this->render('@App/Admin/Dish/index.html.twig', ['deleteForm' => $deleteForms, 'dishList' => $paginate]);
     }
 
     /**
@@ -199,18 +184,6 @@ class DishController extends Controller
                 'attr' => ['class' => 'btn btn-xs btn-info ace-icon fa fa-trash-o bigger-115']
             ])
             ->getForm();
-    }
-
-    private function paginate($query, $maxResults, $page)
-    {
-        $pagesList = new Paginator($query, $fetchJoin = false);
-        $count = count($pagesList);
-        $maxPages = ceil($count / $maxResults);
-        /* if - need to activate or disactivate page block in Twig */
-        if ($count <= $maxResults) {
-            $count = 0;
-        }
-        return ['pagesList' => $pagesList, 'count' => $count, 'maxPages' => $maxPages, 'page' => $page];
     }
 
     /**

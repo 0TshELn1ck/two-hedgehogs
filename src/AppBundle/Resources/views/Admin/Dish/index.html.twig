@@ -82,7 +82,9 @@
                                 </tbody>
                             {% endif %}
                         </table>
-                        {% include ':Admin:paginate.html.twig' %}
+                        <ul class="pager">
+                            {{ knp_pagination_render(dishList) }}
+                        </ul>
                     </div><!-- /.span -->
                 </div><!-- /.row -->
             </div><!-- PAGE CONTENT ENDS -->
