@@ -21,18 +21,18 @@ class SurveyController extends Controller
     /**
      * @Route("/", name="admin_survey_index")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         $surveyList = $em->getRepository('AppBundle:Survey')->findAll();
+        $paginate = $this->get('knp_paginator')->paginate($surveyList, $request->query->getInt('page', 1), 10);
 
         $delForms = [];
         foreach ($surveyList as $item) {
             $delForms[$item->getId()] = $this->createDeleteForm($item)->createView();
         }
 
-        return $this->render('@App/Admin/Survey/index.html.twig', ['surveyList' => $surveyList,
-            'delForms' => $delForms]);
+        return $this->render('@App/Admin/Survey/index.html.twig', ['surveyList' => $paginate, 'delForms' => $delForms]);
     }
 
     /**

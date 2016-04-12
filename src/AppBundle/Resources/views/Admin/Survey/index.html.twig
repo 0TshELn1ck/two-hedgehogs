@@ -37,7 +37,7 @@
                         <table id="simple-table" class="table table-striped table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th>#</th>
+                                <th>id</th>
                                 <th>назва</th>
                                 <th>статус</th>
                                 <th>створене</th>
@@ -48,7 +48,7 @@
                                 {% for item in surveyList %}
                                     <tbody>
                                     <tr>
-                                        <td>{{ loop.index }}</td>
+                                        <td>{{ item.id }}</td>
                                         <td><a href="{{ path('admin_survey_edit', {'id': item.id}) }}"
                                                title="edit survey">
                                                 {{ item.title }}</a>
@@ -83,7 +83,9 @@
                                 </tbody>
                             {% endif %}
                         </table>
-                        {% include ':Admin:paginate.html.twig' %}
+                        <ul class="pager">
+                            {{ knp_pagination_render(surveyList) }}
+                        </ul>
                     </div><!-- /.span -->
                 </div><!-- /.row -->
             </div><!-- PAGE CONTENT ENDS -->
