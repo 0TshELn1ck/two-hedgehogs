@@ -25,6 +25,7 @@ class DishCategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $categoryList = $em->getRepository('AppBundle:DishCategory')->findAll();
+        $paginate = $this->get('knp_paginator')->paginate($categoryList, $request->query->getInt('page', 1), 10);
 
         $deleteForm = [];
         foreach ($categoryList as $entity) {
@@ -39,7 +40,7 @@ class DishCategoryController extends Controller
         }
 
         return [
-            'categoryList' => $categoryList,
+            'categoryList' => $paginate,
             'deleteForm' => $deleteForm
         ];
     }
