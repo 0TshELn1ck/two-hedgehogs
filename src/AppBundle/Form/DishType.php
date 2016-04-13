@@ -5,6 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -44,6 +45,11 @@ class DishType extends AbstractType
                     'class' => 'chosen form-control', 'data-placeholder' => '-- виберіть категорію --'
                 ],
                 'multiple' => 'true', 'label' => false
+            ])
+            ->add('uploadPictures', CollectionType::class, [
+                'required' => false,
+                'allow_add' => true,
+                'entry_type' => UploadPictureType::class,
             ]);
     }
 

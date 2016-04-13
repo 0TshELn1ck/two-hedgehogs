@@ -101,12 +101,13 @@
                 {% for dish in popularDish %}
                 <article>
                     <div class="dishe_img">
-                        <a href="#"><img src="{{ asset(dish.0.pictPath) | imagine_filter('thumb_vertical366') }}" alt="" title=""/></a>
+                        <a href="{{ path('show_one_dish', {'slug': dish[0].slug }) }}"><img src="{{ asset(dish.0.pictPath) | imagine_filter('thumb_vertical366') }}" alt="" title=""/></a>
                     </div>
                     <div class="dish_info">
                         <h2>{{ dish.0.name }}</h2>
 
                         <h3 class="hidden-xs">{{ dish.0.price }} грн</h3>
+                    </div>
                 </article>
                 {% endfor %}
 

@@ -6,9 +6,9 @@ use AppBundle\Entity\Dish;
 use AppBundle\Entity\UploadPicture;
 use AppBundle\Form\DishType;
 use AppBundle\Form\ChoicePictureType;
+use AppBundle\Form\UploadPictureType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -49,6 +49,7 @@ class DishController extends Controller
     public function newAction(Request $request)
     {
         $dish = new Dish();
+        /*$pict = new UploadPicture();*/
         $dish->setPictPath('not_set');
 
         $form = $this->createForm(DishType::class, $dish);
@@ -57,6 +58,7 @@ class DishController extends Controller
         if ($form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($dish);
+            /*$em->persist($pict);*/
             $em->flush();
             $message = "Нова страва \"" . $dish->getName() . "\" була успішно додана";
 
@@ -79,9 +81,7 @@ class DishController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $form = $this->createForm(DishType::class, $dish);
-        $uploadForm = $this->createFormBuilder($pict)
-            ->add('file', FileType::class, ['label' => false])
-            ->getForm();
+        $uploadForm = $this->createForm(UploadPictureType::class, $pict);
 
         $choosePictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads($id);
         $countPictures = $em->getRepository('AppBundle:UploadPicture')->countPictures($id);
