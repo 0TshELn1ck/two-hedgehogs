@@ -1,0 +1,27 @@
+
+    <li class="dropdown-header">
+        <i class="ace-icon fa fa-envelope-o"></i>
+        Відгуки
+    </li>
+
+    <li class="dropdown-content">
+        <ul class="dropdown-menu dropdown-navbar">
+            {% for feed in feedbacks %}
+            <li>
+                <a href="{{ path('admin_feedback_show', {'id':feed.id}) }}" class="clearfix">
+                    <span class="msg-body">
+                        <span class="msg-title">
+                            <span class="blue">{{ feed.user }}:</span>
+                            {{ feed.text }}
+                        </span>
+                    </span>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    <li class="dropdown-footer">
+        <a href="{{ path('admin_feedback_index') }}">
+            Переглянути всі
+            <i class="ace-icon fa fa-arrow-right"></i>
+        </a>
+    </li>

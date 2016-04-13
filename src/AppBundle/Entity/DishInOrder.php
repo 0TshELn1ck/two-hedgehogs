@@ -83,6 +83,7 @@ class DishInOrder
     public function setOrder(\AppBundle\Entity\Order $order = null)
     {
         $this->order = $order;
+        $this->order->addDishesInOrder($this);
 
         return $this;
     }

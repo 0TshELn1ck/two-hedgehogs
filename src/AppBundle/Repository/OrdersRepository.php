@@ -51,4 +51,14 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
             ->setParameter('user', $user_id)
             ->getResult();
     }
+
+    public function getFeedbackOrders()
+    {
+        return $this->createQueryBuilder('o')
+            ->select('o', 'ou')
+            ->leftJoin('o.user', 'ou')
+            ->Join('o.feedback', 'of')
+            ->getQuery()
+            ->getResult();
+    }
 }

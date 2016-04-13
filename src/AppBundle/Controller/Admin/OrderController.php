@@ -83,13 +83,9 @@ class OrderController extends Controller
         
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
-            if ($form->isValid()) {
-                $newDishes = $order->getDishesInOrder();
-                $summ = 0;
 
-                foreach ($newDishes as $dishInOrder){
-                    $summ += $dishInOrder->getDish()->getPrice() * $dishInOrder->getCount();
-                }
+            if ($form->isValid()) {
+                $summ = $this->get('hedgehogs.order')->getSumm($order);
                 $order->setSumm($summ);
                 $em->persist($order);
                 $em->flush();
@@ -179,11 +175,7 @@ class OrderController extends Controller
                     $em->remove($order);
                 } else {
                     $newDishes = $order->getDishesInOrder();
-                    $summ = 0;
-
-                    foreach ($newDishes as $dishInOrder){
-                        $summ += $dishInOrder->getDish()->getPrice() * $dishInOrder->getCount();
-                    }
+                    $summ = $this->get('hedgehogs.order')->getSumm($order);
                     $order->setSumm($summ);
                 }
                 $em->flush();

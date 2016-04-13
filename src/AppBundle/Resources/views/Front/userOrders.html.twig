@@ -1,6 +1,6 @@
 {% extends(':Front:base.html.twig') %}
 
-{% block title%}Два їжа{% endblock %}
+{% block title %}Два їжа{% endblock %}
 
 {% block new_stylesheets %}
     <link href="{{ asset('css/slick.css') }}" rel="stylesheet"/>
@@ -11,67 +11,86 @@
 {% endblock %}
 
 {% block content %}
-<section class="menu">
-    <div class="container">
-        <div class="menu_title">
-            <h2>Замовлення</h2>
-        </div>
-        <h2 class="user_profile_tab">
-            <a class="{{ 'user_orders' in app.request.get('_route') ? 'active' : '' }}" href="{{ path("user_orders") }}">
-                Історія замовлень
-            </a>
-            <a class="{{ 'fos_user_profile_edit' in app.request.get('_route') ? 'active' : '' }}" href="{{ path("fos_user_profile_edit") }}">
-                Редагування вашого профілю
-            </a>
-        </h2>
-        {% if orders %}
-            <ul class="order_history">
-                {% for order in orders %}
-                <li class="row {{ order.status }} order_{{ order.id }}" data-order="{{ order.id }}">
-                    <div class="date cols-sm-3 col-md-3">
-                        <div>№{{ order.id }}</div>
-                        <div class="create_at"><div>Створен: </div>{{ order.createdAt|date("d.m.Y h:m") }}</div>
-                        <div class="shipping_to"><div>Доставити до: </div>{{ order.cookTo|date("d.m.Y h:m") }}</div>
-                    </div>
-                    <ul class="dish_list col-md-4">
-                    {% for dishInOrder in order.dishesInOrder %}
-                        <li><a href="{{ path('show_one_dish', {'slug': dishInOrder.dish.slug }) }}">{{ dishInOrder.dish.name }} х{{ dishInOrder.count }}</a></li>
+    <section class="menu">
+        <div class="container">
+            <div class="menu_title">
+                <h2>Замовлення</h2>
+            </div>
+            <h2 class="user_profile_tab">
+                <a class="{{ 'user_orders' in app.request.get('_route') ? 'active' : '' }}"
+                   href="{{ path("user_orders") }}">
+                    Історія замовлень
+                </a>
+                <a class="{{ 'fos_user_profile_edit' in app.request.get('_route') ? 'active' : '' }}"
+                   href="{{ path("fos_user_profile_edit") }}">
+                    Редагування вашого профілю
+                </a>
+            </h2>
+            {% if orders %}
+                <ul class="order_history">
+                    {% for order in orders %}
+                        <li class="row {{ order.status }} order_{{ order.id }}" data-order="{{ order.id }}">
+                            <div class="date cols-sm-3 col-md-3">
+                                <div>№{{ order.id }}</div>
+                                <div class="create_at">
+                                    <div>Створен:</div>{{ order.createdAt|date("d.m.Y h:m") }}</div>
+                                <div class="shipping_to">
+                                    <div>Доставити до:</div>{{ order.cookTo|date("d.m.Y h:m") }}</div>
+                            </div>
+                            <ul class="dish_list col-md-4">
+                                {% for dishInOrder in order.dishesInOrder %}
+                                    <li>
+                                        <a href="{{ path('show_one_dish', {'slug': dishInOrder.dish.slug }) }}">{{ dishInOrder.dish.name }}
+                                            х{{ dishInOrder.count }}</a></li>
+                                {% endfor %}
+                            </ul>
+                            <div class="cost col-md-2">
+                                {{ order.summ }}грн
+                            </div>
+                            <div class="status col-md-2">
+                                {% if order.status == 'processing' %}
+                                    Очікує підтвердження
+                                {% elseif order.status == 'canceled' %}
+                                    Відмовлено
+                                {% elseif order.status == 'confirmed' %}
+                                    Підтверджено, очікує на приготування
+                                {% elseif order.status == 'cooking' %}
+                                    Готується
+                                {% elseif order.status == 'cooked' %}
+                                    Приготоване
+                                {% elseif order.status == 'shipping' %}
+                                    В дорозі
+                                {% elseif order.status == 'closed' %}
+                                    Завершено
+                                    {% if order.status == 'closed' and order.feedback.id is not defined %}
+                                    <div>
+                                        <span class="left_feed" data-order="{{ order.id }}">Залишити відгук</span>
+                                    </div>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+                            {% if order.status == 'processing' or order.status == 'closed' or order.status == 'canceled' %}
+                                <div class="delete_position">
+                                    <i class="fa fa-times"></i>
+                                </div>
+                            {% endif %}
+                        </li>
+                        {% if order.status == 'closed' and order.feedback.id is not defined %}
+                            <li class="feed_back feed_{{ order.id }}">
+                                Відгук:
+                                {{ form_start(forms[order.id], {'action': path('user_feedback', {'id': order.id}), 'method': 'POST'}) }}
+                                {{ form_row(forms[order.id].text) }}
+                                <input type="submit" value="Залишити відгук" class="btn btn-default"/>
+                                {{ form_end(forms[order.id]) }}
+                            </li>
+                        {% endif %}
                     {% endfor %}
-                    </ul>
-                    <div class="cost col-md-2">
-                    {{ order.summ }}грн
-                    </div>
-                    <div class="status col-md-2">
-                    {% if order.status == 'processing' %}
-                        Очікує підтвердження
-                    {% elseif order.status == 'canceled' %}
-                        Відмовлено
-                    {% elseif order.status == 'confirmed' %}
-                        Підтверджено, очікує на приготування
-                    {% elseif order.status == 'cooking' %}
-                        Готується
-                    {% elseif order.status == 'cooked' %}
-                        Приготоване
-                    {% elseif order.status == 'shipping' %}
-                        В дорозі
-                    {% elseif order.status == 'closed' %}
-                        Завершено
-                    {% endif %}
-                    </div>
-                    {% if order.status == 'processing' or order.status == 'closed' or order.status == 'canceled' %}
-                        <div class="delete_position">
-                            <i class="fa fa-times"></i>
-                        </div>
-                    {% endif %}
-                </li>
-                {% endfor %}
-
-        </ul>
-        {% else %}
-            <h1>Поки що ви не здійснили жодного замовлення</h1>
-        {% endif %}
-    </div>
-</section>
+                </ul>
+            {% else %}
+                <h1>Поки що ви не здійснили жодного замовлення</h1>
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}
 
 {% block initialize_plagins %}
@@ -80,23 +99,28 @@
             $('.delete_position').click(function () {
                 var order = $(this).parent().data("order");
                 $.ajax({
-                    url: "{{ path('deleteOrderByUser')}}/" + order,
+                    url: "{{ path('deleteOrderByUser') }}/" + order,
                     method: "POST",
                     success: function (data) {
                         if (data.error) {
-                            $('.page_desc').append('<div class="alert-warning">'+data.error+'</div>');
+                            $('.page_desc').append('<div class="alert-warning">' + data.error + '</div>');
                         } else {
-                            $('.order_'+order).fadeOut("fast");
-                            setTimeout(function(){
-                                $('.order_'+order).remove();
+                            $('.order_' + order).fadeOut("fast");
+                            setTimeout(function () {
+                                $('.order_' + order).remove();
                             }, 1000);
                         }
                     }
                 });
             });
+
+            $('.left_feed').click(function(){
+                var order = $(this).data('order');
+                $('.feed_'+order).slideToggle("fast");
+            });
         });
 
-        $('form[name="order"]').submit(function(){
+        $('form[name="order"]').submit(function () {
             $('input[type="submit"]').prop('disabled', true);
             return true;
         });
