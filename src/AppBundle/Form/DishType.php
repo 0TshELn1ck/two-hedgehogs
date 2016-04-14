@@ -5,7 +5,7 @@ namespace AppBundle\Form;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -46,10 +46,14 @@ class DishType extends AbstractType
                 ],
                 'multiple' => 'true', 'label' => false
             ])
-            ->add('uploadPictures', CollectionType::class, [
-                'required' => false,
-                'allow_add' => true,
-                'entry_type' => UploadPictureType::class,
+            ->add('file', FileType::class, ['mapped' => false, 'required' => false])
+            ->add('setMain', ChoiceType::class, [
+                'choices' => [ 'Так' => true ],
+                'choices_as_values' => true,
+                'label' => false,
+                'mapped' => false,
+                'expanded' => true,
+                'multiple' => true
             ]);
     }
 
