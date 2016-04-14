@@ -8,7 +8,6 @@ use AppBundle\Form\DishType;
 use AppBundle\Form\ChoicePictureType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -49,15 +48,11 @@ class DishController extends Controller
     public function newAction(Request $request)
     {
         $dish = new Dish();
-        $dish->setPictPath('not_set');
-
         $form = $this->createForm(DishType::class, $dish);
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($dish);
-            $em->flush();
+            $this->uploadPictureSaveDish($form, $dish);
             $message = "Нова страва \"" . $dish->getName() . "\" була успішно додана";
 
             return $this->render('@App/Admin/Dish/newMessage.html.twig', ['dish' => $dish, 'message' => $message]);
@@ -66,52 +61,30 @@ class DishController extends Controller
     }
 
     /**
-     * @param $id
      * @param Dish $dish
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/edit/{id}", name="admin_dish_edit")
      */
-    public function editAction(Dish $dish, $id, Request $request)
+    public function editAction(Dish $dish, Request $request)
     {
-        $pict = new UploadPicture();
-
         $em = $this->getDoctrine()->getManager();
-
         $form = $this->createForm(DishType::class, $dish);
-        $uploadForm = $this->createFormBuilder($pict)
-            ->add('file', FileType::class, ['label' => false])
-            ->getForm();
 
-        $choosePictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads($id);
-        $countPictures = $em->getRepository('AppBundle:UploadPicture')->countPictures($id);
+        $choosePictures = $em->getRepository('AppBundle:UploadPicture')->getListUploads($dish);
+        $countPictures = $em->getRepository('AppBundle:UploadPicture')->countPictures($dish);
 
         $formChoose = $this->createForm(ChoicePictureType::class, $dish, ['data' => $choosePictures]);
         $delPictForm = $this->createDeleteForm($dish)->createView();
 
         if ($request->getMethod() === 'POST') {
             $form->handleRequest($request);
-            $uploadForm->handleRequest($request);
             $formChoose->handleRequest($request);
         }
 
         if ($form->isValid()) {
-            $em->flush();
+            $this->uploadPictureSaveDish($form, $dish);
             $message = "Страва була успішно відредагована";
-
-            return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
-        }
-
-        if ($uploadForm->isValid()) {
-            $uploads = $uploadForm['file']->getData();
-            $pict->setDish($dish);
-            $pict->setOrigName($uploads->getClientOriginalName());
-
-            $em->persist($pict);
-            $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
-            $uploadableManager->markEntityToUpload($pict, $pict->getFile());
-            $em->flush();
-            $message = 'Фото було успішно додано до страви';
 
             return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
@@ -123,8 +96,7 @@ class DishController extends Controller
 
             return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
-        return $this->render('@App/Admin/Dish/edit.html.twig', ['form' => $form->createView(),
-            'uploadForm' => $uploadForm->createView(), 'formChoose' => $formChoose->createView(),
+        return $this->render('@App/Admin/Dish/edit.html.twig', ['form' => $form->createView(), 'formChoose' => $formChoose->createView(),
             'countPictures' => $countPictures, 'choosePicture' => $choosePictures, 'delPictForm' => $delPictForm
         ]);
     }
@@ -202,5 +174,35 @@ class DishController extends Controller
         }
 
         return $this->render('@App/Admin/Dish/search.html.twig');
+    }
+
+    /** @var Dish $dish */
+    private function uploadPictureSaveDish($form, $dish)
+    {
+        $em = $this->getDoctrine()->getManager();
+        if (substr($dish->getPictPath(), 0, 8) != './images'){
+            $dish->setPictPath('not_set');
+        }
+
+        $uploads = $form['file']->getData();
+        if ($uploads) {
+            $pict = new UploadPicture();
+            $pict->setDish($dish);
+            $pict->setOrigName($uploads->getClientOriginalName());
+
+            $em->persist($pict);
+            $uploadableManager = $this->get('stof_doctrine_extensions.uploadable.manager');
+            $uploadableManager->markEntityToUpload($pict, $uploads);
+            $em->persist($dish);
+            $em->flush();
+
+            if ($form['setMain']->getData()) {
+                $dish->setPictPath($pict->getPath());
+                $em->flush();
+            }
+        } else {
+            $em->persist($dish);
+            $em->flush();
+        }
     }
 }

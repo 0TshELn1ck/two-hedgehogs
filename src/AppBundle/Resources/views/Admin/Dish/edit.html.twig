@@ -42,6 +42,14 @@
                 <td>{{ form_row(form.categories) }}</td>
             </tr>
             <tr>
+                <td><label class="col-lg-4">Загрузити фото:</label></td>
+                <td>
+                    <div class="left-pict">{{ form_row(form.file) }}</div>
+                    <div><label class="col-lg-3">Встановити головним фото:</label></div>
+                    <div class="">{{ form_row(form.setMain) }}</div>
+                </td>
+            </tr>
+            <tr>
                 <td><label class="col-lg-4"></label></td>
                 <td><input type="submit" value="Зберегти" class="btn btn-default pull-right"/></td>
             </tr>
@@ -50,22 +58,6 @@
             </tbody>
         </table>
         {{ form_end(form) }}
-
-        <h3>Завантаження фото</h3>
-        {{ form_start(uploadForm, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
-        <div class="form-group">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-9">
-                {{ form_row(uploadForm.file) }}
-            </div>
-        </div>
-        <div class="form-group">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-9">
-                <input type="submit" value="Завантажити" class="btn btn-default"/>
-            </div>
-        </div>
-        {{ form_end(uploadForm) }}
 
         {% if countPictures != 0 %}
             <h3>Вибір фото</h3>

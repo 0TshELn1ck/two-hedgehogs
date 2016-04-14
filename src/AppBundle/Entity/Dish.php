@@ -26,7 +26,7 @@ class Dish
     /**
      * @var string
      *
-     * @Assert\Length(min="2")
+     * @Assert\Length(min="2", max="64")
      * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
@@ -116,6 +116,7 @@ class Dish
         $this->categories = new \Doctrine\Common\Collections\ArrayCollection();
         $this->carts = new \Doctrine\Common\Collections\ArrayCollection();
         $this->orders = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->uploadPictures = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -335,7 +336,7 @@ class Dish
      *
      * @return Dish
      */
-    public function addUploadFile(\AppBundle\Entity\UploadPicture $uploadPictures)
+    public function addUploadPicture(\AppBundle\Entity\UploadPicture $uploadPictures)
     {
         $this->uploadPictures[] = $uploadPictures;
 
@@ -367,7 +368,7 @@ class Dish
      *
      * @param \AppBundle\Entity\UploadPicture $uploadPictures
      */
-    public function removeUploadFile(\AppBundle\Entity\UploadPicture $uploadPictures)
+    public function removeUploadPicture(\AppBundle\Entity\UploadPicture $uploadPictures)
     {
         $this->uploadPictures->removeElement($uploadPictures);
     }
@@ -377,7 +378,7 @@ class Dish
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getuploadPicture()
+    public function getUploadPictures()
     {
         return $this->uploadPictures;
     }
