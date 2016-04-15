@@ -5,18 +5,17 @@
         <section class="footer_nav">
             <nav>
                 <ul>
-                    <li><a href="">Blog</a></li>
-                    <li><a href="">Careers</a></li>
+                    <li><a href="{{ path('app_staticpage_show', {'route': 'about'}) }}">Про нас</a></li>
                     <li><a href="{{ path('app_staticpage_show', {'route': 'policy'}) }}">Угода користувача</a></li>
-                    <li><a href="">Contact</a></li>
+                    <li><a href="{{ path('app_staticpage_show', {'route': 'contacts'}) }}">Контакти</a></li>
                 </ul>
             </nav>
         </section>
 
         <!-- address  -->
         <section class="adress col-xs-6">
-            <p class="footer_info"> "Їжак" м. Черкаси бул. Шевченка 246, 718-749-1714
-            <p>© All Rights Reserved {{ "now"|date("Y") }}.</p>
+            <p class="footer_info"> "Їжак" м. Черкаси
+            <p>© 2016 - {{ "now"|date("Y") }}.</p>
         </section>
 
     </div>

@@ -1,0 +1,13 @@
+AppBundle\Entity\StaticPage:
+    Page1:
+        title: 'Угода'
+        route: 'policy'
+        text: 'Policy page'
+    Page2:
+        title: 'Про нас'
+        route: 'about'
+        text: 'About page'
+    Page3:
+        title: 'Контакти'
+        route: 'contacts'
+        text: 'Contacts page'
