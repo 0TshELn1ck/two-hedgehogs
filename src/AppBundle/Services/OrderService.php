@@ -109,10 +109,10 @@ class OrderService
     public function getSumm(Order $order)
     {
         $summ = 0;
-
-        foreach ($order->getDishesInOrder() as $dish) {
-            $price = $dish->getDish()->getPrice();
-            $summ = $summ + ($price * $dish->getCount());
+        
+        foreach ($order->getDishesInOrder() as $dishInOrder) {
+            $price = $dishInOrder->getDish()->getPrice();
+            $summ = $summ + ($price * $dishInOrder->getCount());
         }
 
         return $summ;
