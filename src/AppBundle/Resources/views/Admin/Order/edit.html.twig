@@ -16,7 +16,6 @@
         </span>
     </form>
 {% endblock search %}
-{% dump(form) %}
 {% block content %}
     <div class="page-content">
         <div class="row">
@@ -47,7 +46,6 @@
                             <tr class="dish_{{ order.dishesInOrder[loop.index0].id }}">
                                 <td>{{ form_widget(dish.dish) }}</td>
                                 <td>{{ form_widget(dish.count) }}</td>
-                                {% dump(dish.dish) %}
                                 <td class="delete_btn text-center" data-dish="{{ order.dishesInOrder[loop.index0].id }}" style="color:red"><i class="fa fa-times"></i></td>
                             </tr>
                         {% endfor %}
