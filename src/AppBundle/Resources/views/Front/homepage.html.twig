@@ -1,6 +1,6 @@
 {% extends(':Front:base.html.twig') %}
 
-{% block title %}Два їжа{% endblock %}
+{% block title %}Їжак{% endblock %}
 
 {% block new_stylesheets %}
     <link href="{{ asset('css/slick.css') }}" rel="stylesheet"/>
@@ -17,7 +17,7 @@
             <h3>Їжак</h3>
             <h4>
                 <span class="rsep"></span>
-                українська домашня кухня
+                Домашня кухня
                 <span class="lsep"></span>
             </h4>
 
@@ -101,12 +101,13 @@
                 {% for dish in popularDish %}
                 <article>
                     <div class="dishe_img">
-                        <a href="#"><img src="{{ asset(dish.0.pictPath) | imagine_filter('thumb_vertical366') }}" alt="" title=""/></a>
+                        <a href="{{ path('show_one_dish', {'slug': dish[0].slug }) }}"><img src="{{ asset(dish.0.pictPath) | imagine_filter('thumb_vertical366') }}" alt="" title=""/></a>
                     </div>
                     <div class="dish_info">
                         <h2>{{ dish.0.name }}</h2>
 
                         <h3 class="hidden-xs">{{ dish.0.price }} грн</h3>
+                    </div>
                 </article>
                 {% endfor %}
 

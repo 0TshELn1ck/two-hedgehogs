@@ -8,6 +8,6 @@
 {% endblock %}
 
 {% block content %}
-    {{ page.title }}
-    {{ page.text }}
+    <div class="center"><h4><b>{{ page.title }}</b></h4></div>
+    {{ page.text | raw }}
 {% endblock %}

@@ -17,6 +17,7 @@ gulp.task('css', function() {
             'bower_components/flexslider/flexslider.css',
             'bower_components/chosen/chosen.css',
             'bower_components/trumbowyg/dist/ui/trumbowyg.min.css',
+            'bower_components/bootstrap-fileinput/css/fileinput.min.css',
             'web-src/css/**/*.css'
         ])
         .pipe(less({compress: true}))
@@ -69,6 +70,7 @@ gulp.task('pages-js', function() {
             'bower_components/flexslider/jquery.flexslider-min.js',
             'bower_components/trumbowyg/dist/trumbowyg.min.js',
             'bower_components/chosen/chosen.jquery.js',
+            'bower_components/bootstrap-fileinput/js/fileinput.min.js',
             'web-src/js/**/*.js'
         ])
         .pipe(minifyJs())

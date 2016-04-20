@@ -23,6 +23,7 @@
     "slick-carousel": "~1.5.9",
     "flexslider": "~2.6.0",
     "chosen": "^1.5.1",
-    "trumbowyg": "^1.1.7"
+    "trumbowyg": "^1.1.7",
+    "bootstrap-fileinput": "^4.3.1"
   }
 }

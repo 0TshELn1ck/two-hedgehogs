@@ -21,25 +21,12 @@
                         <div class="flexslider">
                             <ul class="slides">
                                 {% if dish and dish.pictPath != '' and dish.pictPath != 'not_set' %}
-                                    {% for pict in dish.uploadPicture %}
+                                    {% for pict in dish.uploadPictures %}
                                         <li data-thumb="{{ asset(pict.path) }}">
-                                            <img src="{{ asset(pict.path) | imagine_filter('thumb_230') }}"
+                                            <img src="{{ asset(pict.path) | imagine_filter('thumb_400_400') }}"
                                                  alt="{{ dish.name }}" title="{{ dish.name }}"/>
                                         </li>
                                     {% endfor %}
-                                {% else %}
-                                    <li data-thumb="{{ asset('images/dish1.jpg') }}">
-                                        <img src="{{ asset('images/dish1.jpg') }}"/>
-                                    </li>
-                                    <li data-thumb="{{ asset('images/dish2.jpg') }}">
-                                        <img src="{{ asset('images/dish2.jpg') }}"/>
-                                    </li>
-                                    <li data-thumb="{{ asset('images/dish3.jpg') }}">
-                                        <img src="{{ asset('images/dish3.jpg') }}"/>
-                                    </li>
-                                    <li data-thumb="{{ asset('images/dish4.jpg') }}">
-                                        <img src="{{ asset('images/dish4.jpg') }}"/>
-                                    </li>
                                 {% endif %}
                             </ul>
                         </div>
@@ -67,9 +54,23 @@
                                     {% endfor %}
                                 </p>
                             {% endif %}
-                            <div>
-                                <button class="addToCart" data-dish="{{ dish.id }}">Замовити <i class="fa fa-cutlery"></i></button>
-                            </div>
+                            {% if app.user.cart is defined %}
+                                {% if app.user.cart.dishes %}
+                                    {% if app.user.cart.dishes.contains(dish) %}
+                                        <button data-dish="{{ dish.id }}" class="addToCart"
+                                                style="background-color: grey">
+                                            В кошику <i class="fa fa-check"></i>
+                                        </button>
+                                    {% else %}
+                                        <button data-dish="{{ dish.id }}" class="addToCart">
+                                            Замовити <i class="fa fa-cutlery"></i>
+                                        </button>
+                                    {% endif %}
+                                {% endif %}
+                            {% else %}
+                                <a class="addToCartBlocked addToCart" href="{{ path('fos_user_security_login') }}">Замовити
+                                    <i class="fa fa-cutlery"></i></a>
+                            {% endif %}
                         </div>
                     {% else %}
                             <div class="dish-info-head">
@@ -99,17 +100,19 @@
             $('.addToCart').click(function () {
                 var addButton = $(this);
                 var dish = addButton.data("dish");
-                $.ajax({
-                    url: "{{ path('addToCart') }}/" + dish,
-                    method: "POST",
-                    success: function (data) {
-                        if (data.added == 1) {
-                            var count = parseInt($('.cart_count_heder').html()) + 1;
-                            addButton.html('В кошику <i class="fa fa-check"></i>').css("background-color", "grey");
-                            $('.cart_count_heder').html(count);
+                if (dish) {
+                    $.ajax({
+                        url: "{{ path('addToCart') }}/" + dish,
+                        method: "POST",
+                        success: function (data) {
+                            if (data.added == 1) {
+                                var count = parseInt($('.cart_count_heder').html()) + 1;
+                                addButton.html('В кошику <i class="fa fa-check"></i>').css("background-color", "grey");
+                                $('.cart_count_heder').html(count);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             });
         });
     </script>

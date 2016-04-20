@@ -3,6 +3,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('css/chosen.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/fileinput.min.css') }}" rel="stylesheet"/>
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -16,34 +17,42 @@
         {{ form_start(form, {'attr': {'class': 'form-horizontal', 'role': 'form'}}) }}
         <table class="table">
             <tbody>
-                <tr>
-                    <td><label class="col-lg-4">Назва:</label></td>
-                    <td>{{ form_row(form.name) }}</td>
-                </tr>
-                <tr>
-                    <td><label class="col-lg-4">Рецепт:</label></td>
-                    <td>{{ form_row(form.recipe) }}</td>
-                </tr>
-                <tr>
-                    <td><label class="col-lg-4">Ингрідієнти:</label></td>
-                    <td>{{ form_row(form.ingredients) }}</td>
-                </tr>
-                <tr>
-                    <td><label class="col-lg-4">Статус:</label></td>
-                    <td>{{ form_row(form.status) }}</td>
-                </tr>
-                <tr>
-                    <td><label class="col-lg-4">Ціна:</label></td>
-                    <td>{{ form_row(form.price) }}</td>
-                </tr>
-                <tr>
-                    <td><label class="col-lg-4">Категорії:</label></td>
-                    <td>{{ form_row(form.categories) }}</td>
-                </tr>
-                <tr>
-                    <td><label class="col-lg-4"></label></td>
-                    <td><input type="submit" value="Створити" class="btn btn-default pull-right"/></td>
-                </tr>
+            <tr>
+                <td><label class="col-lg-4">Назва:</label></td>
+                <td>{{ form_row(form.name) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Рецепт:</label></td>
+                <td>{{ form_row(form.recipe) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Ингрідієнти:</label></td>
+                <td>{{ form_row(form.ingredients) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Статус:</label></td>
+                <td>{{ form_row(form.status) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Ціна:</label></td>
+                <td>{{ form_row(form.price) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Категорії:</label></td>
+                <td>{{ form_row(form.categories) }}</td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4">Загрузити фото:</label></td>
+                <td>
+                    <div class="left-pict">{{ form_row(form.file) }}</div>
+                    <div><label class="col-lg-3">Встановити головним фото:</label></div>
+                    <div class="">{{ form_row(form.setMain) }}</div>
+                </td>
+            </tr>
+            <tr>
+                <td><label class="col-lg-4"></label></td>
+                <td><input type="submit" value="Створити" class="btn btn-default pull-right"/></td>
+            </tr>
 
 
             </tbody>
@@ -54,7 +63,9 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('js/chosen.jquery.js') }}"></script>
+    <script src="{{ asset('js/fileinput.min.js') }}"></script>
     <script>
         $('.chosen').chosen();
+        $('#dish_file').fileinput();
     </script>
 {% endblock %}
