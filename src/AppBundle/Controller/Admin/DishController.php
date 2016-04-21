@@ -52,7 +52,7 @@ class DishController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            if ($this->fileType($form)){
+            if ($this->allowedFileType($form)){
                 $this->uploadPictureSaveDish($form, $dish);
                 $message = "Нова страва \"" . $dish->getName() . "\" була успішно додана";
             } else { $message = "Вибраний невірний тип файлу"; }
@@ -85,7 +85,7 @@ class DishController extends Controller
         }
 
         if ($form->isValid()) {
-            if ($this->fileType($form)) {
+            if ($this->allowedFileType($form)) {
                 $this->uploadPictureSaveDish($form, $dish);
                 $message = "Страва була успішно відредагована";
             } else { $message = "Вибраний невірний тип файлу"; }
@@ -210,7 +210,7 @@ class DishController extends Controller
         }
     }
 
-    private function fileType($form)
+    private function allowedFileType($form)
     {
         $allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/x-ms-bmp'];
         $mime = false;
