@@ -3,6 +3,7 @@
 {% block stylesheets %}
     {{ parent() }}
     <link href="{{ asset('css/chosen.css') }}" rel="stylesheet"/>
+    <link href="{{ asset('css/fileinput.min.css') }}" rel="stylesheet">
 {% endblock %}
 
 {% block breadcrumbs %}
@@ -95,7 +96,9 @@
 {% block javascripts %}
     {{ parent() }}
     <script src="{{ asset('js/chosen.jquery.js') }}"></script>
+    <script src="{{ asset('js/fileinput.min.js') }}"></script>
     <script>
         $('.chosen').chosen();
+        $('#dish_file').fileinput();
     </script>
 {% endblock %}
