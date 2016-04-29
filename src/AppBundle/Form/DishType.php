@@ -53,7 +53,8 @@ class DishType extends AbstractType
                 'label' => false,
                 'mapped' => false,
                 'expanded' => true,
-                'multiple' => true
+                'multiple' => true,
+                'disabled' => true
             ]);
     }
 
