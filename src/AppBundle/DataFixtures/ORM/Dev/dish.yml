@@ -3,7 +3,7 @@ AppBundle\Entity\Dish:
         name (unique): <sentence(3)>
         recipe: <text(100)>
         ingredients: <text(100)>
-        status: <boolean>
+        status: <boolean()>
         price: <randomDigitNotNull()>
         slug: <slug()>
         pictPath: 'not_set'
