@@ -23,25 +23,14 @@ class SurveyType extends AbstractType
                 ],
                 'choices_as_values' => true, 'label' => false
             ])
-            ->add('answer1', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
-            ])
-            ->add('answer2', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
-            ])
-            ->add('answer3', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
-            ])
-            ->add('answer4', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
-            ])
-            ->add('answer5', TextType::class, [
-                'attr' => ['cols' => '68'], 'mapped' => false, 'label' => false, 'required' => false,
+            ->add('answer0', TextType::class, [
+                'attr' => ['class' => 'last','cols' => '68'],
+                'mapped' => false, 'label' => false, 'required' => false
             ]);
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Survey']);
+        $resolver->setDefaults(['data_class' => 'AppBundle\Entity\Survey', 'allow_extra_fields' => true]);
     }
 }
