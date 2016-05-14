@@ -35,14 +35,6 @@ class Dish
      * @var string
      *
      * @Assert\Length(min="10")
-     * @ORM\Column(name="recipe", type="text")
-     */
-    private $recipe;
-
-    /**
-     * @var string
-     *
-     * @Assert\Length(min="10")
      * @ORM\Column(name="ingredients", type="text")
      */
     private $ingredients;
@@ -151,30 +143,6 @@ class Dish
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set recipe
-     *
-     * @param string $recipe
-     *
-     * @return Dish
-     */
-    public function setRecipe($recipe)
-    {
-        $this->recipe = $recipe;
-
-        return $this;
-    }
-
-    /**
-     * Get recipe
-     *
-     * @return string
-     */
-    public function getRecipe()
-    {
-        return $this->recipe;
     }
 
     /**

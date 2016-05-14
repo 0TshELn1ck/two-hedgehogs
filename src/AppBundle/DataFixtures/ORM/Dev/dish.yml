@@ -1,7 +1,6 @@
 AppBundle\Entity\Dish:
     dish{1..10}:
         name (unique): <sentence(3)>
-        recipe: <text(100)>
         ingredients: <text(100)>
         status: <boolean()>
         price: <randomDigitNotNull()>

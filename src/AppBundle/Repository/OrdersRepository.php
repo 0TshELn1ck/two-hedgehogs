@@ -20,7 +20,7 @@ class OrdersRepository extends \Doctrine\ORM\EntityRepository
     {
         $orders = $this->getEntityManager()
             ->createQuery(
-                'SELECT DISTINCT o.address FROM AppBundle:Order o 
+                'SELECT o.address FROM AppBundle:Order o 
                   WHERE o.user = :user ORDER BY o.createdAt DESC'
             )
             ->setMaxResults($limit)
