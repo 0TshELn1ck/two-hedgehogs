@@ -1,7 +1,6 @@
 AppBundle\Entity\Dish:
     dish1:
         name: 'Salad'
-        recipe: 'recipe of some salad'
         ingredients: 'ingredients1, ingredients2, ingredients3 '
         status: '1'
         price: '11'
@@ -11,7 +10,6 @@ AppBundle\Entity\Dish:
 
     dish2:
         name: 'Pizza'
-        recipe: 'recipe of some pizza'
         ingredients: 'ingredients1, ingredients2, ingredients3 '
         status: '1'
         price: '22'
@@ -21,7 +19,6 @@ AppBundle\Entity\Dish:
 
     dish3:
         name: 'Roasted chicken'
-        recipe: 'recipe of some roasted chicken'
         ingredients: 'ingredients1, ingredients2, ingredients3 '
         status: '0'
         price: '33'
@@ -31,7 +28,6 @@ AppBundle\Entity\Dish:
 
     dish4:
         name: 'Coctail'
-        recipe: 'recipe of some coctail'
         ingredients: 'ingredients1, ingredients2, ingredients3 '
         status: '1'
         price: '44'
@@ -41,7 +37,6 @@ AppBundle\Entity\Dish:
 
     dish5:
         name: 'Cake'
-        recipe: 'recipe of some cake'
         ingredients: 'ingredients1, ingredients2, ingredients3 '
         status: '0'
         price: '55'
