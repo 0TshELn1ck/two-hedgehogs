@@ -21,10 +21,6 @@ class DishType extends AbstractType
                 'attr' => ['size' => '68', 'placeholder' => 'Назва'],
                 'label' => false
             ])
-            ->add('recipe', TextareaType::class, [
-                'attr' => ['cols' => '68', 'rows' => '10', 'placeholder' => 'рецепт'],
-                'label' => false
-            ])
             ->add('ingredients', TextareaType::class, [
                 'attr' => ['cols' => '68', 'rows' => '5', 'placeholder' => 'інгрідієнти'],
                 'label' => false
