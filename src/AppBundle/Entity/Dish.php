@@ -48,6 +48,12 @@ class Dish
 
     /**
      * @var string
+     * @ORM\Column(name="recipe", type="text", nullable=true)
+     */
+    private $recipe;
+
+    /**
+     * @var string
      * @Gedmo\Slug(fields={"name"})
      * @ORM\Column(name="slug", type="string", length=255, unique=true)
      */
@@ -349,5 +355,21 @@ class Dish
     public function getUploadPictures()
     {
         return $this->uploadPictures;
+    }
+
+    /**
+     * @return string
+     */
+    public function getRecipe()
+    {
+        return $this->recipe;
+    }
+
+    /**
+     * @param string $recipe
+     */
+    public function setRecipe($recipe)
+    {
+        $this->recipe = $recipe;
     }
 }
