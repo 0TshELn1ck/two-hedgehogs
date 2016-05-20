@@ -45,7 +45,7 @@ class User extends BaseUser
     protected $google_access_token;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Cart", mappedBy="user")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Cart", mappedBy="user", cascade={"persist", "remove"})
      */
     private $cart;
 
