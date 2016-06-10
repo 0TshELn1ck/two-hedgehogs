@@ -45,8 +45,8 @@
                 <td><label class="col-lg-4">Загрузити фото:</label></td>
                 <td>
                     <div class="left-pict">{{ form_row(form.file) }}</div>
-                    <div><label class="col-lg-3">Встановити головним фото:</label></div>
-                    <div class="">{{ form_row(form.setMain) }}</div>
+                    <div><label class="col-lg-3 light-grey">Встановити головним фото:</label></div>
+                    <div class="light-grey">{{ form_row(form.setMain) }}</div>
                 </td>
             </tr>
             <tr>
@@ -64,6 +64,7 @@
     {{ parent() }}
     <script src="{{ asset('js/chosen.jquery.js') }}"></script>
     <script src="{{ asset('js/fileinput.min.js') }}"></script>
+    <script src="{{ asset('js/mainAdmin.js') }}"></script>
     <script>
         $('.chosen').chosen();
         $('#dish_file').fileinput();

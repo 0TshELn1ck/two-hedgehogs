@@ -48,18 +48,20 @@ class SurveyController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
-            for ($i = 1; $i <= 5; $i++) {
-                $formAnswer = $form['answer' . $i]->getData();
+            $formData = $form['answer0']->getData();
+            foreach ($formData as $formAnswer){
+            /*for ($i = 1; $i <= 5; $i++) {
+                $formAnswer = $form['answer' . $i]->getData();*/
                 if ($formAnswer != "") {
                     $answer = new SurveyAnswer();
                     $answer->setAnswer($formAnswer);
                     $answer->setCount(0);
                     $answer->setSurvey($survey);
-                    $em->persist($answer);
+                    /*$em->persist($answer);*/
                 }
             }
-            $em->persist($survey);
-            $em->flush();
+            /*$em->persist($survey);
+            $em->flush();*/
 
             return $this->redirectToRoute('admin_survey_index');
         }

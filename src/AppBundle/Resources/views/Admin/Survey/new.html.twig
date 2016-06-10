@@ -1,6 +1,7 @@
 {% extends('@App/Admin/Survey/index.html.twig') %}
 
 {% form_theme form ':Admin:themeFields.html.twig' %}
+
 {% block breadcrumbs %}
     {{ parent() }}
     <li>Нове опитування</li>
@@ -27,36 +28,10 @@
             <div class="form-group has-success">
                 <div class="col-sm-9">
                     <label class="col-sm-3 control-label" style="color:#393939 ">Відповіді:</label>
-                    {{ form_errors(form.answer1) }}
-                    {{ form_widget(form.answer1) }}
-                </div>
-            </div>
-            <div class="form-group has-success">
-                <div class="col-sm-9">
-                    <label class="col-sm-3 control-label no-padding-right"></label>
-                    {{ form_errors(form.answer2) }}
-                    {{ form_widget(form.answer2) }}
-                </div>
-            </div>
-            <div class="form-group has-success">
-                <div class="col-sm-9">
-                    <label class="col-sm-3 control-label no-padding-right"></label>
-                    {{ form_errors(form.answer3) }}
-                    {{ form_widget(form.answer3) }}
-                </div>
-            </div>
-            <div class="form-group has-success">
-                <div class="col-sm-9">
-                    <label class="col-sm-3 control-label no-padding-right"></label>
-                    {{ form_errors(form.answer4) }}
-                    {{ form_widget(form.answer4) }}
-                </div>
-            </div>
-            <div class="form-group has-success">
-                <div class="col-sm-9">
-                    <label class="col-sm-3 control-label no-padding-right"></label>
-                    {{ form_errors(form.answer5) }}
-                    {{ form_widget(form.answer5) }}
+                    <div id="answers" class="col-sm-6">
+                    {{ form_errors(form.answer0) }}
+                    {{ form_widget(form.answer0) }}
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -69,3 +44,17 @@
         </div>
     </div>
 {% endblock content %}
+{% block javascripts %}
+    {{ parent() }}
+    <script src="{{ asset('js/mainAdmin.js') }}"></script>
+    <script>
+        var answers = $('#answers'), i = 1;
+        answers.on('focus', '.last', function () {
+            $(this).removeClass('last');
+            answers.append('<input name="survey[answer'+ i +']" class="last" cols="68" type="text">');
+            //$(this).next().trigger('focus');
+            i++;
+            return false;
+        })
+    </script>
+{% endblock %}
