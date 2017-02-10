@@ -52,10 +52,12 @@ class DishController extends Controller
 
         $form->handleRequest($request);
         if ($form->isValid()) {
-            if ($this->allowedFileType($form)){
+            if ($this->allowedFileType($form)) {
                 $this->uploadPictureSaveDish($form, $dish);
                 $message = "Нова страва \"" . $dish->getName() . "\" була успішно додана";
-            } else { $message = "Вибраний невірний тип файлу"; }
+            } else {
+                $message = "Вибраний невірний тип файлу";
+            }
 
             return $this->render('@App/Admin/Dish/newMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
@@ -85,10 +87,18 @@ class DishController extends Controller
         }
 
         if ($form->isValid()) {
-            if ($this->allowedFileType($form)) {
-                $this->uploadPictureSaveDish($form, $dish);
+            if ($form['file']->getData()) {
+                if ($this->allowedFileType($form)) {
+                    $this->uploadPictureSaveDish($form, $dish);
+                    $message = "Фото було успішно додано до страви";
+                } else {
+                    $message = "Вибраний невірний тип файлу";
+                }
+            } else {
+                $em->persist($dish);
+                $em->flush();
                 $message = "Страва була успішно відредагована";
-            } else { $message = "Вибраний невірний тип файлу"; }
+            }
 
             return $this->render('@App/Admin/Dish/editMessage.html.twig', ['dish' => $dish, 'message' => $message]);
         }
@@ -214,9 +224,9 @@ class DishController extends Controller
     {
         $allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/x-ms-bmp'];
         $mime = false;
-        if (in_array($form['file']->getData()->getMimeType(), $allowedTypes)) {
-            $mime = true;
-        }
+            if (in_array($form['file']->getData()->getMimeType(), $allowedTypes)) {
+                $mime = true;
+            }
         return $mime;
     }
 }
