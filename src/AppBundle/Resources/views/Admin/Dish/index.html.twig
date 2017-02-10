@@ -7,7 +7,7 @@
 {% endblock breadcrumbs %}
 
 {% block search %}
-    <form class="form-search" METHOD="post" action="{{ path('admin_dish_search') }}">
+    <form class="form-search" METHOD="GET" action="{{ path('admin_dish_search') }}">
         <span class="input-icon">
             <input type="text" min="3" placeholder="Search dishes..." class="nav-search-input" name="search"
                    id="nav-search-input" autocomplete="off"/>

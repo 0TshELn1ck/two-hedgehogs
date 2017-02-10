@@ -31,7 +31,11 @@
                                     <tbody>
                                     <tr>
                                         <td>{{ loop.index }}</td>
-                                        <td>{{ item.name }}</td>
+                                        <td><a href="{{ path('admin_dish_edit', {'id': item.id}) }}"
+                                               title="edit dish">
+                                                {{ item.name }}
+                                            </a>
+                                        </td>
                                         <td>{{ item.price }}</td>
                                         <td>{{ item.createdAt|date }}</td>
                                         <td>{{ item.updatedAt|date }}</td>
@@ -47,7 +51,9 @@
                                 </tbody>
                             {% endif %}
                         </table>
-                        {% include ':Admin:paginate.html.twig' %}
+                        <ul class="pager">
+                            {{ knp_pagination_render(dishList) }}
+                        </ul>
                     </div><!-- /.span -->
                 </div><!-- /.row -->
             </div><!-- PAGE CONTENT ENDS -->

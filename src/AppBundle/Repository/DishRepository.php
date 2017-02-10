@@ -41,11 +41,10 @@ class DishRepository extends EntityRepository
     {
         return $this->createQueryBuilder('d')
             ->select('d')
-            ->where('d.name LIKE :q1')
+            ->where('d.name LIKE :q')
             ->orWhere('d.ingredients LIKE :q')
             ->orWhere('d.recipe LIKE :q')
             ->setParameter('q', '%' . $searchItem . '%')
-            ->setParameter('q1', $searchItem)
             ->getQuery()
             ->getResult();
     }

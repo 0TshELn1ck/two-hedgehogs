@@ -174,20 +174,18 @@ class DishController extends Controller
 
     /**
      * @param Request $request
-     * @return array
+     * @return \Symfony\Component\HttpFoundation\Response
      * @Route("/search", name="admin_dish_search")
+     * @Method({"GET"})
      */
     public function searchAction(Request $request)
     {
-        if ($request->getMethod() == 'POST') {
-            $searchItem = $request->request->get('search');
-            $em = $this->getDoctrine()->getManager();
-            $dishList = $em->getRepository('AppBundle:Dish')->searchDishes($searchItem);
+        $searchItem = $request->query->get('search');
+        $em = $this->getDoctrine()->getManager();
+        $dishList = $em->getRepository('AppBundle:Dish')->searchDishes($searchItem);
+        $paginate = $this->get('knp_paginator')->paginate($dishList, $request->query->getInt('page', 1), 10);
 
-            return $this->render('@App/Admin/Dish/search.html.twig', ['dishList' => $dishList]);
-        }
-
-        return $this->render('@App/Admin/Dish/search.html.twig');
+        return $this->render('@App/Admin/Dish/search.html.twig', ['dishList' => $paginate]);
     }
 
     /** @var Dish $dish */
@@ -224,9 +222,9 @@ class DishController extends Controller
     {
         $allowedTypes = ['image/png', 'image/jpeg', 'image/jpg', 'image/gif', 'image/x-ms-bmp'];
         $mime = false;
-            if (in_array($form['file']->getData()->getMimeType(), $allowedTypes)) {
-                $mime = true;
-            }
+        if (in_array($form['file']->getData()->getMimeType(), $allowedTypes)) {
+            $mime = true;
+        }
         return $mime;
     }
 }
